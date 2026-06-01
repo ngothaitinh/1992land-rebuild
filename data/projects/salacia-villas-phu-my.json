@@ -1,0 +1,75 @@
+{
+  "order": 1,
+  "id": "prj_salacia_villas",
+  "slug": "salacia-villas-phu-my",
+  "title": "Salacia Villas Phú Mỹ",
+  "location": "Phú Mỹ, Bà Rịa — Vũng Tàu",
+  "area": "Bà Rịa — Vũng Tàu",
+  "project_type": "nghi-duong",
+  "city": "vung-tau",
+  "district": "Phú Mỹ",
+  "developer": "VinaLiving (VinaCapital)",
+  "priceRange": "Từ 4.8 tỷ",
+  "price_from": 4800000000,
+  "price_to": 16000000000,
+  "area_from": 85,
+  "area_to": 412,
+  "unit_count": 333,
+  "status": "Đang mở bán",
+  "type": "Biệt thự nghỉ dưỡng",
+  "excerpt": "Khu biệt thự compound 7,19 ha do VinaLiving phát triển tại Phú Mỹ, kiến trúc tân cổ điển nhiệt đới, sổ đỏ lâu dài từng căn.",
+  "gradient": "from-blue-900 to-teal-800",
+  "hero_image": "/images/projects/salacia-villas-phu-my/hero.webp",
+  "gallery": [
+    "/images/projects/salacia-villas-phu-my/hero.webp",
+    "/images/projects/salacia-villas-phu-my/gallery-1.webp",
+    "/images/projects/salacia-villas-phu-my/gallery-2.jpg",
+    "/images/projects/salacia-villas-phu-my/gallery-3.jpg"
+  ],
+  "scale": "333 căn biệt thự · 7,19 ha · mật độ XD ~34%",
+  "legal_status": "Sổ đỏ riêng từng căn, sở hữu lâu dài. Đầy đủ giấy phép thiết kế và xây dựng.",
+  "handover_date": "Dự kiến Quý 4/2028 (bàn giao hoàn thiện mặt ngoài, bên trong thô)",
+  "ownership": "Sở hữu lâu dài",
+  "construction_update": "Tiện ích & khu thương mại dự kiến 10/2026; trung tâm mua sắm 01/2028; trường mầm non 07/2028.",
+  "product_types": [
+    { "name": "Town Villa", "area": "85 m² · 4 tầng", "price_range": "4,8 – 5,2 tỷ", "total": 192 },
+    { "name": "Deluxe Villa", "area": "110 – 112 m² · 4 tầng", "price_range": "6,6 – 7,2 tỷ", "total": 48 },
+    { "name": "Garden Villa", "area": "133 – 196 m² · 3 tầng", "price_range": "8 – 10,2 tỷ", "total": 83 },
+    { "name": "Grand Villa", "area": "297 – 412 m²", "price_range": "Từ 16 tỷ", "total": 10 }
+  ],
+  "nearby": [
+    { "name": "Cao tốc Biên Hòa — Vũng Tàu", "distance": "Kết nối trực tiếp", "category": "road" },
+    { "name": "Cụm cảng Cái Mép — Thị Vải", "distance": "Lân cận", "category": "road" },
+    { "name": "Trung tâm TP. Vũng Tàu", "distance": "~40 km", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Chủ đầu tư VinaLiving", "desc": "Thương hiệu BĐS cao cấp thuộc tập đoàn VinaCapital, đơn vị thi công CPW." },
+    { "title": "Kiến trúc tân cổ điển resort", "desc": "Lấy cảm hứng nghỉ dưỡng nhiệt đới, tối ưu ánh sáng và thông gió tự nhiên." },
+    { "title": "Pháp lý hoàn chỉnh", "desc": "Sổ đỏ riêng từng căn, sở hữu lâu dài, đầy đủ giấy phép xây dựng." },
+    { "title": "Vị trí cửa ngõ công nghiệp — cảng biển", "desc": "Phú Mỹ là trung tâm công nghiệp, cảng biển trọng điểm phía Nam." }
+  ],
+  "amenities_internal": [
+    "VinaLiving Lifestyle Club (gym, yoga, spa)",
+    "Trung tâm thương mại & ẩm thực",
+    "Không gian co-working",
+    "Công viên xanh & đường dạo bộ",
+    "Khu BBQ & café",
+    "Khu vui chơi & game trẻ em",
+    "An ninh nhiều lớp 24/7",
+    "Cảnh quan biophilic 'Super Coral'"
+  ],
+  "amenities_external": [
+    "1 tháp thương mại 5 tầng",
+    "1 trường mầm non nội khu"
+  ],
+  "faq": [
+    { "q": "Salacia Villas Phú Mỹ do ai phát triển?", "a": "Dự án do VinaLiving — thương hiệu bất động sản cao cấp thuộc tập đoàn VinaCapital — phát triển, đơn vị thi công CPW." },
+    { "q": "Salacia Villas có những loại sản phẩm nào?", "a": "Gồm 4 dòng: Town Villa (85 m²), Deluxe Villa (110–112 m²), Garden Villa (133–196 m²) và Grand Villa (297–412 m²), tổng 333 căn trên 7,19 ha." },
+    { "q": "Pháp lý dự án Salacia Villas như thế nào?", "a": "Sổ đỏ riêng từng căn, sở hữu lâu dài, đầy đủ giấy phép thiết kế và xây dựng. 1992 Land hỗ trợ kiểm tra hồ sơ pháp lý trực tiếp." }
+  ],
+  "lat": 10.58,
+  "lng": 107.08,
+  "address_full": "Khu Hắc Dịch — Tóc Tiên, Phú Mỹ, Bà Rịa — Vũng Tàu",
+  "created_at": "2026-05-01T00:00:00Z",
+  "updated_at": "2026-06-01T00:00:00Z"
+}

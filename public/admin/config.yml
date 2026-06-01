@@ -1,0 +1,151 @@
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/1992land-rebuild
+  branch: main
+  base_url: https://1992land.com
+  auth_endpoint: /api/auth
+
+media_folder: public/images/projects
+public_folder: /images/projects
+
+locale: vi
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: projects
+    label: "Dự án"
+    label_singular: "Dự án"
+    folder: data/projects
+    extension: json
+    format: json
+    create: true
+    identifier_field: slug
+    slug: "{{slug}}"
+    summary: "{{title}} — {{location}} — {{status}}"
+    sortable_fields: ["order", "title", "status", "updated_at"]
+    fields:
+      - { name: order, label: "Thứ tự hiển thị", widget: number, default: 99, hint: "Số nhỏ hơn hiển thị trước (1 = đầu tiên)" }
+      - { name: id, label: "ID (code)", widget: string, hint: "Ví dụ: prj_lusso" }
+      - { name: slug, label: "Slug URL", widget: string, hint: "Ví dụ: lusso-sai-gon (không dấu, dùng dấu -)" }
+      - { name: title, label: "Tên dự án", widget: string }
+      - { name: status, label: "Trạng thái", widget: select, options: ["Đang mở bán", "Sắp mở bán", "Đã bàn giao"] }
+      - { name: type, label: "Loại hình", widget: string, hint: "Ví dụ: Căn hộ cao cấp, Biệt thự nghỉ dưỡng" }
+      - { name: project_type, label: "Loại (code)", widget: select, options: ["can-ho", "biet-thu", "dat-nen", "nha-pho", "nghi-duong", "phuc-hop"] }
+      - { name: city, label: "Thành phố (code)", widget: select, options: ["tp-hcm", "vung-tau", "binh-duong", "long-an", "dong-nai"] }
+      - { name: area, label: "Khu vực hiển thị", widget: string, hint: "Ví dụ: TP.HCM, Bình Dương" }
+      - { name: location, label: "Vị trí ngắn", widget: string }
+      - { name: district, label: "Quận/Huyện", widget: string, required: false }
+      - { name: address_full, label: "Địa chỉ đầy đủ", widget: string, required: false }
+      - { name: developer, label: "Chủ đầu tư", widget: string }
+      - { name: priceRange, label: "Giá từ (hiển thị)", widget: string, hint: "Ví dụ: Từ 2,9 tỷ hoặc Liên hệ" }
+      - { name: price_from, label: "Giá thấp nhất (VNĐ, số)", widget: number, required: false }
+      - { name: price_to, label: "Giá cao nhất (VNĐ, số)", widget: number, required: false }
+      - { name: unit_count, label: "Số sản phẩm", widget: number, required: false }
+      - { name: area_from, label: "Diện tích nhỏ nhất (m²)", widget: number, required: false }
+      - { name: area_to, label: "Diện tích lớn nhất (m²)", widget: number, required: false }
+      - { name: excerpt, label: "Mô tả ngắn (2–3 dòng)", widget: text }
+      - { name: hero_image, label: "Ảnh bìa", widget: image, required: false }
+      - name: gallery
+        label: "Thư viện ảnh"
+        widget: list
+        required: false
+        field: { name: src, label: Ảnh, widget: image }
+      - { name: gradient, label: "Màu nền (CSS class)", widget: string, default: "from-navy-900 to-navy-700", hint: "Ví dụ: from-blue-900 to-teal-800" }
+      - { name: scale, label: "Quy mô", widget: string, required: false, hint: "Ví dụ: 333 căn · 7,19 ha" }
+      - { name: legal_status, label: "Pháp lý", widget: text, required: false }
+      - { name: handover_date, label: "Bàn giao", widget: string, required: false, hint: "Ví dụ: Quý 4/2027" }
+      - { name: ownership, label: "Quyền sở hữu", widget: string, required: false }
+      - { name: construction_update, label: "Tiến độ xây dựng", widget: text, required: false }
+      - { name: discount, label: "Chiết khấu & ưu đãi", widget: text, required: false }
+      - { name: bank_support, label: "Hỗ trợ vay", widget: text, required: false }
+      - { name: grace_period, label: "Ân hạn gốc & lãi", widget: text, required: false }
+      - name: payment_policy
+        label: "Lịch thanh toán"
+        widget: list
+        required: false
+        fields:
+          - { name: installment, label: "Đợt", widget: string }
+          - { name: percent, label: "Tỷ lệ (%)", widget: number }
+          - { name: note, label: "Ghi chú", widget: string, required: false }
+      - name: product_types
+        label: "Loại sản phẩm & giá"
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: "Loại căn", widget: string }
+          - { name: area, label: "Diện tích", widget: string }
+          - { name: price_range, label: "Mức giá", widget: string }
+          - { name: available, label: "Còn lại", widget: number, required: false }
+          - { name: total, label: "Tổng số", widget: number, required: false }
+      - name: highlights
+        label: "Điểm nổi bật"
+        widget: list
+        required: false
+        fields:
+          - { name: title, label: "Tiêu đề", widget: string }
+          - { name: desc, label: "Mô tả", widget: text }
+      - name: amenities_internal
+        label: "Tiện ích nội khu"
+        widget: list
+        required: false
+        field: { name: item, label: "Tiện ích", widget: string }
+      - name: amenities_external
+        label: "Tiện ích ngoại khu"
+        widget: list
+        required: false
+        field: { name: item, label: "Tiện ích", widget: string }
+      - name: nearby
+        label: "Điểm lân cận"
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: "Tên", widget: string }
+          - { name: distance, label: "Khoảng cách", widget: string }
+          - { name: category, label: "Loại", widget: select, options: ["school", "hospital", "mall", "road", "other"] }
+      - name: floor_plans
+        label: "Mặt bằng căn hộ"
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: "Loại", widget: string }
+          - { name: area, label: "Diện tích", widget: string }
+          - { name: layout, label: "Bố cục", widget: string }
+      - name: faq
+        label: "Câu hỏi thường gặp"
+        widget: list
+        required: false
+        fields:
+          - { name: q, label: "Câu hỏi", widget: string }
+          - { name: a, label: "Trả lời", widget: text }
+      - name: hidden_sections
+        label: "Ẩn section (không có dữ liệu)"
+        widget: list
+        required: false
+        field: { name: id, label: "Section ID", widget: string, hint: "chinh-sach / gia-ban / vi-tri / tien-ich / mat-bang / phap-ly / dang-ky" }
+      - { name: lat, label: "Vĩ độ (lat)", widget: number, required: false }
+      - { name: lng, label: "Kinh độ (lng)", widget: number, required: false }
+      - { name: created_at, label: "Ngày tạo", widget: datetime, required: false }
+      - { name: updated_at, label: "Ngày cập nhật", widget: datetime, required: false }
+
+  - name: posts
+    label: "Tin tức"
+    label_singular: "Bài viết"
+    folder: data/posts
+    extension: md
+    create: true
+    identifier_field: slug
+    slug: "{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title", "category"]
+    fields:
+      - { name: slug, label: "Slug URL", widget: string, hint: "Ví dụ: thi-truong-bds-hcmc-2026" }
+      - { name: title, label: "Tiêu đề", widget: string }
+      - { name: date, label: "Ngày đăng", widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - { name: category, label: "Chuyên mục", widget: select, options: ["Thị trường", "Đầu tư", "Pháp lý", "Kinh nghiệm", "Dự án"] }
+      - { name: readTime, label: "Thời gian đọc", widget: string, hint: "Ví dụ: 5 phút đọc" }
+      - { name: excerpt, label: "Mô tả ngắn", widget: text }
+      - { name: hero_image, label: "Ảnh bìa", widget: image, required: false }
+      - { name: body, label: "Nội dung bài viết", widget: markdown }

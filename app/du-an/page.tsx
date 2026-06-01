@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { projects } from "@/lib/data";
+import { loadProjects } from "@/lib/loadData";
+
+const projects = loadProjects();
 import ProjectsGrid from "@/components/ProjectsGrid";
 
 export const metadata: Metadata = {

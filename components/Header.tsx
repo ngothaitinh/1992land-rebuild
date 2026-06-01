@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
@@ -52,26 +53,19 @@ export default function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2.5 group"
+              className="flex items-center group"
               aria-label="1992 Land — Trang chủ"
             >
-              <div className="flex flex-col leading-none">
-                <span
-                  className={`text-xl font-bold tracking-widest transition-colors ${
-                    isTransparent ? "text-white" : "text-navy-900"
-                  } group-hover:text-gold-500`}
-                >
-                  1992
-                </span>
-                <span
-                  className={`text-[10px] font-semibold tracking-[0.4em] transition-colors ${
-                    isTransparent ? "text-white/70" : "text-gold-500"
-                  }`}
-                >
-                  LAND
-                </span>
-              </div>
-              <div className={`w-px h-8 transition-colors ${isTransparent ? "bg-white/30" : "bg-gold-400"}`} />
+              <Image
+                src="/images/logo.png"
+                alt="1992 Land"
+                width={120}
+                height={48}
+                className={`h-10 w-auto object-contain transition-opacity ${
+                  isTransparent ? "brightness-0 invert opacity-90" : "opacity-100"
+                } group-hover:opacity-80`}
+                priority
+              />
             </Link>
 
             {/* Desktop nav */}

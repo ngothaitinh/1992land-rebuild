@@ -1,0 +1,76 @@
+{
+  "order": 3,
+  "id": "prj_lusso_sai_gon",
+  "slug": "lusso-sai-gon",
+  "title": "Lusso Sài Gòn",
+  "location": "Thuận An, Bình Dương",
+  "area": "Bình Dương",
+  "project_type": "can-ho",
+  "city": "binh-duong",
+  "district": "TP. Thuận An",
+  "developer": "Phát Đạt (PDR) hợp tác Danh Khôi",
+  "priceRange": "Liên hệ",
+  "area_from": 50,
+  "area_to": 117,
+  "unit_count": 1136,
+  "status": "Đang mở bán",
+  "type": "Căn hộ hạng sang (branded residences)",
+  "excerpt": "Branded residences vận hành chuẩn WorldHotels, mặt tiền QL13 Thuận An — 2 tháp 40 tầng, 1.136 căn trong khu phức hợp La Pura.",
+  "gradient": "from-purple-900 to-indigo-800",
+  "hero_image": "/images/projects/lusso-sai-gon/hero.jpg",
+  "gallery": [
+    "/images/projects/lusso-sai-gon/hero.jpg",
+    "/images/projects/lusso-sai-gon/gallery-1.jpg",
+    "/images/projects/lusso-sai-gon/gallery-2.jpg",
+    "/images/projects/lusso-sai-gon/gallery-3.jpg"
+  ],
+  "scale": "2 tháp · 40 tầng · 1.136 căn · tổng vốn ~4.000 tỷ",
+  "legal_status": "Sở hữu lâu dài (người Việt) · 50 năm (người nước ngoài).",
+  "ownership": "Sở hữu lâu dài (người Việt) · 50 năm (người nước ngoài)",
+  "payment_policy": [
+    { "installment": "Đợt 1 — Ký HĐMB", "percent": 10 },
+    { "installment": "Các đợt tiếp theo — theo tiến độ xây dựng", "percent": 90, "note": "Chi tiết từng đợt theo giai đoạn thi công" }
+  ],
+  "discount": "Đặt cọc 50 triệu nhận quà 50 triệu (hoàn lại). Khách đặt sớm nhận trọn gói nội thất cao cấp.",
+  "bank_support": "Hỗ trợ vay theo tiến độ, lãi suất 0% trong 36 tháng, ân hạn gốc đến 24 tháng.",
+  "nearby": [
+    { "name": "AEON Mall Bình Dương · VSIP 1 · sân golf Sông Bé", "distance": "5 phút", "category": "mall" },
+    { "name": "Lotte Mart · BV Quốc tế Becamex", "distance": "10 phút", "category": "hospital" },
+    { "name": "ĐH Quốc gia TP.HCM · bến xe Long Bình", "distance": "20 phút", "category": "school" },
+    { "name": "Bến Bạch Đằng (Quận 1)", "distance": "25 phút", "category": "road" },
+    { "name": "Sân bay Tân Sơn Nhất", "distance": "30 phút", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Vận hành chuẩn WorldHotels", "desc": "Thương hiệu khách sạn quốc tế (BWH Hotels, Mỹ): lễ tân 24/7, valet, housekeeping chuẩn 5 sao." },
+    { "title": "Branded residences", "desc": "Trải nghiệm sống chuẩn khách sạn 5 sao ngay trong căn hộ." },
+    { "title": "Trong khu phức hợp La Pura", "desc": "All-in-one: giải trí, y tế, giáo dục, thương mại trong cùng đại đô thị sinh thái." },
+    { "title": "Nhu cầu cho thuê lớn", "desc": "Khoảng 45.000–50.000 chuyên gia nước ngoài làm việc tại các khu công nghiệp lân cận." }
+  ],
+  "amenities_internal": [
+    "Hồ bơi vô cực & jacuzzi",
+    "Spa & wellness center",
+    "Vườn thiền & khu tĩnh dưỡng",
+    "Sky bar view toàn cảnh",
+    "Sân pickleball trên mái",
+    "Rạp chiếu phim 4D",
+    "Khu vui chơi trẻ em",
+    "Co-working & business lounge"
+  ],
+  "amenities_external": [
+    "La Pura Central Mall",
+    "Trường quốc tế ICS (chương trình Oxford)",
+    "Nhà trẻ & mầm non quốc tế",
+    "Phòng khám đa khoa chuẩn Nhật"
+  ],
+  "faq": [
+    { "q": "Lusso Sài Gòn ở đâu?", "a": "Dự án nằm mặt tiền Quốc lộ 13, phường Bình Hòa, TP. Thuận An, Bình Dương — cửa ngõ phía Đông kết nối TP.HCM, cách Bến Bạch Đằng Quận 1 khoảng 25 phút." },
+    { "q": "Ai vận hành Lusso Sài Gòn?", "a": "Dự án do Phát Đạt (PDR) hợp tác Danh Khôi phát triển, vận hành theo chuẩn thương hiệu khách sạn quốc tế WorldHotels (BWH Hotels)." },
+    { "q": "Chính sách thanh toán Lusso như thế nào?", "a": "Thanh toán 10% khi ký hợp đồng, phần còn lại theo tiến độ. Hỗ trợ vay lãi suất 0% 36 tháng, ân hạn gốc đến 24 tháng; đặt cọc 50 triệu nhận quà 50 triệu." }
+  ],
+  "lat": 10.905,
+  "lng": 106.715,
+  "address_full": "Mặt tiền Quốc lộ 13, P. Bình Hòa, TP. Thuận An, Bình Dương",
+  "hidden_sections": ["gia-ban", "mat-bang"],
+  "created_at": "2026-05-01T00:00:00Z",
+  "updated_at": "2026-06-01T00:00:00Z"
+}

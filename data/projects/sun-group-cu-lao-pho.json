@@ -1,0 +1,67 @@
+{
+  "order": 7,
+  "id": "prj_sun_group_cu_lao",
+  "slug": "sun-group-cu-lao-pho",
+  "title": "Sun Group Cù Lao Phố",
+  "location": "Biên Hòa, Đồng Nai",
+  "area": "Đồng Nai",
+  "project_type": "phuc-hop",
+  "city": "dong-nai",
+  "district": "TP. Biên Hòa",
+  "developer": "Liên danh Sun Group",
+  "priceRange": "3 – 20 tỷ",
+  "price_from": 3000000000,
+  "price_to": 20000000000,
+  "area_from": 80,
+  "area_to": 1000,
+  "unit_count": 10191,
+  "status": "Sắp mở bán",
+  "type": "Khu đô thị phức hợp",
+  "excerpt": "Khu đô thị Hiệp Hòa 291 ha của Sun Group trên đảo Cù Lao Phố — 4 mặt giáp sông, 48% diện tích cây xanh, gần sân bay Long Thành.",
+  "gradient": "from-yellow-900 to-amber-700",
+  "hero_image": "/images/projects/sun-group-cu-lao-pho/hero.jpg",
+  "gallery": [
+    "/images/projects/sun-group-cu-lao-pho/hero.jpg",
+    "/images/projects/sun-group-cu-lao-pho/gallery-1.jpg",
+    "/images/projects/sun-group-cu-lao-pho/gallery-2.jpg",
+    "/images/projects/sun-group-cu-lao-pho/gallery-3.jpg",
+    "/images/projects/sun-group-cu-lao-pho/gallery-4.jpg"
+  ],
+  "scale": "291 ha · hơn 10.191 căn · tổng vốn ~72.289 tỷ · 48% diện tích cây xanh",
+  "legal_status": "Quy hoạch chi tiết được UBND tỉnh Đồng Nai phê duyệt năm 2024.",
+  "handover_date": "Triển khai theo giai đoạn 2024 – 2036",
+  "product_types": [
+    { "name": "Nhà phố", "area": "Cập nhật", "price_range": "Liên hệ", "total": 2086 },
+    { "name": "Biệt thự (đơn/song lập)", "area": "Cập nhật", "price_range": "Liên hệ", "total": 739 },
+    { "name": "Căn hộ thương mại", "area": "Cập nhật", "price_range": "Liên hệ", "total": 5088 },
+    { "name": "Nhà ở xã hội", "area": "Cập nhật", "price_range": "Liên hệ", "total": 1310 },
+    { "name": "Nhà tái định cư", "area": "Cập nhật", "price_range": "Liên hệ", "total": 968 }
+  ],
+  "nearby": [
+    { "name": "Sân bay quốc tế Long Thành", "distance": "25 – 30 phút", "category": "road" },
+    { "name": "Trung tâm TP. Biên Hòa", "distance": "Lân cận", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Chủ đầu tư Sun Group", "desc": "Liên danh do Sun Group dẫn dắt — tập đoàn nổi tiếng với các đại dự án du lịch, đô thị." },
+    { "title": "Vị trí 4 mặt giáp sông", "desc": "Đảo Cù Lao Phố giữa sông Đồng Nai — quỹ đất đảo hiếm có tại miền Nam." },
+    { "title": "48% diện tích cây xanh", "desc": "Mô hình đô thị sinh thái bền vững với 5 công viên chủ đề." },
+    { "title": "Gần sân bay Long Thành", "desc": "Chỉ 25–30 phút tới sân bay quốc tế Long Thành." }
+  ],
+  "amenities_internal": [
+    "5 công viên chủ đề (sinh thái, thể thao...)",
+    "Promenade ven sông & bến du thuyền",
+    "Trung tâm thương mại & khu dịch vụ",
+    "Hệ thống trường học",
+    "Cơ sở y tế"
+  ],
+  "faq": [
+    { "q": "Sun Group Cù Lao Phố là dự án gì?", "a": "Là Khu đô thị Hiệp Hòa quy mô 291 ha do liên danh Sun Group phát triển trên đảo Cù Lao Phố, phường Trấn Biên, TP. Biên Hòa, Đồng Nai." },
+    { "q": "Quy mô dự án bao nhiêu?", "a": "Hơn 10.191 căn gồm nhà phố, biệt thự, căn hộ thương mại, nhà ở xã hội và tái định cư; 48% diện tích dành cho cây xanh; tổng vốn khoảng 72.289 tỷ đồng." },
+    { "q": "Khi nào Sun Group Cù Lao Phố mở bán?", "a": "Dự án triển khai theo giai đoạn 2024–2036 và đang trong quá trình chuẩn bị mở bán. Đăng ký để nhận thông tin ra hàng sớm nhất." }
+  ],
+  "lat": 10.945,
+  "lng": 106.838,
+  "address_full": "Đảo Cù Lao Phố, P. Trấn Biên, TP. Biên Hòa, Đồng Nai",
+  "created_at": "2026-05-01T00:00:00Z",
+  "updated_at": "2026-06-01T00:00:00Z"
+}

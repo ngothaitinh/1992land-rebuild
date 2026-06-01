@@ -1,0 +1,76 @@
+{
+  "order": 5,
+  "id": "prj_the_quay",
+  "slug": "the-quay-phuoc-hai",
+  "title": "The Quậy Phước Hải",
+  "location": "Phước Hải, Bà Rịa — Vũng Tàu",
+  "area": "Bà Rịa — Vũng Tàu",
+  "project_type": "nghi-duong",
+  "city": "vung-tau",
+  "district": "Huyện Đất Đỏ",
+  "developer": "Phát Đạt (PDR)",
+  "priceRange": "Từ 2 tỷ",
+  "price_from": 2000000000,
+  "price_to": 20000000000,
+  "area_from": 35,
+  "area_to": 870,
+  "unit_count": 4500,
+  "status": "Đang mở bán",
+  "type": "Condotel & biệt thự biển",
+  "excerpt": "Tổ hợp nghỉ dưỡng 7,3 ha sát biển Phước Hải do Phát Đạt phát triển — condotel, biệt thự, bungalow và khách sạn 5 sao.",
+  "gradient": "from-sky-900 to-blue-700",
+  "hero_image": "/images/projects/the-quay-phuoc-hai/hero.jpg",
+  "gallery": [
+    "/images/projects/the-quay-phuoc-hai/hero.jpg",
+    "/images/projects/the-quay-phuoc-hai/gallery-1.jpg",
+    "/images/projects/the-quay-phuoc-hai/gallery-2.jpg",
+    "/images/projects/the-quay-phuoc-hai/gallery-3.jpg",
+    "/images/projects/the-quay-phuoc-hai/gallery-4.jpg"
+  ],
+  "scale": "7,3 ha (73.842 m²) · ~4.500 sản phẩm · tổng vốn 3.500 tỷ · mật độ ~35%",
+  "legal_status": "Chấp thuận chủ trương đầu tư; quy hoạch 1/500 đã duyệt; hồ sơ pháp lý minh bạch.",
+  "handover_date": "Dự kiến Quý 4/2027",
+  "product_types": [
+    { "name": "Condotel 1PN", "area": "35 – 68 m²", "price_range": "Từ 2 tỷ", "total": 2200 },
+    { "name": "Condotel 1PN+1", "area": "35 – 68 m²", "price_range": "Liên hệ", "total": 1800 },
+    { "name": "Condotel 2PN", "area": "35 – 68 m²", "price_range": "Liên hệ", "total": 500 },
+    { "name": "Biệt thự", "area": "500 – 870 m²", "price_range": "Liên hệ", "total": 68 },
+    { "name": "Bungalow", "area": "90 m²", "price_range": "Liên hệ", "total": 25 },
+    { "name": "Khách sạn 5 sao", "area": "339 phòng", "price_range": "Liên hệ" }
+  ],
+  "nearby": [
+    { "name": "Biển Phước Hải", "distance": "2 phút", "category": "road" },
+    { "name": "Khu nghỉ dưỡng Long Hải", "distance": "10 phút", "category": "road" },
+    { "name": "Cao tốc Biên Hòa — Vũng Tàu", "distance": "20 phút", "category": "road" },
+    { "name": "TP. Vũng Tàu", "distance": "30 phút", "category": "road" },
+    { "name": "TP. Hồ Chí Minh", "distance": "60 – 90 phút", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Chủ đầu tư Phát Đạt (PDR)", "desc": "Một trong những nhà phát triển BĐS niêm yết lớn tại Việt Nam." },
+    { "title": "Sát biển Phước Hải", "desc": "Một trong những bãi biển đẹp, yên tĩnh nhất Bà Rịa — Vũng Tàu, chỉ 2 phút ra biển." },
+    { "title": "Đa dạng sản phẩm nghỉ dưỡng", "desc": "Condotel, biệt thự, bungalow và khách sạn 5 sao trong cùng tổ hợp." },
+    { "title": "Pháp lý minh bạch", "desc": "Đã có chấp thuận chủ trương đầu tư và quy hoạch 1/500." }
+  ],
+  "amenities_internal": [
+    "Sảnh đón sang trọng 5 sao",
+    "Hồ bơi vô cực & hồ bơi tự nhiên",
+    "Beach club & bar lounge",
+    "Trung tâm thương mại & nhà hàng",
+    "Clubhouse & khu BBQ",
+    "Spa & gym hiện đại",
+    "Bãi biển riêng",
+    "Quảng trường trung tâm tổ chức sự kiện",
+    "Khu yoga & đường chạy bộ",
+    "Khu vui chơi trẻ em & y tế"
+  ],
+  "faq": [
+    { "q": "The Quậy Phước Hải ở đâu?", "a": "Dự án nằm trên đường Võ Thị Sáu, thị trấn Phước Hải, huyện Đất Đỏ, Bà Rịa — Vũng Tàu, chỉ khoảng 2 phút ra biển Phước Hải." },
+    { "q": "The Quậy Phước Hải giá bao nhiêu?", "a": "Condotel có giá từ khoảng 2 tỷ/căn (35–68 m²). Các dòng biệt thự, bungalow và khách sạn liên hệ để nhận báo giá và giỏ hàng cập nhật." },
+    { "q": "Khi nào The Quậy bàn giao?", "a": "Dự kiến bàn giao Quý 4/2027. Dự án do Phát Đạt phát triển với tổng vốn 3.500 tỷ trên diện tích 7,3 ha." }
+  ],
+  "lat": 10.43,
+  "lng": 107.30,
+  "address_full": "Đường Võ Thị Sáu, TT. Phước Hải, H. Đất Đỏ, Bà Rịa — Vũng Tàu",
+  "created_at": "2026-05-01T00:00:00Z",
+  "updated_at": "2026-06-01T00:00:00Z"
+}

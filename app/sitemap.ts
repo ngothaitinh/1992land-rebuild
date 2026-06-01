@@ -1,5 +1,8 @@
 import type { MetadataRoute } from "next";
-import { projects, posts } from "@/lib/data";
+import { loadProjects, loadPosts } from "@/lib/loadData";
+
+const projects = loadProjects();
+const posts = loadPosts();
 
 export const dynamic = "force-static";
 

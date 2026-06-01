@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
-import { posts } from "@/lib/data";
+import { loadPosts } from "@/lib/loadData";
+
+const posts = loadPosts();
 
 export const metadata: Metadata = {
   title: "Tin tức",

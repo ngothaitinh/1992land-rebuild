@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Calendar, Clock, ArrowLeft, ArrowRight, Phone } from "lucide-react";
-import { posts } from "@/lib/data";
+import { loadPosts } from "@/lib/loadData";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return posts.map((p) => ({ slug: p.slug }));
+  return loadPosts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post = loadPosts().find((p) => p.slug === slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -28,12 +28,30 @@ function formatDate(iso: string) {
   });
 }
 
+function renderBody(body: string) {
+  const blocks = body.split(/\n\n+/);
+  return blocks.map((block, i) => {
+    const t = block.trim();
+    if (!t) return null;
+    if (t.startsWith("## "))
+      return <h2 key={i} className="text-xl font-bold text-navy-900 mt-8">{t.slice(3)}</h2>;
+    if (t.startsWith("> "))
+      return <blockquote key={i} className="border-l-4 border-gold-500 pl-6 py-1 text-navy-900 font-medium italic">{t.slice(2)}</blockquote>;
+    if (t.startsWith("- ")) {
+      const items = t.split(/\n/).filter((l) => l.startsWith("- ")).map((l) => l.slice(2));
+      return <ul key={i} className="space-y-2.5">{items.map((item, j) => <li key={j} className="flex gap-3"><span className="mt-2 w-1.5 h-1.5 rounded-full bg-gold-500 shrink-0" /><span>{item}</span></li>)}</ul>;
+    }
+    return <p key={i}>{t}</p>;
+  });
+}
+
 export default async function PostDetailPage({ params }: Props) {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const allPosts = loadPosts();
+  const post = allPosts.find((p) => p.slug === slug);
   if (!post) notFound();
 
-  const related = posts.filter((p) => p.slug !== slug).slice(0, 2);
+  const related = allPosts.filter((p) => p.slug !== slug).slice(0, 2);
 
   return (
     <div className="pt-20">
@@ -93,38 +111,14 @@ export default async function PostDetailPage({ params }: Props) {
               {post.excerpt}
             </p>
 
-            {/* Placeholder content */}
+            {/* Article content */}
             <div className="space-y-6 text-ink leading-relaxed">
-              <p>
-                Thị trường bất động sản Việt Nam đang trải qua giai đoạn biến
-                động thú vị, với nhiều cơ hội dành cho cả người mua để ở lẫn
-                nhà đầu tư dài hạn. Bài viết này sẽ phân tích những xu hướng
-                chính và đưa ra góc nhìn từ đội ngũ chuyên gia 1992 Land.
-              </p>
-
-              <h2 className="text-xl font-bold text-navy-900 mt-8">
-                Tình hình thị trường hiện tại
-              </h2>
-              <p>
-                Nguồn cung bất động sản tại các thành phố lớn như TP.HCM đang
-                dần được bổ sung sau giai đoạn khan hiếm. Nhiều dự án mới được
-                cấp phép và triển khai, tạo ra sự đa dạng về lựa chọn cho
-                người mua nhà.
-              </p>
-
-              <h2 className="text-xl font-bold text-navy-900 mt-8">
-                Lời khuyên cho nhà đầu tư
-              </h2>
-              <p>
-                Trong giai đoạn này, việc chọn lựa dự án có pháp lý rõ ràng,
-                chủ đầu tư uy tín và vị trí có hạ tầng phát triển là yếu tố
-                then chốt để đảm bảo tính thanh khoản và tăng giá trong dài
-                hạn.
-              </p>
-              <p>
-                Liên hệ với đội ngũ chuyên gia 1992 Land để nhận tư vấn cá
-                nhân hóa phù hợp với nhu cầu và ngân sách của bạn.
-              </p>
+              {post.body ? renderBody(post.body) : (
+                <p>
+                  Liên hệ với đội ngũ 1992 Land để được tư vấn chi tiết về chủ
+                  đề này, phù hợp với nhu cầu và ngân sách của bạn.
+                </p>
+              )}
             </div>
 
             {/* Author box */}

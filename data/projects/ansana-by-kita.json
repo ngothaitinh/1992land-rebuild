@@ -1,0 +1,79 @@
+{
+  "order": 2,
+  "id": "prj_ansana_kita",
+  "slug": "ansana-by-kita",
+  "title": "Ansana by Kita",
+  "location": "Bình Tân, TP. Hồ Chí Minh",
+  "area": "TP.HCM",
+  "project_type": "can-ho",
+  "city": "tp-hcm",
+  "district": "Quận Bình Tân",
+  "developer": "KITA Group",
+  "priceRange": "Từ 2,9 tỷ",
+  "price_from": 2900000000,
+  "price_to": 9500000000,
+  "area_from": 49,
+  "area_to": 241,
+  "unit_count": 1200,
+  "status": "Đang mở bán",
+  "type": "Căn hộ cao cấp",
+  "excerpt": "Căn hộ cao cấp mặt tiền Đại lộ Võ Văn Kiệt, Bình Tân — 1 block 24 tầng, đối diện AEON Mall Bình Tân, kết nối Metro 3A.",
+  "gradient": "from-emerald-900 to-green-800",
+  "hero_image": "/images/projects/ansana-by-kita/hero.jpg",
+  "gallery": [
+    "/images/projects/ansana-by-kita/hero.jpg",
+    "/images/projects/ansana-by-kita/gallery-1.jpg",
+    "/images/projects/ansana-by-kita/gallery-2.jpg",
+    "/images/projects/ansana-by-kita/gallery-3.jpg"
+  ],
+  "scale": "1 block · 24 tầng · 2 hầm · ~1.200 căn · mật độ XD 33–40%",
+  "legal_status": "Chấp thuận chủ trương đầu tư 30/6/2025 (QĐ 3415/QĐ-UBND của UBND TP.HCM); quy hoạch 1/500 và giấy phép xây dựng đã hoàn chỉnh.",
+  "handover_date": "Dự kiến Quý 4/2027 (khởi công 16/9/2025)",
+  "ownership": "Sở hữu lâu dài (người Việt) · 50 năm (người nước ngoài)",
+  "discount": "Ưu đãi theo từng đợt mở bán cho khách hàng đặt sớm.",
+  "bank_support": "Hỗ trợ vay tới 70% giá trị căn hộ, lãi suất 0% trong 18–24 tháng, ân hạn gốc. Khách chỉ cần ~30% vốn tự có đến khi nhận nhà.",
+  "product_types": [
+    { "name": "Studio", "area": "~49 m²", "price_range": "2,9 – 3,5 tỷ" },
+    { "name": "1 phòng ngủ", "area": "50 – 53 m²", "price_range": "4,5 – 5 tỷ" },
+    { "name": "2 phòng ngủ", "area": "60 – 90 m²", "price_range": "5,4 – 7 tỷ" },
+    { "name": "3 phòng ngủ", "area": "80 – 155 m²", "price_range": "7,6 – 9,5 tỷ" }
+  ],
+  "nearby": [
+    { "name": "AEON Mall Bình Tân", "distance": "5 – 7 phút", "category": "mall" },
+    { "name": "Bến xe Miền Tây", "distance": "3 phút", "category": "road" },
+    { "name": "Bệnh viện Quốc tế City", "distance": "Lân cận", "category": "hospital" },
+    { "name": "Bệnh viện Gia An 115", "distance": "Lân cận", "category": "hospital" },
+    { "name": "Tuyến Metro số 3A (dọc Võ Văn Kiệt)", "distance": "Mặt tiền", "category": "road" },
+    { "name": "Quận 1, 5, 6", "distance": "15 – 20 phút", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Mặt tiền Đại lộ Võ Văn Kiệt", "desc": "Trục giao thông huyết mạch nối thẳng trung tâm Quận 1 qua hầm Thủ Thiêm." },
+    { "title": "Liền kề AEON Mall Bình Tân", "desc": "Trung tâm thương mại lớn bậc nhất khu Tây, chỉ 5–7 phút di chuyển." },
+    { "title": "Pháp lý rõ ràng", "desc": "Đã có chấp thuận chủ trương đầu tư và giấy phép xây dựng, sở hữu lâu dài." },
+    { "title": "Chính sách vay ưu đãi", "desc": "Vay tới 70%, lãi suất 0% 18–24 tháng, chỉ cần ~30% vốn tự có đến khi nhận nhà." }
+  ],
+  "amenities_internal": [
+    "Hồ bơi vô cực & sky pool",
+    "Trung tâm thương mại & shophouse",
+    "Vườn nhiệt đới & đường dạo bộ",
+    "Phòng gym & yoga studio",
+    "Khu vui chơi trẻ em",
+    "Khu BBQ & sinh hoạt cộng đồng"
+  ],
+  "amenities_external": [
+    "AEON Mall Bình Tân (5–7 phút)",
+    "Bến xe Miền Tây (3 phút)",
+    "Bệnh viện Quốc tế City, Gia An 115",
+    "Tuyến Metro 3A dọc Võ Văn Kiệt"
+  ],
+  "faq": [
+    { "q": "Ansana by Kita ở đâu?", "a": "Dự án nằm mặt tiền Đại lộ Võ Văn Kiệt, phường An Lạc, quận Bình Tân, TP.HCM — đối diện AEON Mall Bình Tân, cách Quận 1 khoảng 15–20 phút qua hầm Thủ Thiêm." },
+    { "q": "Ansana by Kita giá bao nhiêu?", "a": "Giá theo loại căn: Studio từ 2,9 tỷ, 1PN từ 4,5 tỷ, 2PN từ 5,4 tỷ, 3PN từ 7,6 tỷ (khoảng 90–100 triệu/m²). Liên hệ để nhận bảng giá đợt mới nhất." },
+    { "q": "Chính sách thanh toán Ansana như thế nào?", "a": "Thanh toán theo tiến độ 1–2%/đợt; hoặc thanh toán nhanh 50–70–95% nhận chiết khấu 10–12%. Hỗ trợ vay 70%, lãi suất 0% 18–24 tháng." }
+  ],
+  "lat": 10.738,
+  "lng": 106.617,
+  "address_full": "Đại lộ Võ Văn Kiệt, P. An Lạc, Q. Bình Tân, TP. Hồ Chí Minh",
+  "created_at": "2026-05-01T00:00:00Z",
+  "updated_at": "2026-06-01T00:00:00Z"
+}

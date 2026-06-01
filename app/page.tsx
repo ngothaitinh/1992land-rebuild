@@ -21,7 +21,7 @@ export default function Home() {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, #1F3458 0%, #0B1F3A 50%, #06132A 100%)",
+              "radial-gradient(ellipse 80% 60% at 50% 0%, #1E3A60 0%, #0D1E38 50%, #071121 100%)",
           }}
         />
         <div

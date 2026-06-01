@@ -1,29 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  /* Navy scale */
-  --color-navy-50: #F2F4F8;
-  --color-navy-100: #D8DEE9;
-  --color-navy-200: #A8B4C8;
-  --color-navy-300: #6D7E9A;
-  --color-navy-500: #1F3458;
-  --color-navy-700: #14233D;
-  --color-navy-900: #0B1F3A;
-  --color-navy-950: #06132A;
+  /* Navy scale — deeper, warmer */
+  --color-navy-50:  #EEF2F8;
+  --color-navy-100: #D0D9EA;
+  --color-navy-200: #9AAEC9;
+  --color-navy-300: #617EA8;
+  --color-navy-400: #3A5A88;
+  --color-navy-500: #1E3A60;
+  --color-navy-700: #132848;
+  --color-navy-900: #0D1E38;
+  --color-navy-950: #071121;
 
-  /* Gold scale */
-  --color-gold-100: #F7EFD8;
-  --color-gold-300: #E8D4A0;
-  --color-gold-500: #C9A961;
-  --color-gold-700: #A6873F;
-  --color-gold-900: #6B5524;
+  /* Gold scale — richer, warmer */
+  --color-gold-100: #F8EDD2;
+  --color-gold-300: #E8C978;
+  --color-gold-400: #D9AF48;
+  --color-gold-500: #C49730;
+  --color-gold-700: #9B7424;
+  --color-gold-900: #63491A;
 
-  /* Neutrals */
-  --color-bg: #FAFAF7;
-  --color-surface: #FFFFFF;
-  --color-ink: #1A1A1A;
-  --color-muted: #6B6B6B;
-  --color-border-soft: #E5E2D9;
+  /* Neutrals — warm ivory */
+  --color-bg:          #F8F5F0;
+  --color-surface:     #FFFFFF;
+  --color-ink:         #18181B;
+  --color-muted:       #6B6558;
+  --color-border-soft: #E4DDD3;
 }
 
 @theme inline {
@@ -42,7 +44,7 @@ html {
 }
 
 body {
-  background-color: #FAFAF7;
+  background-color: #F8F5F0;
   color: #1A1A1A;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;

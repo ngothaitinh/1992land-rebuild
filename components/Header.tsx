@@ -34,44 +34,48 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  const isHome = pathname === "/";
+  // transparent only on homepage before scroll
+  const isTransparent = isHome && !scrolled && !mobileOpen;
+
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || mobileOpen
-            ? "bg-surface/95 backdrop-blur-md shadow-sm border-b border-border-soft"
-            : "bg-transparent"
+          isTransparent
+            ? "bg-transparent"
+            : "bg-white/98 backdrop-blur-md shadow-[0_1px_0_0_#E4DDD3]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-center gap-2 group"
+              className="flex items-center gap-2.5 group"
               aria-label="1992 Land — Trang chủ"
             >
               <div className="flex flex-col leading-none">
                 <span
                   className={`text-xl font-bold tracking-widest transition-colors ${
-                    scrolled || mobileOpen ? "text-navy-900" : "text-surface"
+                    isTransparent ? "text-white" : "text-navy-900"
                   } group-hover:text-gold-500`}
                 >
                   1992
                 </span>
                 <span
-                  className={`text-xs font-medium tracking-[0.3em] transition-colors ${
-                    scrolled || mobileOpen ? "text-navy-500" : "text-surface/80"
-                  } group-hover:text-gold-500`}
+                  className={`text-[10px] font-semibold tracking-[0.4em] transition-colors ${
+                    isTransparent ? "text-white/70" : "text-gold-500"
+                  }`}
                 >
                   LAND
                 </span>
               </div>
-              <div className="w-px h-8 bg-gold-500 ml-1" />
+              <div className={`w-px h-8 transition-colors ${isTransparent ? "bg-white/30" : "bg-gold-400"}`} />
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-0.5">
               {navLinks.map((link) => {
                 const isActive =
                   link.href === "/"
@@ -82,18 +86,18 @@ export default function Header() {
                     key={link.href}
                     href={link.href}
                     className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-md group ${
-                      isActive
-                        ? scrolled
-                          ? "text-navy-900"
-                          : "text-surface"
-                        : scrolled
-                        ? "text-navy-500 hover:text-navy-900"
-                        : "text-surface/80 hover:text-surface"
+                      isTransparent
+                        ? isActive
+                          ? "text-white"
+                          : "text-white/75 hover:text-white"
+                        : isActive
+                        ? "text-navy-900"
+                        : "text-navy-400 hover:text-navy-900"
                     }`}
                   >
                     {link.label}
                     <span
-                      className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gold-500 transition-transform origin-left ${
+                      className={`absolute bottom-0.5 left-4 right-4 h-0.5 bg-gold-500 rounded-full transition-transform origin-left ${
                         isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                       }`}
                     />
@@ -102,7 +106,11 @@ export default function Header() {
               })}
               <Link
                 href="/lien-he"
-                className="ml-4 px-5 py-2.5 text-sm font-semibold bg-navy-900 text-surface rounded-full hover:bg-navy-700 transition-colors"
+                className={`ml-4 px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
+                  isTransparent
+                    ? "bg-gold-500 text-navy-950 hover:bg-gold-400"
+                    : "bg-navy-900 text-white hover:bg-navy-700"
+                }`}
               >
                 Nhận tư vấn
               </Link>
@@ -112,9 +120,9 @@ export default function Header() {
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className={`lg:hidden p-2 rounded-md transition-colors ${
-                scrolled || mobileOpen
-                  ? "text-navy-900 hover:bg-navy-50"
-                  : "text-surface hover:bg-white/10"
+                isTransparent
+                  ? "text-white hover:bg-white/10"
+                  : "text-navy-900 hover:bg-navy-50"
               }`}
               aria-label={mobileOpen ? "Đóng menu" : "Mở menu"}
               aria-expanded={mobileOpen}

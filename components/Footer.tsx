@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import Signature from "@/components/Signature";
 
 const projects = [
   { href: "/du-an/salacia-villas-phu-my", label: "Salacia Villas Phú Mỹ" },
@@ -148,8 +149,11 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Signature */}
+        <Signature light className="mt-12 mb-6" />
+
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface/40">
+        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface/40">
           <p>© 2026 1992 Land — Bản quyền thuộc về Nguyễn Hữu Thọ</p>
           <p>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</p>
         </div>

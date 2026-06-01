@@ -5,6 +5,7 @@ import { featuredProjects, remainingProjects, posts } from "@/lib/data";
 import Testimonials from "@/components/Testimonials";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
+import Signature from "@/components/Signature";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("vi-VN", {
@@ -37,9 +38,7 @@ export default function Home() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent to-gold-500/60" />
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-6 pt-24 pb-16">
-          <p className="text-gold-500 text-sm font-semibold tracking-[0.3em] uppercase mb-8 animate-[fadeInDown_0.6s_ease_forwards]">
-            1992 Land · Thủ Đức · TP.HCM
-          </p>
+          <Signature light className="max-w-xs mx-auto mb-8" />
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-surface leading-[1.1] tracking-tight mb-6">
             Giá Trị
             <br />
@@ -47,13 +46,16 @@ export default function Home() {
             <br />
             Lòng Tin
           </h1>
-          <p className="text-surface/60 text-lg lg:text-xl max-w-lg mx-auto mb-10 leading-relaxed">
-            Chuyên môi giới bất động sản cao cấp tại TP.HCM, Vũng Tàu, Bình Dương, Long An và Đồng Nai.
+          <p className="text-surface/60 text-lg lg:text-xl max-w-lg mx-auto mb-3 leading-relaxed">
+            Anh Thọ và đội ngũ 1992 Land đã giúp hơn 500 gia đình tìm được đúng dự án —
+          </p>
+          <p className="text-surface/40 text-base max-w-md mx-auto mb-10 italic">
+            không ép mua, không hối thúc, không hoa hồng che giấu.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/lien-he"
-              className="px-8 py-4 bg-gold-500 text-navy-950 font-semibold rounded-full hover:bg-gold-300 active:scale-[0.98] transition-all duration-200 hover:shadow-lg hover:shadow-gold-500/20 text-base"
+              className="px-8 py-4 bg-gold-500 text-navy-950 font-semibold rounded-full hover:bg-gold-400 active:scale-[0.98] transition-all duration-200 hover:shadow-lg hover:shadow-gold-500/20 text-base"
             >
               Nhận tư vấn miễn phí
             </Link>
@@ -155,12 +157,12 @@ export default function Home() {
                 Đến với 1992 Land —<br />
                 <span className="text-gold-500">Giá trị thật</span>, lòng tin bền
               </h2>
-              <div className="w-12 h-0.5 bg-gold-500 rounded-full mb-8" />
+              <Signature light className="max-w-[120px] mb-8" />
               <p className="text-surface/70 leading-relaxed mb-6">
-                Được sáng lập tại TP. Thủ Đức, 1992 Land là đơn vị môi giới bất động sản chuyên nghiệp với hơn 5 năm đồng hành cùng hàng trăm gia đình tìm được ngôi nhà đúng nghĩa.
+                Được sáng lập tại TP. Thủ Đức năm 2020, 1992 Land đã đồng hành cùng hơn 500 gia đình — từ căn hộ đầu tiên đến danh mục đầu tư thứ ba.
               </p>
               <p className="text-surface/70 leading-relaxed mb-10">
-                Chúng tôi không chạy theo số lượng giao dịch — chúng tôi tập trung vào chất lượng tư vấn. Mỗi khách hàng đều nhận được thông tin minh bạch, đầy đủ để ra quyết định tự tin nhất.
+                Anh Thọ tin rằng một giao dịch tốt không cần phải hối thúc. Khách hàng cần thời gian, thông tin thật và người tư vấn dám nói thẳng — kể cả khi câu trả lời là "chưa phải lúc."
               </p>
               <Link
                 href="/gioi-thieu"
@@ -299,6 +301,31 @@ export default function Home() {
 
       {/* ── 6. TESTIMONIALS ──────────────────────────────────── */}
       <Testimonials />
+
+      {/* ── 6.5 MANIFESTO ────────────────────────────────────── */}
+      <section className="py-32 px-6 bg-bg overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <FadeIn direction="left">
+            <p className="text-gold-500 text-xs tracking-[0.5em] uppercase mb-8">Triết lý</p>
+            <blockquote className="text-4xl sm:text-5xl lg:text-6xl font-bold text-navy-900 leading-[1.15] max-w-3xl">
+              Chúng tôi không bán nhà.
+              <br />
+              <span className="text-navy-300">Chúng tôi giúp bạn</span>
+              <br />
+              tìm đúng ngôi nhà.
+            </blockquote>
+            <div className="mt-12 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full overflow-hidden relative border-2 border-gold-500/40 shrink-0">
+                <Image src="/images/team/nguyen-huu-tho.jpg" alt="Nguyễn Hữu Thọ" fill className="object-cover object-top" sizes="40px" />
+              </div>
+              <div>
+                <div className="text-navy-900 font-semibold text-sm">Nguyễn Hữu Thọ</div>
+                <div className="text-muted text-xs">Nhà sáng lập · 1992 Land</div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
       {/* ── 7. CONTACT CTA ───────────────────────────────────── */}
       <section className="py-24 px-6 bg-bg">

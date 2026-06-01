@@ -8,46 +8,20 @@ export const contentType = "image/png";
 export default function OGImage() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          background: "linear-gradient(135deg, #071121 0%, #0D1E38 50%, #1E3A60 100%)",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "sans-serif",
-          position: "relative",
-        }}
-      >
-        {/* Gold accent line */}
-        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 2, height: 80, background: "linear-gradient(to bottom, transparent, #C49730)" }} />
-
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+      <div style={{ background: "linear-gradient(135deg, #071121 0%, #0D1E38 50%, #1E3A60 100%)", width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: "sans-serif", position: "relative" }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, transparent, #C49730, transparent)", display: "flex" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: 20, marginBottom: 40 }}>
           <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-            <span style={{ fontSize: 48, fontWeight: 700, color: "#FFFFFF", letterSpacing: "0.2em" }}>1992</span>
-            <span style={{ fontSize: 16, fontWeight: 600, color: "#C49730", letterSpacing: "0.4em" }}>LAND</span>
+            <div style={{ fontSize: 52, fontWeight: 700, color: "#FFF", letterSpacing: "0.2em" }}>1992</div>
+            <div style={{ fontSize: 16, color: "#C49730", letterSpacing: "0.5em" }}>LAND</div>
           </div>
-          <div style={{ width: 2, height: 60, background: "#C49730" }} />
+          <div style={{ width: 2, height: 64, background: "#C49730", display: "flex" }} />
         </div>
-
-        {/* Tagline */}
-        <div style={{ fontSize: 40, fontWeight: 700, color: "#FFFFFF", marginBottom: 16, textAlign: "center" }}>
-          Giá Trị Kiến Tạo Lòng Tin
-        </div>
-        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.6)", textAlign: "center" }}>
-          Môi giới BĐS chuyên nghiệp · TP.HCM · Vũng Tàu · Bình Dương
-        </div>
-
-        {/* Gold divider */}
-        <div style={{ width: 80, height: 3, background: "#C49730", borderRadius: 2, marginTop: 32 }} />
-
-        {/* Contact */}
-        <div style={{ position: "absolute", bottom: 40, fontSize: 18, color: "#C49730" }}>
-          0909 474 123 · 1992land.com
-        </div>
+        <div style={{ fontSize: 44, fontWeight: 700, color: "#FFF", marginBottom: 16, display: "flex" }}>Giá Trị Kiến Tạo Lòng Tin</div>
+        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 40, display: "flex" }}>Môi giới BĐS chuyên nghiệp · TP.HCM</div>
+        <div style={{ width: 80, height: 3, background: "#C49730", borderRadius: 2, display: "flex" }} />
+        <div style={{ position: "absolute", bottom: 40, fontSize: 16, color: "#C49730", display: "flex" }}>0909 474 123 · 1992land.com</div>
+        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, transparent, #C49730, transparent)", display: "flex" }} />
       </div>
     ),
     { ...size }

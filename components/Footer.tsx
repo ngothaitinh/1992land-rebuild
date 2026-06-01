@@ -1,0 +1,159 @@
+import Link from "next/link";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+
+const projects = [
+  { href: "/du-an/salacia-villas-phu-my", label: "Salacia Villas Phú Mỹ" },
+  { href: "/du-an/ansana-by-kita", label: "Ansana by Kita" },
+  { href: "/du-an/lusso-sai-gon", label: "Lusso Sài Gòn" },
+  { href: "/du-an/water-concept", label: "Water Concept" },
+  { href: "/du-an/the-quay-phuoc-hai", label: "The Quậy Phước Hải" },
+  { href: "/du-an/thanh-phu-centre-point", label: "Thanh Phú Centre Point" },
+  { href: "/du-an/sun-group-cu-lao-pho", label: "Sun Group Cù Lao Phố" },
+  { href: "/du-an/river-collection-an-gia", label: "River Collection An Gia" },
+];
+
+export default function Footer() {
+  return (
+    <footer className="bg-navy-950 text-surface/80">
+      {/* Gold accent line */}
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+
+          {/* Cột 1: Liên hệ */}
+          <div>
+            {/* Logo */}
+            <div className="flex items-center gap-2 mb-6">
+              <div className="flex flex-col leading-none">
+                <span className="text-xl font-bold tracking-widest text-surface">1992</span>
+                <span className="text-xs font-medium tracking-[0.3em] text-surface/60">LAND</span>
+              </div>
+              <div className="w-px h-8 bg-gold-500 ml-1" />
+            </div>
+
+            <p className="text-sm text-surface/60 mb-6 leading-relaxed">
+              Giá Trị Kiến Tạo Lòng Tin — Chuyên môi giới bất động sản tại TP.HCM
+              và các tỉnh lân cận.
+            </p>
+
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="text-gold-500 mt-0.5 shrink-0" />
+                <span>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone size={16} className="text-gold-500 shrink-0" />
+                <a href="tel:0909474123" className="hover:text-gold-300 transition-colors">
+                  0909 474 123
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail size={16} className="text-gold-500 shrink-0" />
+                <a
+                  href="mailto:nguyenhuutho911@gmail.com"
+                  className="hover:text-gold-300 transition-colors"
+                >
+                  nguyenhuutho911@gmail.com
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Clock size={16} className="text-gold-500 shrink-0" />
+                <span>Thứ 2 — Thứ 7: 8:00 — 18:00</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Cột 2: Dự án */}
+          <div>
+            <h3 className="text-surface font-semibold text-sm tracking-widest uppercase mb-6">
+              Dự án
+            </h3>
+            <ul className="space-y-2.5">
+              {projects.map((p) => (
+                <li key={p.href}>
+                  <Link
+                    href={p.href}
+                    className="text-sm text-surface/60 hover:text-gold-300 transition-colors flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-gold-500/40 group-hover:bg-gold-500 transition-colors" />
+                    {p.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Cột 3: Theo dõi */}
+          <div>
+            <h3 className="text-surface font-semibold text-sm tracking-widest uppercase mb-6">
+              Theo dõi
+            </h3>
+
+            <div className="space-y-3 mb-8">
+              <a
+                href="https://zalo.me/0909474123"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
+              >
+                <span className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center text-white text-xs font-bold shrink-0">
+                  Zalo
+                </span>
+                Chat Zalo
+              </a>
+              <a
+                href="https://m.me/165126330021000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
+              >
+                <span className="w-8 h-8 rounded-lg bg-[#0084FF] flex items-center justify-center text-white text-xs font-bold shrink-0">
+                  Msg
+                </span>
+                Messenger
+              </a>
+              <a
+                href="tel:0909474123"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
+              >
+                <span className="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center text-white shrink-0">
+                  <Phone size={14} />
+                </span>
+                Gọi ngay
+              </a>
+            </div>
+
+            <div>
+              <h4 className="text-surface/60 text-xs uppercase tracking-widest mb-3">
+                Trang
+              </h4>
+              <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {[
+                  { href: "/gioi-thieu", label: "Giới thiệu" },
+                  { href: "/tin-tuc", label: "Tin tức" },
+                  { href: "/tuyen-dung", label: "Tuyển dụng" },
+                  { href: "/lien-he", label: "Liên hệ" },
+                ].map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-surface/50 hover:text-gold-300 transition-colors"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface/40">
+          <p>© 2026 1992 Land — Bản quyền thuộc về Nguyễn Hữu Thọ</p>
+          <p>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

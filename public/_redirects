@@ -1,0 +1,22 @@
+# WordPress legacy URL redirects → new structure
+/?page_id=1012  /gioi-thieu/  301
+/?page_id=1255  /du-an/  301
+/?page_id=1014  /lien-he/  301
+/?page_id=1404  /tuyen-dung/  301
+/?cat=16        /tin-tuc/  301
+
+# Project pages
+/?page_id=3307  /du-an/salacia-villas-phu-my/  301
+/?page_id=3305  /du-an/ansana-by-kita/  301
+/?page_id=3303  /du-an/lusso-sai-gon/  301
+/?page_id=3301  /du-an/water-concept/  301
+/?page_id=3299  /du-an/the-quay-phuoc-hai/  301
+/?page_id=3297  /du-an/thanh-phu-centre-point/  301
+/?page_id=3295  /du-an/sun-group-cu-lao-pho/  301
+/?page_id=3293  /du-an/river-collection-an-gia/  301
+
+# Catch-all old WP paths
+/wp-content/*  /  301
+/wp-admin/*    /  301
+/feed          /  301
+/feed/         /  301

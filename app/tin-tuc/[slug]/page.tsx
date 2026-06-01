@@ -138,7 +138,7 @@ export default async function PostDetailPage({ params }: Props) {
                   Chuyên gia BĐS · 1992 Land
                 </div>
                 <a
-                  href="tel:0909474123"
+                  href="tel:+84909474123"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-navy-900 text-surface text-xs font-medium rounded-full hover:bg-navy-700 transition-colors"
                 >
                   <Phone size={12} />
@@ -167,7 +167,7 @@ export default async function PostDetailPage({ params }: Props) {
                   Chat Zalo
                 </a>
                 <a
-                  href="tel:0909474123"
+                  href="tel:+84909474123"
                   className="flex items-center justify-center gap-2 w-full py-3 mt-2 border border-white/20 text-surface font-medium rounded-full hover:border-white/40 transition-colors text-sm"
                 >
                   <Phone size={14} />

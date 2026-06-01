@@ -44,7 +44,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-gold-500 shrink-0" />
-                <a href="tel:0909474123" className="hover:text-gold-300 transition-colors">
+                <a href="tel:+84909474123" className="hover:text-gold-300 transition-colors">
                   0909 474 123
                 </a>
               </li>
@@ -114,7 +114,7 @@ export default function Footer() {
                 Messenger
               </a>
               <a
-                href="tel:0909474123"
+                href="tel:+84909474123"
                 className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
               >
                 <span className="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center text-white shrink-0">

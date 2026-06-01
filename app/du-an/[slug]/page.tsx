@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, Phone, ArrowLeft, ArrowRight, Building2, Tag, CheckCircle } from "lucide-react";
+import { MapPin, Phone, ArrowLeft, ArrowRight, Building2, Tag, CheckCircle, ChevronDown } from "lucide-react";
 import { projects } from "@/lib/data";
+import ContactForm from "@/components/ContactForm";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -25,6 +26,36 @@ export default async function ProjectDetailPage({ params }: Props) {
   const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
+  // JSON-LD schemas
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: project.title,
+    description: project.excerpt,
+    image: project.hero_image ? [`https://1992land.com${project.hero_image}`] : [],
+    offers: project.price_from
+      ? {
+          "@type": "AggregateOffer",
+          lowPrice: project.price_from,
+          highPrice: project.price_to ?? project.price_from,
+          priceCurrency: "VND",
+          availability: "https://schema.org/InStock",
+        }
+      : undefined,
+  };
+
+  const faqSchema = project.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: project.faq.map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+      }
+    : null;
+
   const related = projects.filter((p) => p.slug !== slug && p.area === project.area).slice(0, 3);
   const fallbackRelated = projects.filter((p) => p.slug !== slug).slice(0, 3);
   const relatedProjects = related.length >= 2 ? related : fallbackRelated;
@@ -38,6 +69,18 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   return (
     <div className="pt-20">
+      {/* JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+
       {/* Hero */}
       <div
         className={`h-72 lg:h-96 bg-gradient-to-br ${project.gradient} relative flex items-end`}
@@ -83,7 +126,7 @@ export default async function ProjectDetailPage({ params }: Props) {
             </span>
           </div>
           <a
-            href="tel:0909474123"
+            href="tel:+84909474123"
             className="flex items-center gap-2 px-4 py-2 bg-navy-900 text-surface text-sm font-medium rounded-full hover:bg-navy-700 transition-colors"
           >
             <Phone size={14} />
@@ -185,7 +228,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     Chat Zalo ngay
                   </a>
                   <a
-                    href="tel:0909474123"
+                    href="tel:+84909474123"
                     className="flex items-center justify-center gap-2 w-full py-3 bg-navy-900 text-surface font-semibold rounded-full hover:bg-navy-700 transition-colors text-sm"
                   >
                     <Phone size={15} />
@@ -207,10 +250,44 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </div>
                 <div className="font-bold text-navy-900">{project.developer}</div>
               </div>
+
+              {/* Inline contact form */}
+              <div className="rounded-2xl border border-border-soft bg-surface p-6 shadow-sm">
+                <h3 className="font-bold text-navy-900 mb-1">Nhận tư vấn miễn phí</h3>
+                <p className="text-muted text-xs mb-4">Phản hồi trong 30 phút trong giờ làm việc</p>
+                <ContactForm
+                  subject={`[Lead] Quan tâm ${project.title} — 1992land.com`}
+                  duAnQuanTam={project.slug}
+                  compact
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* FAQ section */}
+      {project.faq && project.faq.length > 0 && (
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 py-16">
+          <h2 className="text-2xl font-bold text-navy-900 mb-8">Câu hỏi thường gặp</h2>
+          <div className="space-y-4">
+            {project.faq.map(({ q, a }, i) => (
+              <details
+                key={i}
+                className="group rounded-2xl border border-border-soft bg-surface overflow-hidden"
+              >
+                <summary className="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-medium text-navy-900 hover:text-gold-500 transition-colors">
+                  {q}
+                  <ChevronDown size={16} className="text-muted shrink-0 group-open:rotate-180 transition-transform" />
+                </summary>
+                <div className="px-6 pb-4 text-muted text-sm leading-relaxed border-t border-border-soft pt-4">
+                  {a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Related projects */}
       {relatedProjects.length > 0 && (

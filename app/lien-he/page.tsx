@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Liên hệ",
@@ -40,7 +41,7 @@ export default function LienHePage() {
                   icon: Phone,
                   label: "Hotline",
                   value: "0909 474 123",
-                  href: "tel:0909474123",
+                  href: "tel:+84909474123",
                 },
                 {
                   icon: Mail,
@@ -121,83 +122,7 @@ export default function LienHePage() {
               Gửi yêu cầu tư vấn
             </h2>
 
-            <form
-              action={`mailto:nguyenhuutho911@gmail.com?subject=Yêu cầu tư vấn BĐS từ website`}
-              method="get"
-              encType="text/plain"
-              className="space-y-4"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">
-                    Họ và tên *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="Nguyễn Văn A"
-                    className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">
-                    Số điện thoại *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    required
-                    placeholder="0909 xxx xxx"
-                    className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">
-                  Dự án quan tâm
-                </label>
-                <select
-                  name="project"
-                  className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors"
-                >
-                  <option value="">-- Chọn dự án --</option>
-                  <option>Salacia Villas Phú Mỹ</option>
-                  <option>Ansana by Kita</option>
-                  <option>Lusso Sài Gòn</option>
-                  <option>Water Concept</option>
-                  <option>The Quậy Phước Hải</option>
-                  <option>Thanh Phú Centre Point</option>
-                  <option>Sun Group Cù Lao Phố</option>
-                  <option>River Collection An Gia</option>
-                  <option>Khác / Chưa xác định</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">
-                  Lời nhắn
-                </label>
-                <textarea
-                  name="message"
-                  rows={5}
-                  placeholder="Mô tả nhu cầu của bạn — ngân sách, mục đích (ở/đầu tư), khu vực mong muốn..."
-                  className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors resize-none"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-4 bg-navy-900 text-surface font-semibold rounded-full hover:bg-navy-700 transition-colors text-base"
-              >
-                Gửi yêu cầu tư vấn
-              </button>
-
-              <p className="text-xs text-muted text-center">
-                Chúng tôi sẽ liên hệ trong vòng 30 phút trong giờ làm việc.
-              </p>
-            </form>
+            <ContactForm subject="[Lead] Liên hệ từ trang /lien-he — 1992land.com" />
           </div>
         </div>
       </div>

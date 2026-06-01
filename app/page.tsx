@@ -3,6 +3,7 @@ import { ArrowRight, MapPin, Calendar, Clock, CheckCircle } from "lucide-react";
 import { featuredProjects, remainingProjects, posts } from "@/lib/data";
 import Testimonials from "@/components/Testimonials";
 import FadeIn from "@/components/FadeIn";
+import ContactForm from "@/components/ContactForm";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("vi-VN", {
@@ -286,54 +287,14 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <form
-              action="mailto:nguyenhuutho911@gmail.com?subject=Yêu cầu tư vấn BĐS từ 1992land.com"
-              method="get"
-              encType="text/plain"
-              className="bg-surface border border-border-soft rounded-3xl p-8 shadow-sm"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
-                  <input type="text" name="name" required placeholder="Nguyễn Văn A"
-                    className="w-full px-4 py-3.5 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors" />
-                </div>
-                <div>
-                  <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
-                  <input type="tel" name="phone" required placeholder="0909 xxx xxx"
-                    className="w-full px-4 py-3.5 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors" />
-                </div>
-              </div>
-              <div className="mb-4">
-                <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
-                <select name="project" className="w-full px-4 py-3.5 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors">
-                  <option value="">-- Chọn dự án (tùy chọn) --</option>
-                  <option>Salacia Villas Phú Mỹ</option>
-                  <option>Ansana by Kita</option>
-                  <option>Lusso Sài Gòn</option>
-                  <option>Water Concept</option>
-                  <option>The Quậy Phước Hải</option>
-                  <option>Thanh Phú Centre Point</option>
-                  <option>Sun Group Cù Lao Phố</option>
-                  <option>River Collection An Gia</option>
-                  <option>Khác / Chưa xác định</option>
-                </select>
-              </div>
-              <div className="mb-6">
-                <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Lời nhắn</label>
-                <textarea name="message" rows={4} placeholder="Mô tả nhu cầu của bạn..."
-                  className="w-full px-4 py-3.5 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg transition-colors resize-none" />
-              </div>
-              <button type="submit"
-                className="w-full py-4 bg-navy-900 text-surface font-semibold rounded-full hover:bg-navy-700 active:scale-[0.98] transition-all text-base">
-                Gửi yêu cầu tư vấn
-              </button>
+            <div className="bg-surface border border-border-soft rounded-3xl p-8 shadow-sm">
+              <ContactForm subject="[Lead] Tư vấn từ Trang chủ 1992land.com" />
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi trực tiếp:{" "}
-                <a href="tel:0909474123" className="text-gold-500 font-medium">0909 474 123</a>
-                {" "}· Thứ 2 — Thứ 7: 8:00 — 18:00
+                <a href="tel:+84909474123" className="text-gold-500 font-medium">0909 474 123</a>
+                {" "}· 8:00 — 20:00, Thứ 2 — Chủ nhật
               </p>
-            </form>
+            </div>
           </FadeIn>
         </div>
       </section>

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
+import Analytics from "@/components/Analytics";
 
 const beVietnam = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
@@ -34,6 +35,10 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
   metadataBase: new URL("https://1992land.com"),
+  alternates: {
+    canonical: "https://1992land.com",
+    languages: { "vi-VN": "https://1992land.com" },
+  },
 };
 
 const orgSchema = {
@@ -41,8 +46,10 @@ const orgSchema = {
   "@type": "RealEstateAgent",
   name: "1992 Land",
   url: "https://1992land.com",
-  telephone: "0909474123",
+  founder: "Nguyễn Hữu Thọ",
+  telephone: "+84909474123",
   email: "nguyenhuutho911@gmail.com",
+  areaServed: ["TP HCM", "Vũng Tàu", "Bình Dương", "Long An", "Đồng Nai"],
   address: {
     "@type": "PostalAddress",
     streetAddress: "17 Trần Quý Kiên",
@@ -73,6 +80,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-bg text-ink antialiased">
+        <Analytics />
         <Header />
         {/* pb-16 on mobile for FloatingCTA bottom bar */}
         <main className="flex-1 pb-16 md:pb-0">{children}</main>

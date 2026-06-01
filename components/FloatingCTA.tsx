@@ -28,7 +28,7 @@ export default function FloatingCTA() {
             0909 474 123
           </span>
           <a
-            href="tel:0909474123"
+            href="tel:+84909474123"
             className="w-12 h-12 rounded-full bg-gold-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
             aria-label="Gọi điện"
           >
@@ -75,7 +75,7 @@ export default function FloatingCTA() {
             <span className="text-[10px] font-medium text-muted">Zalo</span>
           </a>
           <a
-            href="tel:0909474123"
+            href="tel:+84909474123"
             className="flex flex-col items-center justify-center py-3 gap-1 text-gold-500 hover:bg-gold-100 transition-colors"
             aria-label="Gọi điện"
           >

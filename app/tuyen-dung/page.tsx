@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Briefcase, TrendingUp, Users, DollarSign } from "lucide-react";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Tuyển dụng",
@@ -79,49 +80,11 @@ export default function TuyenDungPage() {
             </div>
           </div>
 
-          {/* Simple apply form */}
-          <form
-            action={`mailto:nguyenhuutho911@gmail.com?subject=Ứng tuyển Nhân viên Kinh doanh BĐS`}
-            method="get"
-            encType="text/plain"
-            className="space-y-4 border-t border-border-soft pt-6"
-          >
-            <h3 className="font-semibold text-navy-900">Nộp hồ sơ ứng tuyển</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Họ và tên *"
-                required
-                className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg"
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Số điện thoại *"
-                required
-                className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg"
-              />
-            </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg"
-            />
-            <textarea
-              name="message"
-              placeholder="Lời nhắn ngắn (kinh nghiệm, động lực...)"
-              rows={4}
-              className="w-full px-4 py-3 border border-border-soft rounded-xl text-sm focus:outline-none focus:border-navy-500 bg-bg resize-none"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-8 py-3.5 bg-navy-900 text-surface font-semibold rounded-full hover:bg-navy-700 transition-colors"
-            >
-              Gửi hồ sơ
-            </button>
-          </form>
+          {/* Apply form */}
+          <div className="border-t border-border-soft pt-6">
+            <h3 className="font-semibold text-navy-900 mb-4">Nộp hồ sơ ứng tuyển</h3>
+            <ContactForm subject="[Tuyển dụng] Ứng tuyển Nhân viên Kinh doanh BĐS — 1992land.com" duAnQuanTam="tuyen-dung" />
+          </div>
         </div>
       </div>
     </div>

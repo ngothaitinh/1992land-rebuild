@@ -1,0 +1,24 @@
+{
+  "site_name": "1992 Land",
+  "tagline": "Giá Trị Kiến Tạo Lòng Tin",
+  "contact": {
+    "name": "Nguyễn Hữu Thọ",
+    "phone": "0909474123",
+    "phone_intl": "+84909474123",
+    "email": "nguyenhuutho911@gmail.com",
+    "zalo": "https://zalo.me/0909474123",
+    "messenger": "https://m.me/165126330021000",
+    "address": "17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP. HCM",
+    "working_hours": "8:00 – 20:00, Thứ 2 – Chủ nhật"
+  },
+  "web3forms_access_key": "REPLACE_WITH_KEY",
+  "analytics": {
+    "ga4_measurement_id": "REPLACE_WITH_G-XXXXXXX",
+    "google_ads_id": "REPLACE_WITH_AW-XXXXXXXXX",
+    "meta_pixel_id": "REPLACE_WITH_PIXEL_ID"
+  },
+  "social": {
+    "facebook": "https://m.me/165126330021000",
+    "zalo": "https://zalo.me/0909474123"
+  }
+}

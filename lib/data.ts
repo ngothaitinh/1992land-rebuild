@@ -70,6 +70,8 @@ export const projects: Project[] = [
     type: "Biệt thự nghỉ dưỡng",
     excerpt: "Khu biệt thự nghỉ dưỡng cao cấp ven biển tại Phú Mỹ, thiết kế theo phong cách resort sang trọng.",
     gradient: "from-blue-900 to-teal-800",
+    hero_image: "/images/projects/salacia-villas-phu-my/hero.webp",
+    gallery: ["/images/projects/salacia-villas-phu-my/hero.webp","/images/projects/salacia-villas-phu-my/gallery-1.webp","/images/projects/salacia-villas-phu-my/gallery-2.jpg","/images/projects/salacia-villas-phu-my/gallery-3.jpg"],
     faq: [
       { q: "Salacia Villas Phú Mỹ ở đâu?", a: "Dự án tọa lạc tại Thị xã Phú Mỹ, Bà Rịa — Vũng Tàu, cách trung tâm TP.HCM khoảng 80km theo cao tốc Biên Hòa — Vũng Tàu." },
       { q: "Salacia Villas có mức giá như thế nào?", a: "Mức giá cụ thể theo từng sản phẩm, liên hệ 1992 Land để nhận báo giá chi tiết và chính sách ưu đãi hiện hành." },
@@ -101,6 +103,8 @@ export const projects: Project[] = [
     type: "Căn hộ cao cấp",
     excerpt: "Dự án căn hộ cao cấp với thiết kế xanh, tiện ích đẳng cấp tại trung tâm Bình Dương.",
     gradient: "from-emerald-900 to-green-800",
+    hero_image: "/images/projects/ansana-by-kita/hero.jpg",
+    gallery: ["/images/projects/ansana-by-kita/hero.jpg","/images/projects/ansana-by-kita/gallery-1.jpg","/images/projects/ansana-by-kita/gallery-2.jpg","/images/projects/ansana-by-kita/gallery-3.jpg"],
     faq: [
       { q: "Ansana by Kita giá bao nhiêu?", a: "Giá từ 2.5 tỷ đồng cho căn hộ 1 phòng ngủ. Liên hệ để nhận bảng giá cập nhật nhất và chính sách thanh toán linh hoạt." },
       { q: "Ansana by Kita ở đâu?", a: "Dự án tọa lạc tại Thành phố Thuận An, Bình Dương — cách trung tâm TP.HCM 20km, thuận tiện di chuyển qua QL13 và Đại lộ Bình Dương." },
@@ -132,6 +136,8 @@ export const projects: Project[] = [
     type: "Căn hộ hạng sang",
     excerpt: "Dự án căn hộ hạng sang tại vị trí đắc địa trung tâm TP.HCM, chuẩn mực sống quốc tế.",
     gradient: "from-purple-900 to-indigo-800",
+    hero_image: "/images/projects/lusso-sai-gon/hero.jpg",
+    gallery: ["/images/projects/lusso-sai-gon/hero.jpg","/images/projects/lusso-sai-gon/gallery-1.jpg","/images/projects/lusso-sai-gon/gallery-2.jpg","/images/projects/lusso-sai-gon/gallery-3.jpg"],
     faq: [
       { q: "Lusso Sài Gòn giá bao nhiêu?", a: "Giá từ 5 tỷ đến 12 tỷ đồng tùy diện tích và tầng. Liên hệ 1992 Land để nhận bảng giá và chính sách ưu đãi ra hàng." },
       { q: "Lusso Sài Gòn ở đâu?", a: "Dự án tọa lạc tại Quận 7, TP. Hồ Chí Minh — vị trí trung tâm khu Nam Sài Gòn, gần Phú Mỹ Hưng." },
@@ -163,6 +169,8 @@ export const projects: Project[] = [
     type: "Nhà phố thương mại",
     excerpt: "Khu nhà phố thương mại ven sông, thiết kế độc đáo lấy cảm hứng từ nước.",
     gradient: "from-cyan-900 to-blue-800",
+    hero_image: "/images/projects/water-concept/hero.jpg",
+    gallery: ["/images/projects/water-concept/hero.jpg"],
     faq: [
       { q: "Water Concept Long An giá bao nhiêu?", a: "Giá từ 1.8 tỷ đến 3.5 tỷ đồng tùy diện tích mặt tiền và vị trí trong dự án. Liên hệ để nhận bảng giá chi tiết." },
       { q: "Water Concept ở đâu tại Long An?", a: "Dự án tọa lạc tại Huyện Cần Đước, Long An — cách TP.HCM 30km theo hướng Cần Giuộc." },
@@ -194,6 +202,8 @@ export const projects: Project[] = [
     type: "Biệt thự biển",
     excerpt: "Khu nghỉ dưỡng biệt thự biển tại Phước Hải, tận hưởng không khí trong lành và sóng biển.",
     gradient: "from-sky-900 to-blue-700",
+    hero_image: "/images/projects/the-quay-phuoc-hai/hero.jpg",
+    gallery: ["/images/projects/the-quay-phuoc-hai/hero.jpg","/images/projects/the-quay-phuoc-hai/gallery-1.jpg","/images/projects/the-quay-phuoc-hai/gallery-2.jpg","/images/projects/the-quay-phuoc-hai/gallery-3.jpg","/images/projects/the-quay-phuoc-hai/gallery-4.jpg"],
     faq: [
       { q: "The Quậy Phước Hải giá bao nhiêu?", a: "Giá từ 3 tỷ đến 8 tỷ đồng tùy vị trí và diện tích biệt thự. Liên hệ để nhận báo giá và tham quan thực tế dự án." },
       { q: "The Quậy ở đâu?", a: "Dự án tọa lạc tại bãi biển Phước Hải, Huyện Đất Đỏ, Bà Rịa — Vũng Tàu — một trong những bãi biển đẹp và yên tĩnh nhất khu vực." },
@@ -225,6 +235,8 @@ export const projects: Project[] = [
     type: "Đất nền trung tâm",
     excerpt: "Đất nền trung tâm hành chính tỉnh Bến Tre, tiềm năng tăng giá cao trong dài hạn.",
     gradient: "from-amber-900 to-orange-800",
+    hero_image: "/images/projects/thanh-phu-centre-point/hero.png",
+    gallery: ["/images/projects/thanh-phu-centre-point/hero.png","/images/projects/thanh-phu-centre-point/gallery-1.webp"],
     faq: [
       { q: "Thanh Phú Centre Point giá bao nhiêu?", a: "Giá từ 1.5 tỷ đến 3 tỷ đồng tùy vị trí lô đất. Liên hệ 1992 Land để nhận bảng giá và bản đồ vị trí từng lô." },
       { q: "Thanh Phú Centre Point ở đâu?", a: "Dự án tọa lạc tại trung tâm TP. Bến Tre, đối diện các công trình hành chính tỉnh — vị trí đắc địa nhất khu vực." },
@@ -254,6 +266,8 @@ export const projects: Project[] = [
     type: "Khu phức hợp",
     excerpt: "Dự án phức hợp đẳng cấp của Sun Group tại đảo Cù Lao Phố, Biên Hòa — trải nghiệm sống khác biệt.",
     gradient: "from-yellow-900 to-amber-700",
+    hero_image: "/images/projects/sun-group-cu-lao-pho/hero.jpg",
+    gallery: ["/images/projects/sun-group-cu-lao-pho/hero.jpg","/images/projects/sun-group-cu-lao-pho/gallery-1.jpg","/images/projects/sun-group-cu-lao-pho/gallery-2.jpg","/images/projects/sun-group-cu-lao-pho/gallery-3.jpg","/images/projects/sun-group-cu-lao-pho/gallery-4.jpg"],
     faq: [
       { q: "Sun Group Cù Lao Phố là dự án gì?", a: "Đây là khu phức hợp nghỉ dưỡng và đô thị đẳng cấp của Sun Group tọa lạc trên đảo Cù Lao Phố giữa sông Đồng Nai, TP. Biên Hòa." },
       { q: "Khi nào Sun Group Cù Lao Phố mở bán?", a: "Dự án sắp mở bán chính thức. Đăng ký ngay để nhận thông tin ra hàng và ưu tiên chọn vị trí đẹp." },
@@ -285,6 +299,8 @@ export const projects: Project[] = [
     type: "Căn hộ ven sông",
     excerpt: "Căn hộ view sông thoáng đãng, chuẩn sống tinh tế giữa lòng thành phố.",
     gradient: "from-teal-900 to-cyan-800",
+    hero_image: "/images/projects/river-collection-an-gia/hero.jpg",
+    gallery: ["/images/projects/river-collection-an-gia/hero.jpg","/images/projects/river-collection-an-gia/gallery-1.jpg","/images/projects/river-collection-an-gia/gallery-2.jpg","/images/projects/river-collection-an-gia/gallery-3.jpg"],
     faq: [
       { q: "River Collection An Gia giá bao nhiêu?", a: "Giá từ 3.5 tỷ đến 7 tỷ đồng tùy tầng và view. Căn view sông giá cao hơn khoảng 10-15%. Liên hệ để nhận bảng giá mới nhất." },
       { q: "River Collection ở đâu?", a: "Dự án tọa lạc tại Quận 7, TP. Hồ Chí Minh — ven sông Sài Gòn, gần khu đô thị Phú Mỹ Hưng và cầu Phú Mỹ." },

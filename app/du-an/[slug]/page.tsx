@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MapPin, Phone, ArrowLeft, ArrowRight, Building2, Tag, CheckCircle, ChevronDown } from "lucide-react";
 import { projects } from "@/lib/data";
@@ -85,6 +86,16 @@ export default async function ProjectDetailPage({ params }: Props) {
       <div
         className={`h-72 lg:h-96 bg-gradient-to-br ${project.gradient} relative flex items-end`}
       >
+        {project.hero_image && (
+          <Image
+            src={project.hero_image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        )}
         <div className="absolute inset-0 bg-navy-950/50" />
         <div className="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-8 pb-8">
           {/* Breadcrumb */}
@@ -175,23 +186,25 @@ export default async function ProjectDetailPage({ params }: Props) {
               </ul>
             </div>
 
-            {/* Gallery placeholder */}
-            <div className="mt-12">
-              <h2 className="text-xl font-bold text-navy-900 mb-6">Hình ảnh dự án</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className={`aspect-square rounded-xl bg-gradient-to-br ${project.gradient} opacity-${60 + i * 5} flex items-center justify-center`}
-                  >
-                    <span className="text-white/30 text-xs">Ảnh {i + 1}</span>
-                  </div>
-                ))}
+            {/* Gallery */}
+            {project.gallery && project.gallery.length > 0 && (
+              <div className="mt-12">
+                <h2 className="text-xl font-bold text-navy-900 mb-6">Hình ảnh dự án</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {project.gallery.map((src, i) => (
+                    <div key={i} className="aspect-video rounded-xl overflow-hidden relative bg-navy-100">
+                      <Image
+                        src={src}
+                        alt={`${project.title} - ảnh ${i + 1}`}
+                        fill
+                        className="object-cover hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 50vw, 33vw"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <p className="text-muted text-xs mt-3">
-                * Hình ảnh sẽ được cập nhật sớm. Liên hệ để nhận bộ ảnh dự án đầy đủ.
-              </p>
-            </div>
+            )}
           </div>
 
           {/* Right: Sticky info card */}

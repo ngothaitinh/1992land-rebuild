@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR_GITHUB_USERNAME/1992land-rebuild
+  repo: ngothaitinh/1992land-rebuild
   branch: main
   base_url: https://1992land.com
   auth_endpoint: /api/auth

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, MapPin, Calendar, Clock, CheckCircle } from "lucide-react";
 import { featuredProjects, remainingProjects, posts } from "@/lib/data";
 import Testimonials from "@/components/Testimonials";
@@ -104,6 +105,15 @@ export default function Home() {
                   className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300 h-full"
                 >
                   <div className={`h-56 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+                    {project.hero_image && (
+                      <Image
+                        src={project.hero_image}
+                        alt={project.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    )}
                     <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-navy-950/10 transition-colors" />
                     <div className="absolute bottom-4 left-4">
                       <span className="inline-block px-2.5 py-1 bg-white/15 backdrop-blur-sm text-white text-xs font-medium rounded-full">{project.type}</span>
@@ -162,19 +172,35 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn direction="right">
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { num: "8+", label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
-                { num: "500+", label: "Khách hàng tin tưởng", sub: "Từ năm 2020 đến nay" },
-                { num: "5+", label: "Năm kinh nghiệm", sub: "Thị trường BĐS miền Nam" },
-                { num: "100%", label: "Minh bạch pháp lý", sub: "Kiểm tra kỹ trước khi tư vấn" },
-              ].map((stat) => (
-                <div key={stat.label} className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/8 transition-colors">
-                  <div className="text-4xl font-bold text-gold-500 font-numeric mb-1">{stat.num}</div>
-                  <div className="text-surface font-medium text-sm mb-1">{stat.label}</div>
-                  <div className="text-surface/40 text-xs">{stat.sub}</div>
+            <div className="relative">
+              {/* Portrait */}
+              <div className="relative w-full max-w-sm mx-auto lg:mx-0 aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                <Image
+                  src="/images/team/nguyen-huu-tho.jpg"
+                  alt="Nguyễn Hữu Thọ — Nhà sáng lập 1992 Land"
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 1024px) 384px, 384px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 to-transparent" />
+                <div className="absolute bottom-6 left-6 text-white">
+                  <div className="font-bold text-lg">Nguyễn Hữu Thọ</div>
+                  <div className="text-gold-400 text-sm">Nhà sáng lập · 1992 Land</div>
                 </div>
-              ))}
+              </div>
+              {/* Stats float */}
+              <div className="absolute -right-4 top-8 grid grid-cols-1 gap-3">
+                {[
+                  { num: "500+", label: "Khách hàng" },
+                  { num: "5+", label: "Năm KN" },
+                  { num: "8+", label: "Dự án" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-3 text-center min-w-[80px]">
+                    <div className="text-gold-400 font-bold font-numeric text-lg">{s.num}</div>
+                    <div className="text-white/70 text-xs">{s.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -198,8 +224,12 @@ export default function Home() {
                   href={`/du-an/${project.slug}`}
                   className="group flex gap-4 p-5 rounded-2xl border border-border-soft bg-surface hover:border-navy-200 hover:shadow-md transition-all duration-200"
                 >
-                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${project.gradient} shrink-0 flex items-center justify-center`}>
-                    <span className="text-white/80 text-xl font-bold">{project.title[0]}</span>
+                  <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${project.gradient} shrink-0 relative overflow-hidden`}>
+                    {project.hero_image ? (
+                      <Image src={project.hero_image} alt={project.title} fill className="object-cover" sizes="64px" />
+                    ) : (
+                      <span className="absolute inset-0 flex items-center justify-center text-white/80 text-xl font-bold">{project.title[0]}</span>
+                    )}
                   </div>
                   <div className="min-w-0">
                     <h3 className="font-bold text-navy-900 text-sm leading-snug mb-1 group-hover:text-gold-500 transition-colors line-clamp-2">{project.title}</h3>

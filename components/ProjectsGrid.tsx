@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { MapPin, ArrowRight } from "lucide-react";
 import type { Project } from "@/lib/data";
 
@@ -59,6 +60,15 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                 className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300"
               >
                 <div className={`h-52 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
+                  {project.hero_image && (
+                    <Image
+                      src={project.hero_image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-navy-950/10 transition-colors" />
                   <div className="absolute bottom-4 left-4">
                     <span className="inline-block px-2.5 py-1 bg-white/15 backdrop-blur-sm text-white text-xs font-medium rounded-full">

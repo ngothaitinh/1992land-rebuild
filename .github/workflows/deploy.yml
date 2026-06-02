@@ -14,16 +14,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-
-      - name: Install pnpm
-        run: npm install -g pnpm@9
+          node-version: 22
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm install --legacy-peer-deps
 
       - name: Build
-        run: pnpm build
+        run: npm run build
 
       - name: Deploy via FTP to DirectAdmin
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5

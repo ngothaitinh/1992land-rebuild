@@ -71,6 +71,7 @@ export type Post = {
   category: string;
   readTime: string;
   hero_image?: string;
+  related_projects?: string[];
   body?: string;
   content?: PostBlock[];
 };

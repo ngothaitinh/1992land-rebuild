@@ -51,6 +51,7 @@ export function loadPosts(): Post[] {
       body,
     };
     if (meta.hero_image) post.hero_image = meta.hero_image;
+    if (meta.related_projects) post.related_projects = meta.related_projects.split(",").map((s: string) => s.trim());
     return post;
   });
   // Sort by date descending

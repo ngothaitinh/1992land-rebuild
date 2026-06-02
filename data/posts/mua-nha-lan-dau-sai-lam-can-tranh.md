@@ -6,6 +6,7 @@ category: Kinh nghiệm
 readTime: "8 phút đọc"
 excerpt: "Người mua nhà lần đầu thường mắc những lỗi có thể tránh được — từ bỏ qua kiểm tra pháp lý, đến bị cuốn theo cảm xúc khi chọn căn. Anh Thọ chia sẻ thẳng những gì anh đã thấy sau 5 năm tư vấn."
 hero_image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&fit=crop&auto=format"
+related_projects: "ansana-by-kita, lusso-sai-gon, river-collection-an-gia"
 ---
 
 Sau nhiều năm tư vấn, tôi nhận ra phần lớn người mua nhà lần đầu đều lặp lại một số sai lầm giống nhau. Điều đáng tiếc là hầu hết đều có thể tránh được nếu chuẩn bị kỹ hơn một chút.

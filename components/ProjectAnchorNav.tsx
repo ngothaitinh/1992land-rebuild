@@ -25,7 +25,7 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
   const dropRef = useRef<HTMLDivElement>(null);
 
   const visible = ALL_SECTIONS.filter((s) => sections.includes(s.id));
-  const activeLabel = visible.find((s) => s.id === active)?.label ?? visible[0]?.label ?? "Mục lục";
+  const activeLabel = "Menu";
 
   useEffect(() => {
     const obs: IntersectionObserver[] = [];

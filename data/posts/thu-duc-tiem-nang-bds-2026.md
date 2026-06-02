@@ -6,6 +6,7 @@ category: Thị trường
 readTime: "7 phút đọc"
 excerpt: "Thành phố Thủ Đức đang trong giai đoạn chuyển mình mạnh nhất từ trước đến nay. Hạ tầng, khu công nghệ và quỹ đất còn lại — tại sao giá BĐS khu vực này vẫn còn dư địa tăng?"
 hero_image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80&fit=crop&auto=format"
+related_projects: "water-concept, river-collection-an-gia"
 ---
 
 Thủ Đức không còn là "vùng ven". Với vai trò là thành phố trong thành phố, nơi đây đang tập trung hạ tầng, giáo dục và công nghệ ở mật độ cao nhất phía Đông TP.HCM.

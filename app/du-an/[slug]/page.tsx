@@ -13,6 +13,7 @@ import ProjectAnchorNav from "@/components/ProjectAnchorNav";
 import ProjectGalleryGrid from "@/components/ProjectGalleryGrid";
 import ProjectImageCarousel from "@/components/ProjectImageCarousel";
 import ContactModal from "@/components/ContactModal";
+import { loadPosts } from "@/lib/loadData";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -60,7 +61,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     show("gia-ban") && project.product_types ? "gia-ban" : null,
     show("vi-tri") ? "vi-tri" : null,
     show("tien-ich") && (project.amenities_internal || project.amenities_external) ? "tien-ich" : null,
-    show("mat-bang") && (project.masterplan_image || project.gallery?.length) ? "mat-bang" : null,
+    show("mat-bang") && project.masterplan_image ? "mat-bang" : null,
     show("phap-ly") ? "phap-ly" : null,
     show("dang-ky") ? "dang-ky" : null,
   ].filter(Boolean) as string[];
@@ -69,6 +70,11 @@ export default async function ProjectDetailPage({ params }: Props) {
     .filter((p) => p.slug !== slug && (p.area === project.area || p.project_type === project.project_type))
     .slice(0, 3);
   const relatedProjects = related.length >= 2 ? related : projects.filter((p) => p.slug !== slug).slice(0, 3);
+
+  const allPosts = loadPosts();
+  const relatedPosts = allPosts
+    .filter((p) => p.related_projects?.includes(slug))
+    .slice(0, 3);
 
   const img = (n: number) => project.gallery?.[n] ?? project.hero_image ?? null;
 
@@ -120,8 +126,8 @@ export default async function ProjectDetailPage({ params }: Props) {
         />
       </div>
 
-      {/* ── PROJECT HEADER (full width) ── */}
-      <div className="bg-white border-y border-border-soft">
+      {/* ── PROJECT HEADER (full width, hidden on mobile) ── */}
+      <div className="hidden md:block bg-white border-y border-border-soft">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
@@ -394,25 +400,14 @@ export default async function ProjectDetailPage({ params }: Props) {
             )}
 
             {/* ── MẶT BẰNG ── */}
-            {show("mat-bang") && (project.masterplan_image || project.gallery?.length) && (
+            {show("mat-bang") && project.masterplan_image && (
               <>
                 <Divider />
                 <section className="py-10">
-                  <SecHead id="mat-bang" title="Mặt bằng & hình ảnh" />
-                  {project.masterplan_image && (
-                    <div className="rounded-2xl overflow-hidden border border-border-soft mb-4">
-                      <Image src={project.masterplan_image} alt={`Mặt bằng ${project.title}`} width={900} height={500} className="w-full object-cover" />
-                    </div>
-                  )}
-                  {project.gallery && project.gallery.length > 0 && (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4">
-                      {project.gallery.slice(0, 6).map((src, i) => (
-                        <div key={i} className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border-soft">
-                          <Image src={src} alt={`${project.title} ${i + 1}`} fill className="object-cover hover:scale-105 transition-transform duration-500" sizes="33vw" />
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <SecHead id="mat-bang" title="Mặt bằng tổng thể" />
+                  <div className="rounded-2xl overflow-hidden border border-border-soft mb-4">
+                    <Image src={project.masterplan_image} alt={`Mặt bằng ${project.title}`} width={900} height={500} className="w-full object-cover" />
+                  </div>
                   <ContactModal label="Tải mặt bằng chi tiết" subject={`[Mặt bằng] ${project.title}`} projectSlug={project.slug} icon="plan" variant="outline" />
                 </section>
               </>
@@ -522,8 +517,29 @@ export default async function ProjectDetailPage({ params }: Props) {
           {/* ════ SIDEBAR ════ */}
           <div className="lg:col-span-1">
             <div className="sticky top-28 space-y-4">
-              {/* Specs */}
-              <div className="rounded-2xl border border-border-soft bg-white p-5 shadow-sm">
+
+              {/* Mobile: compact CTA only */}
+              <div className="lg:hidden rounded-2xl border border-border-soft bg-white p-4 shadow-sm space-y-2.5">
+                <a href="https://zalo.me/0909474123" target="_blank" rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-2.5 bg-[#10B981] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm">
+                  Chat Zalo ngay
+                </a>
+                <a href="tel:+84909474123"
+                  className="flex items-center justify-center gap-1.5 w-full py-2.5 bg-navy-900 text-white font-semibold rounded-full hover:bg-navy-700 transition-colors text-sm">
+                  <Phone size={13} /> 0909 474 123
+                </a>
+                <ContactModal
+                  label="Nhận bảng giá"
+                  subject={`[Bảng giá Sidebar] ${project.title}`}
+                  projectSlug={project.slug}
+                  icon="price"
+                  variant="ghost"
+                  className="w-full justify-center py-2.5"
+                />
+              </div>
+
+              {/* Desktop: full specs + CTA */}
+              <div className="hidden lg:block rounded-2xl border border-border-soft bg-white p-5 shadow-sm">
                 <h3 className="font-bold text-navy-900 mb-4 text-sm">Thông tin dự án</h3>
                 <ul className="space-y-3">
                   {specs.map((spec) => (
@@ -557,12 +573,44 @@ export default async function ProjectDetailPage({ params }: Props) {
                   />
                 </div>
               </div>
-              {/* Mini form */}
-              <div className="rounded-2xl border border-border-soft bg-white p-5 shadow-sm">
+
+              {/* Mini form — desktop only */}
+              <div className="hidden lg:block rounded-2xl border border-border-soft bg-white p-5 shadow-sm">
                 <h3 className="font-bold text-navy-900 mb-1 text-sm">Đăng ký nhanh</h3>
                 <p className="text-muted text-xs mb-4">Phản hồi trong 30 phút</p>
                 <ContactForm subject={`[Lead Sidebar] ${project.title}`} duAnQuanTam={project.slug} compact />
               </div>
+
+              {/* Tin tức liên quan */}
+              {relatedPosts.length > 0 && (
+                <div className="rounded-2xl border border-border-soft bg-white p-5 shadow-sm">
+                  <h3 className="font-bold text-navy-900 mb-4 text-sm">Tin tức liên quan</h3>
+                  <div className="space-y-3">
+                    {relatedPosts.map((rp) => (
+                      <Link
+                        key={rp.slug}
+                        href={`/tin-tuc/${rp.slug}`}
+                        className="group flex gap-3 p-2.5 -mx-1 rounded-xl hover:bg-navy-50 transition-colors"
+                      >
+                        <div className="w-14 h-14 rounded-lg overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700 shrink-0">
+                          {rp.hero_image && (
+                            <img src={rp.hero_image} alt={rp.title} className="w-full h-full object-cover" />
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-xs font-semibold text-navy-900 leading-snug line-clamp-2 group-hover:text-gold-500 transition-colors">
+                            {rp.title}
+                          </h4>
+                          <span className="text-[10px] text-muted mt-1 block">{rp.category} · {rp.readTime}</span>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link href="/tin-tuc" className="block text-center text-xs text-gold-500 font-semibold mt-4 hover:text-gold-600 transition-colors">
+                    Xem tất cả tin tức →
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>

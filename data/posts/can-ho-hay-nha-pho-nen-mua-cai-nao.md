@@ -6,6 +6,7 @@ category: Kinh nghiệm
 readTime: "6 phút đọc"
 excerpt: "Không có câu trả lời đúng cho tất cả — mà chỉ có câu trả lời phù hợp với từng người. Bài viết giúp bạn phân tích theo 4 tiêu chí: ngân sách, mục đích, lối sống và kế hoạch dài hạn."
 hero_image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80&fit=crop&auto=format"
+related_projects: "lusso-sai-gon, ansana-by-kita, la-home-long-an"
 ---
 
 Câu hỏi "căn hộ hay nhà phố" không có đáp án chung. Mỗi loại hình phục vụ một nhu cầu khác nhau. Thay vì hỏi cái nào tốt hơn, hãy hỏi cái nào phù hợp với bạn hơn.

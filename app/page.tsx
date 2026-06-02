@@ -2,17 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, MapPin } from "lucide-react";
 import { loadProjects, loadPosts } from "@/lib/loadData";
-
-const allProjects = loadProjects();
-const featuredProjects = allProjects.slice(0, 3);
-const remainingProjects = allProjects.slice(3);
-const posts = loadPosts();
 import Testimonials from "@/components/Testimonials";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 import Signature from "@/components/Signature";
 import HeroSection from "@/components/HeroSection";
 import NewsList from "@/components/NewsList";
+
+const allProjects = loadProjects();
+const featuredProjects = allProjects.slice(0, 3);
+const remainingProjects = allProjects.slice(3);
+const posts = loadPosts();
 
 export default function Home() {
   return (

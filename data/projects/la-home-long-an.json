@@ -1,0 +1,60 @@
+{
+  "order": 2,
+  "id": "prj_la_home_long_an",
+  "slug": "la-home-long-an",
+  "title": "Khu đô thị LA Home Long An",
+  "location": "Bến Lức, Long An",
+  "area": "Long An",
+  "project_type": "khu-do-thi",
+  "city": "long-an",
+  "district": "Huyện Bến Lức",
+  "developer": "TPI Land",
+  "priceRange": "Liên hệ",
+  "unit_count": 3750,
+  "status": "Đang mở bán",
+  "type": "Khu đô thị",
+  "excerpt": "Đại đô thị 100 ha tại cửa ngõ Tây Nam TP.HCM — 3.750 sản phẩm shophouse, biệt thự, shopvilla, nhà phố — pháp lý sở hữu lâu dài.",
+  "gradient": "from-emerald-900 to-teal-800",
+  "hero_image": "/images/projects/la-home-long-an/hero.jpg",
+  "gallery": [
+    "/images/projects/la-home-long-an/hero.jpg",
+    "/images/projects/la-home-long-an/gallery-1.jpg"
+  ],
+  "scale": "100 ha · 6 phân khu · 3.750 sản phẩm · mật độ XD 30%",
+  "legal_status": "Chấp thuận chủ trương đầu tư; quyết định giao đất; quy hoạch 1/500; sở hữu lâu dài.",
+  "ownership": "Sở hữu lâu dài",
+  "product_types": [
+    { "name": "Shophouse", "price_range": "Liên hệ" },
+    { "name": "Biệt thự", "price_range": "Liên hệ" },
+    { "name": "Shopvilla", "price_range": "Liên hệ" },
+    { "name": "Nhà phố liền kề", "price_range": "Liên hệ" }
+  ],
+  "nearby": [
+    { "name": "Cao tốc TP.HCM — Trung Lương", "distance": "Lân cận", "category": "road" },
+    { "name": "Trung tâm TP.HCM", "distance": "Cửa ngõ Tây Nam", "category": "road" }
+  ],
+  "highlights": [
+    { "title": "Vị trí cửa ngõ Tây Nam TP.HCM", "desc": "Nằm trong vùng trọng điểm phát triển kinh tế Long An, mạng lưới giao thông kết nối thuận lợi về TP.HCM." },
+    { "title": "Quy mô đại đô thị 100 ha", "desc": "6 phân khu đồng bộ, 3.750 sản phẩm đa dạng từ shophouse, biệt thự đến nhà phố liền kề." },
+    { "title": "Pháp lý hoàn chỉnh", "desc": "Đầy đủ chấp thuận chủ trương, quyết định giao đất, quy hoạch 1/500 — sở hữu lâu dài." },
+    { "title": "Tiềm năng tăng giá cao", "desc": "Hưởng lợi từ hạ tầng đang hoàn thiện và sự phát triển mạnh của vùng kinh tế Long An." }
+  ],
+  "amenities_internal": [
+    "Công viên trung tâm",
+    "Khu thương mại nội khu",
+    "Hồ sinh thái",
+    "Trường học & nhà trẻ",
+    "Khu thể thao đa năng",
+    "Hệ thống an ninh 24/7"
+  ],
+  "faq": [
+    { "q": "LA Home Long An ở đâu?", "a": "Dự án tọa lạc tại huyện Bến Lức, tỉnh Long An — cửa ngõ Tây Nam TP.HCM, trong vùng trọng điểm phát triển kinh tế Long An." },
+    { "q": "LA Home Long An có bao nhiêu sản phẩm?", "a": "Dự án có 3.750 sản phẩm gồm shophouse, biệt thự, shopvilla và nhà phố liền kề, chia thành 6 phân khu trên tổng diện tích 100 ha." },
+    { "q": "Pháp lý LA Home Long An thế nào?", "a": "Đã có chấp thuận chủ trương đầu tư, quyết định giao đất và quy hoạch 1/500 — pháp lý sở hữu lâu dài cho khách hàng Việt." }
+  ],
+  "lat": 10.62,
+  "lng": 106.48,
+  "address_full": "Huyện Bến Lức, tỉnh Long An",
+  "created_at": "2026-06-02T00:00:00Z",
+  "updated_at": "2026-06-02T00:00:00Z"
+}

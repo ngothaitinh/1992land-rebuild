@@ -11,6 +11,7 @@ import { loadProjects } from "@/lib/loadData";
 import ContactForm from "@/components/ContactForm";
 import ProjectAnchorNav from "@/components/ProjectAnchorNav";
 import ProjectGalleryGrid from "@/components/ProjectGalleryGrid";
+import ProjectImageCarousel from "@/components/ProjectImageCarousel";
 import ContactModal from "@/components/ContactModal";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -124,7 +125,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
+              <div className="hidden md:flex items-center gap-2 mb-2 flex-wrap">
                 <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
                   project.status === "Đang mở bán" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
                 }`}>{project.status}</span>
@@ -330,10 +331,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <Divider />
                 <section className="py-10">
                   <SecHead title="Điểm nổi bật & lý do đầu tư" />
-                  {img(1) && (
-                    <div className="relative h-44 rounded-2xl overflow-hidden mb-5 border border-border-soft">
-                      <Image src={img(1)!} alt={project.title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 to-transparent" />
+                  {project.gallery && project.gallery.length > 1 && (
+                    <div className="mb-5">
+                      <ProjectImageCarousel images={project.gallery.slice(0, 4)} title={project.title} />
                     </div>
                   )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -357,12 +357,6 @@ export default async function ProjectDetailPage({ params }: Props) {
                 <Divider />
                 <section className="py-10">
                   <SecHead id="tien-ich" title="Tiện ích dự án" />
-                  {img(2) && (
-                    <div className="relative h-40 rounded-2xl overflow-hidden mb-5 border border-border-soft">
-                      <Image src={img(2)!} alt={`Tiện ích ${project.title}`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 66vw" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent" />
-                    </div>
-                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {project.amenities_internal && (
                       <div>

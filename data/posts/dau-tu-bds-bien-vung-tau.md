@@ -5,6 +5,7 @@ date: 2026-05-15
 category: Đầu tư
 readTime: "7 phút đọc"
 excerpt: "BĐS biển Vũng Tàu đang thu hút nhiều nhà đầu tư. Bài viết tổng hợp những yếu tố quan trọng cần cân nhắc kỹ trước khi quyết định đầu tư."
+hero_image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80&fit=crop&auto=format"
 ---
 
 Cao tốc Biên Hòa — Vũng Tàu đưa vào khai thác đã thay đổi cuộc chơi cho bất động sản ven biển khu vực này. Thời gian di chuyển từ TP.HCM rút ngắn đáng kể, kéo theo sự quan tâm trở lại với các sản phẩm nghỉ dưỡng tại Phú Mỹ, Long Hải, Phước Hải.

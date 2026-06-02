@@ -5,6 +5,7 @@ date: 2026-05-20
 category: Thị trường
 readTime: "5 phút đọc"
 excerpt: "Phân tích toàn cảnh thị trường BĐS TP.HCM năm 2026 — phân khúc nào đang tăng trưởng, khu vực nào tiềm năng nhất cho nhà đầu tư."
+hero_image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80&fit=crop&auto=format"
 ---
 
 Sau giai đoạn trầm lắng 2022–2024, thị trường bất động sản TP.HCM bước vào năm 2026 với tâm thế ổn định hơn. Lãi suất cho vay đã hạ về vùng hợp lý, nguồn cung mới quay lại và niềm tin của người mua dần phục hồi. Nhưng cơ hội không chia đều cho mọi phân khúc.

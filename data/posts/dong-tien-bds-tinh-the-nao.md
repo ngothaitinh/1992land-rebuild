@@ -5,6 +5,7 @@ date: 2026-04-05
 category: Đầu tư
 readTime: "9 phút đọc"
 excerpt: "Nhiều người mua BĐS đầu tư mà không tính được dòng tiền thực. Bài viết hướng dẫn 3 chỉ số cơ bản — yield, ROI và thời gian hoàn vốn — và cách áp dụng vào các dự án tại Vũng Tàu, Bình Dương."
+hero_image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80&fit=crop&auto=format"
 ---
 
 Đầu tư BĐS mà không tính dòng tiền giống như lái xe không nhìn đồng hồ xăng. Ba chỉ số dưới đây đủ để bạn đánh giá nhanh một dự án có đáng xuống tiền hay không.

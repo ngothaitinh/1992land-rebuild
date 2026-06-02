@@ -5,6 +5,7 @@ date: 2026-03-15
 category: Pháp lý
 readTime: "12 phút đọc"
 excerpt: "Từ đặt cọc đến ra sổ, mỗi bước đều có rủi ro nếu không biết. Bài viết mô tả toàn bộ quy trình pháp lý một giao dịch BĐS tại TP.HCM — bao gồm thời gian, phí và những điểm cần chú ý."
+hero_image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80&fit=crop&auto=format"
 ---
 
 Một giao dịch chuyển nhượng BĐS có nhiều bước, và rủi ro thường nằm ở những bước người mua không để ý. Dưới đây là bản đồ đầy đủ từ lúc đặt cọc đến khi cầm sổ mới.

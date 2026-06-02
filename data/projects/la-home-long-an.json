@@ -8,53 +8,56 @@
   "project_type": "khu-do-thi",
   "city": "long-an",
   "district": "Huyện Bến Lức",
-  "developer": "TPI Land",
+  "developer": "Công ty CP Phát triển Đô thị Prodezi Long An",
   "priceRange": "Liên hệ",
   "unit_count": 3750,
   "status": "Đang mở bán",
   "type": "Khu đô thị",
-  "excerpt": "Đại đô thị 100 ha tại cửa ngõ Tây Nam TP.HCM — 3.750 sản phẩm shophouse, biệt thự, shopvilla, nhà phố — pháp lý sở hữu lâu dài.",
+  "excerpt": "Đại đô thị 100 ha mặt đường DT824, Bến Lức — 3.750 sản phẩm, pháp lý sở hữu lâu dài, bảo lãnh OCB.",
   "gradient": "from-emerald-900 to-teal-800",
   "hero_image": "/images/projects/la-home-long-an/hero.jpg",
   "gallery": [
     "/images/projects/la-home-long-an/hero.jpg",
     "/images/projects/la-home-long-an/gallery-1.jpg"
   ],
-  "scale": "100 ha · 6 phân khu · 3.750 sản phẩm · mật độ XD 30%",
-  "legal_status": "Chấp thuận chủ trương đầu tư; quyết định giao đất; quy hoạch 1/500; sở hữu lâu dài.",
+  "scale": "100 ha · mặt đường DT824 · 3.750 sản phẩm · bảo lãnh ngân hàng OCB",
+  "legal_status": "Đầy đủ: chấp thuận chủ trương đầu tư, quyết định giao đất, quy hoạch 1/500, giấy phép hạ tầng, giấy chứng nhận quyền sử dụng đất — sở hữu lâu dài.",
   "ownership": "Sở hữu lâu dài",
   "product_types": [
-    { "name": "Shophouse", "price_range": "Liên hệ" },
-    { "name": "Biệt thự", "price_range": "Liên hệ" },
-    { "name": "Shopvilla", "price_range": "Liên hệ" },
-    { "name": "Nhà phố liền kề", "price_range": "Liên hệ" }
+    { "name": "Nhà phố", "area": "Liên hệ", "price_range": "Liên hệ", "total": 2200 },
+    { "name": "Nhà phố thương mại", "area": "Mặt tiền 18 m & 60 m", "price_range": "Liên hệ", "total": 1151 },
+    { "name": "Biệt thự view kênh", "area": "Liên hệ", "price_range": "Liên hệ", "total": 360 },
+    { "name": "Shopvilla", "area": "Liên hệ", "price_range": "Liên hệ", "total": 40 }
   ],
   "nearby": [
     { "name": "Cao tốc TP.HCM — Trung Lương", "distance": "Lân cận", "category": "road" },
+    { "name": "DT824 — Trục kết nối trung tâm Bến Lức", "distance": "Mặt tiền dự án", "category": "road" },
     { "name": "Trung tâm TP.HCM", "distance": "Cửa ngõ Tây Nam", "category": "road" }
   ],
   "highlights": [
-    { "title": "Vị trí cửa ngõ Tây Nam TP.HCM", "desc": "Nằm trong vùng trọng điểm phát triển kinh tế Long An, mạng lưới giao thông kết nối thuận lợi về TP.HCM." },
-    { "title": "Quy mô đại đô thị 100 ha", "desc": "6 phân khu đồng bộ, 3.750 sản phẩm đa dạng từ shophouse, biệt thự đến nhà phố liền kề." },
-    { "title": "Pháp lý hoàn chỉnh", "desc": "Đầy đủ chấp thuận chủ trương, quyết định giao đất, quy hoạch 1/500 — sở hữu lâu dài." },
-    { "title": "Tiềm năng tăng giá cao", "desc": "Hưởng lợi từ hạ tầng đang hoàn thiện và sự phát triển mạnh của vùng kinh tế Long An." }
+    { "title": "Chủ đầu tư Prodezi Long An", "desc": "Công ty CP Phát triển Đô thị Prodezi Long An — đơn vị phát triển đô thị có kinh nghiệm tại thị trường Long An." },
+    { "title": "Vị trí mặt đường DT824 — Trung tâm Bến Lức", "desc": "Tiếp giáp đường DT824, xã Lương Hòa — cửa ngõ Tây Nam TP.HCM, kết nối thuận lợi qua cao tốc TP.HCM — Trung Lương." },
+    { "title": "Pháp lý hoàn chỉnh — Bảo lãnh OCB", "desc": "Đầy đủ 5 loại giấy tờ pháp lý + bảo lãnh tín dụng từ Ngân hàng OCB — đảm bảo an toàn cho người mua." },
+    { "title": "Đang mở bán phân khu LA SOL — 375 sản phẩm", "desc": "Phân khu LA SOL đang mở bán 375 sản phẩm gồm nhà phố, shophouse mặt tiền và biệt thự — ưu đãi chiết khấu đến 15%." }
   ],
   "amenities_internal": [
-    "Công viên trung tâm",
+    "Công viên trung tâm & hồ sinh thái",
+    "Kênh nước nội khu cảnh quan",
     "Khu thương mại nội khu",
-    "Hồ sinh thái",
     "Trường học & nhà trẻ",
     "Khu thể thao đa năng",
-    "Hệ thống an ninh 24/7"
+    "Hệ thống an ninh 24/7",
+    "Hạ tầng đồng bộ — điện, nước, viễn thông"
   ],
   "faq": [
-    { "q": "LA Home Long An ở đâu?", "a": "Dự án tọa lạc tại huyện Bến Lức, tỉnh Long An — cửa ngõ Tây Nam TP.HCM, trong vùng trọng điểm phát triển kinh tế Long An." },
-    { "q": "LA Home Long An có bao nhiêu sản phẩm?", "a": "Dự án có 3.750 sản phẩm gồm shophouse, biệt thự, shopvilla và nhà phố liền kề, chia thành 6 phân khu trên tổng diện tích 100 ha." },
-    { "q": "Pháp lý LA Home Long An thế nào?", "a": "Đã có chấp thuận chủ trương đầu tư, quyết định giao đất và quy hoạch 1/500 — pháp lý sở hữu lâu dài cho khách hàng Việt." }
+    { "q": "LA Home Long An ở đâu?", "a": "Dự án tọa lạc tại mặt đường DT824, xã Lương Hòa, huyện Bến Lức, tỉnh Long An — vị trí trung tâm huyện Bến Lức, cửa ngõ Tây Nam TP.HCM." },
+    { "q": "LA Home Long An do ai phát triển?", "a": "Chủ đầu tư là Công ty CP Phát triển Đô thị Prodezi Long An. TPI Land là đơn vị phân phối chính thức." },
+    { "q": "LA Home Long An có bao nhiêu sản phẩm?", "a": "Dự án có 3.750 sản phẩm: 2.200 nhà phố, 1.151 nhà phố thương mại, 360 biệt thự view kênh và 40 shopvilla. Phân khu LA SOL đang mở bán 375 sản phẩm." },
+    { "q": "Pháp lý LA Home Long An thế nào?", "a": "Pháp lý đầy đủ: chấp thuận chủ trương đầu tư, quyết định giao đất, quy hoạch 1/500, giấy phép hạ tầng và giấy chứng nhận quyền sử dụng đất. Có bảo lãnh từ Ngân hàng OCB. Sở hữu lâu dài." }
   ],
   "lat": 10.62,
   "lng": 106.48,
-  "address_full": "Huyện Bến Lức, tỉnh Long An",
+  "address_full": "Mặt đường DT824, xã Lương Hòa, huyện Bến Lức, tỉnh Long An",
   "created_at": "2026-06-02T00:00:00Z",
   "updated_at": "2026-06-02T00:00:00Z"
 }

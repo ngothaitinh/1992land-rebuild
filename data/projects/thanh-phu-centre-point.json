@@ -9,55 +9,55 @@
   "city": "long-an",
   "district": "Huyện Bến Lức",
   "developer": "BIM Land (BIM Group)",
-  "priceRange": "Liên hệ",
-  "area_from": 45,
-  "area_to": 200,
-  "unit_count": 12000,
-  "status": "Sắp mở bán",
+  "priceRange": "Từ 70 triệu/m²",
+  "unit_count": 1251,
+  "status": "Đang mở bán",
   "type": "Khu đô thị phức hợp",
-  "excerpt": "Đại đô thị 200 ha của BIM Land tại Bến Lức, Long An — có bãi biển nhân tạo lớn bậc nhất Tây Sài Gòn, ~12.000 sản phẩm.",
+  "excerpt": "Đại đô thị 200 ha của BIM Land tại Bến Lức, Long An — hồ nổi 3.300 m², cầu Rồng 50 m, megamall 9,5 ha.",
   "gradient": "from-amber-900 to-orange-800",
   "hero_image": "/images/projects/thanh-phu-centre-point/hero.png",
   "gallery": [
     "/images/projects/thanh-phu-centre-point/hero.png",
     "/images/projects/thanh-phu-centre-point/gallery-1.webp"
   ],
-  "scale": "200 ha (GĐ1: 85 ha) · ~12.000 sản phẩm · tổng vốn ~10.700 tỷ · mật độ XD 16%",
+  "scale": "200 ha (GĐ1: 85,2 ha) · 1.251 sản phẩm · mật độ XD 16% · giai đoạn 2024–2029",
   "legal_status": "Chấp thuận đầu tư QĐ 8909/QĐ-UBND (28/9/2023); quy hoạch 1/500 QĐ 7500/QĐ-UBND (27/6/2025); sổ đỏ lâu dài cho khách hàng Việt.",
-  "handover_date": "Khởi công 2026",
+  "handover_date": "Giai đoạn 2024–2029",
   "ownership": "Sổ đỏ lâu dài",
   "product_types": [
-    { "name": "Căn hộ cao tầng", "area": "45 – 90 m²", "price_range": "40 – 55 triệu/m²", "total": 7000 },
-    { "name": "Shophouse", "area": "5,5m × 15m", "price_range": "Từ 70 triệu/m²", "total": 600 },
-    { "name": "Biệt thự song lập", "area": "8×18m – 9×18m", "price_range": "Từ 80 triệu/m²", "total": 330 },
-    { "name": "Nhà phố", "area": "5×18m – 6×20m", "price_range": "Từ 65 triệu/m²" }
+    { "name": "Shophouse", "area": "5,5 × 15 m", "price_range": "Từ 70 triệu/m²", "total": 607 },
+    { "name": "Biệt thự song lập", "area": "8×18 m – 9×18 m", "price_range": "Từ 80 triệu/m²", "total": 313 },
+    { "name": "Stripmall / Nhà phố thương mại", "area": "Liên hệ", "price_range": "Liên hệ", "total": 331 }
   ],
   "nearby": [
     { "name": "Cao tốc TP.HCM — Trung Lương", "distance": "Lân cận", "category": "road" },
-    { "name": "Trung tâm TP.HCM", "distance": "Khu Tây Sài Gòn", "category": "road" }
+    { "name": "830C Đường Nguyễn Hữu Trí, Bến Lức", "distance": "Vị trí dự án", "category": "road" }
   ],
   "highlights": [
-    { "title": "Chủ đầu tư BIM Land", "desc": "Thành viên BIM Group — tập đoàn đa ngành uy tín với nhiều đại đô thị, khu nghỉ dưỡng." },
-    { "title": "Bãi biển nhân tạo lớn nhất Tây Sài Gòn", "desc": "Điểm nhấn tiện ích hiếm có cho một khu đô thị tại Long An." },
-    { "title": "Quy mô đại đô thị 200 ha", "desc": "Mật độ xây dựng chỉ 16%, dành phần lớn diện tích cho không gian xanh và mặt nước." },
-    { "title": "Pháp lý đầy đủ", "desc": "Đã có chấp thuận đầu tư và quy hoạch 1/500, sổ đỏ lâu dài." }
+    { "title": "Chủ đầu tư BIM Land", "desc": "Thành viên BIM Group — tập đoàn đa ngành uy tín với nhiều đại đô thị và khu nghỉ dưỡng trên cả nước." },
+    { "title": "Hồ nổi 3.300 m² & Cầu Rồng 50 m", "desc": "Điểm nhấn tiện ích hiếm có — hồ nổi lớn kết hợp nhạc nước và cầu Rồng biểu tượng của khu đô thị." },
+    { "title": "Megamall 9,5 ha & Sân Pickleball quốc tế", "desc": "Trung tâm thương mại quy mô lớn và các tiện ích thể thao chuẩn quốc tế phục vụ cư dân." },
+    { "title": "Pháp lý đầy đủ — Ưu đãi hấp dẫn", "desc": "Chấp thuận đầu tư + quy hoạch 1/500 + sổ đỏ lâu dài. Chiết khấu đến 17%, hỗ trợ lãi suất 24 tháng." }
   ],
   "amenities_internal": [
-    "Bãi biển nhân tạo (lớn nhất Tây Sài Gòn)",
-    "Trung tâm thương mại Megamall & Stripmall",
-    "Sân khấu nhạc nước ngoài trời",
-    "Khách sạn cao cấp",
-    "Công viên trung tâm & không gian cộng đồng",
-    "Căn hộ tích hợp Smart Home"
+    "Hồ nổi 3.300 m²",
+    "Cầu Rồng biểu tượng dài 50 m",
+    "Công viên nhạc nước ngoài trời",
+    "Megamall trung tâm thương mại 9,5 ha",
+    "Stripmall thương mại nội khu",
+    "Sân Pickleball tiêu chuẩn quốc tế",
+    "Sân thể thao đa năng",
+    "Công viên trung tâm & không gian xanh"
   ],
   "faq": [
-    { "q": "Thanh Phú Centre Point ở đâu?", "a": "Dự án tọa lạc tại xã Thanh Phú, huyện Bến Lức, tỉnh Long An — thuộc khu Tây Sài Gòn, kết nối thuận tiện về trung tâm TP.HCM." },
-    { "q": "Thanh Phú Centre Point do ai phát triển?", "a": "Dự án do BIM Land — thành viên của BIM Group — phát triển, quy mô 200 ha với tổng vốn khoảng 10.700 tỷ đồng." },
-    { "q": "Pháp lý Thanh Phú Centre Point thế nào?", "a": "Dự án có chấp thuận đầu tư (QĐ 8909/QĐ-UBND ngày 28/9/2023) và quy hoạch 1/500 (QĐ 7500/QĐ-UBND ngày 27/6/2025), sổ đỏ lâu dài cho khách Việt." }
+    { "q": "Thanh Phú Centre Point ở đâu?", "a": "Dự án tọa lạc tại 830C Đường Nguyễn Hữu Trí, xã Thanh Phú, huyện Bến Lức, tỉnh Long An — khu Tây Sài Gòn, kết nối thuận tiện về trung tâm TP.HCM qua cao tốc TP.HCM — Trung Lương." },
+    { "q": "Thanh Phú Centre Point có bao nhiêu sản phẩm?", "a": "Giai đoạn 1 (85,2 ha) gồm 1.251 sản phẩm: 607 shophouse (5,5×15 m), 313 biệt thự song lập (8×18 m – 9×18 m), và 331 stripmall/nhà phố thương mại." },
+    { "q": "Pháp lý Thanh Phú Centre Point thế nào?", "a": "Dự án đã có chấp thuận đầu tư (QĐ 8909/QĐ-UBND ngày 28/9/2023) và quy hoạch 1/500 (QĐ 7500/QĐ-UBND ngày 27/6/2025). Khách hàng được cấp sổ đỏ lâu dài." },
+    { "q": "Giá bán Thanh Phú Centre Point?", "a": "Shophouse từ ~70 triệu/m², biệt thự song lập từ ~80 triệu/m². Hiện có ưu đãi chiết khấu đến 17%, hỗ trợ lãi suất 24 tháng và miễn phí quản lý 2 năm." }
   ],
   "lat": 10.64,
   "lng": 106.49,
-  "address_full": "Xã Thanh Phú, huyện Bến Lức, tỉnh Long An",
+  "address_full": "830C Đường Nguyễn Hữu Trí, xã Thanh Phú, huyện Bến Lức, tỉnh Long An",
   "created_at": "2026-05-01T00:00:00Z",
-  "updated_at": "2026-06-01T00:00:00Z"
+  "updated_at": "2026-06-02T00:00:00Z"
 }

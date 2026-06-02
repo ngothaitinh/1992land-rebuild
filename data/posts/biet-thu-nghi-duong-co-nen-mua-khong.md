@@ -5,6 +5,7 @@ date: 2026-03-28
 category: Đầu tư
 readTime: "8 phút đọc"
 excerpt: "Biệt thự nghỉ dưỡng hấp dẫn vì cam kết lợi nhuận cao — nhưng có những rủi ro ẩn mà brochure không bao giờ nói. Đây là phân tích thẳng thắn từ góc độ người tư vấn."
+hero_image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80&fit=crop&auto=format"
 ---
 
 Biệt thự nghỉ dưỡng thường đi kèm những con số hấp dẫn: cam kết lợi nhuận 8–10%/năm, chia sẻ kỳ nghỉ, tiềm năng tăng giá. Nhưng đằng sau đó là những điều brochure hiếm khi nói rõ.

@@ -106,6 +106,17 @@ export default async function PostDetailPage({ params }: Props) {
               Quay lại tin tức
             </Link>
 
+            {/* Featured image */}
+            {post.hero_image && (
+              <div className="rounded-2xl overflow-hidden aspect-video mb-8">
+                <img
+                  src={post.hero_image}
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
             {/* Lead */}
             <p className="text-lg text-muted leading-relaxed mb-8 border-l-4 border-gold-500 pl-6 font-medium">
               {post.excerpt}
@@ -182,7 +193,11 @@ export default async function PostDetailPage({ params }: Props) {
                         href={`/tin-tuc/${rp.slug}`}
                         className="group flex gap-3 p-3 rounded-xl border border-border-soft hover:border-navy-200 transition-colors"
                       >
-                        <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-navy-500 to-navy-700 shrink-0" />
+                        <div className="w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700 shrink-0">
+                          {rp.hero_image && (
+                            <img src={rp.hero_image} alt={rp.title} className="w-full h-full object-cover" />
+                          )}
+                        </div>
                         <div className="min-w-0">
                           <h4 className="text-xs font-semibold text-navy-900 leading-snug line-clamp-2 group-hover:text-gold-500 transition-colors">
                             {rp.title}

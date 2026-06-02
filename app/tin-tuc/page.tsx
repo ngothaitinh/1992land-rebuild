@@ -67,9 +67,19 @@ export default function TinTucPage() {
               href={`/tin-tuc/${post.slug}`}
               className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300"
             >
-              {/* Image placeholder */}
-              <div className="h-48 bg-gradient-to-br from-navy-500 to-navy-800 relative flex items-center justify-center">
-                <Tag size={32} className="text-white/20" />
+              {/* Thumbnail */}
+              <div className="h-48 relative overflow-hidden">
+                {post.hero_image ? (
+                  <img
+                    src={post.hero_image}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-navy-500 to-navy-800 flex items-center justify-center">
+                    <Tag size={32} className="text-white/20" />
+                  </div>
+                )}
                 <div className="absolute bottom-4 left-4">
                   <span className="inline-block px-2.5 py-1 bg-gold-500/90 text-navy-950 text-xs font-semibold rounded-full">
                     {post.category}

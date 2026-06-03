@@ -1,0 +1,11 @@
+<?php
+/**
+ * GitHub OAuth credentials.
+ * Copy this to config.php and fill in your values.
+ * NEVER commit config.php to git!
+ */
+return [
+    'client_id'     => 'YOUR_GITHUB_OAUTH_CLIENT_ID',
+    'client_secret' => 'YOUR_GITHUB_OAUTH_CLIENT_SECRET',
+    'redirect_uri'  => 'https://1992land.com/auth/callback.php',
+];

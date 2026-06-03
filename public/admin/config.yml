@@ -2,8 +2,8 @@ backend:
   name: github
   repo: ngothaitinh/1992land-rebuild
   branch: main
-  auth_type: pkce
-  app_id: Ov23liBSjwWmBxChohDF
+  base_url: https://1992land.com
+  auth_endpoint: /auth/index.php
 
 media_folder: public/images/projects
 public_folder: /images/projects

@@ -22,6 +22,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Create OAuth config
+        env:
+          OAUTH_ID: ${{ secrets.OAUTH_CLIENT_ID }}
+          OAUTH_SECRET: ${{ secrets.OAUTH_CLIENT_SECRET }}
+        run: |
+          mkdir -p ./out/auth
+          printf '<?php\nreturn [\n    "client_id"     => "%s",\n    "client_secret" => "%s",\n    "redirect_uri"  => "https://1992land.com/auth/callback.php",\n];\n' "$OAUTH_ID" "$OAUTH_SECRET" > ./out/auth/config.php
+
       - name: Deploy via FTP to DirectAdmin
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

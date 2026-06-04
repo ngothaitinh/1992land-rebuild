@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -46,9 +46,9 @@ function Divider() {
 
 function SecHead({ id, title }: { id?: string; title: string }) {
   return (
-    <div id={id} className="scroll-mt-28 mb-6">
-      <h2 className="text-xl font-bold text-navy-900">{title}</h2>
-      <div className="mt-2 w-8 h-0.5 bg-gold-500 rounded-full" />
+    <div id={id} className="scroll-mt-28 mb-8">
+      <h2 className="text-2xl font-bold text-navy-900 tracking-tight">{title}</h2>
+      <div className="mt-3 w-10 h-[3px] bg-gold-500 rounded-full" />
     </div>
   );
 }
@@ -132,31 +132,52 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {/* ── PROJECT HEADER ── */}
       <div className="bg-white border-y border-border-soft">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-full ${
-                  project.status === "Đang mở bán" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
-                }`}>{project.status}</span>
-                <span className="px-2.5 py-0.5 bg-navy-100 text-navy-700 text-xs font-medium rounded-full">{project.type}</span>
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-6 lg:py-7">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+            <div className="min-w-0 flex-1">
+              {/* Badges */}
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
+                <span className={`inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold rounded-full ${
+                  project.status === "Đang mở bán"
+                    ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    : "bg-amber-50 text-amber-700 border border-amber-200"
+                }`}>
+                  <span className={`w-1.5 h-1.5 rounded-full ${project.status === "Đang mở bán" ? "bg-emerald-500" : "bg-amber-500"}`} />
+                  {project.status}
+                </span>
+                <span className="px-2.5 py-1 bg-navy-50 text-navy-600 text-xs font-medium rounded-full border border-navy-100">
+                  {project.type}
+                </span>
               </div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-navy-900 mb-1">{project.title}</h1>
-              <div className="flex items-center gap-1.5 text-muted text-sm">
-                <MapPin size={13} className="shrink-0" />{project.address_full ?? project.location}
+              {/* Title */}
+              <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-navy-900 tracking-tight leading-tight mb-2">
+                {project.title}
+              </h1>
+              {/* Location */}
+              <div className="flex items-center gap-1.5 text-muted text-sm mb-2">
+                <MapPin size={13} className="shrink-0 text-gold-500" />
+                <span>{project.address_full ?? project.location}</span>
               </div>
+              {/* Excerpt */}
+              {project.excerpt && (
+                <p className="text-muted text-sm leading-relaxed max-w-xl mt-1 hidden lg:block">
+                  {project.excerpt}
+                </p>
+              )}
             </div>
-            <div className="flex flex-row lg:flex-col items-center lg:items-end gap-3 lg:gap-2 shrink-0">
+
+            {/* Price + CTA */}
+            <div className="flex flex-row lg:flex-col items-center lg:items-end gap-4 lg:gap-3 shrink-0">
               <div className="text-left lg:text-right">
-                <div className="text-muted text-xs">Giá từ</div>
-                <div className="text-gold-500 font-bold text-xl font-numeric">{project.priceRange}</div>
+                <div className="text-[10px] text-muted uppercase tracking-wider mb-0.5">Giá từ</div>
+                <div className="text-gold-500 font-bold text-2xl font-numeric leading-none">{project.priceRange}</div>
               </div>
               <ContactModal
                 label="Đăng ký tư vấn"
                 subject={`[Lead] ${project.title}`}
                 projectSlug={project.slug}
                 variant="gold"
-                className="py-2.5 px-6 text-sm"
+                className="py-2.5 px-6 text-sm shrink-0"
               />
             </div>
           </div>
@@ -164,39 +185,31 @@ export default async function ProjectDetailPage({ params }: Props) {
       </div>
 
       {/* ── SPECS BAR ── */}
-      <div className="bg-navy-50 border-b border-border-soft">
+      <div className="bg-white border-b border-border-soft">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5">
-          <div className="flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-0">
-            {/* Specs grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-row lg:flex-1 gap-y-4 gap-x-4 lg:gap-0 lg:divide-x lg:divide-border-soft">
+
+          {/* Desktop: flex row with dividers */}
+          <div className="hidden lg:flex items-center gap-0">
+            <div className="flex flex-1 divide-x divide-border-soft">
               {specItems.map((s) => (
-                <div key={s.label} className="lg:px-5 first:lg:pl-0 flex items-start gap-2.5 lg:gap-0 lg:flex-col lg:items-start">
-                  <div className="hidden lg:flex items-center gap-1.5 mb-1">
-                    <s.icon size={12} className="text-gold-500" />
-                    <span className="text-[10px] text-muted uppercase tracking-wider">{s.label}</span>
+                <div key={s.label} className="px-5 first:pl-0 flex flex-col gap-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <s.icon size={11} className="text-gold-500 shrink-0" />
+                    <span className="text-[10px] text-muted uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</span>
                   </div>
-                  <div className="flex items-center gap-1.5 lg:hidden">
-                    <s.icon size={12} className="text-gold-500 shrink-0" />
-                    <span className="text-[10px] text-muted uppercase tracking-wider">{s.label}</span>
-                  </div>
-                  <span className="font-semibold text-navy-900 text-sm leading-snug lg:block hidden">{s.value}</span>
-                  <span className="font-semibold text-navy-900 text-sm leading-snug lg:hidden ml-auto text-right">{s.value}</span>
+                  <span className="text-sm font-bold text-navy-900 leading-tight truncate">{s.value}</span>
                 </div>
               ))}
             </div>
-
-            {/* Divider desktop */}
-            <div className="hidden lg:block w-px h-10 bg-border-soft mx-6 shrink-0" />
-
-            {/* CTA buttons */}
-            <div className="flex gap-3 shrink-0">
+            <div className="w-px h-10 bg-border-soft mx-6 shrink-0" />
+            <div className="flex gap-2.5 shrink-0">
               <a
                 href="https://zalo.me/0909474123"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 bg-[#0068FF] text-white text-sm font-semibold rounded-full hover:opacity-90 transition-opacity"
+                className="flex items-center gap-2 px-4 py-2 bg-[#0068FF] text-white text-xs font-bold rounded-full hover:opacity-90 active:scale-95 transition-all"
               >
-                <ZaloIcon size={16} /> Chat Zalo
+                <ZaloIcon size={14} /> Zalo
               </a>
               <ContactModal
                 label="Nhận bảng giá"
@@ -207,6 +220,41 @@ export default async function ProjectDetailPage({ params }: Props) {
               />
             </div>
           </div>
+
+          {/* Mobile: 2-col grid */}
+          <div className="lg:hidden">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-4 mb-4">
+              {specItems.map((s) => (
+                <div key={s.label} className="flex flex-col gap-0.5">
+                  <div className="flex items-center gap-1">
+                    <s.icon size={10} className="text-gold-500 shrink-0" />
+                    <span className="text-[10px] text-muted uppercase tracking-wider">{s.label}</span>
+                  </div>
+                  <span className="text-sm font-bold text-navy-900 leading-snug">{s.value}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2.5 border-t border-border-soft pt-4">
+              <a
+                href="https://zalo.me/0909474123"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#0068FF] text-white text-sm font-bold rounded-full hover:opacity-90 active:scale-95 transition-all"
+              >
+                <ZaloIcon size={15} /> Chat Zalo
+              </a>
+              <div className="flex-1">
+                <ContactModal
+                  label="Nhận bảng giá"
+                  subject={`[Bảng giá] ${project.title}`}
+                  projectSlug={project.slug}
+                  icon="price"
+                  variant="gold"
+                  className="w-full justify-center"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -214,11 +262,11 @@ export default async function ProjectDetailPage({ params }: Props) {
       <ProjectAnchorNav sections={anchorSections} title={project.title} />
 
       {/* ── MAIN CONTENT ── */}
-      <div className="max-w-5xl mx-auto px-4 lg:px-8 py-10 space-y-0">
+      <div className="max-w-5xl mx-auto px-4 lg:px-8 py-12 space-y-0">
 
         {/* ── 1. CHÍNH SÁCH ── */}
         {show("chinh-sach") && (
-          <section className="pb-10">
+          <section className="pb-14">
             <SecHead id="chinh-sach" title="Chính sách bán hàng" />
 
             {project.payment_policy && (
@@ -283,7 +331,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("tong-quan") && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead title="Tổng quan dự án" />
               <div className="rounded-2xl border border-border-soft bg-white overflow-hidden">
                 <table className="w-full text-sm">
@@ -315,7 +363,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("gia-ban") && project.product_types && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead id="gia-ban" title="Giá bán & giỏ hàng" />
               <div className="rounded-2xl border border-border-soft bg-white overflow-hidden mb-5">
                 <div className="grid grid-cols-4 gap-2 bg-navy-900 px-5 py-3 text-white/70 text-[10px] font-bold uppercase tracking-wider">
@@ -348,7 +396,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("vi-tri") && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead id="vi-tri" title="Vị trí dự án" />
               {project.lat && project.lng && (
                 <div className="rounded-2xl overflow-hidden border border-border-soft mb-4 h-72 lg:h-96">
@@ -387,7 +435,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("diem-noi-bat") && project.highlights && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead title="Điểm nổi bật & lý do đầu tư" />
               {project.gallery && project.gallery.length > 1 && (
                 <div className="mb-5">
@@ -413,7 +461,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("tien-ich") && (project.amenities_internal || project.amenities_external) && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead id="tien-ich" title="Tiện ích dự án" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {project.amenities_internal && (
@@ -455,7 +503,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("mat-bang") && project.masterplan_image && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead id="mat-bang" title="Mặt bằng tổng thể" />
               <div className="rounded-2xl overflow-hidden border border-border-soft mb-4">
                 <Image src={project.masterplan_image} alt={`Mặt bằng ${project.title}`} width={900} height={500} className="w-full object-cover" />
@@ -469,7 +517,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("thiet-ke") && project.floor_plans && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead title="Thiết kế sản phẩm" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
                 {project.floor_plans.map((fp, i) => (
@@ -494,7 +542,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("phap-ly") && (
           <>
             <Divider />
-            <section className="py-10">
+            <section className="py-14">
               <SecHead id="phap-ly" title="Tiến độ & Pháp lý" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
                 <div className="rounded-2xl bg-white border border-border-soft p-5">

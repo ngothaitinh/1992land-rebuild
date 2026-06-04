@@ -2,6 +2,14 @@ import Link from "next/link";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import Signature from "@/components/Signature";
 
+function ZaloIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+      <path d="M24 4C12.954 4 4 12.954 4 24c0 5.254 2.013 10.04 5.306 13.668L8 44l6.56-1.726A19.91 19.91 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm-5.5 14h2v8h-2v-8zm5 8c0 .552-.448 1-1 1s-1-.448-1-1v-8c0-.552.448-1 1-1s1 .448 1 1v8zm5 0c0 .552-.448 1-1 1h-1v-8h1c.552 0 1 .448 1 1v6zm3.5-5h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5zm0 3h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5z"/>
+    </svg>
+  );
+}
+
 const projects = [
   { href: "/du-an/salacia-villas-phu-my", label: "Salacia Villas Phú Mỹ" },
   { href: "/du-an/ansana-by-kita", label: "Ansana by Kita" },
@@ -11,6 +19,7 @@ const projects = [
   { href: "/du-an/thanh-phu-centre-point", label: "Thanh Phú Centre Point" },
   { href: "/du-an/sun-group-cu-lao-pho", label: "Sun Group Cù Lao Phố" },
   { href: "/du-an/river-collection-an-gia", label: "River Collection An Gia" },
+  { href: "/du-an/la-home-long-an", label: "Khu đô thị LA Home Long An" },
 ];
 
 export default function Footer() {
@@ -60,7 +69,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Clock size={16} className="text-gold-500 shrink-0" />
-                <span>Thứ 2 — Thứ 7: 8:00 — 18:00</span>
+                <span>Thứ 2 — Chủ nhật: 8:00 — 20:00</span>
               </li>
             </ul>
           </div>
@@ -98,8 +107,8 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
               >
-                <span className="w-8 h-8 rounded-lg bg-[#10B981] flex items-center justify-center text-white text-xs font-bold shrink-0">
-                  Zalo
+                <span className="w-8 h-8 rounded-lg bg-[#0068FF] flex items-center justify-center text-white shrink-0">
+                  <ZaloIcon size={18} />
                 </span>
                 Chat Zalo
               </a>

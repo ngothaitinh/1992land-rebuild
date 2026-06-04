@@ -11,7 +11,7 @@ export default function OGImage() {
       <div style={{ background: "linear-gradient(135deg, #071121 0%, #0D1E38 60%, #1E3A60 100%)", width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "flex-end", fontFamily: "sans-serif", padding: "60px 72px", position: "relative" }}>
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, transparent, #C49730, transparent)", display: "flex" }} />
         <div style={{ fontSize: 14, color: "#C49730", letterSpacing: "0.4em", marginBottom: 24, display: "flex" }}>· 1992 ·  Danh mục dự án</div>
-        <div style={{ fontSize: 56, fontWeight: 700, color: "#FFFFFF", lineHeight: 1.1, marginBottom: 8, display: "flex" }}>8 Dự án BĐS chọn lọc kỹ</div>
+        <div style={{ fontSize: 56, fontWeight: 700, color: "#FFFFFF", lineHeight: 1.1, marginBottom: 8, display: "flex" }}>9 Dự án BĐS chọn lọc kỹ</div>
         <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 48, display: "flex" }}>TP.HCM · Vũng Tàu · Bình Dương · Long An · Đồng Nai</div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>

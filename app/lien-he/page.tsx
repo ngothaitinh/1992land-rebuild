@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 
+function ZaloIcon({ size = 16 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+      <path d="M24 4C12.954 4 4 12.954 4 24c0 5.254 2.013 10.04 5.306 13.668L8 44l6.56-1.726A19.91 19.91 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm-5.5 14h2v8h-2v-8zm5 8c0 .552-.448 1-1 1s-1-.448-1-1v-8c0-.552.448-1 1-1s1 .448 1 1v8zm5 0c0 .552-.448 1-1 1h-1v-8h1c.552 0 1 .448 1 1v6zm3.5-5h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5zm0 3h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5z"/>
+    </svg>
+  );
+}
+
 export const metadata: Metadata = {
   title: "Liên hệ",
   description: "Liên hệ với 1992 Land để nhận tư vấn bất động sản miễn phí — hotline, Zalo, Messenger.",
@@ -52,7 +60,7 @@ export default function LienHePage() {
                 {
                   icon: Clock,
                   label: "Giờ làm việc",
-                  value: "Thứ 2 — Thứ 7: 8:00 — 18:00",
+                  value: "Thứ 2 — Chủ nhật: 8:00 — 20:00",
                 },
               ].map((item) => (
                 <li key={item.label} className="flex items-start gap-4">
@@ -85,9 +93,9 @@ export default function LienHePage() {
                 href="https://zalo.me/0909474123"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 bg-[#10B981] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
+                className="flex items-center gap-2 px-4 py-2.5 bg-[#0068FF] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
               >
-                <MessageCircle size={16} />
+                <ZaloIcon size={16} />
                 Zalo
               </a>
               <a

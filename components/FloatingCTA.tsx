@@ -1,5 +1,13 @@
 import { Phone } from "lucide-react";
 
+function ZaloIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+      <path d="M24 4C12.954 4 4 12.954 4 24c0 5.254 2.013 10.04 5.306 13.668L8 44l6.56-1.726A19.91 19.91 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm-5.5 14h2v8h-2v-8zm5 8c0 .552-.448 1-1 1s-1-.448-1-1v-8c0-.552.448-1 1-1s1 .448 1 1v8zm5 0c0 .552-.448 1-1 1h-1v-8h1c.552 0 1 .448 1 1v6zm3.5-5h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5zm0 3h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5z"/>
+    </svg>
+  );
+}
+
 export default function FloatingCTA() {
   return (
     <>
@@ -15,10 +23,10 @@ export default function FloatingCTA() {
             href="https://zalo.me/0909474123"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full bg-[#10B981] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
+            className="w-12 h-12 rounded-full bg-[#0068FF] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
             aria-label="Chat Zalo"
           >
-            <span className="text-xs font-bold leading-none">Za</span>
+            <ZaloIcon size={24} />
           </a>
         </div>
 
@@ -68,10 +76,10 @@ export default function FloatingCTA() {
             href="https://zalo.me/0909474123"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-3 gap-1 text-[#10B981] hover:bg-green-50 transition-colors"
+            className="flex flex-col items-center justify-center py-3 gap-1 text-[#0068FF] hover:bg-blue-50 transition-colors"
             aria-label="Chat Zalo"
           >
-            <span className="text-sm font-bold leading-none">Za</span>
+            <ZaloIcon size={20} />
             <span className="text-[10px] font-medium text-muted">Zalo</span>
           </a>
           <a

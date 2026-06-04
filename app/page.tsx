@@ -152,7 +152,7 @@ export default function Home() {
                 {[
                   { num: "500+", label: "Khách hàng" },
                   { num: "5+", label: "Năm KN" },
-                  { num: "8+", label: "Dự án" },
+                  { num: "9+", label: "Dự án" },
                 ].map((s) => (
                   <div
                     key={s.label}
@@ -236,7 +236,7 @@ export default function Home() {
                 href="/du-an"
                 className="inline-flex items-center gap-2 px-8 py-3.5 border border-navy-200 text-navy-900 rounded-full hover:bg-navy-50 transition-colors text-sm font-medium"
               >
-                Xem tất cả 8 dự án <ArrowRight size={16} />
+                Xem tất cả 9 dự án <ArrowRight size={16} />
               </Link>
             </div>
           </FadeIn>

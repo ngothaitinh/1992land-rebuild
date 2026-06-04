@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Phone, MessageCircle } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
+
+function ZaloIcon({ size = 15 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+      <path d="M24 4C12.954 4 4 12.954 4 24c0 5.254 2.013 10.04 5.306 13.668L8 44l6.56-1.726A19.91 19.91 0 0024 44c11.046 0 20-8.954 20-20S35.046 4 24 4zm-5.5 14h2v8h-2v-8zm5 8c0 .552-.448 1-1 1s-1-.448-1-1v-8c0-.552.448-1 1-1s1 .448 1 1v8zm5 0c0 .552-.448 1-1 1h-1v-8h1c.552 0 1 .448 1 1v6zm3.5-5h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5zm0 3h-1.5v-1h1.5c.276 0 .5.224.5.5s-.224.5-.5.5z"/>
+    </svg>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Giới thiệu",
@@ -89,7 +97,7 @@ export default function GioiThieuPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border-soft text-navy-700 font-medium rounded-full hover:border-navy-300 transition-colors text-sm"
               >
-                <MessageCircle size={15} />
+                <ZaloIcon size={15} />
                 Chat Zalo
               </a>
             </div>
@@ -101,7 +109,7 @@ export default function GioiThieuPage() {
       <div className="bg-navy-900 py-16 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6">
           {[
-            { num: "8+", label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
+            { num: "9+", label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
             { num: "500+", label: "Khách hàng tin tưởng", sub: "Từ năm 2020 đến nay" },
             { num: "5+", label: "Năm kinh nghiệm", sub: "Thị trường BĐS miền Nam" },
             { num: "100%", label: "Minh bạch pháp lý", sub: "Kiểm tra kỹ trước khi tư vấn" },

@@ -110,6 +110,7 @@ export default function ContactForm({
                 <option>Thanh Phú Centre Point</option>
                 <option>Sun Group Cù Lao Phố</option>
                 <option>River Collection An Gia</option>
+                <option>Khu đô thị LA Home Long An</option>
                 <option>Khác / Chưa xác định</option>
               </select>
             </div>

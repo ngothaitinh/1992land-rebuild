@@ -8,7 +8,7 @@ import ProjectsGrid from "@/components/ProjectsGrid";
 
 export const metadata: Metadata = {
   title: "Dự án",
-  description: "8 dự án bất động sản chọn lọc của 1992 Land — căn hộ, biệt thự, nghỉ dưỡng tại TP.HCM, Vũng Tàu, Bình Dương, Long An, Đồng Nai.",
+  description: "9 dự án bất động sản chọn lọc của 1992 Land — căn hộ, biệt thự, nghỉ dưỡng tại TP.HCM, Vũng Tàu, Bình Dương, Long An, Đồng Nai.",
 };
 
 export default function DuAnPage() {

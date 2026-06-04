@@ -103,7 +103,7 @@ export default function HeroSection() {
             {[
               { num: "500+", label: "Gia đình tin tưởng" },
               { num: "5+", label: "Năm kinh nghiệm" },
-              { num: "8", label: "Dự án phân phối" },
+              { num: "9", label: "Dự án phân phối" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col gap-0.5">
                 <span className="text-gold-400 font-bold text-3xl font-numeric leading-none">{s.num}</span>
@@ -174,7 +174,7 @@ export default function HeroSection() {
             transition={{ delay: 1.3, duration: 0.45 }}
             className="absolute -right-5 top-10 bg-gold-500 rounded-2xl px-4 py-3 text-center shadow-[0_8px_32px_-4px_rgba(196,151,48,0.5)]"
           >
-            <div className="text-navy-950 font-bold font-numeric text-xl leading-none">8</div>
+            <div className="text-navy-950 font-bold font-numeric text-xl leading-none">9</div>
             <div className="text-navy-950/65 text-[10px] mt-0.5">Dự án</div>
           </motion.div>
         </motion.div>

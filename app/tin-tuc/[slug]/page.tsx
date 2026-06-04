@@ -167,7 +167,7 @@ export default async function PostDetailPage({ params }: Props) {
                   href="https://zalo.me/0909474123"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full py-3 bg-[#10B981] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm"
+                  className="flex items-center justify-center w-full py-3 bg-[#0068FF] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm"
                 >
                   Chat Zalo
                 </a>

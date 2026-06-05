@@ -27,6 +27,11 @@ export const metadata: Metadata = {
   description:
     "1992 Land — Chuyên môi giới bất động sản tại HCMC, Vũng Tàu, Bình Dương, Long An, Đồng Nai. Uy tín — Chuyên nghiệp — Tận tâm.",
   keywords: ["bất động sản", "môi giới BĐS", "Thủ Đức", "HCMC", "1992 Land"],
+  icons: {
+    icon: [{ url: "/images/logo.png", sizes: "512x512", type: "image/png" }],
+    apple: [{ url: "/images/logo.png", sizes: "512x512" }],
+    shortcut: "/images/logo.png",
+  },
   openGraph: {
     type: "website",
     locale: "vi_VN",

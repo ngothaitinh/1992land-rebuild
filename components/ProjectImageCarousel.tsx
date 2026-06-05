@@ -106,8 +106,8 @@ export default function ProjectImageCarousel({ images, title }: Props) {
               src={images[current]}
               alt={`${title} ${current + 1}`}
               fill
-              className="object-cover"
-              sizes="100vw"
+              className="object-contain"
+              sizes="(max-width: 888px) 888px, 1421px"
               priority
             />
 

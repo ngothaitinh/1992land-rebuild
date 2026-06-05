@@ -203,8 +203,8 @@ export default function ProjectGalleryGrid({ images, title }: Props) {
                       src={images[active]}
                       alt={`${title} — ảnh ${active + 1}`}
                       fill
-                      className="object-cover select-none pointer-events-none"
-                      sizes="100vw"
+                      className="object-contain select-none pointer-events-none"
+                      sizes="(max-width: 888px) 888px, 1421px"
                       priority
                     />
                   </div>

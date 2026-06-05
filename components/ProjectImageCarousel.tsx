@@ -88,39 +88,61 @@ export default function ProjectImageCarousel({ images, title }: Props) {
 
       {/* Expanded lightbox */}
       {expanded && (
-        <div className="fixed inset-0 z-[500] bg-navy-950/97 backdrop-blur-md flex items-center justify-center" onClick={() => setExpanded(false)}>
-          <button onClick={() => setExpanded(false)} className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10">
-            <X size={18} />
-          </button>
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/50 text-sm">{current + 1} / {images.length}</div>
-          <div className="relative w-full max-w-5xl max-h-[84vh] mx-14" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-[500] bg-black/96 flex flex-col" onClick={() => setExpanded(false)}>
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-5 py-4 shrink-0 z-10">
+            <span className="text-white/50 text-sm tabular-nums">{current + 1} / {images.length}</span>
+            <button
+              onClick={() => setExpanded(false)}
+              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center text-white"
+            >
+              <X size={17} />
+            </button>
+          </div>
+
+          {/* Full-screen image */}
+          <div className="flex-1 relative" onClick={(e) => e.stopPropagation()}>
             <Image
               src={images[current]}
               alt={`${title} ${current + 1}`}
-              width={1200}
-              height={800}
-              className="object-contain w-full h-full max-h-[84vh] rounded-xl shadow-2xl"
+              fill
+              className="object-cover"
               sizes="100vw"
+              priority
             />
+
+            {/* Arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); prev(); }}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 text-white transition-colors"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                <button
+                  onClick={(e) => { e.stopPropagation(); next(); }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-black/30 hover:bg-black/50 text-white transition-colors"
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </>
+            )}
           </div>
+
+          {/* Thumbnails */}
           {images.length > 1 && (
-            <>
-              <button onClick={(e) => { e.stopPropagation(); prev(); }} className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors">
-                <ChevronLeft size={24} />
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); next(); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors">
-                <ChevronRight size={24} />
-              </button>
-            </>
+            <div className="shrink-0 pb-5 pt-3 px-4 z-10" onClick={(e) => e.stopPropagation()}>
+              <div className="flex gap-1.5 justify-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+                {images.map((src, i) => (
+                  <button key={i} onClick={() => setCurrent(i)}
+                    className={`relative w-[52px] h-[36px] rounded-md overflow-hidden shrink-0 transition-all ${i === current ? "ring-2 ring-gold-500 opacity-100" : "opacity-40 hover:opacity-70"}`}>
+                    <Image src={src} alt="" fill className="object-cover" sizes="52px" />
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5" onClick={(e) => e.stopPropagation()}>
-            {images.map((src, i) => (
-              <button key={i} onClick={() => setCurrent(i)}
-                className={`w-12 h-9 rounded-lg overflow-hidden relative border-2 transition-all ${i === current ? "border-gold-500 scale-110 opacity-100" : "border-transparent opacity-40 hover:opacity-70"}`}>
-                <Image src={src} alt="" fill className="object-cover" sizes="48px" />
-              </button>
-            ))}
-          </div>
         </div>
       )}
     </>

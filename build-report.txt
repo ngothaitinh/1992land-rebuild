@@ -1,0 +1,95 @@
+====================================================
+  BUILD REPORT — 1992land-rebuild
+  Ngày: 2026-06-02
+====================================================
+
+── PHASE 1: WP REST API ────────────────────────────
+URL thử:   https://1992land.com/wp-json/wp/v2/posts?per_page=1
+           https://1992land.com/wp-json/wp/v2/pages?per_page=1
+Kết quả:   HTTP 404 — API không expose
+
+→ Skip sang Phase 3 (theo fallback Lớp 2 của PLAN.md).
+  Content đã được nhập thủ công vào data/ từ session trước.
+
+── PHASE 3: Foundation ─────────────────────────────
+Status: ĐÃ HOÀN THÀNH (2026-05-31)
+
+  ✓ globals.css       — Tailwind v4 @theme: navy/gold palette
+  ✓ app/layout.tsx    — Be Vietnam Pro + Inter, lang="vi", JSON-LD schema
+  ✓ Header.tsx        — Sticky, hamburger mobile, active link underline
+  ✓ Footer.tsx        — 3 cột: Liên hệ / Dự án / Theo dõi
+  ✓ FloatingCTA.tsx   — Zalo + Phone + Messenger (floating + mobile bottom bar)
+  ✓ FadeIn.tsx        — Framer Motion whileInView scroll reveal
+
+── PHASE 4A-4D: Pages ──────────────────────────────
+Status: ĐÃ HOÀN THÀNH (2026-06-01)
+
+  4A — Homepage (app/page.tsx)
+    ✓ 8 sections: Hero / Featured Projects / About / Projects Grid /
+                  Latest News / Testimonials / Manifesto / Contact CTA
+    ✓ Data từ data/projects/*.json và data/posts/*.md
+
+  4B — Dự án (app/du-an/)
+    ✓ Listing 8 dự án + filter theo khu vực
+    ✓ Detail page với generateStaticParams, sticky sidebar, related projects
+    ✓ Gallery lightbox component
+
+  4C — Tin tức (app/tin-tuc/)
+    ✓ Listing 9 bài viết
+    ✓ Detail page với author box, related posts
+
+  4D — Static pages
+    ✓ /gioi-thieu  — Portrait + bio + stats + team photo
+    ✓ /tuyen-dung  — Job listing + apply form
+    ✓ /lien-he     — 2 cột: info + form + Google Maps embed
+
+── FINAL BUILD: pnpm build ─────────────────────────
+Date:        2026-06-02
+Framework:   Next.js 16.2.6 (Turbopack)
+TypeScript:  ✓ CLEAN (0 errors)
+Compile:     ✓ SUCCESS (~2.3s)
+
+Pages generated: 33 pages
+  ○ Static:  /  /_not-found  /cam-on  /du-an  /du-an/opengraph-image
+             /gioi-thieu  /gioi-thieu/opengraph-image  /lien-he
+             /opengraph-image  /robots.txt  /sitemap.xml  /tin-tuc
+             /tin-tuc/opengraph-image  /tuyen-dung
+
+  ● SSG (generateStaticParams):
+    /du-an/[slug]  — 8 paths (salacia-villas-phu-my, ansana-by-kita,
+                    lusso-sai-gon, water-concept, the-quay-phuoc-hai,
+                    thanh-phu-centre-point, sun-group-cu-lao-pho,
+                    river-collection-an-gia)
+    /tin-tuc/[slug] — 9 paths
+
+HTML files: 28 files
+Output dir: out/
+
+Deploy target: Cloudflare Pages
+  pnpm build → out/ → git push → CF auto-deploy
+
+── CHECKLIST ───────────────────────────────────────
+  ✓ WP REST API tested → 404 → noted & skipped
+  ✓ Tailwind theme navy/gold (globals.css @theme)
+  ✓ app/layout.tsx (Be Vietnam Pro + Inter, lang=vi)
+  ✓ Header sticky + hamburger
+  ✓ Footer 3 cột
+  ✓ FloatingCTA (Zalo + Phone + Messenger)
+  ✓ Homepage đủ 8 sections
+  ✓ 8 dự án có detail page riêng
+  ✓ 9 bài tin tức có detail page riêng
+  ✓ /gioi-thieu, /tuyen-dung, /lien-he hoàn chỉnh
+  ✓ pnpm build SUCCESS — 33 pages, 0 TS errors
+  ✓ output: "export" → out/ cho Cloudflare Pages
+  ✓ wrangler.toml đã có
+  ✓ public/_redirects đã có (WP legacy URL → new routes)
+  ✓ sitemap.xml + robots.txt
+
+── NEXT STEPS ──────────────────────────────────────
+  1. Chuẩn bị ảnh thật từ anh Thọ → thay placeholder
+  2. Test Web3Forms key (ContactForm)
+  3. git push origin main → Cloudflare Pages auto-deploy
+  4. Trỏ DNS 1992land.com → 1992land.pages.dev
+  5. Submit sitemap lên Google Search Console
+
+====================================================

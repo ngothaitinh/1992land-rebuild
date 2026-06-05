@@ -20,6 +20,8 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build
+        env:
+          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
         run: npm run build
 
       - name: Create OAuth config

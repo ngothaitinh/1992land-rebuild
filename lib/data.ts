@@ -38,6 +38,9 @@ export type Project = {
   highlights?: { title: string; desc: string }[];
   amenities_internal?: string[];
   amenities_external?: string[];
+  amenities_images?: string[];
+  overview_image?: string;
+  location_image?: string;
   masterplan_image?: string;
   floor_plans?: { name: string; area: string; layout: string; image?: string }[];
   legal_status?: string;

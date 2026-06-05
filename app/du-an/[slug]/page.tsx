@@ -86,9 +86,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     { icon: Building2, label: "Chủ đầu tư", value: project.developer },
     { icon: MapPin, label: "Vị trí", value: project.address_full ?? project.location },
     { icon: Tag, label: "Loại hình", value: project.type },
-    { icon: Home, label: "Quy mô", value: project.scale ?? (project.unit_count ? `${project.unit_count} căn` : "—") },
     { icon: Banknote, label: "Giá từ", value: project.priceRange },
-    { icon: Calendar, label: "Bàn giao", value: project.handover_date ?? "—" },
   ];
 
   const productSchema = {
@@ -221,38 +219,25 @@ export default async function ProjectDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Mobile: 2-col grid */}
-          <div className="lg:hidden">
-            <div className="grid grid-cols-2 gap-x-4 gap-y-4 mb-4">
-              {specItems.map((s) => (
-                <div key={s.label} className="flex flex-col gap-0.5">
-                  <div className="flex items-center gap-1">
-                    <s.icon size={10} className="text-gold-500 shrink-0" />
-                    <span className="text-[10px] text-muted uppercase tracking-wider">{s.label}</span>
-                  </div>
-                  <span className="text-sm font-bold text-navy-900 leading-snug">{s.value}</span>
-                </div>
-              ))}
-            </div>
-            <div className="flex gap-2.5 border-t border-border-soft pt-4">
-              <a
-                href="https://zalo.me/0909474123"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#0068FF] text-white text-sm font-bold rounded-full hover:opacity-90 active:scale-95 transition-all"
-              >
-                <ZaloIcon size={15} /> Chat Zalo
-              </a>
-              <div className="flex-1">
-                <ContactModal
-                  label="Nhận bảng giá"
-                  subject={`[Bảng giá] ${project.title}`}
-                  projectSlug={project.slug}
-                  icon="price"
-                  variant="gold"
-                  className="w-full justify-center"
-                />
-              </div>
+          {/* Mobile: CTAs only */}
+          <div className="lg:hidden flex gap-2.5">
+            <a
+              href="https://zalo.me/0909474123"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#0068FF] text-white text-sm font-bold rounded-full hover:opacity-90 active:scale-95 transition-all"
+            >
+              <ZaloIcon size={15} /> Chat Zalo
+            </a>
+            <div className="flex-1">
+              <ContactModal
+                label="Nhận bảng giá"
+                subject={`[Bảng giá] ${project.title}`}
+                projectSlug={project.slug}
+                icon="price"
+                variant="gold"
+                className="w-full justify-center"
+              />
             </div>
           </div>
         </div>
@@ -333,6 +318,17 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead title="Tổng quan dự án" />
+              {project.overview_image && (
+                <div className="rounded-2xl overflow-hidden border border-border-soft mb-5">
+                  <Image
+                    src={project.overview_image}
+                    alt={`Tổng quan ${project.title}`}
+                    width={900}
+                    height={500}
+                    className="w-full object-cover"
+                  />
+                </div>
+              )}
               <div className="rounded-2xl border border-border-soft bg-white overflow-hidden">
                 <table className="w-full text-sm">
                   <tbody className="divide-y divide-border-soft">
@@ -398,7 +394,18 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead id="vi-tri" title="Vị trí dự án" />
-              {project.lat && project.lng && (
+              {project.location_image && (
+                <div className="rounded-2xl overflow-hidden border border-border-soft mb-4">
+                  <Image
+                    src={project.location_image}
+                    alt={`Vị trí ${project.title}`}
+                    width={900}
+                    height={500}
+                    className="w-full object-cover"
+                  />
+                </div>
+              )}
+              {show("ban-do") && project.lat && project.lng && (
                 <div className="rounded-2xl overflow-hidden border border-border-soft mb-4 h-72 lg:h-96">
                   <iframe
                     src={`https://maps.google.com/maps?q=${project.lat},${project.lng}&z=15&output=embed`}
@@ -458,11 +465,16 @@ export default async function ProjectDetailPage({ params }: Props) {
         )}
 
         {/* ── TIỆN ÍCH ── */}
-        {show("tien-ich") && (project.amenities_internal || project.amenities_external) && (
+        {show("tien-ich") && (project.amenities_internal || project.amenities_external || project.amenities_images) && (
           <>
             <Divider />
             <section className="py-14">
               <SecHead id="tien-ich" title="Tiện ích dự án" />
+              {project.amenities_images && project.amenities_images.length > 0 && (
+                <div className="mb-8">
+                  <ProjectImageCarousel images={project.amenities_images} title={`Tiện ích ${project.title}`} />
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {project.amenities_internal && (
                   <div>

@@ -186,7 +186,7 @@ export default function ProjectGalleryGrid({ images, title }: Props) {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.22, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute inset-0 px-12 sm:px-16 flex items-center justify-center"
+                  className="absolute inset-0 flex items-center justify-center"
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.12}

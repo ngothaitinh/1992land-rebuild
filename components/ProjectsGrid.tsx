@@ -27,7 +27,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
             <button
               key={area}
               onClick={() => setSelected(area)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                 selected === area
                   ? "bg-navy-900 text-white"
                   : "bg-surface border border-border-soft text-navy-500 hover:border-navy-300 hover:text-navy-900"

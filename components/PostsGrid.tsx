@@ -64,8 +64,8 @@ export default function PostsGrid({ posts }: { posts: Post[] }) {
                 href={`/tin-tuc/${post.slug}`}
                 className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300 cursor-pointer"
               >
-                {/* Thumbnail */}
-                <div className="relative h-52 overflow-hidden bg-gradient-to-br from-navy-500 to-navy-800">
+                {/* Thumbnail — 16:9 chuẩn */}
+                <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-navy-500 to-navy-800">
                   {post.hero_image ? (
                     <Image
                       src={post.hero_image}

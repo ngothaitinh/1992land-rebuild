@@ -245,14 +245,14 @@ export default async function PostDetailPage({ params }: Props) {
                         href={`/tin-tuc/${rp.slug}`}
                         className="group flex gap-3 p-3 rounded-xl border border-border-soft hover:border-navy-200 hover:shadow-sm transition-all cursor-pointer"
                       >
-                        <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700 shrink-0">
+                        <div className="relative w-[88px] h-[56px] rounded-lg overflow-hidden bg-gradient-to-br from-navy-500 to-navy-700 shrink-0">
                           {rp.hero_image && (
                             <Image
                               src={rp.hero_image}
                               alt={rp.title}
                               fill
                               className="object-cover group-hover:scale-105 transition-transform duration-300"
-                              sizes="64px"
+                              sizes="88px"
                             />
                           )}
                         </div>

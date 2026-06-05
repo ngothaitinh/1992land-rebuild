@@ -707,7 +707,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   href={`/tin-tuc/${rp.slug}`}
                   className="group block bg-white rounded-2xl border border-border-soft overflow-hidden hover:border-navy-200 hover:shadow-md hover:-translate-y-0.5 transition-all"
                 >
-                  <div className="h-40 bg-gradient-to-br from-navy-700 to-navy-900 overflow-hidden relative">
+                  <div className="aspect-[16/9] bg-gradient-to-br from-navy-700 to-navy-900 overflow-hidden relative">
                     {rp.hero_image && (
                       <Image src={rp.hero_image} alt={rp.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="33vw" />
                     )}

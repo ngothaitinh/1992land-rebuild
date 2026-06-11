@@ -10,6 +10,7 @@
     "inbox": "node scripts/telegram-inbox.mjs",
     "process": "node scripts/tg-process-inbox.mjs",
     "apply": "node scripts/tg-apply-change.mjs",
+    "serve": "node scripts/tg-serve-menu.mjs",
     "menu": "node scripts/tg-menu.mjs",
     "setup": "node scripts/tg-register-commands.mjs",
     "preview": "node scripts/tg-preview.mjs",

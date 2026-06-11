@@ -7,10 +7,10 @@
 //   node scripts/tg-menu.mjs all          → gửi toàn bộ mẫu (onboarding)
 //
 import https from "https";
+import { fileURLToPath } from "url";
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-if (!TOKEN || !CHAT_ID) { console.error("Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID"); process.exit(1); }
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const pre = (s) => `<pre>${esc(s)}</pre>`;
@@ -143,7 +143,7 @@ function send(text) {
   });
 }
 
-function buildTemplateMsg({ title, note, body, hint }) {
+export function buildTemplateMsg({ title, note, body, hint }) {
   const parts = [`<b>${esc(title)}</b>`];
   if (note) parts.push(`<i>${esc(note)}</i>`);
   parts.push(pre(body));
@@ -154,6 +154,7 @@ function buildTemplateMsg({ title, note, body, hint }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
+  if (!TOKEN || !CHAT_ID) { console.error("Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID"); process.exit(1); }
   const arg = process.argv[2] || "";
   const key = arg.toLowerCase().replace(/^\//, "");
 
@@ -182,4 +183,7 @@ async function main() {
   process.exit(1);
 }
 
-main().catch((e) => { console.error("Lỗi:", e.message); process.exit(1); });
+// Chỉ chạy khi gọi trực tiếp (không chạy khi import)
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((e) => { console.error("Lỗi:", e.message); process.exit(1); });
+}

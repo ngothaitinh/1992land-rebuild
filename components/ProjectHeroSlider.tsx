@@ -33,7 +33,7 @@ export default function ProjectHeroSlider({ images, title }: Props) {
 
   return (
     <div
-      className="relative w-full aspect-[4/3] sm:aspect-[16/9] overflow-hidden bg-navy-950 select-none"
+      className="relative w-full aspect-[3/2] sm:aspect-[21/9] overflow-hidden bg-navy-950 select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

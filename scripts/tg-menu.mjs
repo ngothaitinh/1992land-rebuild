@@ -1,32 +1,27 @@
 // scripts/tg-menu.mjs
-// Gửi bộ MẪU ĐIỀN SẴN vào Telegram để anh Thọ copy — mỗi mẫu một tin <pre> dễ chạm-giữ-copy.
-// Chạy khi anh nhắn "menu" / "mẫu" / "help", hoặc gửi onboarding một lần.
+// Gửi mẫu điền sẵn vào Telegram.
 //
-//   node scripts/tg-menu.mjs
+//   node scripts/tg-menu.mjs              → index compact (danh sách lệnh)
+//   node scripts/tg-menu.mjs them_du_an   → mẫu [THÊM DỰ ÁN]
+//   node scripts/tg-menu.mjs sua_du_an    → mẫu [SỬA DỰ ÁN]
+//   node scripts/tg-menu.mjs all          → gửi toàn bộ mẫu (onboarding)
 //
 import https from "https";
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
-if (!TOKEN || !CHAT_ID) {
-  console.error("Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID");
-  process.exit(1);
-}
+if (!TOKEN || !CHAT_ID) { console.error("Thiếu TELEGRAM_BOT_TOKEN hoặc TELEGRAM_CHAT_ID"); process.exit(1); }
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const pre = (s) => `<pre>${esc(s)}</pre>`;
 
-const intro =
-  "📋 <b>Bộ mẫu quản lý nội dung 1992 Land</b>\n\n" +
-  "Anh chỉ cần <b>copy mẫu phù hợp</b>, điền vào chỗ trống rồi gửi lại cho bot. " +
-  "Em sẽ soạn, gửi <b>bản xem trước kèm nút ✅ Duyệt</b>, anh duyệt là tự lên web (~8 phút).\n\n" +
-  "Gửi <b>menu</b> bất cứ lúc nào để nhận lại bộ mẫu này.";
+// ─── Kho mẫu ────────────────────────────────────────────────────────────────
 
-const templates = [
-  [
-    "➕ Thêm dự án mới",
-    `[THÊM DỰ ÁN]
+export const TEMPLATES = {
+  them_du_an: {
+    title: "➕ Thêm dự án mới",
+    note: "Điền vào bên dưới rồi gửi lại. Trường nào chưa có → để trống, đừng xóa dòng.",
+    body: `[THÊM DỰ ÁN]
 Tên:
 Chủ đầu tư:
 Vị trí:
@@ -37,64 +32,92 @@ Quy mô:
 Pháp lý:
 Bàn giao:
 Tiện ích:
-Điểm nổi bật:
-(kèm 1 ảnh bìa + 3–5 ảnh)`,
-  ],
-  [
-    "✏️ Sửa thông tin dự án",
-    `[SỬA DỰ ÁN]
-Dự án: <tên hoặc slug>
-Giá: <giá mới>
+Điểm nổi bật:`,
+    hint: "📎 Đính kèm 1 ảnh bìa + 3–5 ảnh trong cùng tin nhắn.",
+  },
+
+  sua_du_an: {
+    title: "✏️ Sửa thông tin dự án",
+    note: "Chỉ ghi những dòng cần đổi — bỏ dòng không cần sửa.",
+    body: `[SỬA DỰ ÁN]
+Dự án: <tên hoặc slug, vd: Salacia Villas>
+Giá: <giá mới, vd: Từ 4.5 tỷ>
 Trạng thái: <vd: Đã bàn giao>
-(mỗi dòng 1 trường cần đổi)`,
-  ],
-  [
-    "🗑️ Xóa dự án",
-    `[XÓA DỰ ÁN]
+Bàn giao: <vd: Q1/2026>`,
+    hint: "",
+  },
+
+  xoa_du_an: {
+    title: "🗑️ Xóa dự án",
+    note: "Xóa vĩnh viễn khỏi website. Em sẽ gửi bản xem trước để anh xác nhận.",
+    body: `[XÓA DỰ ÁN]
 Dự án: <tên hoặc slug>`,
-  ],
-  [
-    "🙈 Ẩn / hiện một phần của dự án",
-    `[ẨN PHẦN]
+    hint: "",
+  },
+
+  an_phan: {
+    title: "🙈 Ẩn / Hiện một phần dự án",
+    note: "Dùng [ẨN PHẦN] để tắt, [HIỆN PHẦN] để bật lại.",
+    body: `[ẨN PHẦN]
 Dự án: <tên>
-Phần: giá bán
-(các phần: tổng quan / giá bán / chính sách / vị trí / tiện ích / điểm nổi bật / pháp lý)
+Phần: <tên phần>
 
 [HIỆN PHẦN]
 Dự án: <tên>
-Phần: giá bán`,
-  ],
-  [
-    "📝 Thêm bài viết mới",
-    `[THÊM BÀI VIẾT]
+Phần: <tên phần>`,
+    hint: "Các phần: tổng quan · giá bán · chính sách · vị trí · tiện ích · điểm nổi bật · pháp lý",
+  },
+
+  them_bai: {
+    title: "📝 Thêm bài viết mới",
+    note: "Nội dung viết liền từ dòng 'Nội dung:' trở đi, có thể nhiều đoạn.",
+    body: `[THÊM BÀI VIẾT]
 Tiêu đề:
 Chuyên mục: (Thị trường / Kinh nghiệm / Pháp lý / Đầu tư)
 Mô tả ngắn:
 Nội dung:
-<thân bài, có thể nhiều đoạn>
-(kèm ảnh bìa nếu có)`,
-  ],
-  [
-    "✏️ Sửa bài viết",
-    `[SỬA BÀI VIẾT]
+<viết nội dung bài tại đây>`,
+    hint: "📎 Đính kèm ảnh bìa nếu có.",
+  },
+
+  sua_bai: {
+    title: "✏️ Sửa bài viết",
+    note: "Chỉ ghi những dòng cần đổi.",
+    body: `[SỬA BÀI VIẾT]
 Bài: <tiêu đề hoặc slug>
 Tiêu đề: <mới>
 Mô tả ngắn: <mới>
-Nội dung: <mới>
-(chỉ điền dòng cần đổi)`,
-  ],
-  [
-    "🗑️ Xóa bài viết",
-    `[XÓA BÀI VIẾT]
-Bài: <tiêu đề hoặc slug>`,
-  ],
-];
+Nội dung: <mới>`,
+    hint: "",
+  },
 
-function send(text, parseMode = "HTML") {
+  xoa_bai: {
+    title: "🗑️ Xóa bài viết",
+    note: "Xóa vĩnh viễn. Em sẽ xác nhận trước khi thực hiện.",
+    body: `[XÓA BÀI VIẾT]
+Bài: <tiêu đề hoặc slug>`,
+    hint: "",
+  },
+};
+
+// ─── Tin nhắn index compact ──────────────────────────────────────────────────
+
+const INDEX_MSG =
+  "📋 <b>Bot quản lý nội dung 1992 Land</b>\n\n" +
+  "Gõ <code>/</code> để xem menu lệnh. Chọn lệnh → bot gửi mẫu để copy.\n\n" +
+  "<b>Dự án</b>\n" +
+  "/them_du_an · /sua_du_an · /xoa_du_an · /an_phan\n\n" +
+  "<b>Bài viết</b>\n" +
+  "/them_bai · /sua_bai · /xoa_bai\n\n" +
+  "Gõ /menu bất cứ lúc nào để xem lại danh sách này.";
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function send(text) {
   const body = JSON.stringify({
     chat_id: CHAT_ID,
     text,
-    parse_mode: parseMode,
+    parse_mode: "HTML",
     disable_web_page_preview: true,
   });
   return new Promise((resolve, reject) => {
@@ -120,15 +143,43 @@ function send(text, parseMode = "HTML") {
   });
 }
 
-async function main() {
-  await send(intro);
-  for (const [title, tpl] of templates) {
-    await send(`<b>${esc(title)}</b>\n${pre(tpl)}`);
-  }
-  console.log(`✅ Đã gửi ${templates.length} mẫu + lời giới thiệu vào Telegram.`);
+function buildTemplateMsg({ title, note, body, hint }) {
+  const parts = [`<b>${esc(title)}</b>`];
+  if (note) parts.push(`<i>${esc(note)}</i>`);
+  parts.push(pre(body));
+  if (hint) parts.push(`<i>${esc(hint)}</i>`);
+  return parts.join("\n");
 }
 
-main().catch((e) => {
-  console.error("Lỗi:", e.message);
+// ─── Main ─────────────────────────────────────────────────────────────────────
+
+async function main() {
+  const arg = process.argv[2] || "";
+  const key = arg.toLowerCase().replace(/^\//, "");
+
+  if (!key || key === "menu" || key === "index") {
+    await send(INDEX_MSG);
+    console.log("✅ Đã gửi index menu.");
+    return;
+  }
+
+  if (key === "all") {
+    await send(INDEX_MSG);
+    for (const [k, tpl] of Object.entries(TEMPLATES)) {
+      await send(buildTemplateMsg(tpl));
+    }
+    console.log(`✅ Đã gửi toàn bộ ${Object.keys(TEMPLATES).length} mẫu.`);
+    return;
+  }
+
+  if (TEMPLATES[key]) {
+    await send(buildTemplateMsg(TEMPLATES[key]));
+    console.log(`✅ Đã gửi mẫu: ${key}`);
+    return;
+  }
+
+  console.error(`Lệnh không hợp lệ: "${key}". Dùng: ${Object.keys(TEMPLATES).join(" | ")} | all`);
   process.exit(1);
-});
+}
+
+main().catch((e) => { console.error("Lỗi:", e.message); process.exit(1); });

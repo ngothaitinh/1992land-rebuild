@@ -151,6 +151,30 @@ const HEADER_INTENT = {
   "xoa bai viet": "delete_post",
 };
 
+// /slash_command → intent (lệnh từ menu Telegram)
+const SLASH_INTENT = {
+  menu:        "menu",
+  them_du_an:  "new_project",
+  sua_du_an:   "update_project",
+  xoa_du_an:   "delete_project",
+  an_phan:     "hide_section",
+  them_bai:    "new_post",
+  sua_bai:     "update_post",
+  xoa_bai:     "delete_post",
+};
+
+// /slash_command → menu key để gửi lại mẫu tương ứng
+const SLASH_TEMPLATE_KEY = {
+  menu:        "menu",
+  them_du_an:  "them_du_an",
+  sua_du_an:   "sua_du_an",
+  xoa_du_an:   "xoa_du_an",
+  an_phan:     "an_phan",
+  them_bai:    "them_bai",
+  sua_bai:     "sua_bai",
+  xoa_bai:     "xoa_bai",
+};
+
 // Nhãn phần tiếng Việt → key trong descriptions/hidden_sections
 const SECTION_KEY = {
   "tong quan": "tong-quan",
@@ -171,13 +195,22 @@ function sectionToKey(label) {
   return null;
 }
 
-// Lấy lệnh ở dòng đầu nếu có dạng [ ... ]
+// Lấy lệnh ở dòng đầu nếu có dạng [ ... ] hoặc /slash_command
 function parseHeader(text) {
   const firstLine = (text.split(/\r?\n/).find((l) => l.trim()) || "").trim();
-  const m = firstLine.match(/^\[(.+?)\]/);
-  if (!m) return null;
-  const intent = HEADER_INTENT[normalize(m[1])];
-  return intent || null;
+
+  // /slash_command (có thể kèm @botname)
+  const slashMatch = firstLine.match(/^\/([a-z_]+)(?:@\S+)?$/i);
+  if (slashMatch) {
+    const key = slashMatch[1].toLowerCase();
+    return SLASH_INTENT[key] ? { intent: SLASH_INTENT[key], template_key: SLASH_TEMPLATE_KEY[key] } : null;
+  }
+
+  // [NGOẶC VUÔNG]
+  const bracketMatch = firstLine.match(/^\[(.+?)\]/);
+  if (!bracketMatch) return null;
+  const intent = HEADER_INTENT[normalize(bracketMatch[1])];
+  return intent ? { intent, template_key: null } : null;
 }
 
 // Parse các dòng "Nhãn: giá trị" (bỏ dòng đầu là lệnh)
@@ -255,8 +288,10 @@ function main() {
   const projectNames = getProjectNames();
   const postNames = getPostNames();
 
-  // Ưu tiên header [NGOẶC VUÔNG]
-  let intent = parseHeader(rawText) || classifyIntentFallback(rawText, hasImages);
+  // Ưu tiên header [NGOẶC VUÔNG] hoặc /slash_command
+  const headerResult = parseHeader(rawText);
+  let intent = headerResult ? headerResult.intent : classifyIntentFallback(rawText, hasImages);
+  const template_key = headerResult ? (headerResult.template_key || null) : null;
   const fields = parseFields(rawText);
 
   const isPost = POST_INTENTS.has(intent);
@@ -278,6 +313,7 @@ function main() {
 
   const result = {
     intent,
+    template_key,   // non-null khi anh bấm /slash_command → Claude chạy: pnpm menu <template_key>
     target_type,
     slug,
     project_slug: isPost ? null : slug, // tương thích ngược

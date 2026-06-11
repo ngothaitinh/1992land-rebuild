@@ -47,16 +47,24 @@ function SecHead({ id, title }: { id?: string; title: string }) {
   );
 }
 
+function renderDesc(text: string) {
+  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={i} className="font-semibold text-navy-900">{part.slice(2, -2)}</strong>
+      : <span key={i}>{part}</span>
+  );
+}
+
 function SectionIntro({ desc, children }: { desc?: string; children: React.ReactNode }) {
   if (!desc) return <>{children}</>;
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[5fr_8fr] gap-6 lg:gap-14 items-start">
-      <div className="lg:sticky lg:top-24">
-        <div className="border-l-[3px] border-gold-400 pl-4 py-0.5">
-          <p className="text-[15px] text-navy-700 leading-[1.85]">{desc}</p>
-        </div>
+    <div>
+      <div className="mb-8 pb-8 border-b border-border-soft">
+        <p className="text-[15px] text-navy-700 leading-[1.85] text-center">
+          {renderDesc(desc)}
+        </p>
       </div>
-      <div className="min-w-0">{children}</div>
+      {children}
     </div>
   );
 }

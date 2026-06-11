@@ -213,13 +213,13 @@ export default function Home() {
 
           <FadeIn direction="right">
             <div className="relative">
-              <div className="relative w-full max-w-sm mx-auto lg:mx-0 aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+              <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:-ml-6 aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
                 <Image
                   src="/images/team/nguyen-huu-tho-team.jpg"
                   alt="Nguyễn Hữu Thọ và đội ngũ 1992 Land"
                   fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 1024px) 384px, 384px"
+                  className="object-cover object-[55%_50%] scale-[3.3] origin-center"
+                  sizes="(max-width: 1024px) 448px, 448px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/75 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
@@ -316,15 +316,15 @@ export default function Home() {
       </section>
 
       {/* ── 8. CONTACT CTA ───────────────────────────────────── */}
-      <section className="py-28 px-6 bg-bg">
+      <section className="py-28 px-6 bg-navy-900">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
             <div className="text-center mb-12">
               <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-3">Liên hệ ngay</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight mb-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-4">
                 Sẵn sàng tìm ngôi nhà của bạn?
               </h2>
-              <p className="text-muted text-lg max-w-xl mx-auto">
+              <p className="text-surface/60 text-lg max-w-xl mx-auto">
                 Để lại thông tin, chuyên gia 1992 Land sẽ liên hệ trong vòng 30 phút trong giờ làm việc.
               </p>
               <div className="mt-4 mx-auto w-14 h-0.5 bg-gold-500 rounded-full" />
@@ -332,7 +332,7 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <div className="bg-surface border border-border-soft rounded-3xl p-8 shadow-sm">
+            <div className="bg-white border-2 border-navy-100 rounded-3xl p-8 shadow-[0_8px_40px_-8px_rgba(13,30,56,0.18)] ring-4 ring-navy-50/60">
               <ContactForm subject="[Lead] Tư vấn từ Trang chủ 1992land.com" />
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi trực tiếp:{" "}

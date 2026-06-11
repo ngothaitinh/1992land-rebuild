@@ -19,12 +19,23 @@
   "type": "Biệt thự nghỉ dưỡng",
   "excerpt": "Khu biệt thự compound 7,19 ha do VinaLiving phát triển tại Phú Mỹ, kiến trúc tân cổ điển nhiệt đới, sổ đỏ lâu dài từng căn.",
   "gradient": "from-blue-900 to-teal-800",
-  "hero_image": "/images/projects/salacia-villas-phu-my/hero.webp",
+  "hero_image": "/images/projects/salacia-villas-phu-my/gallery-render-1.jpg",
   "gallery": [
-    "/images/projects/salacia-villas-phu-my/hero.webp",
-    "/images/projects/salacia-villas-phu-my/gallery-1.webp",
-    "/images/projects/salacia-villas-phu-my/gallery-2.jpg",
-    "/images/projects/salacia-villas-phu-my/gallery-3.jpg"
+    "/images/projects/salacia-villas-phu-my/gallery-render-1.jpg",
+    "/images/projects/salacia-villas-phu-my/gallery-render-2.jpg",
+    "/images/projects/salacia-villas-phu-my/gallery-render-3.jpg",
+    "/images/projects/salacia-villas-phu-my/gallery-render-4.jpg"
+  ],
+  "location_image": "/images/projects/salacia-villas-phu-my/location.jpg",
+  "amenities_images": [
+    "/images/projects/salacia-villas-phu-my/amenity-1.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-2.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-3.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-4.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-5.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-6.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-7.jpg",
+    "/images/projects/salacia-villas-phu-my/amenity-8.jpg"
   ],
   "scale": "333 căn biệt thự · 7,19 ha · mật độ XD ~34%",
   "legal_status": "Sổ đỏ riêng từng căn, sở hữu lâu dài. Đầy đủ giấy phép thiết kế và xây dựng.",
@@ -71,5 +82,14 @@
   "lng": 107.08,
   "address_full": "Khu Hắc Dịch — Tóc Tiên, Phú Mỹ, Bà Rịa — Vũng Tàu",
   "created_at": "2026-05-01T00:00:00Z",
-  "updated_at": "2026-06-01T00:00:00Z"
+  "updated_at": "2026-06-01T00:00:00Z",
+  "descriptions": {
+    "chinh-sach": "Salacia Villas Phú Mỹ được VinaLiving — thành viên tập đoàn VinaCapital — triển khai với chính sách bán hàng minh bạch và linh hoạt, hỗ trợ tối đa cho cả người mua ở thực lẫn nhà đầu tư. Phương thức thanh toán thiết kế theo tiến độ thi công thực tế: người mua chỉ giải ngân khi dự án đạt từng mốc xây dựng được kiểm định, đảm bảo quyền lợi và giúp phân bổ dòng tiền hợp lý. Dự án được ngân hàng BIDV hỗ trợ gói vay ưu đãi dành riêng cho khách hàng Salacia Villas, với chính sách ân hạn gốc trong thời gian chờ bàn giao. Ngoài ra, VinaLiving định kỳ cập nhật các chương trình chiết khấu và ưu đãi đặc biệt cho khách hàng thanh toán nhanh hoặc mua nhiều sản phẩm. Liên hệ 1992 Land để nhận bảng chính sách và tư vấn phương án tài chính tối ưu — từ lựa chọn dòng sản phẩm phù hợp ngân sách đến tính toán dòng tiền đầu tư hiệu quả nhất.",
+    "tong-quan": "Salacia Villas Phú Mỹ là khu biệt thự compound cao cấp do VinaLiving phát triển, tọa lạc tại Khu Hắc Dịch — Tóc Tiên, TP. Phú Mỹ, Bà Rịa — Vũng Tàu. Dự án trải rộng trên 7,19 ha với mật độ xây dựng chỉ khoảng 34%, tạo ra không gian sống xanh mát, thoáng đãng và riêng tư cho 333 gia đình. Bốn dòng sản phẩm — Town Villa, Deluxe Villa, Garden Villa và Grand Villa — được quy hoạch đa dạng về diện tích và thiết kế, đáp ứng nhu cầu từ gia đình trẻ đến nhà đầu tư tầm trung và khách hàng HNWI tìm kiếm tài sản tích lũy đẳng cấp. Kiến trúc tân cổ điển nhiệt đới lấy cảm hứng từ resort nghỉ dưỡng, tối ưu thông gió tự nhiên và ánh sáng trong từng căn nhà. Đơn vị thi công CPW — đối tác chiến lược lâu dài của VinaLiving — cam kết tiêu chuẩn xây dựng quốc tế, bàn giao hoàn thiện mặt ngoài đúng tiến độ Quý 4/2028.",
+    "gia-ban": "Salacia Villas Phú Mỹ cung cấp bộ sản phẩm đa dạng với 4 dòng biệt thự để phù hợp với nhiều mục tiêu đầu tư khác nhau. Town Villa 85 m² thiết kế 4 tầng là lựa chọn tối ưu về chi phí, với mức giá từ 4,8 — 5,2 tỷ đồng. Deluxe Villa 110 — 112 m² và Garden Villa 133 — 196 m² mang lại không gian sống rộng rãi hơn, có sân vườn riêng và tầm nhìn thoáng, giá bán từ 6,6 — 10,2 tỷ đồng. Ở phân khúc cao cấp nhất, Grand Villa với diện tích từ 297 — 412 m² là sản phẩm giới hạn chỉ 10 căn, dành cho khách hàng muốn sở hữu tài sản đỉnh cao tại khu vực. So với mặt bằng biệt thự compound chất lượng tương đương tại Bà Rịa — Vũng Tàu, mức định giá của VinaLiving được đánh giá cạnh tranh với tiềm năng tăng giá mạnh khi hạ tầng khu vực hoàn thiện. Liên hệ 1992 Land để nhận bảng hàng cập nhật, kiểm tra tình trạng từng căn và được tư vấn chọn sản phẩm phù hợp nhất với ngân sách.",
+    "vi-tri": "Salacia Villas Phú Mỹ tọa lạc tại Khu Hắc Dịch — Tóc Tiên, ngay trung tâm TP. Phú Mỹ — cửa ngõ kinh tế trọng yếu của tỉnh Bà Rịa — Vũng Tàu. Dự án kết nối trực tiếp với cao tốc Biên Hòa — Vũng Tàu, rút ngắn thời gian di chuyển về TP. HCM còn khoảng 60 — 70 phút. Trong bán kính gần, cụm cảng quốc tế Cái Mép — Thị Vải và các khu công nghiệp lớn tạo ra nhu cầu nhà ở chất lượng cao từ hàng nghìn chuyên gia, quản lý cấp cao — đảm bảo thanh khoản và tiềm năng cho thuê tốt. Về phía nam, Trung tâm TP. Vũng Tàu cách khoảng 40 km; các điểm nghỉ dưỡng biển nổi tiếng như Hồ Tràm và Bình Châu cũng dễ dàng tiếp cận. Sự kiện Phú Mỹ được tích hợp vào vùng đô thị mở rộng của TP. HCM và hạ tầng giao thông đang được đầu tư mạnh — cao tốc, vành đai, cảng hàng không quốc tế Long Thành — càng khẳng định vị thế chiến lược và tiềm năng tăng giá dài hạn của bất động sản khu vực.",
+    "diem-noi-bat": "Điểm nổi bật đầu tiên của Salacia Villas là uy tín chủ đầu tư VinaLiving — thành viên tập đoàn VinaCapital với hơn 20 năm hoạt động tại thị trường Việt Nam. Sự bảo chứng này đồng nghĩa với tiến độ xây dựng minh bạch, pháp lý hoàn chỉnh và chất lượng công trình được giám sát chặt chẽ. Với mật độ xây dựng chỉ ~34%, hơn 2/3 khuôn viên dành cho không gian xanh, tiện ích cộng đồng và đường dạo bộ — tạo nên môi trường sống nghỉ dưỡng ngay trong lòng đô thị. Concept cảnh quan biophilic 'Super Coral' độc đáo mang thiên nhiên vào từng ngõ ngách của khu dân cư. Pháp lý sổ đỏ từng căn, sở hữu lâu dài là lợi thế lớn so với condotel hay officetel đang gặp nhiều vướng mắc trên thị trường hiện nay. Mỗi biệt thự có tường rào khép kín, sân vườn riêng và hệ thống an ninh 24/7 — đảm bảo sự riêng tư và an toàn tuyệt đối cho cư dân. Tổng hợp lại, Salacia Villas là lựa chọn đầu tư đáp ứng cả ba tiêu chí: an toàn pháp lý, chất lượng sống cao và tiềm năng tăng giá bền vững.",
+    "tien-ich": "Hệ thống tiện ích tại Salacia Villas được quy hoạch theo mô hình compound khép kín all-in-one, đáp ứng trọn vẹn nhu cầu sống — làm việc — giải trí — sức khỏe của cư dân ngay trong khuôn viên dự án. Trung tâm VinaLiving Lifestyle Club là điểm nhấn nội khu với phòng gym hiện đại, yoga studio, spa và các dịch vụ wellness chuyên sâu, dành riêng cho cư dân hệ thống VinaLiving. Trung tâm thương mại và khu ẩm thực nội khu phục vụ nhu cầu mua sắm và ăn uống hằng ngày mà không cần ra ngoài. Không gian co-working tích hợp công nghệ cao phù hợp với cư dân làm việc từ xa hoặc doanh nhân cần văn phòng linh hoạt. Công viên xanh, đường dạo bộ, khu BBQ ngoài trời và khu vui chơi trẻ em tạo nên nhịp sống cộng đồng gắn kết và năng động. An ninh đa lớp 24/7 vận hành theo tiêu chuẩn resort cao cấp. Về tiện ích ngoại khu, 1 tháp thương mại 5 tầng và trường mầm non nội khu sẽ hoàn thiện hệ sinh thái dân cư tự túc, tiện nghi.",
+    "phap-ly": "Pháp lý là yếu tố được VinaLiving xử lý hoàn chỉnh và minh bạch trước khi mở bán. Mỗi căn biệt thự tại Salacia Villas đều được cấp Giấy chứng nhận quyền sử dụng đất riêng biệt (sổ đỏ từng căn), đảm bảo quyền sở hữu lâu dài không giới hạn thời gian — một lợi thế pháp lý vượt trội so với nhiều loại hình bất động sản khác trên thị trường. Dự án đã được cấp đầy đủ giấy phép thiết kế và giấy phép xây dựng hợp lệ, toàn bộ hồ sơ pháp lý có thể kiểm tra trực tiếp. Về tiến độ, VinaLiving cam kết theo lộ trình đã công bố: khu công viên và phố thương mại bàn giao tháng 10/2026, trung tâm thương mại hoàn thành tháng 01/2028, trường mầm non vận hành từ tháng 07/2028. Toàn bộ biệt thự dự kiến bàn giao Quý 4/2028 hoàn thiện mặt ngoài, bên trong thô theo tiêu chuẩn đã cam kết. 1992 Land hỗ trợ khách hàng tra cứu, kiểm tra hồ sơ pháp lý trực tiếp và đồng hành trong toàn bộ quá trình ký kết hợp đồng mua bán — đảm bảo giao dịch an toàn và minh bạch từ đầu đến cuối."
+  }
 }

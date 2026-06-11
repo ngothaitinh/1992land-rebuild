@@ -49,6 +49,7 @@ export type Project = {
   construction_update?: string;
   scale?: string;
   hidden_sections?: string[];
+  descriptions?: Record<string, string>;
 };
 
 export type Testimonial = {

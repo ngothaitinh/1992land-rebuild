@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ZaloIcon from "@/components/ZaloIcon";
-import MessengerIcon from "@/components/MessengerIcon";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const metadata: Metadata = {
   title: "Liên hệ",
-  description: "Liên hệ với 1992 Land để nhận tư vấn bất động sản miễn phí — hotline, Zalo, Messenger.",
+  description: "Liên hệ với 1992 Land để nhận tư vấn bất động sản miễn phí — hotline, Zalo, WhatsApp.",
 };
 
 export default function LienHePage() {
@@ -93,13 +93,13 @@ export default function LienHePage() {
                 Zalo
               </a>
               <a
-                href="https://m.me/165126330021000"
+                href="https://wa.me/84909474123"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 bg-[#0084FF] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
+                className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
               >
-                <MessengerIcon size={16} />
-                Messenger
+                <WhatsAppIcon size={16} />
+                WhatsApp
               </a>
             </div>
 

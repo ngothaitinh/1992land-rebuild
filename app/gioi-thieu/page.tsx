@@ -35,7 +35,7 @@ export default function GioiThieuPage() {
                   src="/images/team/nguyen-huu-tho.jpg"
                   alt="Nguyễn Hữu Thọ — Nhà sáng lập 1992 Land"
                   fill
-                  className="object-cover object-top"
+                  className="object-cover object-[54%_50%] scale-[1.5] origin-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>

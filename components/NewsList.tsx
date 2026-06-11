@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Clock, ChevronDown } from "lucide-react";
-import { gtagEvent } from "@/components/Analytics";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
 import type { Post } from "@/lib/data";
 
 function formatDate(iso: string) {
@@ -16,7 +13,7 @@ function formatDate(iso: string) {
   });
 }
 
-const INITIAL_COUNT = 3;
+const INITIAL_COUNT = 6;
 
 function PostCard({ post, priority = false }: { post: Post; priority?: boolean }) {
   return (
@@ -70,69 +67,40 @@ function PostCard({ post, priority = false }: { post: Post; priority?: boolean }
 }
 
 export default function NewsList({ posts }: { posts: Post[] }) {
-  const [expanded, setExpanded] = useState(false);
-
-  function handleExpand() {
-    setExpanded(true);
-    gtagEvent("news_expand", {
-      event_category: "engagement",
-      event_label: "homepage_news_see_more",
-    });
-  }
-
-  const visible = expanded ? posts : posts.slice(0, INITIAL_COUNT);
-  const hidden = posts.slice(INITIAL_COUNT);
+  const first3 = posts.slice(0, 3);
+  const next3 = posts.slice(3, INITIAL_COUNT);
 
   return (
     <div className="relative">
-      {/* Grid 3 cột */}
+      {/* Hàng 1 — full opacity */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {visible.map((post, i) => (
+        {first3.map((post, i) => (
           <PostCard key={post.slug} post={post} priority={i < 3} />
         ))}
       </div>
 
-      {/* Gradient fade + nút xem thêm */}
-      {!expanded && hidden.length > 0 && (
+      {/* Hàng 2 — fade dần từ giữa xuống */}
+      {next3.length > 0 && (
         <div className="relative mt-5">
-          {/* Bài mờ — skeleton preview */}
-          <div className="pointer-events-none select-none grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 opacity-35 blur-[2px]">
-            {hidden.slice(0, 3).map((post) => (
-              <div key={post.slug} className="rounded-2xl overflow-hidden bg-white border border-border-soft">
-                <div className="aspect-[16/9] bg-navy-100" />
-                <div className="p-5 space-y-3">
-                  <div className="h-3 bg-navy-100 rounded w-20" />
-                  <div className="h-4 bg-navy-100 rounded w-full" />
-                  <div className="h-4 bg-navy-100 rounded w-4/5" />
-                  <div className="h-3 bg-navy-100 rounded w-2/3" />
-                </div>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {next3.map((post) => (
+              <PostCard key={post.slug} post={post} />
             ))}
           </div>
-
-          {/* Gradient fade */}
+          {/* Gradient overlay — bắt đầu mờ từ 35% xuống */}
           <div
-            className="absolute inset-x-0 top-0 h-full pointer-events-none"
+            className="absolute inset-0 flex flex-col items-center justify-end pb-6"
             style={{
-              background: "linear-gradient(to bottom, rgba(243,239,233,0) 0%, rgba(243,239,233,0.75) 45%, rgba(243,239,233,1) 85%)",
+              background: "linear-gradient(to bottom, rgba(243,239,233,0) 0%, rgba(243,239,233,0.55) 40%, rgba(243,239,233,0.92) 72%, rgba(243,239,233,1) 100%)",
             }}
-          />
-
-          {/* Nút xem thêm */}
-          <button
-            onClick={handleExpand}
-            className="absolute inset-x-0 bottom-0 flex flex-col items-center gap-1.5 pb-3 pt-14 group cursor-pointer"
           >
-            <span className="text-navy-500 text-sm font-medium group-hover:text-navy-900 transition-colors">
-              Xem thêm {hidden.length} bài viết
-            </span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
+            <Link
+              href="/tin-tuc"
+              className="flex items-center gap-2 px-7 py-3 bg-navy-900 text-white text-sm font-semibold rounded-full hover:bg-navy-700 transition-colors shadow-lg"
             >
-              <ChevronDown size={22} className="text-gold-500" />
-            </motion.div>
-          </button>
+              Xem thêm nhiều bài viết <ArrowRight size={15} />
+            </Link>
+          </div>
         </div>
       )}
     </div>

@@ -64,7 +64,7 @@ const orgSchema = {
   },
   sameAs: [
     "https://zalo.me/0909474123",
-    "https://m.me/165126330021000",
+    "https://wa.me/84909474123",
   ],
 };
 

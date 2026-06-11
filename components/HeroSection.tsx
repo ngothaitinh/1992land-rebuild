@@ -17,31 +17,39 @@ const item: Variants = {
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-navy-950">
-      {/* Gradient background */}
+      {/* Gradient background — deep navy with directional light from bottom-left */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage:
-            "radial-gradient(ellipse 120% 90% at 65% -10%, #1E3A60 0%, #0D1E38 45%, #071121 100%)",
+          background:
+            "linear-gradient(155deg, #0A1628 0%, #0D1E38 35%, #071121 65%, #04090F 100%)",
         }}
       />
 
-      {/* Subtle grid */}
+      {/* Blueprint grid — architectural feel */}
       <div
-        className="absolute inset-0 opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(#E5E2D9 1px, transparent 1px), linear-gradient(90deg, #E5E2D9 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+            "linear-gradient(#C4972C 1px, transparent 1px), linear-gradient(90deg, #C4972C 1px, transparent 1px)",
+          backgroundSize: "88px 88px",
         }}
       />
 
-      {/* Gold glow orbs */}
-      <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-gold-500/5 blur-[80px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full bg-navy-400/10 blur-[60px] pointer-events-none" />
+      {/* Diagonal accent lines — like architectural blueprints */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <svg className="absolute right-0 top-0 w-[55%] h-full opacity-[0.04]" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice" fill="none">
+          <line x1="400" y1="0" x2="0" y2="600" stroke="#C4972C" strokeWidth="1"/>
+          <line x1="400" y1="100" x2="80" y2="600" stroke="#C4972C" strokeWidth="0.5"/>
+          <line x1="400" y1="-80" x2="-80" y2="600" stroke="#C4972C" strokeWidth="0.5"/>
+          <line x1="300" y1="0" x2="300" y2="600" stroke="#E5E2D9" strokeWidth="0.5"/>
+          <line x1="200" y1="0" x2="200" y2="600" stroke="#E5E2D9" strokeWidth="0.3"/>
+        </svg>
+      </div>
 
-      {/* Top gold line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-20 bg-gradient-to-b from-transparent to-gold-500/50" />
+      {/* Soft radial glow — bottom only, away from header */}
+      <div className="absolute bottom-0 left-0 w-[600px] h-[400px] rounded-full bg-navy-500/15 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-10 w-48 h-48 rounded-full bg-gold-500/6 blur-[60px] pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 xl:gap-20 items-center pt-28 pb-20 min-h-screen">

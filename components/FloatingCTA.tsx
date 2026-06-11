@@ -1,5 +1,6 @@
 import { Phone } from "lucide-react";
 import ZaloIcon from "@/components/ZaloIcon";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export default function FloatingCTA() {
   return (
@@ -23,6 +24,22 @@ export default function FloatingCTA() {
           </a>
         </div>
 
+        {/* WhatsApp */}
+        <div className="group flex items-center gap-3">
+          <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 bg-navy-900 text-surface text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
+            WhatsApp
+          </span>
+          <a
+            href="https://wa.me/84909474123"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
+            aria-label="WhatsApp"
+          >
+            <WhatsAppIcon size={22} />
+          </a>
+        </div>
+
         {/* Phone */}
         <div className="group flex items-center gap-3">
           <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 bg-navy-900 text-surface text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
@@ -34,24 +51,6 @@ export default function FloatingCTA() {
             aria-label="Gọi điện"
           >
             <Phone size={20} />
-          </a>
-        </div>
-
-        {/* Messenger */}
-        <div className="group flex items-center gap-3">
-          <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 bg-navy-900 text-surface text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
-            Nhắn Messenger
-          </span>
-          <a
-            href="https://m.me/165126330021000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full bg-[#0084FF] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
-            aria-label="Nhắn Messenger"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.908 1.395 5.503 3.58 7.237V22l3.27-1.797C9.86 20.4 10.909 20.6 12 20.6c5.523 0 10-4.145 10-9.357C22 6.145 17.523 2 12 2zm1.022 12.611l-2.545-2.716-4.97 2.716 5.473-5.808 2.607 2.716 4.908-2.716-5.473 5.808z" />
-            </svg>
           </a>
         </div>
       </div>
@@ -70,24 +69,22 @@ export default function FloatingCTA() {
             <span className="text-[10px] font-medium text-muted">Zalo</span>
           </a>
           <a
+            href="https://wa.me/84909474123"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-col items-center justify-center py-3 gap-1 text-[#25D366] hover:bg-green-50 transition-colors"
+            aria-label="WhatsApp"
+          >
+            <WhatsAppIcon size={18} />
+            <span className="text-[10px] font-medium text-muted">WhatsApp</span>
+          </a>
+          <a
             href="tel:+84909474123"
             className="flex flex-col items-center justify-center py-3 gap-1 text-gold-500 hover:bg-gold-100 transition-colors"
             aria-label="Gọi điện"
           >
             <Phone size={18} />
             <span className="text-[10px] font-medium text-muted">Gọi ngay</span>
-          </a>
-          <a
-            href="https://m.me/165126330021000"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-3 gap-1 text-[#0084FF] hover:bg-blue-50 transition-colors"
-            aria-label="Nhắn Messenger"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.908 1.395 5.503 3.58 7.237V22l3.27-1.797C9.86 20.4 10.909 20.6 12 20.6c5.523 0 10-4.145 10-9.357C22 6.145 17.523 2 12 2zm1.022 12.611l-2.545-2.716-4.97 2.716 5.473-5.808 2.607 2.716 4.908-2.716-5.473 5.808z" />
-            </svg>
-            <span className="text-[10px] font-medium text-muted">Messenger</span>
           </a>
         </div>
       </div>

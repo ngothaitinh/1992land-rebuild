@@ -40,9 +40,9 @@ function Divider() {
 
 function SecHead({ id, title }: { id?: string; title: string }) {
   return (
-    <div id={id} className="scroll-mt-20 mb-7">
-      <h2 className="text-2xl font-bold text-navy-900 tracking-tight">{title}</h2>
-      <div className="mt-3 w-10 h-[3px] bg-gold-500 rounded-full" />
+    <div id={id} className="scroll-mt-20 mb-8">
+      <h2 className="text-2xl lg:text-[1.75rem] font-bold text-navy-900 tracking-tight leading-tight">{title}</h2>
+      <div className="mt-3 w-12 h-[3px] bg-gold-500 rounded-full" />
     </div>
   );
 }
@@ -50,9 +50,11 @@ function SecHead({ id, title }: { id?: string; title: string }) {
 function SectionIntro({ desc, children }: { desc?: string; children: React.ReactNode }) {
   if (!desc) return <>{children}</>;
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[5fr_8fr] gap-8 lg:gap-12 items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-[5fr_8fr] gap-6 lg:gap-14 items-start">
       <div className="lg:sticky lg:top-24">
-        <p className="text-sm text-muted leading-relaxed border-l-2 border-gold-300 pl-4">{desc}</p>
+        <div className="border-l-[3px] border-gold-400 pl-4 py-0.5">
+          <p className="text-[15px] text-navy-700 leading-[1.85]">{desc}</p>
+        </div>
       </div>
       <div className="min-w-0">{children}</div>
     </div>
@@ -127,43 +129,44 @@ export default async function ProjectDetailPage({ params }: Props) {
       />
 
       {/* ── COMPACT INFO BAR ── */}
-      <div className="bg-white border-b border-border-soft">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-white border-b border-border-soft shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-4 sm:py-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             {/* Left: status + title + location */}
             <div className="min-w-0">
-              <div className="flex items-center gap-2 mb-2">
-                <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-semibold rounded-full ${
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-full ${
                   project.status === "Đang mở bán"
                     ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                     : "bg-amber-50 text-amber-700 border border-amber-200"
                 }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${project.status === "Đang mở bán" ? "bg-emerald-500" : "bg-amber-500"}`} />
+                  <span className={`w-1.5 h-1.5 rounded-full ${project.status === "Đang mở bán" ? "bg-emerald-500 animate-pulse" : "bg-amber-500"}`} />
                   {project.status}
                 </span>
+                <span className="text-xs text-muted">{project.type}</span>
               </div>
-              <h1 className="text-2xl lg:text-3xl font-bold text-navy-900 leading-tight mb-1.5 truncate">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900 leading-tight mb-1">
                 {project.title}
               </h1>
               <div className="flex items-center gap-1.5 text-muted text-sm">
                 <MapPin size={13} className="shrink-0 text-gold-500" />
-                <span className="truncate">{project.address_full ?? project.location}</span>
+                <span className="line-clamp-1">{project.address_full ?? project.location}</span>
               </div>
             </div>
 
             {/* Right: price + buttons */}
-            <div className="flex items-center gap-3 shrink-0">
-              <div className="pr-3 border-r border-border-soft">
-                <div className="text-[10px] text-muted uppercase tracking-wider mb-0.5">Giá từ</div>
-                <div className="text-gold-500 font-bold text-xl font-numeric leading-none">{project.priceRange}</div>
+            <div className="flex items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
+              <div className="px-4 py-2 rounded-xl bg-gold-50 border border-gold-200">
+                <div className="text-[10px] text-gold-700 uppercase tracking-wider font-medium leading-none mb-1">Giá từ</div>
+                <div className="text-gold-600 font-bold text-lg sm:text-xl font-numeric leading-none">{project.priceRange}</div>
               </div>
               <a
                 href="https://zalo.me/0909474123"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-4 py-2 bg-white border-2 border-[#0068FF] text-[#0068FF] text-sm font-bold rounded-full hover:bg-blue-50 active:scale-95 transition-all"
+                className="flex items-center gap-1.5 px-3.5 py-2.5 bg-white border-2 border-[#0068FF] text-[#0068FF] text-sm font-bold rounded-xl hover:bg-blue-50 active:scale-95 transition-all cursor-pointer min-h-[44px]"
               >
-                <ZaloIcon size={18} /> Zalo
+                <ZaloIcon size={17} /> Zalo
               </a>
               <ContactModal
                 label="Nhận bảng giá"

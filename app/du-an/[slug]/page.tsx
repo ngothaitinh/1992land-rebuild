@@ -79,12 +79,13 @@ export default async function ProjectDetailPage({ params }: Props) {
   const show = (id: string) => !hide.has(id);
 
   const anchorSections = [
-    show("chinh-sach") ? "chinh-sach" : null,
-    show("gia-ban") && project.product_types ? "gia-ban" : null,
+    show("tong-quan") ? "tong-quan" : null,
     show("vi-tri") ? "vi-tri" : null,
     show("tien-ich") && (project.amenities_internal || project.amenities_external) ? "tien-ich" : null,
     show("mat-bang") && project.masterplan_image ? "mat-bang" : null,
+    show("gia-ban") && project.product_types ? "gia-ban" : null,
     show("phap-ly") ? "phap-ly" : null,
+    show("chinh-sach") ? "chinh-sach" : null,
     show("dang-ky") ? "dang-ky" : null,
   ].filter(Boolean) as string[];
 

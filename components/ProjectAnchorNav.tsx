@@ -5,15 +5,15 @@ import Link from "next/link";
 import { ChevronDown, Phone, ArrowLeft } from "lucide-react";
 
 const ALL_SECTIONS = [
-  { id: "chinh-sach", label: "Chính sách" },
   { id: "tong-quan", label: "Tổng quan" },
-  { id: "gia-ban", label: "Giá bán" },
   { id: "vi-tri", label: "Vị trí" },
-  { id: "diem-noi-bat", label: "Nổi bật" },
   { id: "tien-ich", label: "Tiện ích" },
   { id: "mat-bang", label: "Mặt bằng" },
   { id: "thiet-ke", label: "Thiết kế" },
+  { id: "gia-ban", label: "Giá bán" },
   { id: "phap-ly", label: "Pháp lý" },
+  { id: "chinh-sach", label: "Chính sách" },
+  { id: "diem-noi-bat", label: "Nổi bật" },
   { id: "dang-ky", label: "Đăng ký" },
 ];
 

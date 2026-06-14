@@ -1,0 +1,20 @@
+{
+  "id": "prj_du-an-test-1992-9s2w",
+  "slug": "du-an-test-1992-9s2w",
+  "order": 99,
+  "title": "Dự án Test 1992",
+  "location": "Quận 7, TP.HCM",
+  "area": "tp-hcm",
+  "project_type": "can-ho",
+  "city": "tp-hcm",
+  "district": "Quận 7",
+  "developer": "Công ty Test",
+  "priceRange": "Từ 3 tỷ/căn",
+  "status": "Đang mở bán",
+  "type": "Căn hộ chung cư",
+  "excerpt": "Dự án thử nghiệm",
+  "gradient": "from-navy-900 to-navy-700",
+  "created_at": "2026-06-14T10:03:38.984Z",
+  "updated_at": "2026-06-14T10:04:43.272Z",
+  "_needs_review": false
+}

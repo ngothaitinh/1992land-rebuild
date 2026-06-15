@@ -1,0 +1,138 @@
+{
+  "order": 9,
+  "id": "prj_maia_ho_tram",
+  "slug": "maia-ho-tram",
+  "title": "Maia Resort Hồ Tràm",
+  "location": "Xuyên Mộc, Bà Rịa — Vũng Tàu",
+  "area": "Bà Rịa — Vũng Tàu",
+  "project_type": "nghi-duong",
+  "city": "vung-tau",
+  "district": "Xuyên Mộc",
+  "developer": "Hồ Tràm Project Company",
+  "priceRange": "Liên hệ",
+  "price_from": null,
+  "price_to": null,
+  "area_from": 35,
+  "area_to": 200,
+  "unit_count": 1280,
+  "status": "Đang mở bán",
+  "type": "Căn hộ nghỉ dưỡng",
+  "excerpt": "1.244 căn hộ condotel và 36 villa 5 sao trên 7 ha tại Hồ Tràm, vận hành bởi Fusion Hotel Group, bàn giao quý 3/2027.",
+  "gradient": "from-teal-900 to-blue-800",
+  "hero_image": "",
+  "gallery": [],
+  "location_image": "",
+  "amenities_images": [],
+  "scale": "1.244 căn hộ + 36 villa · 2 tòa tháp · 7 ha",
+  "legal_status": "Đang hoàn thiện pháp lý. Liên hệ 1992 Land để cập nhật hồ sơ mới nhất.",
+  "handover_date": "Dự kiến Quý 3/2027",
+  "ownership": "Liên hệ",
+  "construction_update": "Khởi công dự kiến Quý 4/2025, bàn giao Quý 3/2027.",
+  "product_types": [
+    {
+      "name": "Studio",
+      "area": "35 m²",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "1 phòng ngủ",
+      "area": "49 – 60 m²",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "2 phòng ngủ",
+      "area": "65 – 90 m²",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "Penthouse",
+      "area": "200 m²",
+      "price_range": "Liên hệ",
+      "total": null
+    }
+  ],
+  "nearby": [
+    {
+      "name": "The Grand Ho Tram Resort & Casino",
+      "distance": "Liền kề",
+      "category": "resort"
+    },
+    {
+      "name": "The Bluffs Golf Course",
+      "distance": "Liền kề",
+      "category": "golf"
+    },
+    {
+      "name": "Sân bay quốc tế Long Thành",
+      "distance": "~30 phút",
+      "category": "airport"
+    },
+    {
+      "name": "TP. Hồ Chí Minh",
+      "distance": "~2 giờ",
+      "category": "road"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Vận hành bởi Fusion Hotel Group",
+      "desc": "Thương hiệu quản lý khách sạn 5 sao quốc tế, đảm bảo chuẩn dịch vụ nghỉ dưỡng cao cấp."
+    },
+    {
+      "title": "Nằm trong hệ sinh thái The Grand Ho Tram Strip",
+      "desc": "164 ha resort, casino, golf, nhà hàng và spa quốc tế ngay tại khuôn viên."
+    },
+    {
+      "title": "Thanh toán linh hoạt",
+      "desc": "Chỉ cần 50% khi bàn giao năm 2027, chiết khấu lên đến 5% thanh toán nhanh."
+    },
+    {
+      "title": "Kết nối sân bay Long Thành",
+      "desc": "Chỉ ~30 phút qua cao tốc mới, nâng tầm giá trị khai thác du lịch."
+    }
+  ],
+  "amenities_internal": [
+    "Nhà hàng & bar bãi biển 5 sao",
+    "Spa & wellness cao cấp",
+    "Hồ bơi vô cực",
+    "Kids club",
+    "Phòng gym & yoga",
+    "Khu vui chơi & thể thao"
+  ],
+  "amenities_external": [
+    "The Grand Ho Tram Resort & Casino",
+    "The Bluffs Golf Course (Top 100 châu Á)",
+    "Nhà hàng & khu mua sắm quốc tế"
+  ],
+  "faq": [
+    {
+      "q": "Maia Resort Hồ Tràm do ai phát triển và vận hành?",
+      "a": "Dự án do Hồ Tràm Project Company phát triển, vận hành bởi Fusion Hotel Group — thương hiệu quản lý khách sạn 5 sao quốc tế."
+    },
+    {
+      "q": "Chính sách thanh toán Maia Resort Hồ Tràm như thế nào?",
+      "a": "Chỉ cần thanh toán 50% khi bàn giao vào Quý 3/2027. Chiết khấu đặt cọc sớm 1%, thanh toán nhanh đến 5%. Liên hệ 1992 Land để nhận bảng chính sách chi tiết."
+    },
+    {
+      "q": "Maia Resort Hồ Tràm bàn giao khi nào?",
+      "a": "Dự kiến Quý 3/2027, khởi công Quý 4/2025."
+    }
+  ],
+  "lat": 10.62,
+  "lng": 107.47,
+  "address_full": "Xã Phước Thuận, Huyện Xuyên Mộc, Bà Rịa — Vũng Tàu",
+  "created_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-15T00:00:00Z",
+  "descriptions": {
+    "tong-quan": "**Maia Resort Hồ Tràm** là dự án căn hộ nghỉ dưỡng condotel 5 sao tại **Phước Thuận, Xuyên Mộc, Bà Rịa — Vũng Tàu**, do **Hồ Tràm Project Company** phát triển và **Fusion Hotel Group** vận hành. Tổng quy mô **7 ha** gồm **1.244 căn hộ** (2 tòa tháp: Happy Tower 610 căn và Peace Tower 634 căn, 32 tầng) và **36 villa** cao cấp. Diện tích từ **35 m²** (studio) đến **200 m²** (penthouse), dự kiến bàn giao **Quý 3/2027**.",
+    "chinh-sach": "Chính sách thanh toán linh hoạt: **chỉ cần 50% khi bàn giao năm 2027**. Ưu đãi đặt cọc sớm **chiết khấu 1%**, thanh toán nhanh **chiết khấu lên đến 5%**, kèm chương trình khách hàng thân thiết. Liên hệ **1992 Land** để nhận bảng giá và phương án tài chính mới nhất.",
+    "gia-ban": "Giá bán đang cập nhật theo từng giai đoạn mở bán. Sản phẩm gồm **Studio 35 m²**, **1PN 49–60 m²**, **2PN 65–90 m²** và **Penthouse 200 m²**. Liên hệ **1992 Land — 0909 474 123** để nhận bảng hàng và báo giá cụ thể từng căn.",
+    "vi-tri": "Tọa lạc tại **Phước Thuận, Xuyên Mộc**, nằm trong hệ sinh thái **The Grand Ho Tram Strip 164 ha** với casino, sân golf The Bluffs (Top 100 châu Á) và resort quốc tế. Cách **TP. HCM ~2 giờ**, cách **sân bay Long Thành ~30 phút** qua cao tốc mới — lợi thế lớn khi sân bay đi vào hoạt động.",
+    "diem-noi-bat": "Vận hành bởi **Fusion Hotel Group** đạt chuẩn 5 sao quốc tế. Nằm ngay trong **The Grand Ho Tram Strip** — hệ sinh thái nghỉ dưỡng, casino, golf và ẩm thực tầm cỡ châu Á. Thanh toán chỉ **50% khi bàn giao** giảm áp lực tài chính cho nhà đầu tư.",
+    "tien-ich": "Hệ tiện ích 5 sao tích hợp: **nhà hàng & bar bãi biển**, **spa & wellness cao cấp**, **hồ bơi vô cực**, **kids club**, phòng gym, yoga và khu thể thao. Ngoài khuôn viên, cư dân tiếp cận toàn bộ hệ sinh thái **The Grand Ho Tram Strip** gồm casino, sân golf The Bluffs, nhà hàng và khu mua sắm quốc tế.",
+    "phap-ly": "Dự án đang trong quá trình hoàn thiện hồ sơ pháp lý. Liên hệ **1992 Land — 0909 474 123** để nhận thông tin pháp lý cập nhật và được hỗ trợ kiểm tra hồ sơ trực tiếp trước khi đặt cọc."
+  }
+}

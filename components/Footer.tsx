@@ -15,6 +15,9 @@ const projects = [
   { href: "/du-an/sun-group-cu-lao-pho", label: "Sun Group Cù Lao Phố" },
   { href: "/du-an/river-collection-an-gia", label: "River Collection An Gia" },
   { href: "/du-an/la-home-long-an", label: "Khu đô thị LA Home Long An" },
+  { href: "/du-an/maia-ho-tram", label: "Maia Resort Hồ Tràm" },
+  { href: "/du-an/blanca-city-vung-tau", label: "Blanca City Vũng Tàu" },
+  { href: "/du-an/izumi-city-dong-nai", label: "Izumi City Đồng Nai" },
 ];
 
 export default function Footer() {

@@ -1,0 +1,140 @@
+{
+  "order": 11,
+  "id": "prj_izumi_city",
+  "slug": "izumi-city-dong-nai",
+  "title": "Izumi City Đồng Nai",
+  "location": "Long Hưng, Biên Hòa, Đồng Nai",
+  "area": "Đồng Nai",
+  "project_type": "khu-do-thi",
+  "city": "dong-nai",
+  "district": "Biên Hòa",
+  "developer": "Nam Long Group",
+  "priceRange": "Liên hệ",
+  "price_from": null,
+  "price_to": null,
+  "area_from": null,
+  "area_to": null,
+  "unit_count": 13500,
+  "status": "Đang mở bán",
+  "type": "Khu đô thị",
+  "excerpt": "Khu đô thị 170 ha của Nam Long Group tại Biên Hòa — 13.500 sản phẩm, sở hữu lâu dài, ven sông Đồng Nai, ~30 phút về TP. HCM.",
+  "gradient": "from-emerald-900 to-green-700",
+  "hero_image": "",
+  "gallery": [],
+  "location_image": "",
+  "amenities_images": [],
+  "scale": "170 ha · 13.500 sản phẩm · 9 phân khu",
+  "legal_status": "Sở hữu lâu dài, đã nộp tiền sử dụng đất, quy hoạch 1/500 được phê duyệt.",
+  "handover_date": "Liên hệ để cập nhật tiến độ từng phân khu",
+  "ownership": "Sở hữu lâu dài",
+  "construction_update": "Một số phân khu đã bàn giao. Aeon Mall Biên Hòa dự kiến 2027.",
+  "product_types": [
+    {
+      "name": "Nhà phố vườn (Izumi Gardenia)",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "Nhà phố, shophouse, song lập, biệt thự (Izumi Canaria)",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "Căn hộ trung cao tầng",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "Biệt thự cao cấp",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    }
+  ],
+  "nearby": [
+    {
+      "name": "TP. Hồ Chí Minh",
+      "distance": "~30 phút qua cao tốc",
+      "category": "road"
+    },
+    {
+      "name": "Aeon Mall Biên Hòa",
+      "distance": "Trong khu vực (dự kiến 2027)",
+      "category": "commercial"
+    },
+    {
+      "name": "Trung tâm hành chính Đồng Nai mới",
+      "distance": "Lân cận",
+      "category": "admin"
+    },
+    {
+      "name": "Sông Đồng Nai",
+      "distance": "Ven sông",
+      "category": "river"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Chủ đầu tư Nam Long Group",
+      "desc": "Tập đoàn BĐS uy tín hơn 30 năm, chuyên phát triển các khu đô thị tích hợp quy mô lớn."
+    },
+    {
+      "title": "Quy mô 170 ha — 9 phân khu",
+      "desc": "13.500 sản phẩm đa dạng từ nhà phố vườn, biệt thự đến căn hộ cao tầng, tạo cộng đồng đô thị hoàn chỉnh."
+    },
+    {
+      "title": "Sở hữu lâu dài, pháp lý sạch",
+      "desc": "Đã nộp tiền sử dụng đất, quy hoạch 1/500 được phê duyệt, sổ hồng lâu dài."
+    },
+    {
+      "title": "Vị trí ven sông Đồng Nai",
+      "desc": "Phong thủy tốt, cảnh quan xanh mát, kết nối nhanh về TP. HCM qua các tuyến cao tốc."
+    }
+  ],
+  "amenities_internal": [
+    "Clubhouse",
+    "Hồ bơi",
+    "Sân thể thao đa năng",
+    "Sân chơi trẻ em",
+    "Trường học & khu giáo dục",
+    "Khu thương mại — dịch vụ",
+    "Công viên ven sông",
+    "Đường dạo bộ & cảnh quan xanh"
+  ],
+  "amenities_external": [
+    "Aeon Mall Biên Hòa (dự kiến 2027)",
+    "Trung tâm hành chính Đồng Nai mới",
+    "Hệ thống cao tốc TP.HCM — Long Thành — Dầu Giây"
+  ],
+  "faq": [
+    {
+      "q": "Izumi City Đồng Nai do ai phát triển?",
+      "a": "Dự án do Nam Long Group — tập đoàn BĐS với hơn 30 năm kinh nghiệm — phát triển tại phường Long Hưng, TP. Biên Hòa, Đồng Nai."
+    },
+    {
+      "q": "Pháp lý Izumi City như thế nào?",
+      "a": "Sở hữu lâu dài, đã nộp tiền sử dụng đất, quy hoạch 1/500 đã được phê duyệt. Đây là điểm mạnh pháp lý nổi bật của dự án."
+    },
+    {
+      "q": "Izumi City cách TP. HCM bao xa?",
+      "a": "Khoảng 30 phút qua hệ thống cao tốc TP.HCM — Long Thành — Dầu Giây và đường Hương Lộ 2."
+    }
+  ],
+  "lat": 10.95,
+  "lng": 106.87,
+  "address_full": "Phường Long Hưng, TP. Biên Hòa, Đồng Nai (giao Hương Lộ 2 và Nam Cao)",
+  "created_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-15T00:00:00Z",
+  "descriptions": {
+    "tong-quan": "**Izumi City** là khu đô thị tích hợp quy mô **170 ha** tại **Phường Long Hưng, TP. Biên Hòa, Đồng Nai** do **Nam Long Group** phát triển. Tổng cộng **13.500 sản phẩm** chia thành **9 phân khu** đa dạng: nhà phố vườn (Izumi Gardenia), nhà phố thương mại, song lập, biệt thự (Izumi Canaria) và căn hộ trung cao tầng. Vị trí ven **sông Đồng Nai**, cách **TP. HCM ~30 phút** qua cao tốc.",
+    "chinh-sach": "Chính sách thanh toán linh hoạt theo tiến độ xây dựng, hỗ trợ vay ngân hàng. Liên hệ **1992 Land — 0909 474 123** để nhận bảng giá và phương án tài chính cập nhật nhất từng phân khu.",
+    "gia-ban": "Giá bán đang cập nhật theo từng phân khu và giai đoạn mở bán. Sản phẩm từ nhà phố đến biệt thự và căn hộ cao tầng với mức giá đa dạng. Liên hệ **1992 Land — 0909 474 123** để nhận thông tin giá cụ thể.",
+    "vi-tri": "Tọa lạc tại **Phường Long Hưng, TP. Biên Hòa**, giao lộ **Hương Lộ 2 và Nam Cao**, ven **sông Đồng Nai**. Cách **TP. HCM ~30 phút** qua cao tốc TP.HCM — Long Thành — Dầu Giây. Gần **trung tâm hành chính Đồng Nai mới** và **Aeon Mall Biên Hòa** (dự kiến 2027).",
+    "diem-noi-bat": "**Nam Long Group** — hơn 30 năm kinh nghiệm phát triển khu đô thị tích hợp. **Pháp lý hoàn chỉnh**: sở hữu lâu dài, đã nộp tiền sử dụng đất, quy hoạch 1/500 đã phê duyệt. Quy mô **170 ha — 9 phân khu** tạo cộng đồng tự cung tự cấp với đầy đủ tiện ích giáo dục, thương mại, công viên và ven sông.",
+    "tien-ich": "Đô thị khép kín với: **Clubhouse**, hồ bơi, sân thể thao, sân chơi trẻ em, trường học, khu thương mại — dịch vụ, **công viên ven sông Đồng Nai** và đường dạo bộ cảnh quan xanh. Bên ngoài có **Aeon Mall Biên Hòa** (2027) và hạ tầng giao thông đang nhanh chóng hoàn thiện.",
+    "phap-ly": "**Sở hữu lâu dài** (không phải 50 năm như condotel). **Đã nộp tiền sử dụng đất**, quy hoạch **1/500 được phê duyệt** — cơ sở pháp lý vững chắc cho người mua ở thực và đầu tư dài hạn. 1992 Land hỗ trợ kiểm tra hồ sơ pháp lý chi tiết trước khi ký kết."
+  }
+}

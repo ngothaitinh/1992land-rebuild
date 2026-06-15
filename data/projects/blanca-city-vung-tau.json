@@ -1,0 +1,126 @@
+{
+  "order": 10,
+  "id": "prj_blanca_city",
+  "slug": "blanca-city-vung-tau",
+  "title": "Blanca City Vũng Tàu",
+  "location": "Phường 10 & 11, TP. Vũng Tàu, Bà Rịa — Vũng Tàu",
+  "area": "Bà Rịa — Vũng Tàu",
+  "project_type": "khu-do-thi",
+  "city": "vung-tau",
+  "district": "TP. Vũng Tàu",
+  "developer": "Sun Group",
+  "priceRange": "Từ ~94 triệu/m²",
+  "price_from": null,
+  "price_to": null,
+  "area_from": null,
+  "area_to": null,
+  "unit_count": 9000,
+  "status": "Đang mở bán",
+  "type": "Khu đô thị",
+  "excerpt": "Khu đô thị biển 96,6 ha của Sun Group tại Vũng Tàu — biệt thự, căn hộ, condotel và công viên nước, pháp lý hoàn chỉnh từ tháng 5/2025.",
+  "gradient": "from-orange-900 to-amber-700",
+  "hero_image": "",
+  "gallery": [],
+  "location_image": "",
+  "amenities_images": [],
+  "scale": "96,6 ha · 9.000+ sản phẩm · 5 phân khu",
+  "legal_status": "Quyết định chấp thuận 1156/QĐ-UBND ngày 28/4/2025. Giấy phép xây dựng cấp ngày 15/5/2025.",
+  "handover_date": "Liên hệ để cập nhật tiến độ từng phân khu",
+  "ownership": "Liên hệ",
+  "construction_update": "Nghiệm thu hạ tầng dự kiến 30/7/2025.",
+  "product_types": [
+    {
+      "name": "Biệt thự thấp tầng (nhà phố, song lập, đơn lập, grand villa)",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    },
+    {
+      "name": "Căn hộ cao tầng (studio – 3PN, duplex)",
+      "area": "Liên hệ",
+      "price_range": "~94 triệu/m² (giai đoạn 1, chưa VAT)",
+      "total": null
+    },
+    {
+      "name": "Condotel / Hotel-residence",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": null
+    }
+  ],
+  "nearby": [
+    {
+      "name": "Biển Đông (Vũng Tàu)",
+      "distance": "Mặt tiền biển",
+      "category": "beach"
+    },
+    {
+      "name": "Trung tâm TP. Vũng Tàu",
+      "distance": "Nội thành",
+      "category": "road"
+    },
+    {
+      "name": "TP. Hồ Chí Minh",
+      "distance": "~2 giờ",
+      "category": "road"
+    }
+  ],
+  "highlights": [
+    {
+      "title": "Chủ đầu tư Sun Group",
+      "desc": "Tập đoàn hàng đầu Việt Nam với hàng loạt dự án du lịch — nghỉ dưỡng biểu tượng tại Phú Quốc, Đà Nẵng, Hạ Long."
+    },
+    {
+      "title": "Mặt tiền 4 trục đường lớn",
+      "desc": "Bao gồm mặt tiền biển Đông và kết nối các tuyến đường trọng điểm trong nội thành Vũng Tàu."
+    },
+    {
+      "title": "Pháp lý hoàn chỉnh",
+      "desc": "Quyết định chấp thuận 28/4/2025 và giấy phép xây dựng 15/5/2025 — pháp lý rõ ràng ngay từ đầu."
+    },
+    {
+      "title": "Lãi suất 0% trong 36 tháng",
+      "desc": "Hỗ trợ vay qua ngân hàng NCB và VCB với lãi suất 0% tối đa 36 tháng."
+    }
+  ],
+  "amenities_internal": [
+    "Công viên nước chủ đề",
+    "Khu thương mại & mua sắm",
+    "Hồ bơi, khu thể thao",
+    "Công viên & cảnh quan ven biển",
+    "Trường học & khu giáo dục",
+    "An ninh 24/7"
+  ],
+  "amenities_external": [
+    "Biển Đông (Vũng Tàu)",
+    "Hệ thống hạ tầng giao thông đa phương tiện (đường bộ, đường sắt, hàng hải, hàng không)"
+  ],
+  "faq": [
+    {
+      "q": "Blanca City Vũng Tàu do ai phát triển?",
+      "a": "Dự án do Sun Group (Công ty TNHH Đầu tư và Phát triển Đô thị Vũng Tàu) phát triển, kiến trúc sư tư vấn Ong & Ong."
+    },
+    {
+      "q": "Pháp lý Blanca City như thế nào?",
+      "a": "Quyết định chấp thuận số 1156/QĐ-UBND ngày 28/4/2025, giấy phép xây dựng cấp ngày 15/5/2025. Pháp lý rõ ràng và đầy đủ."
+    },
+    {
+      "q": "Chính sách tài chính Blanca City như thế nào?",
+      "a": "Lãi suất 0% trong 36 tháng qua ngân hàng NCB và VCB. Liên hệ 1992 Land để nhận thông tin chính sách chi tiết từng phân khu."
+    }
+  ],
+  "lat": 10.34,
+  "lng": 107.08,
+  "address_full": "Phường 10 & 11, TP. Vũng Tàu, Bà Rịa — Vũng Tàu",
+  "created_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-15T00:00:00Z",
+  "descriptions": {
+    "tong-quan": "**Blanca City Vũng Tàu** là khu đô thị biển quy mô **96,6 ha** do **Sun Group** phát triển tại **Phường 10 & 11, TP. Vũng Tàu**. Dự án gồm **9.000+ sản phẩm** chia thành 5 phân khu đa dạng: biệt thự thấp tầng, căn hộ cao tầng, condotel, khu thương mại và công viên nước chủ đề. Thiết kế bởi **Ong & Ong** (Singapore), hưởng lợi mặt tiền biển Đông và 4 trục đường lớn trong nội thành Vũng Tàu.",
+    "chinh-sach": "**Lãi suất 0% trong 36 tháng** qua ngân hàng **NCB** và **VCB**. Giá trung bình giai đoạn 1 khoảng **94 triệu/m²** (chưa VAT, đã tính chiết khấu). Liên hệ **1992 Land — 0909 474 123** để nhận bảng giá và phương án tài chính cụ thể từng phân khu.",
+    "gia-ban": "Giá giai đoạn 1 trung bình khoảng **~94 triệu/m²** (trước VAT, bao gồm chính sách). Sản phẩm đa dạng từ căn hộ studio đến grand villa. Liên hệ **1992 Land — 0909 474 123** để nhận bảng hàng, giá cụ thể và so sánh từng phân khu.",
+    "vi-tri": "Tọa lạc nội thành **TP. Vũng Tàu** tại Phường 10 & 11, với **mặt tiền biển Đông** và kết nối 4 trục đường lớn (QL3/2, D10, D12). Hệ thống hạ tầng đồng bộ đường bộ — đường sắt — hàng hải — hàng không, cách **TP. HCM khoảng 2 giờ**.",
+    "diem-noi-bat": "**Sun Group** — chủ đầu tư đứng sau những dự án biểu tượng như Sun World Phú Quốc, Sun Grand City Đà Nẵng. Quy mô **96,6 ha** với đa dạng sản phẩm (biệt thự, căn hộ, condotel, thương mại, công viên nước) tạo hệ sinh thái đô thị khép kín. Pháp lý hoàn chỉnh từ **tháng 5/2025**.",
+    "tien-ich": "Hệ sinh thái đô thị all-in-one: **công viên nước chủ đề**, khu thương mại & mua sắm, hồ bơi, sân thể thao, công viên & cảnh quan ven biển, khu giáo dục. Đặc biệt với **mặt tiền biển Đông** trực tiếp ngay trong khuôn viên dự án.",
+    "phap-ly": "**Quyết định chấp thuận 1156/QĐ-UBND** ngày 28/4/2025 và **giấy phép xây dựng** cấp ngày 15/5/2025. Nghiệm thu hạ tầng dự kiến 30/7/2025. Pháp lý minh bạch, đầy đủ từ giai đoạn đầu — một trong những điểm mạnh nổi bật của dự án."
+  }
+}

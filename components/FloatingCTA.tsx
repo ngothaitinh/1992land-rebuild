@@ -1,6 +1,6 @@
 import { Phone } from "lucide-react";
 import ZaloIcon from "@/components/ZaloIcon";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
+import MessengerIcon from "@/components/MessengerIcon";
 
 export default function FloatingCTA() {
   return (
@@ -24,19 +24,19 @@ export default function FloatingCTA() {
           </a>
         </div>
 
-        {/* WhatsApp */}
+        {/* Messenger */}
         <div className="group flex items-center gap-3">
           <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 bg-navy-900 text-surface text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
-            WhatsApp
+            Messenger
           </span>
           <a
-            href="https://wa.me/84909474123"
+            href="https://m.me/nguyenhuutho911"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
-            aria-label="WhatsApp"
+            className="w-12 h-12 rounded-full bg-[#0084FF] text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
+            aria-label="Messenger"
           >
-            <WhatsAppIcon size={22} />
+            <MessengerIcon size={22} />
           </a>
         </div>
 
@@ -69,14 +69,14 @@ export default function FloatingCTA() {
             <span className="text-[10px] font-medium text-muted">Zalo</span>
           </a>
           <a
-            href="https://wa.me/84909474123"
+            href="https://m.me/nguyenhuutho911"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-3 gap-1 text-[#25D366] hover:bg-green-50 transition-colors"
-            aria-label="WhatsApp"
+            className="flex flex-col items-center justify-center py-3 gap-1 text-[#0084FF] hover:bg-blue-50 transition-colors"
+            aria-label="Messenger"
           >
-            <WhatsAppIcon size={18} />
-            <span className="text-[10px] font-medium text-muted">WhatsApp</span>
+            <MessengerIcon size={18} />
+            <span className="text-[10px] font-medium text-muted">Messenger</span>
           </a>
           <a
             href="tel:+84909474123"

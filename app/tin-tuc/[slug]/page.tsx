@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Calendar, Clock, ArrowLeft, ArrowRight, Phone } from "lucide-react";
 import { loadPosts } from "@/lib/loadData";
 import ZaloIcon from "@/components/ZaloIcon";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
+import MessengerIcon from "@/components/MessengerIcon";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -214,13 +214,13 @@ export default async function PostDetailPage({ params }: Props) {
                     Chat Zalo
                   </a>
                   <a
-                    href="https://wa.me/84909474123"
+                    href="https://m.me/nguyenhuutho911"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2.5 w-full min-h-[44px] bg-[#25D366] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm cursor-pointer"
+                    className="flex items-center justify-center gap-2.5 w-full min-h-[44px] bg-[#0084FF] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm cursor-pointer"
                   >
-                    <WhatsAppIcon size={18} />
-                    WhatsApp
+                    <MessengerIcon size={18} />
+                    Messenger
                   </a>
                   <a
                     href="tel:+84909474123"

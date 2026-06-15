@@ -3,7 +3,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import Signature from "@/components/Signature";
 import ZaloIcon from "@/components/ZaloIcon";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
+import MessengerIcon from "@/components/MessengerIcon";
 
 const projects = [
   { href: "/du-an/salacia-villas-phu-my", label: "Salacia Villas Phú Mỹ" },
@@ -108,13 +108,13 @@ export default function Footer() {
                 Chat Zalo
               </a>
               <a
-                href="https://wa.me/84909474123"
+                href="https://m.me/nguyenhuutho911"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 transition-colors text-sm font-medium text-[#4ADE80]"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0084FF]/15 hover:bg-[#0084FF]/25 transition-colors text-sm font-medium text-[#0084FF]"
               >
-                <WhatsAppIcon size={28} />
-                WhatsApp
+                <MessengerIcon size={28} />
+                Messenger
               </a>
               <a
                 href="tel:+84909474123"

@@ -6,7 +6,7 @@ export default function FloatingCTA() {
   return (
     <>
       {/* Desktop: floating bottom-right buttons */}
-      <div className="hidden md:flex fixed bottom-8 right-8 z-50 flex-col gap-3 items-end">
+      <div className="hidden md:flex fixed bottom-8 right-8 z-[100] flex-col gap-3 items-end">
 
         {/* Zalo */}
         <div className="group flex items-center gap-3">

@@ -163,8 +163,8 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Right: price + buttons */}
-            <div className="hidden sm:flex items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
+            {/* Right: price + buttons — hidden on all screens per design decision */}
+            <div className="hidden items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
               <div className="px-4 py-2 rounded-xl bg-gold-50 border border-gold-200">
                 <div className="text-[10px] text-gold-700 uppercase tracking-wider font-medium leading-none mb-1">Giá từ</div>
                 <div className="text-gold-600 font-bold text-lg sm:text-xl font-numeric leading-none">{project.priceRange}</div>

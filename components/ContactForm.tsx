@@ -102,6 +102,9 @@ export default function ContactForm({
               <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
               <select name="du_an_quan_tam" className={inputCls}>
                 <option value="">-- Chọn dự án (tùy chọn) --</option>
+                <option>Maia Resort Hồ Tràm</option>
+                <option>Blanca City Vũng Tàu</option>
+                <option>Izumi City Đồng Nai</option>
                 <option>Salacia Villas Phú Mỹ</option>
                 <option>Ansana by Kita</option>
                 <option>Lusso Sài Gòn</option>
@@ -110,7 +113,7 @@ export default function ContactForm({
                 <option>Thanh Phú Centre Point</option>
                 <option>Sun Group Cù Lao Phố</option>
                 <option>River Collection An Gia</option>
-                <option>Khu đô thị LA Home Long An</option>
+                <option>LA Home Long An</option>
                 <option>Khác / Chưa xác định</option>
               </select>
             </div>

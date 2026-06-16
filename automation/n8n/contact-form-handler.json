@@ -19,7 +19,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const body = $input.item.json.body;\n\nconst now = new Date().toLocaleString('vi-VN', {\n  timeZone: 'Asia/Ho_Chi_Minh',\n  dateStyle: 'short',\n  timeStyle: 'short'\n});\n\nconst project = body.du_an_quan_tam || '—';\nconst email   = body.email       || '—';\nconst note    = body.loi_nhan    || '—';\nconst page    = body.source_url  || '1992land.com';\n\nconst message =\n  `📋 *LEAD MỚI — 1992land.com*\\n\\n` +\n  `👤 *${body.ho_ten}*\\n` +\n  `📞 ${body.so_dien_thoai}\\n` +\n  `📧 ${email}\\n` +\n  `🏠 ${project}\\n` +\n  `💬 ${note}\\n\\n` +\n  `🔗 ${page}\\n` +\n  `⏰ ${now}`;\n\nreturn {\n  message,\n  row: [\n    now,\n    body.ho_ten,\n    body.so_dien_thoai,\n    email,\n    project,\n    note,\n    page\n  ]\n};"
+        "jsCode": "const body = $input.item.json.body;\n\nconst now = new Date().toLocaleString('vi-VN', {\n  timeZone: 'Asia/Ho_Chi_Minh',\n  dateStyle: 'short',\n  timeStyle: 'short'\n});\n\nconst project = body.du_an_quan_tam || '—';\nconst email   = body.email          || '—';\nconst note    = body.loi_nhan       || '—';\nconst page    = body.source_url     || '1992land.com';\n\nconst message =\n  `📋 *LEAD MỚI — 1992land.com*\\n\\n` +\n  `👤 *${body.ho_ten}*\\n` +\n  `📞 ${body.so_dien_thoai}\\n` +\n  `📧 ${email}\\n` +\n  `🏠 ${project}\\n` +\n  `💬 ${note}\\n\\n` +\n  `🔗 ${page}\\n` +\n  `⏰ ${now}`;\n\nreturn {\n  message,\n  'Thoi gian': now,\n  'Ho ten': body.ho_ten,\n  'Dien thoai': body.so_dien_thoai,\n  'Email': email,\n  'Du an quan tam': project,\n  'Loi nhan': note,\n  'Trang nguon': page\n};"
       },
       "id": "node-format",
       "name": "Code: Format Lead",
@@ -36,23 +36,17 @@
         }
       },
       "id": "node-telegram",
-      "name": "Telegram: Notify Thọ",
+      "name": "Telegram: Notify Tho",
       "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [680, 200],
-      "credentials": {
-        "telegramApi": {
-          "id": "TELEGRAM_CRED_ID",
-          "name": "Telegram Bot 1992land"
-        }
-      }
+      "typeVersion": 1.1,
+      "position": [680, 180]
     },
     {
       "parameters": {
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "={{ $env.GOOGLE_SHEET_ID }}",
+          "value": "PASTE_YOUR_SHEET_ID_HERE",
           "mode": "id"
         },
         "sheetName": {
@@ -61,30 +55,18 @@
           "mode": "name"
         },
         "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "Thời gian":       "={{ $json.row[0] }}",
-            "Họ tên":          "={{ $json.row[1] }}",
-            "Điện thoại":      "={{ $json.row[2] }}",
-            "Email":           "={{ $json.row[3] }}",
-            "Dự án quan tâm":  "={{ $json.row[4] }}",
-            "Lời nhắn":        "={{ $json.row[5] }}",
-            "Trang nguồn":     "={{ $json.row[6] }}"
-          }
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
         },
         "options": {}
       },
       "id": "node-sheets",
       "name": "Google Sheets: Log Lead",
       "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.5,
-      "position": [680, 400],
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "GSHEETS_CRED_ID",
-          "name": "Google Sheets 1992land"
-        }
-      }
+      "typeVersion": 4,
+      "position": [680, 420]
     },
     {
       "parameters": {
@@ -95,22 +77,8 @@
       "id": "node-respond",
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
+      "typeVersion": 1,
       "position": [900, 300]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "{\"success\":false,\"error\":\"internal\"}",
-        "options": {
-          "responseCode": 500
-        }
-      },
-      "id": "node-respond-err",
-      "name": "Respond: Error",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.1,
-      "position": [900, 500]
     }
   ],
   "connections": {
@@ -122,17 +90,12 @@
     "Code: Format Lead": {
       "main": [
         [
-          { "node": "Telegram: Notify Thọ", "type": "main", "index": 0 },
+          { "node": "Telegram: Notify Tho", "type": "main", "index": 0 },
           { "node": "Google Sheets: Log Lead", "type": "main", "index": 0 }
         ]
       ]
     },
-    "Telegram: Notify Thọ": {
-      "main": [
-        [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
-      ]
-    },
-    "Google Sheets: Log Lead": {
+    "Telegram: Notify Tho": {
       "main": [
         [{ "node": "Respond to Webhook", "type": "main", "index": 0 }]
       ]
@@ -140,8 +103,10 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "errorWorkflow": ""
+    "executionOrder": "v1"
   },
-  "tags": ["1992land", "contact-form", "leads"]
+  "tags": [],
+  "meta": {
+    "instanceId": ""
+  }
 }

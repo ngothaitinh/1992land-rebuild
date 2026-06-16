@@ -19,9 +19,14 @@
   "type": "Căn hộ nghỉ dưỡng",
   "excerpt": "1.244 căn hộ condotel và 36 villa 5 sao trên 7 ha tại Hồ Tràm, vận hành bởi Fusion Hotel Group, bàn giao quý 3/2027.",
   "gradient": "from-teal-900 to-blue-800",
-  "hero_image": "",
-  "gallery": [],
-  "location_image": "",
+  "hero_image": "/images/projects/maia-ho-tram/hero.jpg",
+  "gallery": [
+    "/images/projects/maia-ho-tram/hero.jpg",
+    "/images/projects/maia-ho-tram/gallery-1.jpg",
+    "/images/projects/maia-ho-tram/gallery-2.jpg",
+    "/images/projects/maia-ho-tram/gallery-3.jpg"
+  ],
+  "location_image": "/images/projects/maia-ho-tram/location.jpg",
   "amenities_images": [],
   "scale": "1.244 căn hộ + 36 villa · 2 tòa tháp · 7 ha",
   "legal_status": "Đang hoàn thiện pháp lý. Liên hệ 1992 Land để cập nhật hồ sơ mới nhất.",
@@ -125,7 +130,7 @@
   "lng": 107.47,
   "address_full": "Xã Phước Thuận, Huyện Xuyên Mộc, Bà Rịa — Vũng Tàu",
   "created_at": "2026-06-15T00:00:00Z",
-  "updated_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-16T00:00:00Z",
   "descriptions": {
     "tong-quan": "**Maia Resort Hồ Tràm** là dự án căn hộ nghỉ dưỡng condotel 5 sao tại **Phước Thuận, Xuyên Mộc, Bà Rịa — Vũng Tàu**, do **Hồ Tràm Project Company** phát triển và **Fusion Hotel Group** vận hành. Tổng quy mô **7 ha** gồm **1.244 căn hộ** (2 tòa tháp: Happy Tower 610 căn và Peace Tower 634 căn, 32 tầng) và **36 villa** cao cấp. Diện tích từ **35 m²** (studio) đến **200 m²** (penthouse), dự kiến bàn giao **Quý 3/2027**.",
     "chinh-sach": "Chính sách thanh toán linh hoạt: **chỉ cần 50% khi bàn giao năm 2027**. Ưu đãi đặt cọc sớm **chiết khấu 1%**, thanh toán nhanh **chiết khấu lên đến 5%**, kèm chương trình khách hàng thân thiết. Liên hệ **1992 Land** để nhận bảng giá và phương án tài chính mới nhất.",

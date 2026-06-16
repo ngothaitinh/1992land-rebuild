@@ -19,9 +19,14 @@
   "type": "Khu đô thị",
   "excerpt": "Khu đô thị 170 ha của Nam Long Group tại Biên Hòa — 13.500 sản phẩm, sở hữu lâu dài, ven sông Đồng Nai, ~30 phút về TP. HCM.",
   "gradient": "from-emerald-900 to-green-700",
-  "hero_image": "",
-  "gallery": [],
-  "location_image": "",
+  "hero_image": "/images/projects/izumi-city-dong-nai/hero.jpg",
+  "gallery": [
+    "/images/projects/izumi-city-dong-nai/hero.jpg",
+    "/images/projects/izumi-city-dong-nai/gallery-1.jpg",
+    "/images/projects/izumi-city-dong-nai/gallery-2.jpg",
+    "/images/projects/izumi-city-dong-nai/gallery-3.jpg"
+  ],
+  "location_image": "/images/projects/izumi-city-dong-nai/location.jpg",
   "amenities_images": [],
   "scale": "170 ha · 13.500 sản phẩm · 9 phân khu",
   "legal_status": "Sở hữu lâu dài, đã nộp tiền sử dụng đất, quy hoạch 1/500 được phê duyệt.",
@@ -127,7 +132,7 @@
   "lng": 106.87,
   "address_full": "Phường Long Hưng, TP. Biên Hòa, Đồng Nai (giao Hương Lộ 2 và Nam Cao)",
   "created_at": "2026-06-15T00:00:00Z",
-  "updated_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-16T00:00:00Z",
   "descriptions": {
     "tong-quan": "**Izumi City** là khu đô thị tích hợp quy mô **170 ha** tại **Phường Long Hưng, TP. Biên Hòa, Đồng Nai** do **Nam Long Group** phát triển. Tổng cộng **13.500 sản phẩm** chia thành **9 phân khu** đa dạng: nhà phố vườn (Izumi Gardenia), nhà phố thương mại, song lập, biệt thự (Izumi Canaria) và căn hộ trung cao tầng. Vị trí ven **sông Đồng Nai**, cách **TP. HCM ~30 phút** qua cao tốc.",
     "chinh-sach": "Chính sách thanh toán linh hoạt theo tiến độ xây dựng, hỗ trợ vay ngân hàng. Liên hệ **1992 Land — 0909 474 123** để nhận bảng giá và phương án tài chính cập nhật nhất từng phân khu.",

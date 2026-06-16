@@ -19,9 +19,14 @@
   "type": "Khu đô thị",
   "excerpt": "Khu đô thị biển 96,6 ha của Sun Group tại Vũng Tàu — biệt thự, căn hộ, condotel và công viên nước, pháp lý hoàn chỉnh từ tháng 5/2025.",
   "gradient": "from-orange-900 to-amber-700",
-  "hero_image": "",
-  "gallery": [],
-  "location_image": "",
+  "hero_image": "/images/projects/blanca-city-vung-tau/hero.jpg",
+  "gallery": [
+    "/images/projects/blanca-city-vung-tau/hero.jpg",
+    "/images/projects/blanca-city-vung-tau/gallery-1.jpg",
+    "/images/projects/blanca-city-vung-tau/gallery-2.jpg",
+    "/images/projects/blanca-city-vung-tau/gallery-3.jpg"
+  ],
+  "location_image": "/images/projects/blanca-city-vung-tau/location.jpg",
   "amenities_images": [],
   "scale": "96,6 ha · 9.000+ sản phẩm · 5 phân khu",
   "legal_status": "Quyết định chấp thuận 1156/QĐ-UBND ngày 28/4/2025. Giấy phép xây dựng cấp ngày 15/5/2025.",
@@ -113,7 +118,7 @@
   "lng": 107.08,
   "address_full": "Phường 10 & 11, TP. Vũng Tàu, Bà Rịa — Vũng Tàu",
   "created_at": "2026-06-15T00:00:00Z",
-  "updated_at": "2026-06-15T00:00:00Z",
+  "updated_at": "2026-06-16T00:00:00Z",
   "descriptions": {
     "tong-quan": "**Blanca City Vũng Tàu** là khu đô thị biển quy mô **96,6 ha** do **Sun Group** phát triển tại **Phường 10 & 11, TP. Vũng Tàu**. Dự án gồm **9.000+ sản phẩm** chia thành 5 phân khu đa dạng: biệt thự thấp tầng, căn hộ cao tầng, condotel, khu thương mại và công viên nước chủ đề. Thiết kế bởi **Ong & Ong** (Singapore), hưởng lợi mặt tiền biển Đông và 4 trục đường lớn trong nội thành Vũng Tàu.",
     "chinh-sach": "**Lãi suất 0% trong 36 tháng** qua ngân hàng **NCB** và **VCB**. Giá trung bình giai đoạn 1 khoảng **94 triệu/m²** (chưa VAT, đã tính chiết khấu). Liên hệ **1992 Land — 0909 474 123** để nhận bảng giá và phương án tài chính cụ thể từng phân khu.",

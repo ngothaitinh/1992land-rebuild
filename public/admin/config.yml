@@ -47,9 +47,33 @@ collections:
       - { name: area_from, label: "Diện tích nhỏ nhất (m²)", widget: number, required: false }
       - { name: area_to, label: "Diện tích lớn nhất (m²)", widget: number, required: false }
       - { name: excerpt, label: "Mô tả ngắn (2–3 dòng)", widget: text }
+      - name: descriptions
+        label: "Đoạn mô tả từng mục (text)"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Đoạn giới thiệu ngắn đầu mỗi mục. Để trống nếu không cần. Bôi đậm bằng **chữ**."
+        fields:
+          - { name: tong-quan, label: "Tổng quan", widget: text, required: false }
+          - { name: chinh-sach, label: "Chính sách bán hàng", widget: text, required: false }
+          - { name: gia-ban, label: "Giá bán & giỏ hàng", widget: text, required: false }
+          - { name: vi-tri, label: "Vị trí", widget: text, required: false }
+          - { name: diem-noi-bat, label: "Điểm nổi bật", widget: text, required: false }
+          - { name: tien-ich, label: "Tiện ích", widget: text, required: false }
+          - { name: mat-bang, label: "Mặt bằng", widget: text, required: false }
+          - { name: phap-ly, label: "Pháp lý", widget: text, required: false }
       - { name: hero_image, label: "Ảnh bìa", widget: image, required: false }
       - name: gallery
-        label: "Thư viện ảnh"
+        label: "Thư viện ảnh (slide)"
+        widget: list
+        required: false
+        hint: "Kéo-thả để sắp xếp thứ tự slide. Bấm + để thêm ảnh."
+        field: { name: src, label: Ảnh, widget: image }
+      - { name: overview_image, label: "Ảnh phối cảnh tổng quan", widget: image, required: false }
+      - { name: location_image, label: "Ảnh vị trí / bản đồ", widget: image, required: false }
+      - { name: masterplan_image, label: "Ảnh mặt bằng tổng thể", widget: image, required: false }
+      - name: amenities_images
+        label: "Ảnh tiện ích (slide)"
         widget: list
         required: false
         field: { name: src, label: Ảnh, widget: image }
@@ -113,6 +137,7 @@ collections:
           - { name: name, label: "Loại", widget: string }
           - { name: area, label: "Diện tích", widget: string }
           - { name: layout, label: "Bố cục", widget: string }
+          - { name: image, label: "Ảnh mặt bằng", widget: image, required: false }
       - name: faq
         label: "Câu hỏi thường gặp"
         widget: list

@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-const W3F_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
+const WEBHOOK_URL = process.env.NEXT_PUBLIC_FORM_WEBHOOK_URL ?? "";
 
 export default function ContactForm({
   subject = "Liên hệ tư vấn BĐS từ 1992land.com",
@@ -23,23 +23,29 @@ export default function ContactForm({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!WEBHOOK_URL) { setStatus("err"); return; }
     setStatus("loading");
 
-    const data = new FormData(e.currentTarget);
-    data.set("access_key", W3F_KEY);
-    data.set("from_name", "1992Land Website");
-    data.set("subject", subject);
+    const fd = new FormData(e.currentTarget);
+    const payload = {
+      ho_ten: fd.get("ho_ten"),
+      so_dien_thoai: fd.get("so_dien_thoai"),
+      email: fd.get("email") || "",
+      du_an_quan_tam: fd.get("du_an_quan_tam") || duAnQuanTam || "",
+      loi_nhan: fd.get("loi_nhan") || "",
+      subject,
+      source_url: typeof window !== "undefined" ? window.location.href : "",
+    };
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch(WEBHOOK_URL, {
         method: "POST",
-        body: data,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      const json = await res.json();
-      if (json.success) {
+      if (res.ok) {
         setStatus("ok");
         formRef.current?.reset();
-        // Analytics events
         gtagEvent("form_submit", { form_type: "contact" });
         gtagEvent("generate_lead");
         fireConversion();

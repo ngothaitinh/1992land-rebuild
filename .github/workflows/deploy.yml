@@ -21,7 +21,10 @@ jobs:
 
       - name: Build
         env:
-          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
+          NEXT_PUBLIC_FORM_WEBHOOK_URL: ${{ secrets.FORM_WEBHOOK_URL }}
+          NEXT_PUBLIC_GA4_ID: ${{ secrets.GA4_ID }}
+          NEXT_PUBLIC_GADS_ID: ${{ secrets.GADS_ID }}
+          NEXT_PUBLIC_META_PIXEL_ID: ${{ secrets.META_PIXEL_ID }}
         run: npm run build
 
       - name: Create OAuth config

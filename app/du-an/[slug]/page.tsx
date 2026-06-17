@@ -192,6 +192,28 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* ── ANCHOR NAV ── */}
       <ProjectAnchorNav sections={anchorSections} title={project.title} />
 
+      {/* ── QUICK LEAD — CTA Google Ads ── */}
+      <section className="bg-gradient-to-r from-navy-950 to-navy-800 py-8">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center gap-6">
+          <div className="flex-1 text-center md:text-left">
+            <p className="text-gold-400 text-xs font-semibold tracking-widest uppercase mb-1">Nhận tư vấn miễn phí</p>
+            <h2 className="text-xl md:text-2xl font-bold text-white leading-snug">
+              Báo giá &amp; hỗ trợ pháp lý ngay hôm nay
+            </h2>
+            <p className="text-navy-300 text-sm mt-2">
+              {[project.discount, project.bank_support].filter(Boolean).join(" · ") || "Liên hệ để nhận thông tin chi tiết"}
+            </p>
+          </div>
+          <div className="w-full md:w-auto md:min-w-[380px] bg-surface rounded-2xl p-5 shadow-xl">
+            <ContactForm
+              compact
+              duAnQuanTam={project.title}
+              subject={`Tư vấn dự án ${project.title} — 1992land.com`}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ── MAIN CONTENT ── */}
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-0">
 

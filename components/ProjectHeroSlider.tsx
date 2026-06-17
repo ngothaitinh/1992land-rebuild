@@ -48,7 +48,7 @@ export default function ProjectHeroSlider({ images, title }: Props) {
 
   return (
     <div
-      className="relative w-full h-[240px] sm:h-[380px] lg:h-[480px] overflow-hidden bg-navy-950 select-none"
+      className="relative w-full h-[276px] sm:h-[437px] lg:h-[552px] overflow-hidden bg-navy-950 select-none"
       style={{ touchAction: "pan-y" }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

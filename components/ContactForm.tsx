@@ -7,6 +7,7 @@ type Props = {
   subject?: string;
   duAnQuanTam?: string;
   compact?: boolean;
+  showProject?: boolean;
   className?: string;
 };
 
@@ -16,6 +17,7 @@ export default function ContactForm({
   subject = "Liên hệ tư vấn BĐS từ 1992land.com",
   duAnQuanTam = "",
   compact = false,
+  showProject = false,
   className = "",
 }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">("idle");
@@ -77,16 +79,39 @@ export default function ContactForm({
       )}
 
       {compact ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
-            <input type="text" name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
+              <input type="text" name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
+            </div>
+            <div>
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
+              <input type="tel" name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
+            </div>
           </div>
-          <div>
-            <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
-            <input type="tel" name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
-          </div>
-        </div>
+          {showProject && !duAnQuanTam && (
+            <div>
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
+              <select name="du_an_quan_tam" className={inputCls}>
+                <option value="">-- Chọn dự án --</option>
+                <option>Thanh Phú Centre Point</option>
+                <option>Maia Resort Hồ Tràm</option>
+                <option>Blanca City Vũng Tàu</option>
+                <option>Izumi City Đồng Nai</option>
+                <option>Salacia Villas Phú Mỹ</option>
+                <option>Ansana by Kita</option>
+                <option>Lusso Sài Gòn</option>
+                <option>Water Concept</option>
+                <option>The Quậy Phước Hải</option>
+                <option>Sun Group Cù Lao Phố</option>
+                <option>River Collection An Gia</option>
+                <option>LA Home Long An</option>
+                <option>Khác / Chưa xác định</option>
+              </select>
+            </div>
+          )}
+        </>
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

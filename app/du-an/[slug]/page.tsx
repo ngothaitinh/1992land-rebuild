@@ -48,11 +48,40 @@ function SecHead({ id, title }: { id?: string; title: string }) {
   );
 }
 
-function renderDesc(text: string) {
+function renderInline(text: string): React.ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
     part.startsWith("**") && part.endsWith("**")
-      ? <strong key={i} className="font-semibold text-navy-900">{part.slice(2, -2)}</strong>
+      ? <strong key={i} className="font-bold text-navy-900">{part.slice(2, -2)}</strong>
       : <span key={i}>{part}</span>
+  );
+}
+
+function DescBlock({ text }: { text: string }) {
+  // Split on ". " (period + space) — safe because Vietnamese thousands use "." without trailing space
+  const rawSentences = text.split(/\. (?=\S)/g);
+  const sentences = rawSentences.map((s, i) =>
+    i < rawSentences.length - 1 ? s + "." : s
+  );
+  // Group every 2 sentences into one paragraph
+  const paragraphs: string[] = [];
+  for (let i = 0; i < sentences.length; i += 2) {
+    paragraphs.push([sentences[i], sentences[i + 1]].filter(Boolean).join(" "));
+  }
+  return (
+    <div className="space-y-4 max-w-[72ch]">
+      {paragraphs.map((para, i) => (
+        <p
+          key={i}
+          className={
+            i === 0
+              ? "text-[15.5px] font-[450] text-navy-800 leading-[1.88]"
+              : "text-[14.5px] text-navy-600 leading-[1.88]"
+          }
+        >
+          {renderInline(para)}
+        </p>
+      ))}
+    </div>
   );
 }
 
@@ -61,13 +90,18 @@ function SectionIntro({ desc, children }: { desc?: string; children: React.React
   return (
     <div>
       <div className="mb-8 pb-8 border-b border-border-soft">
-        <p className="text-[15px] text-navy-700 leading-[1.85] text-center">
-          {renderDesc(desc)}
-        </p>
+        <div className="pl-5 border-l-[3px] border-gold-400 rounded-sm">
+          <DescBlock text={desc} />
+        </div>
       </div>
       {children}
     </div>
   );
+}
+
+// Keep renderDesc as alias for any remaining inline uses
+function renderDesc(text: string) {
+  return renderInline(text);
 }
 
 export default async function ProjectDetailPage({ params }: Props) {

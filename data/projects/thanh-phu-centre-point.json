@@ -10,6 +10,13 @@
   "district": "Huyện Bến Lức",
   "developer": "BIM Land (BIM Group)",
   "priceRange": "Từ 70 triệu/m²",
+  "price_from": 70,
+  "price_to": 80,
+  "area_from": 82.5,
+  "area_to": 162,
+  "discount": "Chiết khấu đến 17% — áp dụng cho khách đặt sớm",
+  "bank_support": "Hỗ trợ lãi suất 24 tháng, miễn phí quản lý 2 năm",
+  "grace_period": "Ân hạn lãi suất 24 tháng",
   "unit_count": 1251,
   "status": "Đang mở bán",
   "type": "Khu đô thị phức hợp",
@@ -34,7 +41,11 @@
   ],
   "nearby": [
     { "name": "Cao tốc TP.HCM — Trung Lương", "distance": "Lân cận", "category": "road" },
-    { "name": "830C Đường Nguyễn Hữu Trí, Bến Lức", "distance": "Vị trí dự án", "category": "road" }
+    { "name": "TP.HCM (Quận 1)", "distance": "~40 km", "category": "road" },
+    { "name": "Bến xe Miền Tây", "distance": "~35 km", "category": "road" },
+    { "name": "KCN Bến Lức", "distance": "Lân cận", "category": "work" },
+    { "name": "UBND huyện Bến Lức", "distance": "~3 km", "category": "gov" },
+    { "name": "830C Đường Nguyễn Hữu Trí, xã Thanh Phú", "distance": "Vị trí dự án", "category": "road" }
   ],
   "highlights": [
     { "title": "Chủ đầu tư BIM Land", "desc": "Thành viên BIM Group — tập đoàn đa ngành uy tín với nhiều đại đô thị và khu nghỉ dưỡng trên cả nước." },
@@ -52,6 +63,12 @@
     "Sân thể thao đa năng",
     "Công viên trung tâm & không gian xanh"
   ],
+  "amenities_external": [
+    "Cao tốc TP.HCM — Trung Lương (lân cận)",
+    "Khu công nghiệp Bến Lức (lân cận)",
+    "Trường học, bệnh viện huyện Bến Lức",
+    "Chợ Bến Lức, siêu thị khu vực"
+  ],
   "faq": [
     { "q": "Thanh Phú Centre Point ở đâu?", "a": "Dự án tọa lạc tại 830C Đường Nguyễn Hữu Trí, xã Thanh Phú, huyện Bến Lức, tỉnh Long An — khu Tây Sài Gòn, kết nối thuận tiện về trung tâm TP.HCM qua cao tốc TP.HCM — Trung Lương." },
     { "q": "Thanh Phú Centre Point có bao nhiêu sản phẩm?", "a": "Giai đoạn 1 (85,2 ha) gồm 1.251 sản phẩm: 607 shophouse (5,5×15 m), 313 biệt thự song lập (8×18 m – 9×18 m), và 331 stripmall/nhà phố thương mại." },
@@ -64,6 +81,7 @@
   "created_at": "2026-05-01T00:00:00Z",
   "updated_at": "2026-06-02T00:00:00Z",
   "descriptions": {
+    "chinh-sach": "**Thanh Phú Centre Point** áp dụng chính sách bán hàng linh hoạt và ưu đãi hấp dẫn cho khách đặt sớm. **Chiết khấu đến 17%** trên giá bán — mức chiết khấu cao trong phân khúc nhà phố – shophouse khu Tây Sài Gòn hiện nay. Khách hàng được **hỗ trợ lãi suất 24 tháng** (ân hạn nợ gốc trong thời gian hỗ trợ) và **miễn phí quản lý 2 năm** đầu sau bàn giao. Thanh toán theo tiến độ dự án, phù hợp cả khách mua để ở và nhà đầu tư tối ưu dòng tiền. Liên hệ 1992 Land để nhận bảng giá chi tiết và tư vấn phương thức thanh toán phù hợp nhất.",
     "tong-quan": "**Thanh Phú Centre Point** là khu đô thị phức hợp quy mô **200 ha** (giai đoạn 1: 85,2 ha) do **BIM Land (BIM Group)** phát triển tại xã Thanh Phú, huyện Bến Lức, Long An. Dự án có **1.251 sản phẩm** giai đoạn 1 gồm shophouse, biệt thự song lập và stripmall/nhà phố thương mại — mật độ xây dựng chỉ **16%**, tối đa không gian xanh. Điểm nhấn thiết kế là **hồ nổi 3.300 m²**, **cầu Rồng biểu tượng 50 m** và **megamall trung tâm thương mại 9,5 ha** — quy mô và đẳng cấp hiếm thấy tại Long An. Triển khai theo **giai đoạn 2024–2029**.",
     "gia-ban": "**Thanh Phú Centre Point** cung cấp 3 dòng sản phẩm phù hợp nhiều mục tiêu. **607 shophouse** (5,5×15 m) giá **từ 70 triệu/m²** — kết hợp kinh doanh và sinh sống, lý tưởng cho nhà kinh doanh và nhà đầu tư tối ưu dòng tiền. **313 biệt thự song lập** (8×18 m – 9×18 m) giá **từ 80 triệu/m²** — không gian rộng rãi với sân vườn riêng. **331 stripmall** liên hệ để biết báo giá. Hiện có **chiết khấu đến 17%**, hỗ trợ **lãi suất 24 tháng** và **miễn phí quản lý 2 năm** cho khách đặt sớm.",
     "vi-tri": "**Thanh Phú Centre Point** tọa lạc tại xã Thanh Phú, huyện Bến Lức, Long An — khu vực **Tây Sài Gòn**, kết nối trực tiếp với **cao tốc TP.HCM — Trung Lương** giúp di chuyển về trung tâm TP.HCM nhanh chóng. Bến Lức đang được quy hoạch thành đô thị vệ tinh phía Tây TP.HCM, với nhiều dự án hạ tầng và khu công nghiệp mới đang triển khai mạnh mẽ — tạo nhu cầu nhà ở và thương mại tăng trưởng bền vững. Vị trí thuận lợi cho kinh doanh và kết nối đồng bằng sông Cửu Long.",

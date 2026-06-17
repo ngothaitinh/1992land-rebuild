@@ -14,6 +14,7 @@ import ProjectHeroSlider from "@/components/ProjectHeroSlider";
 import ProjectImageCarousel from "@/components/ProjectImageCarousel";
 import AmenitiesGallery from "@/components/AmenitiesGallery";
 import ContactModal from "@/components/ContactModal";
+import ProjectSidebarForm from "@/components/ProjectSidebarForm";
 import ZaloIcon from "@/components/ZaloIcon";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -163,8 +164,8 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Right: price + buttons — hidden on all screens per design decision */}
-            <div className="hidden items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
+            {/* Right: price + buttons */}
+            <div className="flex items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
               <div className="px-4 py-2 rounded-xl bg-gold-50 border border-gold-200">
                 <div className="text-[10px] text-gold-700 uppercase tracking-wider font-medium leading-none mb-1">Giá từ</div>
                 <div className="text-gold-600 font-bold text-lg sm:text-xl font-numeric leading-none">{project.priceRange}</div>
@@ -192,30 +193,79 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* ── ANCHOR NAV ── */}
       <ProjectAnchorNav sections={anchorSections} title={project.title} />
 
+      {/* ── KEY STATS STRIP ── */}
+      <div className="bg-navy-50 border-b border-border-soft">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center gap-6 overflow-x-auto scrollbar-none">
+          {project.scale && (
+            <div className="flex items-center gap-2 shrink-0 text-xs text-navy-700">
+              <Building2 size={13} className="text-gold-500 shrink-0" />
+              <span>{project.scale}</span>
+            </div>
+          )}
+          {project.discount && (
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="px-2.5 py-0.5 bg-gold-500 text-navy-950 text-[11px] font-bold rounded-full">{project.discount}</span>
+            </div>
+          )}
+          {project.bank_support && (
+            <div className="flex items-center gap-2 shrink-0 text-xs text-navy-700">
+              <Banknote size={13} className="text-gold-500 shrink-0" />
+              <span>{project.bank_support}</span>
+            </div>
+          )}
+          {project.ownership && (
+            <div className="flex items-center gap-2 shrink-0 text-xs text-emerald-700 font-semibold">
+              <ShieldCheck size={13} className="shrink-0" />
+              <span>{project.ownership}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* ── QUICK LEAD — CTA Google Ads ── */}
-      <section className="bg-gradient-to-r from-navy-950 to-navy-800 py-8">
-        <div className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center gap-6">
+      <section className="bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 py-10">
+        <div className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center gap-8">
           <div className="flex-1 text-center md:text-left">
-            <p className="text-gold-400 text-xs font-semibold tracking-widest uppercase mb-1">Nhận tư vấn miễn phí</p>
-            <h2 className="text-xl md:text-2xl font-bold text-white leading-snug">
-              Báo giá &amp; hỗ trợ pháp lý ngay hôm nay
+            <div className="inline-flex items-center gap-2 bg-gold-500/15 border border-gold-500/30 text-gold-400 text-[10px] font-bold tracking-[0.35em] uppercase px-3 py-1.5 rounded-full mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
+              Đang mở bán — Tư vấn miễn phí
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug mb-3">
+              Nhận báo giá &amp; chính sách<br className="hidden md:block" /> mới nhất ngay hôm nay
             </h2>
-            <p className="text-navy-300 text-sm mt-2">
+            <p className="text-navy-300 text-sm leading-relaxed mb-5">
               {[project.discount, project.bank_support].filter(Boolean).join(" · ") || "Liên hệ để nhận thông tin chi tiết"}
             </p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-2">
+              {[
+                { label: "Pháp lý đầy đủ", icon: ShieldCheck },
+                { label: "Sổ đỏ lâu dài", icon: CheckCircle },
+                { label: "BIM Land", icon: Building2 },
+              ].map(({ label, icon: Icon }) => (
+                <span key={label} className="flex items-center gap-1.5 bg-white/10 text-white/80 text-[11px] font-medium px-3 py-1.5 rounded-full border border-white/15">
+                  <Icon size={11} className="text-gold-400" />{label}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="w-full md:w-auto md:min-w-[380px] bg-surface rounded-2xl p-5 shadow-xl">
+          <div className="w-full md:w-auto md:min-w-[380px] bg-white rounded-3xl p-6 shadow-2xl">
+            <h3 className="font-bold text-navy-900 text-sm mb-0.5">Để lại thông tin tư vấn</h3>
+            <p className="text-muted text-xs mb-4">Phản hồi trong 30 phút · Không spam</p>
             <ContactForm
               compact
               duAnQuanTam={project.title}
-              subject={`Tư vấn dự án ${project.title} — 1992land.com`}
+              subject={`[QuickLead] ${project.title} — 1992land.com`}
             />
           </div>
         </div>
       </section>
 
-      {/* ── MAIN CONTENT ── */}
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12 space-y-0">
+      {/* ── MAIN CONTENT + SIDEBAR ── */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+
+        {/* ── CONTENT COLUMN ── */}
+        <div className="flex-1 min-w-0 space-y-0">
 
         {/* ── 1. CHÍNH SÁCH ── */}
         {show("chinh-sach") && (
@@ -573,7 +623,15 @@ export default async function ProjectDetailPage({ params }: Props) {
             </section>
           </>
         )}
-      </div>
+        </div>{/* ── END CONTENT COLUMN ── */}
+
+        {/* ── STICKY SIDEBAR ── */}
+        <div className="hidden lg:block w-80 xl:w-[340px] shrink-0 sticky top-24 self-start">
+          <ProjectSidebarForm project={project} />
+        </div>
+
+        </div>{/* ── END FLEX ── */}
+      </div>{/* ── END OUTER ── */}
 
       {/* ── ĐĂNG KÝ TƯ VẤN ── */}
       {show("dang-ky") && (

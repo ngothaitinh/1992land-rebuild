@@ -369,12 +369,20 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead title="Tổng quan dự án" />
+              {/* Illustration image — above description */}
+              {(project.overview_image ?? project.gallery?.[0] ?? project.hero_image) && (
+                <div className="rounded-2xl overflow-hidden border border-border-soft mb-6">
+                  <Image
+                    src={(project.overview_image ?? project.gallery?.[0] ?? project.hero_image) as string}
+                    alt={`Tổng quan ${project.title}`}
+                    width={1200}
+                    height={600}
+                    className="w-full h-[220px] sm:h-[320px] lg:h-[400px] object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 820px"
+                  />
+                </div>
+              )}
               <SectionIntro desc={project.descriptions?.["tong-quan"]}>
-                {project.overview_image && (
-                  <div className="rounded-2xl overflow-hidden border border-border-soft mb-5">
-                    <Image src={project.overview_image} alt={`Tổng quan ${project.title}`} width={900} height={500} className="w-full object-cover" />
-                  </div>
-                )}
                 <div className="rounded-2xl border border-border-soft bg-white overflow-hidden">
                   <table className="w-full text-sm">
                     <tbody className="divide-y divide-border-soft">
@@ -443,15 +451,16 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead id="vi-tri" title="Vị trí dự án" />
-              {project.location_image && (
+              {/* Illustration image — above description, fallback to gallery */}
+              {(project.location_image ?? project.gallery?.[1] ?? project.hero_image) && (
                 <div className="rounded-2xl overflow-hidden border border-border-soft mb-6 w-full">
                   <Image
-                    src={project.location_image}
+                    src={(project.location_image ?? project.gallery?.[1] ?? project.hero_image) as string}
                     alt={`Vị trí ${project.title}`}
-                    width={1920}
-                    height={1080}
-                    className="w-full h-auto object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 1200px"
+                    width={1200}
+                    height={600}
+                    className="w-full h-[220px] sm:h-[320px] lg:h-[400px] object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 65vw, 820px"
                   />
                 </div>
               )}
@@ -757,8 +766,8 @@ export default async function ProjectDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* ── TIN TỨC LIÊN QUAN ── */}
-      {relatedPosts.length > 0 && (
+      {/* ── TIN TỨC LIÊN QUAN — ẩn ── */}
+      {false && relatedPosts.length > 0 && (
         <div className="bg-navy-50 py-14 px-4 lg:px-8 border-t border-border-soft">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-end justify-between mb-8">

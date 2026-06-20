@@ -95,11 +95,20 @@ const REPLY_KB = { keyboard: [[{ text: "≡ Menu" }]], resize_keyboard: true, is
 
 const MENU_TRIGGERS = new Set(["menu", "≡ menu", "/menu", "/start", "mau", "mẫu", "help"]);
 
+// Các câu anh hay nhắn nhầm vào bot → chặn, hướng dẫn đúng
+const CLAUDE_TRIGGERS = new Set([
+  "xử lý telegram ngay",
+  "xu ly telegram ngay",
+  "xử lý ngay",
+  "xu ly ngay",
+  "process inbox",
+]);
+
 async function handleMessage(msg) {
   if (CHAT_ID && String(msg.chat.id) !== String(CHAT_ID)) return;
 
   const text = (msg.text || msg.caption || "").trim();
-  const lower = text.toLowerCase();
+  const lower = text.toLowerCase().trim();
 
   // Menu trigger → gửi inline keyboard
   if (MENU_TRIGGERS.has(lower)) {
@@ -117,10 +126,23 @@ async function handleMessage(msg) {
     return;
   }
 
+  // Câu lệnh dành cho Claude Code → KHÔNG lưu inbox, hướng dẫn đúng
+  if (CLAUDE_TRIGGERS.has(lower)) {
+    await send(msg.chat.id,
+      "⚠️ Lệnh này cần gõ trong <b>Claude Code</b> (ứng dụng trên máy tính), không phải Telegram.\n\n" +
+      "👉 Anh mở Claude Code → nhắn vào chat: <code>Xử lý Telegram ngay</code>\n\n" +
+      "Còn để gửi nội dung mới, anh dùng các nút bên dưới ↓",
+      { reply_markup: MENU_KEYBOARD }
+    );
+    return;
+  }
+
   // Tin nhắn nội dung → lưu vào content-inbox + xác nhận
   await saveToInbox(msg, text);
   await send(msg.chat.id,
-    "✅ <b>Đã nhận!</b>\n\nEm sẽ xử lý khi Claude mở. Nếu cần gấp, anh mở Claude Code và nhắn: <i>Xử lý Telegram ngay</i>",
+    "✅ <b>Đã nhận!</b>\n\nEm sẽ xử lý khi Claude mở.\n\n" +
+    "💡 Để xử lý ngay: mở <b>Claude Code</b> trên máy tính → nhắn trong chat của Claude:\n" +
+    "<code>Xử lý Telegram ngay</code>",
     { reply_markup: MENU_KEYBOARD }
   );
 }

@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <>
       {/* ── 1. HERO ──────────────────────────────────────────── */}
-      <HeroSection />
+      <HeroSection projectCount={allProjects.length} />
 
       {/* ── 2. PROJECTS ──────────────────────────────────────── */}
       <section className="py-24 px-6 bg-bg">
@@ -232,7 +232,7 @@ export default function Home() {
                 {[
                   { num: "500+", label: "Khách hàng" },
                   { num: "5+", label: "Năm KN" },
-                  { num: "9+", label: "Dự án" },
+                  { num: `${allProjects.length}`, label: "Dự án" },
                 ].map((s) => (
                   <div
                     key={s.label}

@@ -14,7 +14,7 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
-export default function HeroSection() {
+export default function HeroSection({ projectCount = 12 }: { projectCount?: number }) {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-navy-950">
       {/* Gradient background — deep navy with directional light from bottom-left */}
@@ -91,31 +91,31 @@ export default function HeroSection() {
             không ép mua, không hối thúc, không hoa hồng che giấu.
           </motion.p>
 
-          <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 mb-14">
+          <motion.div variants={item} className="flex flex-row gap-3 mb-14">
             <Link
               href="/lien-he"
-              className="px-8 py-4 bg-gold-500 text-navy-950 font-semibold rounded-full hover:bg-gold-400 active:scale-[0.97] transition-all duration-200 hover:shadow-[0_8px_32px_-4px_rgba(196,151,48,0.45)] text-base text-center"
+              className="flex-1 sm:flex-none px-5 sm:px-8 py-3 sm:py-4 bg-gold-500 text-navy-950 font-semibold rounded-full hover:bg-gold-400 active:scale-[0.97] transition-all duration-200 hover:shadow-[0_8px_32px_-4px_rgba(196,151,48,0.45)] text-sm sm:text-base text-center"
             >
-              Nhận tư vấn miễn phí
+              Nhận tư vấn
             </Link>
             <Link
               href="/du-an"
-              className="px-8 py-4 border border-surface/25 text-surface font-medium rounded-full hover:border-surface/55 hover:bg-white/5 active:scale-[0.97] transition-all text-base text-center"
+              className="flex-1 sm:flex-none px-5 sm:px-8 py-3 sm:py-4 border border-surface/25 text-surface font-medium rounded-full hover:border-surface/55 hover:bg-white/5 active:scale-[0.97] transition-all text-sm sm:text-base text-center"
             >
-              Xem dự án →
+              Xem dự án
             </Link>
           </motion.div>
 
           {/* Stats row */}
-          <motion.div variants={item} className="flex flex-wrap gap-8 pt-6 border-t border-white/10">
+          <motion.div variants={item} className="flex flex-wrap gap-6 sm:gap-8 pt-6 border-t border-white/10">
             {[
               { num: "500+", label: "Gia đình tin tưởng" },
               { num: "5+", label: "Năm kinh nghiệm" },
-              { num: "9", label: "Dự án phân phối" },
+              { num: `${projectCount}`, label: "Dự án phân phối" },
             ].map((s) => (
               <div key={s.label} className="flex flex-col gap-0.5">
-                <span className="text-gold-400 font-bold text-3xl font-numeric leading-none">{s.num}</span>
-                <span className="text-surface/45 text-xs">{s.label}</span>
+                <span className="text-gold-400 font-bold text-2xl sm:text-3xl font-numeric leading-none">{s.num}</span>
+                <span className="text-surface/45 text-[11px] sm:text-xs">{s.label}</span>
               </div>
             ))}
           </motion.div>
@@ -182,7 +182,7 @@ export default function HeroSection() {
             transition={{ delay: 1.3, duration: 0.45 }}
             className="absolute -right-5 top-10 bg-gold-500 rounded-2xl px-4 py-3 text-center shadow-[0_8px_32px_-4px_rgba(196,151,48,0.5)]"
           >
-            <div className="text-navy-950 font-bold font-numeric text-xl leading-none">9</div>
+            <div className="text-navy-950 font-bold font-numeric text-xl leading-none">{projectCount}</div>
             <div className="text-navy-950/65 text-[10px] mt-0.5">Dự án</div>
           </motion.div>
         </motion.div>

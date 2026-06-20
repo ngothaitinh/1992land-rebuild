@@ -43,27 +43,38 @@ export default function FloatingCTA() {
       </div>
 
       {/* Mobile: fixed bottom bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-surface border-t border-border-soft shadow-2xl">
-        <div className="grid grid-cols-3 divide-x divide-border-soft">
-          <a
-            href="https://zalo.me/0909474123"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-col items-center justify-center py-3 gap-1 hover:bg-blue-50 transition-colors"
-            aria-label="Chat Zalo"
-          >
-            <ZaloIcon size={22} />
-            <span className="text-[10px] font-medium text-muted">Zalo</span>
-          </a>
-          <FloatingFormButton />
-          <a
-            href="tel:+84909474123"
-            className="flex flex-col items-center justify-center py-3 gap-1 text-gold-500 hover:bg-gold-100 transition-colors"
-            aria-label="Gọi điện"
-          >
-            <Phone size={18} />
-            <span className="text-[10px] font-medium text-muted">Gọi ngay</span>
-          </a>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50">
+        {/* Depth shadow above bar */}
+        <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-t from-black/15 to-transparent pointer-events-none" />
+        <div className="bg-white border-t-2 border-gold-400/40 shadow-[0_-6px_32px_rgba(0,0,0,0.14)]">
+          <div className="grid grid-cols-3">
+            {/* Zalo */}
+            <a
+              href="https://zalo.me/0909474123"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center py-3.5 gap-1.5 border-r border-gray-100 hover:bg-blue-50 active:bg-blue-100 transition-colors"
+              aria-label="Chat Zalo"
+            >
+              <ZaloIcon size={24} />
+              <span className="text-[10px] font-semibold text-navy-700">Zalo</span>
+            </a>
+
+            {/* Form liên hệ */}
+            <FloatingFormButton />
+
+            {/* Phone — gold CTA */}
+            <a
+              href="tel:+84909474123"
+              className="flex flex-col items-center justify-center py-3.5 gap-1.5 bg-gold-500 hover:bg-gold-400 active:bg-gold-600 transition-colors relative overflow-hidden"
+              aria-label="Gọi điện 0909 474 123"
+            >
+              {/* Subtle shimmer */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+              <Phone size={22} className="text-white relative z-10 drop-shadow-sm" />
+              <span className="text-[10px] font-bold text-white relative z-10 tracking-wide">Gọi ngay</span>
+            </a>
+          </div>
         </div>
       </div>
     </>

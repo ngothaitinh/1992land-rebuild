@@ -26,11 +26,11 @@ export default function FloatingFormButton() {
       {/* Mobile trigger — used inside grid-cols-3 in FloatingCTA */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden flex flex-col items-center justify-center py-3 gap-1 text-gold-500 hover:bg-gold-100 transition-colors w-full"
+        className="md:hidden flex flex-col items-center justify-center py-3.5 gap-1.5 bg-navy-900 hover:bg-navy-800 active:bg-navy-950 transition-colors w-full border-x border-navy-800/30"
         aria-label="Form liên hệ"
       >
-        <MessageCircle size={18} />
-        <span className="text-[10px] font-medium text-muted">Liên hệ</span>
+        <MessageCircle size={22} className="text-gold-400" />
+        <span className="text-[10px] font-bold text-gold-400 tracking-wide">Tư vấn</span>
       </button>
 
       {/* Modal */}

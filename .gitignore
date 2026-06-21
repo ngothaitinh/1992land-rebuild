@@ -58,3 +58,8 @@ skills-lock.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+# Telegram bot runtime files
+scripts/tg-bot/.env
+scripts/tg-bot/.tg-processed.json

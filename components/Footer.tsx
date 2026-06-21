@@ -157,10 +157,28 @@ export default function Footer() {
         {/* Signature */}
         <Signature light className="mt-12 mb-6" />
 
+        {/* Disclaimer */}
+        <div className="mt-10 mb-4 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-surface/50 leading-relaxed text-center">
+          1992land.com là website của <span className="text-surface/70">Nguyễn Hữu Thọ</span> —
+          chuyên viên môi giới / đại lý phân phối độc lập, <span className="text-surface/70">không phải
+          website chính thức của các chủ đầu tư</span> như VinaCapital, Sun Group, Nam Long,
+          An Gia… Mọi tên dự án, logo và thương hiệu thuộc về chủ sở hữu tương ứng. Thông tin
+          giá, diện tích, pháp lý mang tính tham khảo tại thời điểm đăng — vui lòng liên hệ
+          0909 474 123 để được xác nhận chính xác và cập nhật nhất.
+        </div>
+
         {/* Bottom bar */}
-        <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-surface/40">
+        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-surface/40">
           <p>© 2026 1992 Land — Bản quyền thuộc về Nguyễn Hữu Thọ</p>
-          <p>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</p>
+          <div className="flex items-center gap-4">
+            <p>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</p>
+            <Link
+              href="/chinh-sach-bao-mat"
+              className="hover:text-gold-300 transition-colors whitespace-nowrap"
+            >
+              Chính sách bảo mật
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

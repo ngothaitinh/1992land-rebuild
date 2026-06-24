@@ -72,3 +72,41 @@ export async function deleteFile(repo, branch, filePath, sha, commitMsg, pat) {
   );
   return { commitSha: data.commit.sha };
 }
+
+export function buildTreeEntries(textFiles, binaryBlobs) {
+  return [
+    ...textFiles.map((f) => ({ path: f.path, mode: "100644", type: "blob", content: f.content })),
+    ...binaryBlobs.map((b) => ({ path: b.path, mode: "100644", type: "blob", sha: b.sha })),
+  ];
+}
+
+// Commit gộp nhiều file trong 1 commit (Git Trees API).
+// files: [{ path, content, binary }]  binary=true → content là base64.
+export async function putFiles(repo, branch, files, commitMsg, pat) {
+  // 1) ref hiện tại
+  const ref = await ghRequest("GET", `/repos/${repo}/git/ref/heads/${branch}`, null, pat);
+  const baseCommitSha = ref.object.sha;
+  // 2) commit gốc → tree gốc
+  const baseCommit = await ghRequest("GET", `/repos/${repo}/git/commits/${baseCommitSha}`, null, pat);
+  const baseTreeSha = baseCommit.tree.sha;
+  // 3) tạo blob cho file nhị phân
+  const binaryBlobs = [];
+  const textFiles = [];
+  for (const f of files) {
+    if (f.binary) {
+      const blob = await ghRequest("POST", `/repos/${repo}/git/blobs`, { content: f.content, encoding: "base64" }, pat);
+      binaryBlobs.push({ path: f.path, sha: blob.sha });
+    } else {
+      textFiles.push({ path: f.path, content: f.content });
+    }
+  }
+  // 4) tạo tree mới
+  const tree = await ghRequest("POST", `/repos/${repo}/git/trees`,
+    { base_tree: baseTreeSha, tree: buildTreeEntries(textFiles, binaryBlobs) }, pat);
+  // 5) tạo commit
+  const commit = await ghRequest("POST", `/repos/${repo}/git/commits`,
+    { message: commitMsg, tree: tree.sha, parents: [baseCommitSha] }, pat);
+  // 6) cập nhật ref
+  await ghRequest("PATCH", `/repos/${repo}/git/refs/heads/${branch}`, { sha: commit.sha }, pat);
+  return { commitSha: commit.sha };
+}

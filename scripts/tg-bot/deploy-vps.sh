@@ -19,7 +19,7 @@ git pull origin main
 # --- [2] Kiểm tra .env (chỉ điền tay 1 lần) ---
 if [ ! -f "$BOT_DIR/.env" ]; then
   echo "‼  Chưa có $BOT_DIR/.env"
-  echo "   Tạo từ mẫu rồi điền 3 giá trị (TOKEN, CHAT_IDS, PAT) rồi chạy lại:"
+  echo "   Tạo từ mẫu rồi điền các biến theo .env.example (TOKEN, CHAT_IDS, PAT, LLM_ENDPOINT, LLM_MODEL, LLM_API_KEY) rồi chạy lại:"
   echo "     cp $BOT_DIR/.env.example $BOT_DIR/.env && nano $BOT_DIR/.env"
   exit 1
 fi

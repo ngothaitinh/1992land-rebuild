@@ -150,7 +150,9 @@ function reviewWarning(obj) {
 }
 
 async function composeAndPreview(chatId, type, sourceText, imageBase64, editInstruction) {
-  const projectFiles = fs.readdirSync(path.join(ROOT, "data/projects")).filter((f) => f.endsWith(".json"));
+  const projectFiles = fs.existsSync(path.join(ROOT, "data/projects"))
+    ? fs.readdirSync(path.join(ROOT, "data/projects")).filter((f) => f.endsWith(".json"))
+    : [];
   const existingSlugs = projectFiles.map((f) => f.replace(".json", ""));
   const existingCategories = fs.existsSync(path.join(ROOT, "data/posts"))
     ? [...new Set(fs.readdirSync(path.join(ROOT, "data/posts")).filter((f) => f.endsWith(".md")).map((f) => {
@@ -422,6 +424,7 @@ async function handleCallbackQuery(cq) {
 
   if (data.startsWith("pub_start:")) {
     const mode = data.slice("pub_start:".length);
+    if (!["await_post", "await_project"].includes(mode)) return;
     setMode(cq.message.chat.id, mode);
     const what = mode === "await_post" ? "bài viết (có thể dán từ báo)" : "dự án";
     return send(cq.message.chat.id, `✍️ Dán nội dung ${what} vào đây, kèm 1 ảnh nếu có. Xong gửi là được.`);
@@ -461,6 +464,7 @@ async function handleCallbackQuery(cq) {
     await send(cq.message.chat.id, `✅ Đã đăng. Đang chờ build…`);
     watchDeployment(REPO, commitSha, PAT, async (status, runUrl) => {
       if (status === "success") await send(cq.message.chat.id, `✅ <b>${cfg.site_name}</b> đã lên web.`).catch(console.error);
+      else if (status === "timeout") await send(cq.message.chat.id, `⏳ Build đang lâu bất thường. Kiểm tra: ${runUrl}`).catch(console.error);
       else await send(cq.message.chat.id, `⚠️ Build lỗi (${status}).\n${runUrl}`).catch(console.error);
     });
     return;

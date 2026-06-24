@@ -84,7 +84,7 @@ export function buildTreeEntries(textFiles, binaryBlobs) {
 // files: [{ path, content, binary }]  binary=true → content là base64.
 export async function putFiles(repo, branch, files, commitMsg, pat) {
   // 1) ref hiện tại
-  const ref = await ghRequest("GET", `/repos/${repo}/git/ref/heads/${branch}`, null, pat);
+  const ref = await ghRequest("GET", `/repos/${repo}/git/refs/heads/${branch}`, null, pat);
   const baseCommitSha = ref.object.sha;
   // 2) commit gốc → tree gốc
   const baseCommit = await ghRequest("GET", `/repos/${repo}/git/commits/${baseCommitSha}`, null, pat);

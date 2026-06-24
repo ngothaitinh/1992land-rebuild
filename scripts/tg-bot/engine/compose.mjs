@@ -1,3 +1,5 @@
+import { callLLM, parseLLMJson } from "./llm.mjs";
+
 export function slugify(title) {
   return (title || "")
     .toLowerCase()
@@ -50,9 +52,6 @@ export function validateComposed(type, obj) {
   return { ok: missing.length === 0, missing };
 }
 
-// === Thêm vào engine/compose.mjs ===
-import { callLLM, parseLLMJson } from "./llm.mjs";
-
 const COMMON_RULES = `
 QUY TẮC BẮT BUỘC:
 - CHỈ viết lại / rút gọn / cấu trúc lại từ VĂN BẢN NGUỒN người dùng cung cấp.
@@ -72,10 +71,10 @@ Schema JSON cần trả:
 {
   "title": "tiêu đề ngắn gọn",
   "excerpt": "1-2 câu tóm tắt",
-  "category": "tự đặt, ưu tiên tái dùng nếu hợp: ${ctx.existingCategories.join(", ")}",
+  "category": "tự đặt, ưu tiên tái dùng nếu hợp: ${ctx.existingCategories?.length ? ctx.existingCategories.join(", ") : "tự đặt phù hợp"}",
   "readTime": "X phút đọc",
   "body_markdown": "nội dung markdown, dùng ## cho tiêu đề phụ",
-  "related_projects": [chỉ chọn slug CÓ THẬT từ: ${ctx.existingSlugs.join(", ")} — rỗng nếu không chắc],
+  "related_projects": [chỉ chọn slug CÓ THẬT từ: ${ctx.existingSlugs?.length ? ctx.existingSlugs.join(", ") : "không có slug — để mảng rỗng"} — rỗng nếu không chắc],
   "_review_fields": ["tên trường bạn không chắc"]
 }`;
   }
@@ -93,7 +92,7 @@ Schema JSON cần trả (điền những gì nguồn có):
   "descriptions": { "tong-quan": "...", "vi-tri": "...", "tien-ich": "...", "gia-ban": "...", "chinh-sach": "...", "diem-noi-bat": "...", "phap-ly": "..." },
   "_review_fields": ["..."]
 }
-related_projects nếu dùng chỉ chọn slug CÓ THẬT từ: ${ctx.existingSlugs.join(", ")}.`;
+related_projects nếu dùng chỉ chọn slug CÓ THẬT từ: ${ctx.existingSlugs?.length ? ctx.existingSlugs.join(", ") : "không có slug — để mảng rỗng"}.`;
 }
 
 export async function composeContent(type, sourceText, ctx, editInstruction) {

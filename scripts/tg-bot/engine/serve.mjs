@@ -5,10 +5,9 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { parseCommand  } from "./parse-command.mjs";
 import { isProcessed, markProcessed } from "./idempotency.mjs";
-import { getFile, putFile, deleteFile } from "./github-commit.mjs";
+import { getFile, putFile, deleteFile, putFiles } from "./github-commit.mjs";
 import { watchDeployment } from "./deploy-watch.mjs";
 import { composeContent, slugify, toPostMarkdown, toProjectJson, validateComposed } from "./compose.mjs";
-import { putFiles } from "./github-commit.mjs";
 import { setMode, getMode, setDraft, getDraft, clearSession } from "./session.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

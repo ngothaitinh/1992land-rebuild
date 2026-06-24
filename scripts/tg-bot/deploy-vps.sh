@@ -43,7 +43,7 @@ pm2 save >/dev/null 2>&1 || true
 
 # --- [5] Đăng ký slash commands (idempotent, chạy lại vô hại) ---
 echo "==> [5/5] register-commands"
-( cd "$BOT_DIR" && node engine/register-commands.mjs )
+( cd "$BOT_DIR" && set -a && . ./.env && set +a && node engine/register-commands.mjs )
 
 echo ""
 echo "✅ Xong. Trạng thái bot:"

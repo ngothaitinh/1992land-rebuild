@@ -43,4 +43,22 @@ export default {
     ["[XÓA DỰ ÁN]",  "[SỬA BÀI]",    "[XÓA BÀI]"],
     ["[THÊM DỰ ÁN]", "[THÊM BÀI]"],
   ],
+
+  publish_buttons: [
+    { text: "📝 Đăng tin",   mode: "await_post" },
+    { text: "🏢 Thêm dự án", mode: "await_project" },
+  ],
+
+  publish: {
+    post: {
+      dir:        "data/posts",
+      image_path: (slug) => `public/images/news/${slug}.jpg`,
+      web_image:  (slug) => `/images/news/${slug}.jpg`,
+    },
+    project: {
+      dir:        "data/projects",
+      image_path: (slug) => `public/images/projects/${slug}/hero.jpg`,
+      web_image:  (slug) => `/images/projects/${slug}/hero.jpg`,
+    },
+  },
 };

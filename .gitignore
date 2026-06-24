@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.local.example
+!scripts/tg-bot/.env.example
 
 # OAuth config (contains secrets — NEVER commit)
 public/auth/config.php

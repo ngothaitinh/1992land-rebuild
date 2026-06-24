@@ -7,6 +7,9 @@ import { parseCommand  } from "./parse-command.mjs";
 import { isProcessed, markProcessed } from "./idempotency.mjs";
 import { getFile, putFile, deleteFile } from "./github-commit.mjs";
 import { watchDeployment } from "./deploy-watch.mjs";
+import { composeContent, slugify, toPostMarkdown, toProjectJson, validateComposed } from "./compose.mjs";
+import { putFiles } from "./github-commit.mjs";
+import { setMode, getMode, setDraft, getDraft, clearSession } from "./session.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, "..", "..", "..");
@@ -74,9 +77,12 @@ function send(chatId, text, extra = {}) {
 
 // ─── Keyboard ─────────────────────────────────────────────────────────────────
 const MAIN_KB = {
-  inline_keyboard: cfg.keyboard_rows.map((row) =>
-    row.map((trigger) => ({ text: trigger, callback_data: `tpl:${trigger}` }))
-  ),
+  inline_keyboard: [
+    cfg.publish_buttons.map((b) => ({ text: b.text, callback_data: `pub_start:${b.mode}` })),
+    ...cfg.keyboard_rows.map((row) =>
+      row.map((trigger) => ({ text: trigger, callback_data: `tpl:${trigger}` }))
+    ),
+  ],
 };
 
 function buildTemplateText(trigger) {
@@ -121,6 +127,72 @@ async function saveToInbox(msg, text) {
     } catch (e) { console.error("[inbox] lỗi ảnh:", e.message); }
   }
   console.log(`[inbox] ${stamp} | "${(text || "").slice(0, 60)}" | ${imgN} ảnh`);
+}
+
+// ─── Photo download → base64 ─────────────────────────────────────────────────
+async function downloadPhotoBase64(msg) {
+  const photos = msg.photo ? [msg.photo[msg.photo.length - 1]] : [];
+  if (!photos.length) return null;
+  const file = await tgApi("getFile", { file_id: photos[0].file_id });
+  const url  = `https://api.telegram.org/file/bot${TOKEN}/${file.file_path}`;
+  return await new Promise((resolve, reject) => {
+    https.get(url, (res) => {
+      const chunks = [];
+      res.on("data", (c) => chunks.push(c));
+      res.on("end", () => resolve(Buffer.concat(chunks).toString("base64")));
+    }).on("error", reject);
+  });
+}
+
+// ─── Compose helpers ──────────────────────────────────────────────────────────
+function reviewWarning(obj) {
+  const rf = Array.isArray(obj._review_fields) ? obj._review_fields : [];
+  return rf.length ? `⚠️ <b>Cần soi kỹ:</b> ${rf.join(", ")}\n\n` : "";
+}
+
+async function composeAndPreview(chatId, type, sourceText, imageBase64, editInstruction) {
+  const projectFiles = fs.readdirSync(path.join(ROOT, "data/projects")).filter((f) => f.endsWith(".json"));
+  const existingSlugs = projectFiles.map((f) => f.replace(".json", ""));
+  const existingCategories = fs.existsSync(path.join(ROOT, "data/posts"))
+    ? [...new Set(fs.readdirSync(path.join(ROOT, "data/posts")).filter((f) => f.endsWith(".md")).map((f) => {
+        try { const m = fs.readFileSync(path.join(ROOT, "data/posts", f), "utf8").match(/^category:\s*(.+)$/m); return m ? m[1].replace(/["']/g, "").trim() : null; } catch { return null; }
+      }).filter(Boolean))]
+    : [];
+  const ctx = { today: new Date().toISOString().slice(0, 10), existingSlugs, existingCategories };
+
+  await send(chatId, "🤖 Đang biên tập, chờ chút…");
+  let obj;
+  try {
+    obj = await composeContent(type, sourceText, ctx, editInstruction);
+  } catch (e) {
+    clearSession(chatId);
+    return send(chatId, `⚠️ AI lỗi: ${e.message}. Gửi lại nội dung giúp anh.`);
+  }
+
+  const v = validateComposed(type, obj);
+  if (!v.ok) {
+    clearSession(chatId);
+    return send(chatId, `❌ Thiếu trường tối thiểu: ${v.missing.join(", ")}. Gửi nội dung đầy đủ hơn.`);
+  }
+
+  const slug = slugify(obj.title) + "-" + Date.now().toString(36).slice(-4);
+  setDraft(chatId, { type, obj, imageBase64, slug, sourceText });
+  setMode(chatId, null);
+
+  const label = type === "post" ? "bài viết" : "dự án";
+  const text =
+    reviewWarning(obj) +
+    `📄 <b>Bản nháp ${label}</b>\n` +
+    `<b>${obj.title}</b>\n` +
+    (obj.excerpt ? `${obj.excerpt}\n` : "") +
+    `\nSlug: <code>${slug}</code>`;
+  return send(chatId, text, {
+    reply_markup: { inline_keyboard: [[
+      { text: "✅ Duyệt", callback_data: "pub_approve" },
+      { text: "✏️ Sửa",  callback_data: "pub_edit" },
+      { text: "❌ Hủy",   callback_data: "pub_cancel" },
+    ]] },
+  });
 }
 
 // ─── Action: set_field ────────────────────────────────────────────────────────
@@ -286,6 +358,22 @@ async function handleMessage(msg) {
     return;
   }
 
+  const mode = getMode(msg.chat.id);
+  if (mode === "await_post" || mode === "await_project") {
+    if (isProcessed(msg.message_id)) return;
+    markProcessed(msg.message_id);
+    const type = mode === "await_post" ? "post" : "project";
+    const img  = await downloadPhotoBase64(msg).catch(() => null);
+    return composeAndPreview(msg.chat.id, type, text, img);
+  }
+  if (mode === "await_edit") {
+    if (isProcessed(msg.message_id)) return;
+    markProcessed(msg.message_id);
+    const draft = getDraft(msg.chat.id);
+    if (!draft) { clearSession(msg.chat.id); return send(msg.chat.id, "⏱ Nháp đã hết hạn. Bắt đầu lại nhé."); }
+    return composeAndPreview(msg.chat.id, draft.type, draft.sourceText, draft.imageBase64, text);
+  }
+
   if (isProcessed(msg.message_id)) return;
 
   const parsed = parseCommand(text);
@@ -330,6 +418,52 @@ async function handleCallbackQuery(cq) {
     const trigger = data.slice(4);
     const tmpl    = buildTemplateText(trigger);
     if (tmpl) await send(cq.message.chat.id, tmpl, { reply_markup: MAIN_KB });
+    return;
+  }
+
+  if (data.startsWith("pub_start:")) {
+    const mode = data.slice("pub_start:".length);
+    setMode(cq.message.chat.id, mode);
+    const what = mode === "await_post" ? "bài viết (có thể dán từ báo)" : "dự án";
+    return send(cq.message.chat.id, `✍️ Dán nội dung ${what} vào đây, kèm 1 ảnh nếu có. Xong gửi là được.`);
+  }
+
+  if (data === "pub_cancel") {
+    clearSession(cq.message.chat.id);
+    return send(cq.message.chat.id, "❌ Đã hủy, không đăng gì.");
+  }
+
+  if (data === "pub_edit") {
+    if (!getDraft(cq.message.chat.id)) return send(cq.message.chat.id, "⏱ Nháp đã hết hạn. Bắt đầu lại nhé.");
+    setMode(cq.message.chat.id, "await_edit");
+    return send(cq.message.chat.id, "✏️ Anh muốn sửa gì? (vd: rút ngắn tiêu đề, bỏ đoạn cuối)");
+  }
+
+  if (data === "pub_approve") {
+    const draft = getDraft(cq.message.chat.id);
+    if (!draft) return send(cq.message.chat.id, "⏱ Nháp đã hết hạn. Bắt đầu lại nhé.");
+    clearSession(cq.message.chat.id);
+    const pc   = cfg.publish[draft.type];
+    const now  = new Date().toISOString();
+    const heroWeb = draft.imageBase64 ? pc.web_image(draft.slug) : "";
+    const contentFile = draft.type === "post"
+      ? { path: `${pc.dir}/${draft.slug}.md`,   content: toPostMarkdown(draft.obj, { slug: draft.slug, date: now.slice(0, 10), heroImage: heroWeb }), binary: false }
+      : { path: `${pc.dir}/${draft.slug}.json`, content: toProjectJson(draft.obj, { slug: draft.slug, heroImage: heroWeb, now }), binary: false };
+    const files = [contentFile];
+    if (draft.imageBase64) files.push({ path: pc.image_path(draft.slug), content: draft.imageBase64, binary: true });
+
+    let commitSha;
+    try {
+      ({ commitSha } = await putFiles(REPO, cfg.deploy_branch, files,
+        `content: add ${draft.type} ${draft.slug} via telegram`, PAT));
+    } catch (e) {
+      return send(cq.message.chat.id, `⚠️ Lỗi đăng: ${e.message}`);
+    }
+    await send(cq.message.chat.id, `✅ Đã đăng. Đang chờ build…`);
+    watchDeployment(REPO, commitSha, PAT, async (status, runUrl) => {
+      if (status === "success") await send(cq.message.chat.id, `✅ <b>${cfg.site_name}</b> đã lên web.`).catch(console.error);
+      else await send(cq.message.chat.id, `⚠️ Build lỗi (${status}).\n${runUrl}`).catch(console.error);
+    });
     return;
   }
 

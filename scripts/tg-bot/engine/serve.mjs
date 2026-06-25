@@ -8,7 +8,9 @@ import { isProcessed, markProcessed } from "./idempotency.mjs";
 import { getFile, putFile, deleteFile, putFiles } from "./github-commit.mjs";
 import { watchDeployment } from "./deploy-watch.mjs";
 import { composeContent, slugify, toPostMarkdown, toProjectJson, validateComposed } from "./compose.mjs";
-import { setMode, getMode, setDraft, getDraft, clearSession } from "./session.mjs";
+import { callLLM } from "./llm.mjs";
+import { setMode, getMode, setDraft, getDraft, setWizard, getWizard, clearSession } from "./session.mjs";
+import { filterItems, fieldLabel, buildListKeyboard, buildFieldKeyboard, WIZARD_PAGE_SIZE } from "./wizard-helpers.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, "..", "..", "..");
@@ -81,6 +83,7 @@ const MAIN_KB = {
     ...cfg.keyboard_rows.map((row) =>
       row.map((trigger) => ({ text: trigger, callback_data: `tpl:${trigger}` }))
     ),
+    [{ text: "💬 Hỏi AI / Không biết làm gì", callback_data: "wz_ask" }],
   ],
 };
 
@@ -102,6 +105,129 @@ function buildTemplateText(trigger) {
 
 // ─── Pending deletes (in-memory, TTL 5 min) ───────────────────────────────────
 const pendingDeletes = new Map();
+
+// ─── Wizard sửa (bấm-chọn thay cho cú pháp Key: value) ────────────────────────
+const pendingEdits = new Map();   // key ngắn -> { content_type, slug, title, field, value }
+
+// Tìm command set_field theo loại nội dung (để tái dùng execSetField).
+function setFieldCmd(contentType) {
+  return cfg.commands.find((c) => c.action === "set_field" && c.content_type === contentType);
+}
+
+// Đọc danh sách { slug, title } từ thư mục nội dung (đọc local, không gọi API).
+function listContentItems(contentType) {
+  const ct  = cfg.content_types[contentType];
+  const dir = path.join(ROOT, ct.dir);
+  if (!fs.existsSync(dir)) return [];
+  const ext = ct.format === "json" ? ".json" : ".md";
+  return fs.readdirSync(dir)
+    .filter((f) => f.endsWith(ext))
+    .map((f) => {
+      const slug = f.slice(0, -ext.length);
+      let title = slug;
+      try {
+        const raw = fs.readFileSync(path.join(dir, f), "utf8");
+        if (ct.format === "json") title = JSON.parse(raw).title || slug;
+        else { const m = raw.match(/^title:\s*(.+)$/m); if (m) title = m[1].replace(/^["']|["']$/g, "").trim(); }
+      } catch {}
+      return { slug, title };
+    })
+    .sort((a, b) => a.title.localeCompare(b.title, "vi"));
+}
+
+function localTitle(contentType, slug) {
+  return listContentItems(contentType).find((it) => it.slug === slug)?.title || slug;
+}
+
+// Đọc giá trị hiện tại của 1 field từ GitHub (cùng nguồn sự thật execSetField commit lên).
+async function readCurrentField(contentType, slug, field) {
+  const ct  = cfg.content_types[contentType];
+  const ext = ct.format === "json" ? "json" : "md";
+  const { content } = await getFile(REPO, cfg.deploy_branch, `${ct.dir}/${slug}.${ext}`, PAT);
+  if (ct.format === "json") {
+    const v = JSON.parse(content)[field];
+    return (v === undefined || v === null) ? "" : (typeof v === "object" ? JSON.stringify(v) : String(v));
+  }
+  const m = content.match(new RegExp(`^${field}:\\s*(.*)$`, "m"));
+  return m ? m[1].replace(/^["']|["']$/g, "").trim() : "";
+}
+
+function listPrompt(contentType, total, offset) {
+  const label = contentType === "project" ? "dự án" : "bài viết";
+  const pages = Math.max(1, Math.ceil(total / WIZARD_PAGE_SIZE));
+  const page  = Math.floor(offset / WIZARD_PAGE_SIZE) + 1;
+  return `📋 Chọn ${label} cần sửa (tổng ${total}) — trang ${page}/${pages}:`;
+}
+
+// Bước 1: render danh sách đối tượng (dùng cho cả vào wizard lẫn phân trang / sau khi tìm).
+async function renderEditList(chatId, contentType, offset = 0, filter = null) {
+  const items = filterItems(listContentItems(contentType), filter);
+  setWizard(chatId, { step: "list", content_type: contentType, offset, filter });
+  setMode(chatId, null);
+  if (!items.length) {
+    return send(chatId, `Không có mục nào khớp${filter ? ` "<b>${filter}</b>"` : ""}.`, {
+      reply_markup: { inline_keyboard: [[
+        { text: "🔍 Tìm lại", callback_data: `wz_search:${contentType}` },
+        { text: "💬 Hỏi AI",  callback_data: "wz_ask" },
+      ]] },
+    });
+  }
+  return send(chatId, listPrompt(contentType, items.length, offset), {
+    reply_markup: buildListKeyboard(contentType, items, offset),
+  });
+}
+
+// Bước 3 → xác nhận trước khi commit (chốt chặn an toàn).
+async function confirmEdit(chatId, wz, value) {
+  const key = "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  pendingEdits.set(key, { content_type: wz.content_type, slug: wz.slug, title: wz.title, field: wz.field, value });
+  setTimeout(() => pendingEdits.delete(key), 5 * 60 * 1000);
+  return send(chatId,
+    `✏️ Sửa <b>${fieldLabel(cfg, wz.field)}</b> của <b>${wz.title || wz.slug}</b>\n` +
+    `Thành: <code>${value}</code>\n— đúng không?`,
+    { reply_markup: { inline_keyboard: [[
+      { text: "✅ Đồng ý", callback_data: `wz_confirm:${key}` },
+      { text: "❌ Huỷ",    callback_data: `wz_cancel:${key}` },
+    ]] } }
+  );
+}
+
+// ─── Chat tự do (lưới an toàn) — chỉ hướng dẫn, KHÔNG ghi repo ─────────────────
+function actionDesc(action, contentType) {
+  const what = contentType === "project" ? "dự án" : "bài viết";
+  switch (action) {
+    case "set_field":    return `sửa thông tin ${what}`;
+    case "hide_section": return "ẩn một phần thông tin dự án";
+    case "show_section": return "hiện lại phần đã ẩn của dự án";
+    case "delete":       return `xoá ${what}`;
+    case "inbox":        return `thêm ${what} mới`;
+    default:             return action;
+  }
+}
+
+async function freeChatAdvisor(chatId, userText) {
+  await send(chatId, "💬 Để tôi xem giúp anh…");
+  const cmds = cfg.commands.map((c) => `- ${c.trigger}: ${actionDesc(c.action, c.content_type)}`).join("\n");
+  const system =
+    `Bạn là trợ lý hướng dẫn của "${cfg.bot_name}" — bot quản trị web ${cfg.site_name}.\n` +
+    `Người dùng là chủ doanh nghiệp, KHÔNG rành kỹ thuật.\n` +
+    `Nhiệm vụ DUY NHẤT: hướng dẫn họ nên BẤM nút / dùng thao tác nào để đạt mục đích.\n` +
+    `TUYỆT ĐỐI KHÔNG tự sửa, tự đăng, tự tạo nội dung — bạn chỉ tư vấn, không thực hiện hành động nào.\n` +
+    `KHÔNG bịa tính năng ngoài danh sách dưới đây.\n` +
+    `Các thao tác có sẵn (mỗi cái là 1 nút ở menu):\n${cmds}\n` +
+    `Nếu ý người dùng khớp một thao tác, hãy NÊU ĐÚNG tên thao tác trong ngoặc vuông (ví dụ [SỬA DỰ ÁN]) để hệ thống tự đính nút bấm.\n` +
+    `Trả lời ngắn gọn, thân thiện, tiếng Việt. Nếu chưa rõ ý, hỏi lại đúng 1 câu.`;
+  let reply;
+  try {
+    reply = await callLLM({ system, user: userText });
+  } catch (e) {
+    return send(chatId, "Tôi chưa kết nối được trợ lý AI. Anh bấm /menu để chọn thao tác nhé.", { reply_markup: MAIN_KB });
+  }
+  const matched = cfg.commands.filter((c) => reply.includes(c.trigger));
+  const rows = matched.map((c) => [{ text: c.trigger, callback_data: `tpl:${c.trigger}` }]);
+  rows.push([{ text: "📋 Mở menu", callback_data: "wz_menu" }]);
+  return send(chatId, reply, { reply_markup: { inline_keyboard: rows } });
+}
 
 // ─── Inbox ────────────────────────────────────────────────────────────────────
 async function saveToInbox(msg, text) {
@@ -374,13 +500,40 @@ async function handleMessage(msg) {
     if (!draft) { clearSession(msg.chat.id); return send(msg.chat.id, "⏱ Nháp đã hết hạn. Bắt đầu lại nhé."); }
     return composeAndPreview(msg.chat.id, draft.type, draft.sourceText, draft.imageBase64, text);
   }
+  // Wizard sửa: đang chờ từ khóa tìm kiếm
+  if (mode === "await_wz_search") {
+    if (isProcessed(msg.message_id)) return;
+    markProcessed(msg.message_id);
+    const wz = getWizard(msg.chat.id);
+    if (!wz?.content_type) { clearSession(msg.chat.id); return send(msg.chat.id, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    return renderEditList(msg.chat.id, wz.content_type, 0, text);
+  }
+  // Wizard sửa: đang chờ giá trị mới → đưa vào cổng xác nhận (chốt chặn)
+  if (mode === "await_field_value") {
+    if (isProcessed(msg.message_id)) return;
+    markProcessed(msg.message_id);
+    const wz = getWizard(msg.chat.id);
+    if (!wz?.slug || !wz?.field) { clearSession(msg.chat.id); return send(msg.chat.id, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    setMode(msg.chat.id, null);
+    return confirmEdit(msg.chat.id, wz, text);
+  }
+  // Chat tự do (được mời qua nút 💬 Hỏi AI)
+  if (mode === "await_freechat") {
+    if (isProcessed(msg.message_id)) return;
+    markProcessed(msg.message_id);
+    setMode(msg.chat.id, null);
+    return freeChatAdvisor(msg.chat.id, text);
+  }
 
   if (isProcessed(msg.message_id)) return;
 
   const parsed = parseCommand(text);
 
   if (!parsed.trigger) {
-    await send(msg.chat.id, "Không nhận ra lệnh. Chọn thao tác:", { reply_markup: MAIN_KB });
+    markProcessed(msg.message_id);
+    // Ảnh/không có chữ → không đoán được ý, mở menu. Có chữ → chat tự do hướng dẫn.
+    if (!text) { await send(msg.chat.id, "Chọn thao tác:", { reply_markup: MAIN_KB }); return; }
+    await freeChatAdvisor(msg.chat.id, text);
     return;
   }
 
@@ -417,9 +570,88 @@ async function handleCallbackQuery(cq) {
 
   if (data.startsWith("tpl:")) {
     const trigger = data.slice(4);
-    const tmpl    = buildTemplateText(trigger);
+    const c = triggerMap.get(trigger.toLowerCase());
+    // Lệnh sửa → mở wizard bấm-chọn (cú pháp gõ tay vẫn dùng được song song).
+    if (c && c.action === "set_field") return renderEditList(cq.message.chat.id, c.content_type, 0, null);
+    const tmpl = buildTemplateText(trigger);
     if (tmpl) await send(cq.message.chat.id, tmpl, { reply_markup: MAIN_KB });
     return;
+  }
+
+  // ── Wizard sửa ──────────────────────────────────────────────────────────────
+  if (data === "wz_menu")
+    return send(cq.message.chat.id, `📋 <b>${cfg.bot_name}</b> — Chọn thao tác:`, { reply_markup: MAIN_KB });
+
+  if (data === "wz_abort") {
+    clearSession(cq.message.chat.id);
+    return send(cq.message.chat.id, "Đã thoát. Bấm /menu khi cần.", { reply_markup: MAIN_KB });
+  }
+
+  if (data === "wz_ask") {
+    setMode(cq.message.chat.id, "await_freechat");
+    return send(cq.message.chat.id, "💬 Anh cứ gõ điều anh muốn làm (vd \"đổi giá dự án\"), tôi sẽ chỉ cách bấm.");
+  }
+
+  if (data.startsWith("wz_page:")) {
+    const [, ct, off] = data.split(":");
+    const wz = getWizard(cq.message.chat.id);
+    return renderEditList(cq.message.chat.id, ct, parseInt(off, 10) || 0, wz?.filter || null);
+  }
+
+  if (data.startsWith("wz_search:")) {
+    const ct = data.slice("wz_search:".length);
+    setWizard(cq.message.chat.id, { step: "search", content_type: ct });
+    setMode(cq.message.chat.id, "await_wz_search");
+    return send(cq.message.chat.id, "🔍 Gõ vài ký tự trong tên cần tìm:");
+  }
+
+  if (data.startsWith("wz_pick:")) {
+    const [, ct, ...rest] = data.split(":");
+    const slug  = rest.join(":");
+    const title = localTitle(ct, slug);
+    setWizard(cq.message.chat.id, { step: "field", content_type: ct, slug, title });
+    return send(cq.message.chat.id, `Sửa <b>${title}</b> — chọn thông tin cần đổi:`, {
+      reply_markup: buildFieldKeyboard(cfg, ct, slug),
+    });
+  }
+
+  if (data.startsWith("wz_field:")) {
+    const [, ct, slug, field] = data.split(":");
+    const wz    = getWizard(cq.message.chat.id);
+    const title = wz?.title || localTitle(ct, slug);
+    let current;
+    try { current = await readCurrentField(ct, slug, field); }
+    catch { return send(cq.message.chat.id, `❌ Không đọc được <code>${slug}</code>. Bấm /menu để thử lại.`); }
+    setWizard(cq.message.chat.id, { step: "value", content_type: ct, slug, title, field });
+    setMode(cq.message.chat.id, "await_field_value");
+    return send(cq.message.chat.id,
+      `Giá trị mới cho <b>${fieldLabel(cfg, field)}</b> là gì?\n` +
+      `Hiện tại: <code>${current || "(trống)"}</code>\n\n` +
+      `Gõ giá trị mới vào đây 👇`,
+      { reply_markup: { inline_keyboard: [[
+        { text: "💬 Hỏi AI", callback_data: "wz_ask" },
+        { text: "❌ Thoát",   callback_data: "wz_abort" },
+      ]] } }
+    );
+  }
+
+  if (data.startsWith("wz_confirm:")) {
+    const key = data.slice("wz_confirm:".length);
+    const p   = pendingEdits.get(key);
+    if (!p) return send(cq.message.chat.id, "⏱ Xác nhận đã hết hạn (5 phút). Bấm /menu để làm lại.");
+    pendingEdits.delete(key);
+    clearSession(cq.message.chat.id);
+    const cmd = setFieldCmd(p.content_type);
+    if (!cmd) return send(cq.message.chat.id, "❌ Cấu hình thiếu lệnh sửa.");
+    // Tái dùng nguyên luồng sửa-1-trường: cùng validate, commit đơn, deploy-watch.
+    await execSetField(cq.message.chat.id, cmd, { slug: p.slug, field: p.field, value: p.value });
+    return;
+  }
+
+  if (data.startsWith("wz_cancel:")) {
+    pendingEdits.delete(data.slice("wz_cancel:".length));
+    clearSession(cq.message.chat.id);
+    return send(cq.message.chat.id, "❌ Đã huỷ, không sửa gì.");
   }
 
   if (data.startsWith("pub_start:")) {

@@ -11,6 +11,22 @@ export default {
     .map((s) => s.trim())
     .filter(Boolean),
 
+  // Nhãn tiếng Việt cho nút chọn trường trong wizard sửa (không hard-code trong engine).
+  // Key = tên field thật trong editable_fields; value = nhãn hiển thị trên nút.
+  field_labels: {
+    title:      "Tiêu đề",
+    location:   "Vị trí",
+    priceRange: "Giá",
+    status:     "Trạng thái",
+    type:       "Loại hình",
+    excerpt:    "Mô tả ngắn",
+    developer:  "Chủ đầu tư",
+    area:       "Diện tích",
+    district:   "Quận/Huyện",
+    city:       "Tỉnh/Thành",
+    category:   "Chuyên mục",
+  },
+
   content_types: {
     project: {
       dir:             "data/projects",

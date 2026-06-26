@@ -85,6 +85,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col bg-bg text-ink antialiased">
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PSC9KR55"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <Analytics />
         <Header />
         {/* pb-16 on mobile for FloatingCTA bottom bar */}

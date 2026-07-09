@@ -1,0 +1,752 @@
+{
+  "name": "1992land Bot v2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message", "callback_query"],
+        "additionalFields": {}
+      },
+      "id": "tg-trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 300],
+      "webhookId": "1992land-bot-v2",
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract fields from Telegram update, apply security whitelist\nconst allowedIds = ($env.ALLOWED_CHAT_IDS || '').split(',').map(s => s.trim()).filter(Boolean);\nconst update = $input.first().json;\n\nlet chatId, text, photos, callbackData, callbackQueryId, updateId, messageId;\nphotos = [];\n\nif (update.message) {\n  chatId = String(update.message.chat.id);\n  messageId = update.message.message_id;\n  text = update.message.text || update.message.caption || '';\n  photos = update.message.photo || [];\n} else if (update.callback_query) {\n  chatId = String(update.callback_query.message.chat.id);\n  messageId = update.callback_query.message.message_id;\n  callbackData = update.callback_query.data || '';\n  callbackQueryId = update.callback_query.id;\n  text = '';\n} else {\n  return [{json: {allowed: false, chatId: '', updateId: 0}}];\n}\n\nupdateId = update.update_id;\nconst allowed = allowedIds.includes(chatId);\n\nreturn [{\n  json: {\n    allowed,\n    updateId,\n    chatId,\n    messageId,\n    text: text || '',\n    photos,\n    callbackData: callbackData || '',\n    callbackQueryId: callbackQueryId || '',\n    isCallback: !!update.callback_query,\n    isMessage: !!update.message\n  }\n}];"
+      },
+      "id": "code-extract",
+      "name": "Code: Extract",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [200, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "cond-allowed",
+              "leftValue": "={{ $json.allowed }}",
+              "rightValue": true,
+              "operator": {"type": "boolean", "operation": "true", "singleValue": true}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-allowed",
+      "name": "IF: Allowed",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [400, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Code: Extract').first().json.chatId }}",
+        "text": "Bot riêng tư, không phục vụ.",
+        "additionalFields": {}
+      },
+      "id": "tg-deny",
+      "name": "Telegram: Deny",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [600, 500],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "telegram_sessions", "mode": "name"},
+        "filtersUI": {
+          "values": [{"lookupColumn": "chat_id", "lookupValue": "={{ $('Code: Extract').first().json.chatId }}"}]
+        },
+        "options": {}
+      },
+      "id": "gsheets-read-session",
+      "name": "GSheets: Read Session",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [600, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GSHEETS_CRED_ID",
+          "name": "Google Sheets 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Merge session data + check TTL + run state machine\nconst extracted = $('Code: Extract').first().json;\nconst sessionRows = $input.all();\n\nconst {chatId, text, photos, callbackData, callbackQueryId, isCallback, isMessage, updateId} = extracted;\n\n// Dedup via Static Data\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.processedIds) staticData.processedIds = {};\nif (staticData.processedIds[updateId]) {\n  return [{json: {nextAction: 'noop', chatId, updateId}}];\n}\n// Cleanup old IDs (>24h)\nconst DAY = 86400000;\nfor (const [id, ts] of Object.entries(staticData.processedIds)) {\n  if (Date.now() - ts > DAY) delete staticData.processedIds[id];\n}\n// Mark as processed immediately to prevent race conditions\nstaticData.processedIds[updateId] = Date.now();\n\n// Parse session\nlet session = {state: '', type: '', draft_json: '{}', target_file: '', updated_at: ''};\nconst row = sessionRows.find(r => r.json && r.json.chat_id);\nif (row && row.json.chat_id) {\n  session = {\n    state: row.json.state || '',\n    type: row.json.type || '',\n    draft_json: row.json.draft_json || '{}',\n    target_file: row.json.target_file || '',\n    updated_at: row.json.updated_at || ''\n  };\n}\n\n// Check TTL 30 min\nif (session.updated_at && session.state) {\n  const lastActive = new Date(session.updated_at).getTime();\n  if (Date.now() - lastActive > 1800000) {\n    session = {state: '', type: '', draft_json: '{}', target_file: '', updated_at: ''};\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '⏰ Phiên làm việc đã hết hạn. Anh gõ /menu để bắt đầu lại.',\n      session: {state: '', type: '', draft_json: '{}', target_file: '', updated_at: ''},\n      sessionAction: 'clear'\n    }}];\n  }\n}\n\n// Parse command\nlet command = '';\nif (isMessage && text && text.trim().startsWith('/')) {\n  command = text.trim().split(/\\s+/)[0].toLowerCase().split('@')[0];\n}\n\n// /huy always resets\nif (command === '/huy' || command === '/cancel') {\n  return [{json: {\n    nextAction: 'send_message', chatId, updateId,\n    text: '❌ Đã huỷ.',\n    session: {state: '', type: '', draft_json: '{}', target_file: '', updated_at: ''},\n    sessionAction: 'clear'\n  }}];\n}\n\nconst state = session.state;\nconst now = new Date().toISOString();\n\n// --- IDLE STATE ---\nif (!state) {\n  if (command === '/them' || command === '/start_them') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '📋 Anh muốn thêm gì?',\n      keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'them_type:project'},{text: '📝 Bài viết', callback_data: 'them_type:article'}]]},\n      session: {state: 'awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n  if (command === '/sua') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '✏️ Anh muốn sửa loại nội dung nào?',\n      keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'sua_type:project'},{text: '📝 Bài viết', callback_data: 'sua_type:article'}]]},\n      session: {state: 'sua:awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n  if (command === '/xoa') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '🗑️ Anh muốn xoá loại nội dung nào?',\n      keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'xoa_type:project'},{text: '📝 Bài viết', callback_data: 'xoa_type:article'}]]},\n      session: {state: 'xoa:awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n  if (command === '/menu' || command === '/start') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '🏠 *Menu chính 1992Land*\\n\\nChọn thao tác:',\n      parseMode: 'Markdown',\n      keyboard: {inline_keyboard: [[{text: '➕ Thêm', callback_data: 'menu:them'},{text: '✏️ Sửa', callback_data: 'menu:sua'},{text: '🗑️ Xoá', callback_data: 'menu:xoa'}]]},\n      session: null, sessionAction: 'none'\n    }}];\n  }\n  if (command === '/help') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId,\n      text: '📖 *1992Land Bot — Hướng dẫn*\\n\\n/them — Thêm dự án hoặc bài viết\\n/sua — Sửa nội dung đã đăng\\n/xoa — Xoá nội dung\\n/menu — Menu chính\\n/huy — Huỷ thao tác hiện tại',\n      parseMode: 'Markdown',\n      session: null, sessionAction: 'none'\n    }}];\n  }\n  // Callback from menu shortcuts\n  if (isCallback) {\n    if (callbackData === 'menu:them') {\n      return [{json: {\n        nextAction: 'send_message', chatId, updateId, callbackQueryId,\n        text: '📋 Anh muốn thêm gì?',\n        keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'them_type:project'},{text: '📝 Bài viết', callback_data: 'them_type:article'}]]},\n        session: {state: 'awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n        sessionAction: 'write'\n      }}];\n    }\n    if (callbackData === 'menu:sua') {\n      return [{json: {\n        nextAction: 'send_message', chatId, updateId, callbackQueryId,\n        text: '✏️ Anh muốn sửa loại nội dung nào?',\n        keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'sua_type:project'},{text: '📝 Bài viết', callback_data: 'sua_type:article'}]]},\n        session: {state: 'sua:awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n        sessionAction: 'write'\n      }}];\n    }\n    if (callbackData === 'menu:xoa') {\n      return [{json: {\n        nextAction: 'send_message', chatId, updateId, callbackQueryId,\n        text: '🗑️ Anh muốn xoá loại nội dung nào?',\n        keyboard: {inline_keyboard: [[{text: '📦 Dự án', callback_data: 'xoa_type:project'},{text: '📝 Bài viết', callback_data: 'xoa_type:article'}]]},\n        session: {state: 'xoa:awaiting_type', type: '', draft_json: '{}', target_file: '', updated_at: now},\n        sessionAction: 'write'\n      }}];\n    }\n  }\n  // Unknown\n  if (command) {\n    return [{json: {nextAction: 'send_message', chatId, updateId, text: '🤔 Em chưa hiểu lệnh đó. Anh gõ /menu nhé.', session: null, sessionAction: 'none'}}];\n  }\n  return [{json: {nextAction: 'send_message', chatId, updateId, text: '💬 Anh gõ /menu để xem menu chính nhé.', session: null, sessionAction: 'none'}}];\n}\n\n// --- AWAITING_TYPE ---\nif (state === 'awaiting_type' && isCallback) {\n  if (callbackData.startsWith('them_type:')) {\n    const t = callbackData.split(':')[1];\n    const prompt = t === 'project'\n      ? '📦 Anh kể em nghe về dự án — cứ tự nhiên, không cần theo format.\\n\\nVí dụ: \"Vinhomes Ocean Park 3 ở Gia Lâm HN, giá 2 tỷ, mở bán Q2/2026, CĐT Vinhomes\"\\n\\nCó ảnh đại diện thì gửi luôn nhé 📸'\n      : '📝 Anh gửi nội dung bài viết — cứ viết tự nhiên.\\n\\nNếu có ảnh bìa thì gửi kèm nhé.';\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId, callbackQueryId,\n      text: prompt,\n      session: {state: 'awaiting_content', type: t, draft_json: '{}', target_file: '', updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n}\n\n// --- AWAITING_CONTENT ---\nif (state === 'awaiting_content' && isMessage) {\n  const largestPhoto = photos.length > 0 ? photos[photos.length - 1] : null;\n  return [{json: {\n    nextAction: 'parse_with_ai', chatId, updateId,\n    contentType: session.type,\n    userText: text,\n    photo: largestPhoto,\n    session: {...session, updated_at: now},\n    sessionAction: 'write'\n  }}];\n}\n\n// --- REVIEW STATE ---\nif (state === 'review' && isCallback) {\n  let draft;\n  try { draft = JSON.parse(session.draft_json || '{}'); } catch(e) { draft = {}; }\n\n  if (callbackData === 'action:confirm') {\n    return [{json: {\n      nextAction: 'commit_to_github', chatId, updateId, callbackQueryId,\n      contentType: session.type,\n      draft,\n      targetFile: session.target_file,\n      isEdit: !!session.target_file,\n      session: null, sessionAction: 'clear'\n    }}];\n  }\n  if (callbackData === 'action:cancel') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId, callbackQueryId,\n      text: '❌ Đã huỷ.',\n      session: null, sessionAction: 'clear'\n    }}];\n  }\n  if (callbackData === 'action:edit') {\n    const fieldButtons = session.type === 'project' ? [\n      [{text: 'Tên', callback_data: 'edit_field:title'},{text: 'Vị trí', callback_data: 'edit_field:location'}],\n      [{text: 'Chủ đầu tư', callback_data: 'edit_field:developer'},{text: 'Giá', callback_data: 'edit_field:priceRange'}],\n      [{text: 'Trạng thái', callback_data: 'edit_field:status'},{text: 'Loại', callback_data: 'edit_field:type'}],\n      [{text: 'Khu vực', callback_data: 'edit_field:area'},{text: 'Mô tả', callback_data: 'edit_field:excerpt'}],\n      [{text: '❌ Huỷ', callback_data: 'action:cancel'}]\n    ] : [\n      [{text: 'Tiêu đề', callback_data: 'edit_field:title'},{text: 'Mô tả ngắn', callback_data: 'edit_field:excerpt'}],\n      [{text: 'Danh mục', callback_data: 'edit_field:category'},{text: 'Nội dung', callback_data: 'edit_field:body'}],\n      [{text: '❌ Huỷ', callback_data: 'action:cancel'}]\n    ];\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId, callbackQueryId,\n      text: '✏️ Sửa field nào?',\n      keyboard: {inline_keyboard: fieldButtons},\n      session: {...session, state: 'choose_field', updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n}\n\n// --- CHOOSE_FIELD ---\nif (state === 'choose_field' && isCallback && callbackData.startsWith('edit_field:')) {\n  const fieldName = callbackData.split(':')[1];\n  const labels = {title:'Tên/Tiêu đề',location:'Vị trí',developer:'Chủ đầu tư',priceRange:'Giá',status:'Trạng thái',type:'Loại',area:'Khu vực',excerpt:'Mô tả ngắn',body:'Nội dung',category:'Danh mục'};\n  let draft;\n  try { draft = JSON.parse(session.draft_json || '{}'); } catch(e) { draft = {}; }\n  const currentVal = draft[fieldName] || '(trống)';\n  return [{json: {\n    nextAction: 'send_message', chatId, updateId, callbackQueryId,\n    text: `✏️ *${labels[fieldName]||fieldName}* hiện tại:\\n${currentVal.toString().slice(0,200)}\\n\\nAnh nhập giá trị mới:`,\n    parseMode: 'Markdown',\n    session: {...session, state: `editing_field:${fieldName}`, updated_at: now},\n    sessionAction: 'write'\n  }}];\n}\n\n// --- EDITING_FIELD ---\nif (state && state.startsWith('editing_field:') && isMessage && text) {\n  const fieldName = state.replace('editing_field:', '');\n  let draft;\n  try { draft = JSON.parse(session.draft_json || '{}'); } catch(e) { draft = {}; }\n  draft[fieldName] = text.trim();\n  return [{json: {\n    nextAction: 'show_review', chatId, updateId,\n    contentType: session.type,\n    draft,\n    session: {...session, state: 'review', draft_json: JSON.stringify(draft), updated_at: now},\n    sessionAction: 'write'\n  }}];\n}\n\n// --- SUA: awaiting_type ---\nif (state === 'sua:awaiting_type' && isCallback && callbackData.startsWith('sua_type:')) {\n  const t = callbackData.split(':')[1];\n  return [{json: {\n    nextAction: 'fetch_github_list', chatId, updateId, callbackQueryId,\n    contentType: t, flowMode: 'sua',\n    session: {state: 'sua:list', type: t, draft_json: '{}', target_file: '', updated_at: now},\n    sessionAction: 'write'\n  }}];\n}\n\n// --- XOA: awaiting_type ---\nif (state === 'xoa:awaiting_type' && isCallback && callbackData.startsWith('xoa_type:')) {\n  const t = callbackData.split(':')[1];\n  return [{json: {\n    nextAction: 'fetch_github_list', chatId, updateId, callbackQueryId,\n    contentType: t, flowMode: 'xoa',\n    session: {state: 'xoa:list', type: t, draft_json: '{}', target_file: '', updated_at: now},\n    sessionAction: 'write'\n  }}];\n}\n\n// --- SUA/XOA: list ---\nif ((state === 'sua:list' || state === 'xoa:list') && isCallback && callbackData.startsWith('select:')) {\n  const slug = callbackData.replace('select:', '');\n  const flowMode = state.startsWith('sua') ? 'sua' : 'xoa';\n  if (flowMode === 'sua') {\n    return [{json: {\n      nextAction: 'fetch_github_file', chatId, updateId, callbackQueryId,\n      slug, contentType: session.type,\n      session: {...session, state: 'review', target_file: slug, updated_at: now},\n      sessionAction: 'write'\n    }}];\n  } else {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId, callbackQueryId,\n      text: `⚠️ Xác nhận xoá *${slug}*?\\n\\nHành động này không thể hoàn tác.`,\n      parseMode: 'Markdown',\n      keyboard: {inline_keyboard: [[{text: '🗑️ Xoá', callback_data: `confirm_delete:${slug}`},{text: '❌ Không', callback_data: 'action:cancel'}]]},\n      session: {...session, state: 'xoa:confirm', target_file: slug, updated_at: now},\n      sessionAction: 'write'\n    }}];\n  }\n}\n\n// --- XOA: confirm ---\nif (state === 'xoa:confirm' && isCallback) {\n  if (callbackData.startsWith('confirm_delete:')) {\n    const slug = callbackData.replace('confirm_delete:', '');\n    return [{json: {\n      nextAction: 'delete_from_github', chatId, updateId, callbackQueryId,\n      slug, contentType: session.type,\n      session: null, sessionAction: 'clear'\n    }}];\n  }\n  if (callbackData === 'action:cancel') {\n    return [{json: {\n      nextAction: 'send_message', chatId, updateId, callbackQueryId,\n      text: '❌ Đã huỷ.',\n      session: null, sessionAction: 'clear'\n    }}];\n  }\n}\n\n// --- Fallback ---\nreturn [{json: {\n  nextAction: 'send_message', chatId, updateId,\n  text: '💬 Anh gõ /menu để xem menu chính nhé.',\n  session: null, sessionAction: 'none'\n}}];"
+      },
+      "id": "code-brain",
+      "name": "Code: State Machine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "mode": "rules",
+        "rules": {
+          "values": [
+            {"conditions": {"conditions": [{"id": "r0","leftValue": "={{ $json.nextAction }}","rightValue": "send_message","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 0},
+            {"conditions": {"conditions": [{"id": "r1","leftValue": "={{ $json.nextAction }}","rightValue": "parse_with_ai","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 1},
+            {"conditions": {"conditions": [{"id": "r2","leftValue": "={{ $json.nextAction }}","rightValue": "commit_to_github","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 2},
+            {"conditions": {"conditions": [{"id": "r3","leftValue": "={{ $json.nextAction }}","rightValue": "fetch_github_list","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 3},
+            {"conditions": {"conditions": [{"id": "r4","leftValue": "={{ $json.nextAction }}","rightValue": "fetch_github_file","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 4},
+            {"conditions": {"conditions": [{"id": "r5","leftValue": "={{ $json.nextAction }}","rightValue": "delete_from_github","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 5},
+            {"conditions": {"conditions": [{"id": "r6","leftValue": "={{ $json.nextAction }}","rightValue": "show_review","operator": {"type": "string","operation": "equals"}}],"combinator": "and"},"output": 6}
+          ]
+        },
+        "options": {"fallbackOutput": "none"}
+      },
+      "id": "switch-action",
+      "name": "Switch: Next Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [1100, 300]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "telegram_sessions", "mode": "name"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $json.chatId }}",
+            "state": "={{ $json.session?.state ?? '' }}",
+            "type": "={{ $json.session?.type ?? '' }}",
+            "draft_json": "={{ $json.session?.draft_json ?? '{}' }}",
+            "target_file": "={{ $json.session?.target_file ?? '' }}",
+            "updated_at": "={{ $json.session?.updated_at ?? new Date().toISOString() }}"
+          },
+          "matchingColumns": ["chat_id"],
+          "schema": [
+            {"id": "chat_id","displayName": "chat_id","required": false,"defaultMatch": true,"display": true,"type": "string","canBeUsedToMatch": true},
+            {"id": "state","displayName": "state","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "type","displayName": "type","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "draft_json","displayName": "draft_json","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "target_file","displayName": "target_file","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "updated_at","displayName": "updated_at","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false}
+          ]
+        },
+        "options": {}
+      },
+      "id": "gsheets-write-session",
+      "name": "GSheets: Write Session",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [1350, 160],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GSHEETS_CRED_ID",
+          "name": "Google Sheets 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "={{ $json.parseMode || 'HTML' }}",
+          "reply_markup": "={{ $json.keyboard ? JSON.stringify($json.keyboard) : undefined }}"
+        }
+      },
+      "id": "tg-send",
+      "name": "Telegram: Send Message",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1600, 160],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare Claude API call — build prompt, handle photo\nconst d = $input.first().json;\nconst {contentType, userText, photo, chatId} = d;\n\nlet systemPrompt, userPrompt;\n\nif (contentType === 'project') {\n  systemPrompt = `Bạn là parser cho bot quản lý nội dung BĐS Việt Nam.\\nNhiệm vụ: Đọc tin nhắn tự nhiên, trích xuất thành JSON theo schema sau.\\n\\nSCHEMA (bắt buộc khớp 100%, không thêm field lạ):\\n{\\n  \"title\": string,        // tên dự án, BẮT BUỘC\\n  \"location\": string,     // vị trí, ví dụ \"Quận 7, TP.HCM\", BẮT BUỘC\\n  \"area\": string,         // tỉnh/thành phố, ví dụ \"TP.HCM\", BẮT BUỘC\\n  \"developer\": string,    // chủ đầu tư, BẮT BUỘC\\n  \"priceRange\": string,   // giá, format \"Từ X tỷ/căn\" hoặc \"Liên hệ\", BẮT BUỘC\\n  \"status\": string,       // một trong: \"Đang mở bán\"|\"Sắp mở bán\"|\"Đã bàn giao\", BẮT BUỘC\\n  \"type\": string,         // loại hình, ví dụ \"Căn hộ chung cư\"|\"Biệt thự\"|\"Nhà phố\", BẮT BUỘC\\n  \"excerpt\": string,      // mô tả SEO 2-3 câu, AI TỰ VIẾT nếu user không cung cấp\\n  \"project_type\": string, // slug: \"can-ho\"|\"biet-thu\"|\"dat-nen\"|\"nha-pho\"|\"nghi-duong\"|\"phuc-hop\"\\n  \"city\": string          // slug: \"tp-hcm\"|\"vung-tau\"|\"binh-duong\"|\"long-an\"|\"dong-nai\"\\n}\\n\\nQUY TẮC NGHIÊM NGẶT:\\n- KHÔNG bịa giá, vị trí, chủ đầu tư, trạng thái pháp lý — nếu user không nói rõ → trả null\\n- \"excerpt\" ĐƯỢC PHÉP AI tự viết từ các field còn lại\\n- Chỉ trả JSON thuần, không markdown fence, không giải thích\\n- Slug hóa: TP.HCM→tp-hcm, Hà Nội→ha-noi, Vũng Tàu→vung-tau, Bình Dương→binh-duong, Long An→long-an, Đồng Nai→dong-nai`;\n  userPrompt = `Tin nhắn của user:\\n${userText || '(không có text)'}`;\n} else {\n  systemPrompt = `Bạn là parser bài viết BĐS.\\nTrả về JSON:\\n{\\n  \"title\": string,    // tiêu đề, AI đặt từ nội dung nếu user không có\\n  \"excerpt\": string,  // 1-2 câu tóm tắt SEO\\n  \"category\": string, // ví dụ \"Đầu tư\"|\"Kinh nghiệm\"|\"Thị trường\"\\n  \"readTime\": string, // ước tính đọc, ví dụ \"5 phút đọc\"\\n  \"body\": string      // toàn bộ nội dung, format Markdown sạch\\n}\\nKHÔNG bịa thông tin. Chỉ trả JSON thuần.`;\n  userPrompt = `Nội dung bài viết:\\n${userText || '(không có text)'}`;\n}\n\nreturn [{\n  json: {\n    ...d,\n    claudePayload: {\n      model: $env.ANTHROPIC_MODEL || 'claude-haiku-4-5-20251001',\n      max_tokens: 1024,\n      system: systemPrompt,\n      messages: [{role: 'user', content: userPrompt}]\n    },\n    hasPhoto: !!photo,\n    photoFileId: photo ? photo.file_id : null\n  }\n}];"
+      },
+      "id": "code-prep-ai",
+      "name": "Code: Prep AI",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [{"id": "has-photo","leftValue": "={{ $json.hasPhoto }}","rightValue": true,"operator": {"type": "boolean","operation": "true","singleValue": true}}],
+          "combinator": "and"
+        }
+      },
+      "id": "if-has-photo",
+      "name": "IF: Has Photo",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1550, 300]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/bot{{ $credentials.telegramApi.accessToken }}/getFile",
+        "sendQuery": true,
+        "queryParameters": {"parameters": [{"name": "file_id","value": "={{ $json.photoFileId }}"}]},
+        "options": {}
+      },
+      "id": "http-tg-getfile",
+      "name": "HTTP: Telegram GetFile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1750, 220],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/file/bot{{ $credentials.telegramApi.accessToken }}/{{ $json.result.file_path }}",
+        "options": {"response": {"response": {"responseFormat": "file"}}}
+      },
+      "id": "http-download-photo",
+      "name": "HTTP: Download Photo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1950, 220],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {"name": "anthropic-version","value": "2023-06-01"},
+            {"name": "x-api-key","value": "={{ $credentials.httpHeaderAuth.value }}"}
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {"name": "model","value": "={{ $json.claudePayload.model }}"},
+            {"name": "max_tokens","value": "={{ $json.claudePayload.max_tokens }}"},
+            {"name": "system","value": "={{ $json.claudePayload.system }}"},
+            {"name": "messages","value": "={{ JSON.stringify($json.claudePayload.messages) }}"}
+          ]
+        },
+        "options": {}
+      },
+      "id": "http-claude",
+      "name": "HTTP: Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2150, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ANTHROPIC_CRED_ID",
+          "name": "Anthropic 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate Claude response, build review message\nconst prev = $('Code: Prep AI').first().json;\nconst claudeResp = $input.first().json;\n\nlet rawText = '';\ntry {\n  rawText = claudeResp.content[0].text;\n} catch(e) {\n  return [{json: {\n    nextAction: 'send_message',\n    chatId: prev.chatId, updateId: prev.updateId,\n    text: '❌ AI gặp lỗi. Anh thử lại hoặc gõ /huy.',\n    session: null, sessionAction: 'none'\n  }}];\n}\n\n// Strip markdown fence if any\nrawText = rawText.replace(/^```json?\\n?/,'').replace(/\\n?```$/,'').trim();\n\nlet parsed;\ntry { parsed = JSON.parse(rawText); } catch(e) {\n  return [{json: {\n    nextAction: 'send_message',\n    chatId: prev.chatId, updateId: prev.updateId,\n    text: '❌ AI trả kết quả không đúng định dạng. Anh thử gõ lại rõ hơn hoặc /huy.',\n    session: null, sessionAction: 'none'\n  }}];\n}\n\nconst contentType = prev.contentType;\n\n// Build review message\nlet reviewLines = ['📋 *Em hiểu thế này, anh xem giúp:*\\n'];\nif (contentType === 'project') {\n  const fields = [\n    ['Tên', parsed.title],\n    ['Vị trí', parsed.location],\n    ['Chủ đầu tư', parsed.developer],\n    ['Giá', parsed.priceRange],\n    ['Trạng thái', parsed.status],\n    ['Loại', parsed.type],\n    ['Khu vực', parsed.area],\n    ['Mô tả', parsed.excerpt ? parsed.excerpt.slice(0,100)+'...' : null],\n    ['Ảnh', prev.hasPhoto ? '✓ Có ảnh' : '✗ Không có ảnh']\n  ];\n  for (const [label, val] of fields) {\n    reviewLines.push(`• *${label}:* ${val || '❓ Chưa có — bấm Sửa để điền'}`);\n  }\n} else {\n  const fields = [\n    ['Tiêu đề', parsed.title],\n    ['Danh mục', parsed.category],\n    ['Thời gian đọc', parsed.readTime],\n    ['Mô tả ngắn', parsed.excerpt ? parsed.excerpt.slice(0,100) : null],\n    ['Nội dung', parsed.body ? `${parsed.body.slice(0,80)}...` : null],\n    ['Ảnh bìa', prev.hasPhoto ? '✓ Có ảnh' : '✗ Không có ảnh']\n  ];\n  for (const [label, val] of fields) {\n    reviewLines.push(`• *${label}:* ${val || '❓ Chưa có — bấm Sửa để điền'}`);\n  }\n}\n\nconst reviewText = reviewLines.join('\\n');\nconst keyboard = contentType === 'project'\n  ? {inline_keyboard: [[{text:'✅ Đăng lên web',callback_data:'action:confirm'},{text:'✏️ Sửa',callback_data:'action:edit'},{text:'❌ Huỷ',callback_data:'action:cancel'}]]}\n  : {inline_keyboard: [[{text:'✅ Đăng',callback_data:'action:confirm'},{text:'✏️ Sửa tiêu đề',callback_data:'edit_field:title'},{text:'❌ Huỷ',callback_data:'action:cancel'}]]};\n\nreturn [{json: {\n  nextAction: 'send_review_from_ai',\n  chatId: prev.chatId, updateId: prev.updateId,\n  text: reviewText,\n  parseMode: 'Markdown',\n  keyboard,\n  parsedDraft: parsed,\n  contentType,\n  hasPhoto: prev.hasPhoto,\n  photoData: prev.photoData || null,\n  photoBinary: null,\n  session: {\n    state: 'review',\n    type: contentType,\n    draft_json: JSON.stringify(parsed),\n    target_file: '',\n    updated_at: new Date().toISOString()\n  },\n  sessionAction: 'write'\n}}];"
+      },
+      "id": "code-post-ai",
+      "name": "Code: Post-AI Validate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2350, 300]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID }}", "mode": "id"},
+        "sheetName": {"__rl": true, "value": "telegram_sessions", "mode": "name"},
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "chat_id": "={{ $json.chatId }}",
+            "state": "={{ $json.session.state }}",
+            "type": "={{ $json.session.type }}",
+            "draft_json": "={{ $json.session.draft_json }}",
+            "target_file": "={{ $json.session.target_file || '' }}",
+            "updated_at": "={{ $json.session.updated_at }}"
+          },
+          "matchingColumns": ["chat_id"],
+          "schema": [
+            {"id": "chat_id","displayName": "chat_id","required": false,"defaultMatch": true,"display": true,"type": "string","canBeUsedToMatch": true},
+            {"id": "state","displayName": "state","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "type","displayName": "type","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "draft_json","displayName": "draft_json","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "target_file","displayName": "target_file","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false},
+            {"id": "updated_at","displayName": "updated_at","required": false,"defaultMatch": false,"display": true,"type": "string","canBeUsedToMatch": false}
+          ]
+        },
+        "options": {}
+      },
+      "id": "gsheets-write-review",
+      "name": "GSheets: Write Review Session",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [2550, 300],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GSHEETS_CRED_ID",
+          "name": "Google Sheets 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "parse_mode": "Markdown",
+          "reply_markup": "={{ JSON.stringify($json.keyboard) }}"
+        }
+      },
+      "id": "tg-send-review",
+      "name": "Telegram: Send Review",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [2750, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare GitHub commit payload using Git Trees API\nconst d = $input.first().json;\nconst {contentType, draft, targetFile, isEdit, chatId, updateId} = d;\n\nconst repo = $env.GITHUB_REPO;\nconst branch = $env.GITHUB_BRANCH || 'main';\n\n// Generate slug\nfunction slugify(text) {\n  const map = {'à':'a','á':'a','ả':'a','ã':'a','ạ':'a','ă':'a','ắ':'a','ặ':'a','ẵ':'a','ằ':'a','ẳ':'a','â':'a','ấ':'a','ầ':'a','ẩ':'a','ẫ':'a','ậ':'a','đ':'d','è':'e','é':'e','ẻ':'e','ẽ':'e','ẹ':'e','ê':'e','ế':'e','ề':'e','ể':'e','ễ':'e','ệ':'e','ì':'i','í':'i','ỉ':'i','ĩ':'i','ị':'i','ò':'o','ó':'o','ỏ':'o','õ':'o','ọ':'o','ô':'o','ố':'o','ồ':'o','ổ':'o','ỗ':'o','ộ':'o','ơ':'o','ớ':'o','ờ':'o','ở':'o','ỡ':'o','ợ':'o','ù':'u','ú':'u','ủ':'u','ũ':'u','ụ':'u','ư':'u','ứ':'u','ừ':'u','ử':'u','ữ':'u','ự':'u','ỳ':'y','ý':'y','ỷ':'y','ỹ':'y','ỵ':'y'};\n  return text.toLowerCase().split('').map(c => map[c] || c).join('').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');\n}\n\nlet slug, filePath, fileContent;\n\nif (isEdit && targetFile) {\n  slug = targetFile;\n} else {\n  const base = slugify(draft.title || 'du-an');\n  slug = `${base}-${Math.floor(Date.now()/1000)}`;\n}\n\nif (contentType === 'project') {\n  const id = `prj_${slug.replace(/-/g,'_')}`;\n  const projectJson = {\n    order: 99,\n    id,\n    slug,\n    title: draft.title || '',\n    location: draft.location || '',\n    area: draft.area || '',\n    project_type: draft.project_type || 'can-ho',\n    city: draft.city || 'tp-hcm',\n    developer: draft.developer || '',\n    priceRange: draft.priceRange || 'Liên hệ',\n    price_from: null,\n    price_to: null,\n    status: draft.status || 'Đang mở bán',\n    type: draft.type || '',\n    excerpt: draft.excerpt || '',\n    gradient: 'from-navy-900 to-navy-700',\n    hero_image: d.hasPhoto ? `/images/projects/${slug}/hero.jpg` : '',\n    gallery: d.hasPhoto ? [`/images/projects/${slug}/hero.jpg`] : [],\n    location_image: '',\n    amenities_images: [],\n    legal_status: 'Liên hệ 1992 Land để cập nhật thông tin pháp lý.',\n    created_at: new Date().toISOString(),\n    updated_at: new Date().toISOString()\n  };\n  if (isEdit) {\n    Object.assign(projectJson, draft);\n    projectJson.updated_at = new Date().toISOString();\n  }\n  fileContent = JSON.stringify(projectJson, null, 2);\n  filePath = `data/projects/${slug}.json`;\n} else {\n  const today = new Date().toISOString().slice(0,10);\n  const frontmatter = [\n    '---',\n    `slug: ${slug}`,\n    `title: \"${(draft.title||'').replace(/\"/g,'\\\\\"')}\"`,\n    `date: ${today}`,\n    `category: ${draft.category || 'Kiến thức'}`,\n    `readTime: \"${draft.readTime || '5 phút đọc'}\"`,\n    `excerpt: \"${(draft.excerpt||'').replace(/\"/g,'\\\\\"')}\"`,\n    d.hasPhoto ? `hero_image: \"/images/projects/${slug}/hero.jpg\"` : '',\n    '---'\n  ].filter(Boolean).join('\\n');\n  fileContent = `${frontmatter}\\n\\n${draft.body || ''}\\n`;\n  filePath = `data/posts/${slug}.md`;\n}\n\nconst treeItems = [\n  {\n    path: filePath,\n    mode: '100644',\n    type: 'blob',\n    content: fileContent\n  }\n];\n\n// Photo will be added by next nodes if hasPhoto\nconst commitMessage = isEdit\n  ? `[bot] sửa ${contentType === 'project' ? 'dự án' : 'bài viết'}: ${draft.title || slug}`\n  : `[bot] thêm ${contentType === 'project' ? 'dự án' : 'bài viết'}: ${draft.title || slug}`;\n\nreturn [{json: {\n  chatId, updateId,\n  repo, branch,\n  slug, filePath, contentType,\n  treeItems,\n  commitMessage,\n  hasPhoto: d.hasPhoto,\n  photoBinaryData: null,\n  successUrl: contentType === 'project' ? `https://1992land.com/du-an/${slug}` : `https://1992land.com/blog/${slug}`\n}}];"
+      },
+      "id": "code-prep-github",
+      "name": "Code: Prep GitHub Write",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 440]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/git/ref/heads/{{ $env.GITHUB_BRANCH || 'main' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "options": {}
+      },
+      "id": "http-github-getsha",
+      "name": "HTTP: GitHub GetSHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1550, 440],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/git/trees",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "Content-Type","value": "application/json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({base_tree: $('HTTP: GitHub GetSHA').first().json.object.sha, tree: $('Code: Prep GitHub Write').first().json.treeItems}) }}",
+        "options": {}
+      },
+      "id": "http-github-tree",
+      "name": "HTTP: GitHub CreateTree",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1750, 440],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/git/commits",
+        "method": "POST",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "Content-Type","value": "application/json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({message: $('Code: Prep GitHub Write').first().json.commitMessage, tree: $json.sha, parents: [$('HTTP: GitHub GetSHA').first().json.object.sha]}) }}",
+        "options": {}
+      },
+      "id": "http-github-commit",
+      "name": "HTTP: GitHub CreateCommit",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1950, 440],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/git/refs/heads/{{ $env.GITHUB_BRANCH || 'main' }}",
+        "method": "PATCH",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "Content-Type","value": "application/json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({sha: $json.sha, force: false}) }}",
+        "options": {}
+      },
+      "id": "http-github-updateref",
+      "name": "HTTP: GitHub UpdateRef",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [2150, 440],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Code: Prep GitHub Write').first().json.chatId }}",
+        "text": "=✅ Đã đăng thành công!\\n\\nWeb cập nhật sau ~8 phút.\\n🔗 {{ $('Code: Prep GitHub Write').first().json.successUrl }}",
+        "additionalFields": {}
+      },
+      "id": "tg-commit-success",
+      "name": "Telegram: Commit Success",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [2350, 440],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/contents/{{ $json.contentType === 'project' ? 'data/projects' : 'data/posts' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "options": {}
+      },
+      "id": "http-github-list",
+      "name": "HTTP: GitHub List Files",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1550, 560],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format file list into Telegram inline keyboard\nconst brain = $('Code: State Machine').first().json;\nconst files = $input.first().json;\n\nlet fileList;\nif (Array.isArray(files)) {\n  fileList = files;\n} else {\n  return [{json: {\n    nextAction: 'send_message',\n    chatId: brain.chatId, updateId: brain.updateId,\n    text: '❌ Không thể lấy danh sách. Anh thử lại sau.',\n    session: null, sessionAction: 'none'\n  }}];\n}\n\n// Sort by name desc (newest first typically), take top 5\nconst sorted = fileList.slice().sort((a,b) => b.name.localeCompare(a.name)).slice(0,5);\n\nconst buttons = sorted.map(f => {\n  const slug = f.name.replace(/\\.(json|md)$/, '');\n  const label = slug.length > 30 ? slug.slice(0,30)+'…' : slug;\n  return [{text: label, callback_data: `select:${slug}`}];\n});\nbuttons.push([{text: '🔍 Tìm slug khác', callback_data: 'select_manual'}]);\nbuttons.push([{text: '❌ Huỷ', callback_data: 'action:cancel'}]);\n\nconst flowMode = brain.flowMode;\nconst typeLabel = brain.contentType === 'project' ? 'dự án' : 'bài viết';\n\nreturn [{json: {\n  nextAction: 'send_list',\n  chatId: brain.chatId, updateId: brain.updateId, callbackQueryId: brain.callbackQueryId,\n  text: `📋 Chọn ${typeLabel} muốn ${flowMode === 'sua' ? 'sửa' : 'xoá'}:`,\n  keyboard: {inline_keyboard: buttons},\n  session: brain.session, sessionAction: 'write'\n}}];"
+      },
+      "id": "code-format-list",
+      "name": "Code: Format File List",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1750, 560]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.chatId }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "reply_markup": "={{ JSON.stringify($json.keyboard) }}"
+        }
+      },
+      "id": "tg-send-list",
+      "name": "Telegram: Send List",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1950, 560],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $env.GITHUB_REPO }}/contents/{{ $json.contentType === 'project' ? 'data/projects' : 'data/posts' }}/{{ $json.slug }}.{{ $json.contentType === 'project' ? 'json' : 'md' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "options": {}
+      },
+      "id": "http-github-getfile",
+      "name": "HTTP: GitHub GetFile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1550, 680]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse fetched GitHub file into draft object\nconst brain = $('Code: State Machine').first().json;\nconst ghFile = $input.first().json;\n\nlet parsed;\ntry {\n  const raw = Buffer.from(ghFile.content, 'base64').toString('utf8');\n  if (brain.contentType === 'project') {\n    parsed = JSON.parse(raw);\n  } else {\n    // Parse MD frontmatter\n    const match = raw.match(/^---\\r?\\n([\\s\\S]*?)\\r?\\n---\\r?\\n?([\\s\\S]*)$/);\n    if (match) {\n      const meta = {};\n      for (const line of match[1].split(/\\r?\\n/)) {\n        const idx = line.indexOf(': ');\n        if (idx > -1) {\n          const k = line.slice(0,idx).trim();\n          const v = line.slice(idx+2).trim().replace(/^\"|\"$/g,'');\n          meta[k] = v;\n        }\n      }\n      meta.body = match[2].trim();\n      parsed = meta;\n    } else {\n      parsed = {body: raw};\n    }\n  }\n} catch(e) {\n  return [{json: {\n    nextAction: 'send_message',\n    chatId: brain.chatId, updateId: brain.updateId,\n    text: '❌ Không đọc được file. Lỗi: ' + e.message,\n    session: null, sessionAction: 'none'\n  }}];\n}\n\n// Build review message\nconst lines = ['📋 *Nội dung hiện tại:*\\n'];\nconst previewFields = brain.contentType === 'project'\n  ? ['title','location','developer','priceRange','status','type','area','excerpt']\n  : ['title','category','readTime','excerpt'];\nfor (const f of previewFields) {\n  const v = parsed[f];\n  lines.push(`• *${f}:* ${v ? String(v).slice(0,80) : '(trống)'}`);\n}\n\nconst keyboard = {inline_keyboard: [\n  [{text:'✅ Lưu không đổi', callback_data:'action:confirm'},{text:'✏️ Sửa field', callback_data:'action:edit'}],\n  [{text:'❌ Huỷ', callback_data:'action:cancel'}]\n]};\n\nreturn [{json: {\n  nextAction: 'send_review_from_edit',\n  chatId: brain.chatId, updateId: brain.updateId,\n  text: lines.join('\\n'),\n  parseMode: 'Markdown',\n  keyboard,\n  session: {\n    state: 'review',\n    type: brain.contentType,\n    draft_json: JSON.stringify(parsed),\n    target_file: brain.slug,\n    updated_at: new Date().toISOString()\n  },\n  sessionAction: 'write'\n}}];"
+      },
+      "id": "code-parse-file",
+      "name": "Code: Parse Fetched File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1750, 680]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare delete commit using GitHub Contents API\nconst d = $input.first().json;\nconst {slug, contentType, chatId, updateId} = d;\nconst repo = $env.GITHUB_REPO;\nconst branch = $env.GITHUB_BRANCH || 'main';\nconst ext = contentType === 'project' ? 'json' : 'md';\nconst dir = contentType === 'project' ? 'data/projects' : 'data/posts';\nconst filePath = `${dir}/${slug}.${ext}`;\nconst typeLabel = contentType === 'project' ? 'dự án' : 'bài viết';\n\nreturn [{json: {\n  chatId, updateId,\n  repo, branch, slug, filePath, contentType, typeLabel,\n  commitMessage: `[bot] xoá ${typeLabel}: ${slug}`\n}}];"
+      },
+      "id": "code-prep-delete",
+      "name": "Code: Prep Delete",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 800]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $json.repo }}/contents/{{ $json.filePath }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "options": {}
+      },
+      "id": "http-github-getsha-delete",
+      "name": "HTTP: GitHub GetFileSHA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1550, 800],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $('Code: Prep Delete').first().json.repo }}/contents/{{ $('Code: Prep Delete').first().json.filePath }}",
+        "method": "DELETE",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Accept","value": "application/vnd.github+json"},{"name": "Content-Type","value": "application/json"},{"name": "X-GitHub-Api-Version","value": "2022-11-28"}]},
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({message: $('Code: Prep Delete').first().json.commitMessage, sha: $json.sha, branch: $('Code: Prep Delete').first().json.branch}) }}",
+        "options": {}
+      },
+      "id": "http-github-delete",
+      "name": "HTTP: GitHub DeleteFile",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1750, 800],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "GITHUB_CRED_ID",
+          "name": "GitHub 1992land"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Code: Prep Delete').first().json.chatId }}",
+        "text": "=✅ Đã xoá {{ $('Code: Prep Delete').first().json.typeLabel }} *{{ $('Code: Prep Delete').first().json.slug }}*\\n\\nWeb cập nhật sau ~8 phút.",
+        "additionalFields": {"parse_mode": "Markdown"}
+      },
+      "id": "tg-delete-success",
+      "name": "Telegram: Delete Success",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1950, 800],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CRED_ID",
+          "name": "1992land Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build review message for show_review action (after field edit)\nconst d = $input.first().json;\nconst {contentType, draft, chatId, updateId} = d;\n\nconst lines = ['📋 *Đã cập nhật, anh xem lại:*\\n'];\nif (contentType === 'project') {\n  const fields = [['Tên',draft.title],['Vị trí',draft.location],['Chủ đầu tư',draft.developer],['Giá',draft.priceRange],['Trạng thái',draft.status],['Loại',draft.type],['Khu vực',draft.area],['Mô tả',draft.excerpt]];\n  for (const [l,v] of fields) lines.push(`• *${l}:* ${v || '❓ Chưa có'}`);\n} else {\n  const fields = [['Tiêu đề',draft.title],['Danh mục',draft.category],['Thời gian đọc',draft.readTime],['Mô tả',draft.excerpt]];\n  for (const [l,v] of fields) lines.push(`• *${l}:* ${v || '❓ Chưa có'}`);\n}\n\nconst keyboard = {inline_keyboard: [[{text:'✅ Đăng lên web',callback_data:'action:confirm'},{text:'✏️ Sửa thêm',callback_data:'action:edit'},{text:'❌ Huỷ',callback_data:'action:cancel'}]]};\n\nreturn [{json: {\n  chatId, updateId,\n  text: lines.join('\\n'),\n  parseMode: 'Markdown',\n  keyboard,\n  session: d.session, sessionAction: 'write'\n}}];"
+      },
+      "id": "code-build-review",
+      "name": "Code: Build Review",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1350, 560]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{"node": "Code: Extract", "type": "main", "index": 0}]]
+    },
+    "Code: Extract": {
+      "main": [[{"node": "IF: Allowed", "type": "main", "index": 0}]]
+    },
+    "IF: Allowed": {
+      "main": [
+        [{"node": "GSheets: Read Session", "type": "main", "index": 0}],
+        [{"node": "Telegram: Deny", "type": "main", "index": 0}]
+      ]
+    },
+    "GSheets: Read Session": {
+      "main": [[{"node": "Code: State Machine", "type": "main", "index": 0}]]
+    },
+    "Code: State Machine": {
+      "main": [[{"node": "Switch: Next Action", "type": "main", "index": 0}]]
+    },
+    "Switch: Next Action": {
+      "main": [
+        [{"node": "GSheets: Write Session", "type": "main", "index": 0}],
+        [{"node": "Code: Prep AI", "type": "main", "index": 0}],
+        [{"node": "Code: Prep GitHub Write", "type": "main", "index": 0}],
+        [{"node": "HTTP: GitHub List Files", "type": "main", "index": 0}],
+        [{"node": "HTTP: GitHub GetFile", "type": "main", "index": 0}],
+        [{"node": "Code: Prep Delete", "type": "main", "index": 0}],
+        [{"node": "Code: Build Review", "type": "main", "index": 0}]
+      ]
+    },
+    "GSheets: Write Session": {
+      "main": [[{"node": "Telegram: Send Message", "type": "main", "index": 0}]]
+    },
+    "Code: Prep AI": {
+      "main": [[{"node": "IF: Has Photo", "type": "main", "index": 0}]]
+    },
+    "IF: Has Photo": {
+      "main": [
+        [{"node": "HTTP: Telegram GetFile", "type": "main", "index": 0}],
+        [{"node": "HTTP: Claude", "type": "main", "index": 0}]
+      ]
+    },
+    "HTTP: Telegram GetFile": {
+      "main": [[{"node": "HTTP: Download Photo", "type": "main", "index": 0}]]
+    },
+    "HTTP: Download Photo": {
+      "main": [[{"node": "HTTP: Claude", "type": "main", "index": 0}]]
+    },
+    "HTTP: Claude": {
+      "main": [[{"node": "Code: Post-AI Validate", "type": "main", "index": 0}]]
+    },
+    "Code: Post-AI Validate": {
+      "main": [[{"node": "GSheets: Write Review Session", "type": "main", "index": 0}]]
+    },
+    "GSheets: Write Review Session": {
+      "main": [[{"node": "Telegram: Send Review", "type": "main", "index": 0}]]
+    },
+    "Code: Prep GitHub Write": {
+      "main": [[{"node": "HTTP: GitHub GetSHA", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub GetSHA": {
+      "main": [[{"node": "HTTP: GitHub CreateTree", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub CreateTree": {
+      "main": [[{"node": "HTTP: GitHub CreateCommit", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub CreateCommit": {
+      "main": [[{"node": "HTTP: GitHub UpdateRef", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub UpdateRef": {
+      "main": [[{"node": "Telegram: Commit Success", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub List Files": {
+      "main": [[{"node": "Code: Format File List", "type": "main", "index": 0}]]
+    },
+    "Code: Format File List": {
+      "main": [[{"node": "GSheets: Write Session", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub GetFile": {
+      "main": [[{"node": "Code: Parse Fetched File", "type": "main", "index": 0}]]
+    },
+    "Code: Parse Fetched File": {
+      "main": [[{"node": "GSheets: Write Review Session", "type": "main", "index": 0}]]
+    },
+    "Code: Prep Delete": {
+      "main": [[{"node": "HTTP: GitHub GetFileSHA", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub GetFileSHA": {
+      "main": [[{"node": "HTTP: GitHub DeleteFile", "type": "main", "index": 0}]]
+    },
+    "HTTP: GitHub DeleteFile": {
+      "main": [[{"node": "Telegram: Delete Success", "type": "main", "index": 0}]]
+    },
+    "Code: Build Review": {
+      "main": [[{"node": "GSheets: Write Review Session", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": ""
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "1992land-v2"
+  },
+  "pinData": {},
+  "versionId": "1992land-bot-v2-1.0.0",
+  "triggerCount": 1,
+  "tags": [{"createdAt": "2026-06-16T00:00:00.000Z", "updatedAt": "2026-06-16T00:00:00.000Z", "id": "1992land", "name": "1992land"}]
+}

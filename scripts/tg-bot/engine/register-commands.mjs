@@ -1,5 +1,8 @@
-// Chạy 1 lần để đăng ký /slash commands với Telegram BotFather
+// Chạy 1 lần để đăng ký /slash commands hiện trong menu ☰ của Telegram.
 // Usage: TELEGRAM_BOT_TOKEN=... ADAPTER=1992land node engine/register-commands.mjs
+//
+// Danh sách lấy thẳng từ cfg.slash_commands — cùng nguồn mà serve.mjs định tuyến,
+// nên không thể đăng ký một lệnh mà bot không xử lý được.
 import https from "node:https";
 import path  from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -13,25 +16,9 @@ if (!TOKEN) { console.error("❌ Thiếu TELEGRAM_BOT_TOKEN"); process.exit(1); 
 const adapterPath = path.join(__dirname, "..", "adapters", ADAPTER, "config.mjs");
 const { default: cfg } = await import(pathToFileURL(adapterPath).href);
 
-function toCommandName(trigger) {
-  return trigger
-    .replace(/^\[|\]$/g, "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/\s+/g, "_")
-    .replace(/[^a-z0-9_]/g, "")
-    .slice(0, 32);
-}
-
 const commands = [
-  { command: "menu",  description: "Xem menu thao tác" },
   { command: "start", description: "Khởi động bot" },
-  ...cfg.commands.map((c) => ({
-    command:     toCommandName(c.trigger),
-    description: c.trigger,
-  })),
+  ...cfg.slash_commands.map(({ command, description }) => ({ command, description })),
 ];
 
 const body = JSON.stringify({ commands });

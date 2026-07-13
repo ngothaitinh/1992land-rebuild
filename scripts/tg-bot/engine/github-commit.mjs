@@ -73,15 +73,18 @@ export async function deleteFile(repo, branch, filePath, sha, commitMsg, pat) {
   return { commitSha: data.commit.sha };
 }
 
-export function buildTreeEntries(textFiles, binaryBlobs) {
+// Git Trees API: entry có sha=null nghĩa là xoá file khỏi tree.
+export function buildTreeEntries(textFiles, binaryBlobs, removals = []) {
   return [
     ...textFiles.map((f) => ({ path: f.path, mode: "100644", type: "blob", content: f.content })),
     ...binaryBlobs.map((b) => ({ path: b.path, mode: "100644", type: "blob", sha: b.sha })),
+    ...removals.map((r) => ({ path: r.path, mode: "100644", type: "blob", sha: null })),
   ];
 }
 
 // Commit gộp nhiều file trong 1 commit (Git Trees API).
 // files: [{ path, content, binary }]  binary=true → content là base64.
+//        [{ path, remove: true }]     → xoá file đó trong cùng commit.
 export async function putFiles(repo, branch, files, commitMsg, pat) {
   // 1) ref hiện tại
   const ref = await ghRequest("GET", `/repos/${repo}/git/refs/heads/${branch}`, null, pat);
@@ -92,8 +95,11 @@ export async function putFiles(repo, branch, files, commitMsg, pat) {
   // 3) tạo blob cho file nhị phân
   const binaryBlobs = [];
   const textFiles = [];
+  const removals = [];
   for (const f of files) {
-    if (f.binary) {
+    if (f.remove) {
+      removals.push({ path: f.path });
+    } else if (f.binary) {
       const blob = await ghRequest("POST", `/repos/${repo}/git/blobs`, { content: f.content, encoding: "base64" }, pat);
       binaryBlobs.push({ path: f.path, sha: blob.sha });
     } else {
@@ -102,7 +108,7 @@ export async function putFiles(repo, branch, files, commitMsg, pat) {
   }
   // 4) tạo tree mới
   const tree = await ghRequest("POST", `/repos/${repo}/git/trees`,
-    { base_tree: baseTreeSha, tree: buildTreeEntries(textFiles, binaryBlobs) }, pat);
+    { base_tree: baseTreeSha, tree: buildTreeEntries(textFiles, binaryBlobs, removals) }, pat);
   // 5) tạo commit
   const commit = await ghRequest("POST", `/repos/${repo}/git/commits`,
     { message: commitMsg, tree: tree.sha, parents: [baseCommitSha] }, pat);

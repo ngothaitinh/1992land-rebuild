@@ -18,3 +18,22 @@ test("gộp text + binary", () => {
   assert.equal(e[0].content, "x");
   assert.equal(e[1].sha, "s1");
 });
+
+test("removal → entry có sha null (Git Trees API xoá file)", () => {
+  const e = buildTreeEntries([], [], [{ path: "data/posts/x.md" }]);
+  assert.deepEqual(e, [{ path: "data/posts/x.md", mode: "100644", type: "blob", sha: null }]);
+});
+
+test("hoàn tác bài vừa đăng: xoá cả file nội dung lẫn ảnh trong 1 tree", () => {
+  const e = buildTreeEntries([], [], [
+    { path: "data/posts/x.md" },
+    { path: "public/images/news/x.jpg" },
+  ]);
+  assert.equal(e.length, 2);
+  assert.ok(e.every((x) => x.sha === null));
+});
+
+test("removals mặc định rỗng — không phá lời gọi cũ", () => {
+  const e = buildTreeEntries([{ path: "a.md", content: "x" }], []);
+  assert.equal(e.length, 1);
+});

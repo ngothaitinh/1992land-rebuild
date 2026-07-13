@@ -1,7 +1,31 @@
-// Logic thuần cho wizard sửa (không I/O, không Telegram) — dễ test.
+// Logic thuần cho wizard (không I/O, không Telegram) — dễ test.
 // Phần điều phối Telegram (gửi tin, gọi GitHub) nằm ở serve.mjs.
 
 export const WIZARD_PAGE_SIZE = 15;
+
+const ASK_BTN  = { text: "💬 Hỏi trợ lý", callback_data: "wz_ask" };
+const EXIT_BTN = { text: "❌ Thoát",      callback_data: "wz_abort" };
+
+function backBtn(callback_data) {
+  return { text: "⬅️ Quay lại", callback_data };
+}
+
+// callback_data của Telegram tối đa 64 byte, mà slug dài nhất đã 37 ký tự.
+// Nén tên action xuống 1 ký tự để không tràn.
+const ACTION_CODE = { set_field: "e", toggle_section: "s", delete: "d" };
+const CODE_ACTION = Object.fromEntries(Object.entries(ACTION_CODE).map(([a, c]) => [c, a]));
+
+export function actionCode(action) { return ACTION_CODE[action] || action; }
+export function codeAction(code)   { return CODE_ACTION[code] || code; }
+
+// Cùng lý do: tên field/section gửi kèm slug sẽ tràn 64 byte, nên gửi chỉ số.
+export function fieldAt(cfg, content_type, index) {
+  return (cfg.content_types[content_type].editable_fields || [])[Number(index)];
+}
+
+export function sectionAt(cfg, content_type, index) {
+  return Object.keys(cfg.content_types[content_type].sections || {})[Number(index)];
+}
 
 // Bỏ dấu tiếng Việt + thường hóa, để tìm kiếm không phân biệt dấu.
 export function noAccent(s) {
@@ -36,33 +60,43 @@ export function paginate(items, offset, pageSize = WIZARD_PAGE_SIZE) {
   };
 }
 
-// Dựng inline_keyboard cho bước chọn đối tượng (danh sách + phân trang + tìm/hỏi/thoát).
-export function buildListKeyboard(content_type, items, offset, pageSize = WIZARD_PAGE_SIZE) {
+// Bước chọn đối tượng. `action` đi kèm callback để wizard biết chọn xong thì làm gì.
+export function buildListKeyboard(action, content_type, items, offset, pageSize = WIZARD_PAGE_SIZE) {
+  const a = actionCode(action);
   const { page, hasPrev, hasNext, offset: off } = paginate(items, offset, pageSize);
   const rows = page.map((it) => [
-    { text: (it.title || it.slug).slice(0, 60), callback_data: `wz_pick:${content_type}:${it.slug}` },
+    { text: (it.title || it.slug).slice(0, 60), callback_data: `wz_pick:${a}:${content_type}:${it.slug}` },
   ]);
   const nav = [];
-  if (hasPrev) nav.push({ text: "◀️ Quay lại", callback_data: `wz_page:${content_type}:${Math.max(0, off - pageSize)}` });
-  if (hasNext) nav.push({ text: "▶️ Xem thêm", callback_data: `wz_page:${content_type}:${off + pageSize}` });
+  if (hasPrev) nav.push({ text: "◀️ Trang trước", callback_data: `wz_page:${a}:${content_type}:${Math.max(0, off - pageSize)}` });
+  if (hasNext) nav.push({ text: "▶️ Trang sau",   callback_data: `wz_page:${a}:${content_type}:${off + pageSize}` });
   if (nav.length) rows.push(nav);
-  rows.push([
-    { text: "🔍 Tìm theo tên", callback_data: `wz_search:${content_type}` },
-    { text: "💬 Hỏi AI",       callback_data: "wz_ask" },
-    { text: "❌ Thoát",         callback_data: "wz_abort" },
-  ]);
+  rows.push([{ text: "🔍 Tìm theo tên", callback_data: `wz_search:${a}:${content_type}` }]);
+  rows.push([backBtn("m:menu"), ASK_BTN, EXIT_BTN]);
   return { inline_keyboard: rows };
 }
 
-// Dựng inline_keyboard cho bước chọn trường.
+// Bước chọn trường cần sửa.
 export function buildFieldKeyboard(cfg, content_type, slug) {
   const ct   = cfg.content_types[content_type];
-  const rows = (ct.editable_fields || []).map((f) => [
-    { text: fieldLabel(cfg, f), callback_data: `wz_field:${content_type}:${slug}:${f}` },
+  const rows = (ct.editable_fields || []).map((f, i) => [
+    { text: fieldLabel(cfg, f), callback_data: `wz_f:${content_type}:${slug}:${i}` },
   ]);
-  rows.push([
-    { text: "💬 Hỏi AI", callback_data: "wz_ask" },
-    { text: "❌ Thoát",   callback_data: "wz_abort" },
+  rows.push([backBtn(`wz_page:${actionCode("set_field")}:${content_type}:0`), EXIT_BTN]);
+  return { inline_keyboard: rows };
+}
+
+// Bảng bật/tắt các phần của một dự án. ✅ = đang hiện, 🙈 = đang ẩn.
+// hidden: mảng id phần đang bị ẩn (project.hidden_sections).
+export function buildSectionKeyboard(cfg, content_type, slug, hidden = []) {
+  const sections = cfg.content_types[content_type].sections || {};
+  const hiddenSet = new Set(hidden);
+  const rows = Object.entries(sections).map(([id, label], i) => [
+    {
+      text: `${hiddenSet.has(id) ? "🙈" : "✅"} ${label}`,
+      callback_data: `wz_s:${content_type}:${slug}:${i}`,
+    },
   ]);
+  rows.push([backBtn(`wz_page:${actionCode("toggle_section")}:${content_type}:0`), EXIT_BTN]);
   return { inline_keyboard: rows };
 }

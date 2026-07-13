@@ -1,6 +1,7 @@
 export default {
   repo:          "ngothaitinh/1992land-rebuild",
-  deploy_branch: "main",
+  // DEPLOY_BRANCH cho phép trỏ sang branch nháp khi kiểm thử, không đụng main.
+  deploy_branch: process.env.DEPLOY_BRANCH || "main",
   bot_name:      "Bot 1992 Land",
   site_name:     "1992land.com",
 
@@ -10,6 +11,14 @@ export default {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean),
+
+  // Nhãn nút menu tầng 1, theo việc người dùng muốn làm.
+  action_labels: {
+    add:            "Thêm",
+    set_field:      "✏️ Sửa nội dung",
+    toggle_section: "🙈 Ẩn / hiện phần",
+    delete:         "🗑 Xoá nội dung",
+  },
 
   // Nhãn tiếng Việt cho nút chọn trường trong wizard sửa (không hard-code trong engine).
   // Key = tên field thật trong editable_fields; value = nhãn hiển thị trên nút.
@@ -29,40 +38,57 @@ export default {
 
   content_types: {
     project: {
+      label:      "dự án",
+      add_button: "🏢 Thêm dự án",
+      add_mode:   "await_project",
       dir:             "data/projects",
       format:          "json",
       editable_fields: [
         "title", "location", "priceRange", "status", "type", "excerpt",
         "developer", "area", "district", "city",
       ],
+      // Id phải khớp app/du-an/[slug]/page.tsx — sai id thì web không ẩn gì cả.
+      sections: {
+        "tong-quan":   "Tổng quan",
+        "vi-tri":      "Vị trí",
+        "tien-ich":    "Tiện ích",
+        "mat-bang":    "Mặt bằng",
+        "gia-ban":     "Giá bán",
+        "phap-ly":     "Pháp lý",
+        "chinh-sach":  "Chính sách",
+        "dang-ky":     "Đăng ký",
+      },
     },
     post: {
+      label:      "bài viết",
+      add_button: "📝 Thêm bài viết",
+      add_mode:   "await_post",
       dir:             "data/posts",
       format:          "md-frontmatter",
       editable_fields: ["title", "excerpt", "category"],
     },
   },
 
+  // Lệnh gạch chéo hiện trong menu ☰ của Telegram. `route` nói engine mở gì.
+  // Cả serve.mjs lẫn register-commands.mjs đọc chung danh sách này.
+  slash_commands: [
+    { command: "menu",     description: "Xem menu thao tác",       route: "menu" },
+    { command: "themduan", description: "Thêm dự án mới",          route: "add:project" },
+    { command: "thembai",  description: "Thêm bài viết mới",       route: "add:post" },
+    { command: "sua",      description: "Sửa nội dung",            route: "action:set_field" },
+    { command: "anhien",   description: "Ẩn / hiện phần dự án",    route: "action:toggle_section" },
+    { command: "xoa",      description: "Xoá nội dung",            route: "action:delete" },
+    { command: "huy",      description: "Thoát thao tác đang làm", route: "cancel" },
+    { command: "trogiup",  description: "Hướng dẫn nhanh",         route: "help" },
+  ],
+
+  // Cú pháp gõ tay [..] — giữ cho người quen, không còn hiện trên menu.
   commands: [
-    { trigger: "[SỬA DỰ ÁN]",  action: "set_field",    content_type: "project" },
-    { trigger: "[ẨN PHẦN]",    action: "hide_section", content_type: "project" },
-    { trigger: "[HIỆN PHẦN]",  action: "show_section", content_type: "project" },
-    { trigger: "[XÓA DỰ ÁN]", action: "delete",       content_type: "project" },
-    { trigger: "[SỬA BÀI]",   action: "set_field",    content_type: "post"    },
-    { trigger: "[XÓA BÀI]",   action: "delete",       content_type: "post"    },
-    { trigger: "[THÊM DỰ ÁN]",action: "inbox",        content_type: "project" },
-    { trigger: "[THÊM BÀI]",  action: "inbox",        content_type: "post"    },
-  ],
-
-  keyboard_rows: [
-    ["[SỬA DỰ ÁN]",  "[ẨN PHẦN]",    "[HIỆN PHẦN]"],
-    ["[XÓA DỰ ÁN]",  "[SỬA BÀI]",    "[XÓA BÀI]"],
-    ["[THÊM DỰ ÁN]", "[THÊM BÀI]"],
-  ],
-
-  publish_buttons: [
-    { text: "📝 Đăng tin",   mode: "await_post" },
-    { text: "🏢 Thêm dự án", mode: "await_project" },
+    { trigger: "[SỬA DỰ ÁN]",  action: "set_field",      content_type: "project" },
+    { trigger: "[ẨN PHẦN]",    action: "toggle_section", content_type: "project" },
+    { trigger: "[XÓA DỰ ÁN]", action: "delete",         content_type: "project" },
+    { trigger: "[SỬA BÀI]",   action: "set_field",      content_type: "post"    },
+    { trigger: "[XÓA BÀI]",   action: "delete",         content_type: "post"    },
   ],
 
   publish: {

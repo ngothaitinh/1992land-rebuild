@@ -91,8 +91,17 @@ và **Nội dung** (trình soạn thảo có in đậm, tiêu đề, danh sách)
 
 | Việc | Web admin (`/admin/`) | Telegram bot |
 |---|---|---|
-| Thêm nhanh khi đang đi đường | ✔ được | ✔✔ nhanh nhất, chỉ cần nhắn + gửi ảnh |
-| Sửa chi tiết (slide, ảnh từng mục, lịch thanh toán, FAQ, sửa chữ) | ✔✔ đầy đủ | ✘ không làm được |
-| Xoá | ✔ | ✔ |
+| Thêm dự án / bài viết | ✔ điền form đầy đủ | ✔✔ nhắn + gửi ảnh, bot soạn nháp cho duyệt |
+| Sửa chữ (tiêu đề, giá, vị trí, mô tả ngắn…) | ✔ | ✔ bấm chọn từ danh sách, không cần nhớ slug |
+| Ẩn / hiện một phần của trang dự án | ✔ | ✔ bảng bật-tắt, ✅ là đang hiện |
+| Xoá | ✔ | ✔ có hỏi lại trước khi xoá |
+| Hoàn tác thao tác vừa làm | ✘ (phải vào GitHub) | ✔ nút ↩️ trong 30 phút |
+| Ảnh bìa, thư viện slide, lịch thanh toán, FAQ | ✔✔ chỉ làm được ở đây | ✘ |
 
-➡️ **Web admin là công cụ chính** cho mọi chỉnh sửa đầy đủ. Telegram chỉ để **thêm nhanh** khi tiện tay.
+➡️ **Telegram** cho việc hằng ngày, làm được ngay trên điện thoại.
+**Web admin** khi cần đụng tới ảnh, slide và các mục có cấu trúc phức tạp.
+
+### Dùng bot Telegram
+Nhắn `/menu` cho bot, rồi bấm nút — không phải gõ lệnh hay nhớ slug.
+Menu ☰ của Telegram cũng có lối tắt: `/themduan`, `/thembai`, `/sua`, `/anhien`, `/xoa`.
+Kẹt giữa chừng thì gõ `/huy` để thoát, hoặc `/trogiup` để xem hướng dẫn.

@@ -10,6 +10,9 @@ on:
 jobs:
   deploy-bot:
     runs-on: ubuntu-latest
+    concurrency:
+      group: deploy-bot
+      cancel-in-progress: false
     steps:
       - name: Deploy over SSH
         id: deploy

@@ -1,0 +1,41 @@
+name: Deploy Telegram Bot to VPS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/tg-bot/**"
+  workflow_dispatch:
+
+jobs:
+  deploy-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        id: deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: 22
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          command_timeout: 15m
+          script: "cd /root/bot && bash scripts/tg-bot/deploy-vps.sh"
+
+      - name: Notify Telegram
+        if: always()
+        env:
+          TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+          OUTCOME: ${{ steps.deploy.outcome }}
+        run: |
+          SHORT_SHA="${GITHUB_SHA::7}"
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if [ "$OUTCOME" = "success" ]; then
+            MSG="✅ Bot đã cập nhật lên VPS (commit ${SHORT_SHA})"
+          else
+            MSG="❌ Deploy bot thất bại (commit ${SHORT_SHA}). Xem log: ${RUN_URL}"
+          fi
+          curl -sS --max-time 20 "https://api.telegram.org/bot${TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${CHAT}" \
+            --data-urlencode "text=${MSG}"

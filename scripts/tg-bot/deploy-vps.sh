@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Deploy / cập nhật tg-bot trên VPS bằng 1 lệnh.
 # Cách dùng (trên VPS):  bash scripts/tg-bot/deploy-vps.sh
+# Từ 2026-07-17: tự động chạy qua GitHub Actions (deploy-bot.yml) khi push main.
 # Tự làm: git pull -> kiểm tra .env -> npm install -> pm2 start/reload -> register commands.
 set -euo pipefail
 

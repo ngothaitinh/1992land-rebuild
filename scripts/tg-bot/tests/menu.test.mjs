@@ -69,3 +69,43 @@ test("mọi slash command đều có route mà engine hiểu", () => {
     if (kind === "action") assert.ok(typesFor(cfg, arg).length > 0, `action:${arg} không loại nào hỗ trợ`);
   }
 });
+
+import { buildItemListMenu, buildItemMenu } from "../engine/menu.mjs";
+
+const cbOf = (kb) => kb.inline_keyboard.flat().map((b) => b.callback_data);
+
+test("buildItemListMenu: có nút thêm mới ở đầu + 1 nút / mục + quay lại menu", () => {
+  const items = [{ slug: "maia-ho-tram", title: "Maia Hồ Tràm" }, { slug: "blanca", title: "Blanca" }];
+  const kb = buildItemListMenu(cfg, "project", items);
+  const cb = cbOf(kb);
+  assert.equal(kb.inline_keyboard[0][0].callback_data, "m:new:project"); // thêm mới đứng đầu
+  assert.ok(cb.includes("m:item:project:maia-ho-tram"));
+  assert.ok(cb.includes("m:item:project:blanca"));
+  assert.equal(cb[cb.length - 1], "m:menu"); // quay lại đứng cuối
+});
+
+test("buildItemMenu (dự án): đủ Sửa / Ẩn-hiện / Xoá + quay lại danh sách", () => {
+  const cb = cbOf(buildItemMenu(cfg, "project", "maia-ho-tram", "Maia Hồ Tràm"));
+  assert.ok(cb.includes("m:act:e:project:maia-ho-tram"));
+  assert.ok(cb.includes("m:act:s:project:maia-ho-tram"));
+  assert.ok(cb.includes("m:act:d:project:maia-ho-tram"));
+  assert.ok(cb.includes("m:list:project"));
+});
+
+test("buildItemMenu (bài viết): KHÔNG có nút Ẩn-hiện phần", () => {
+  const cb = cbOf(buildItemMenu(cfg, "post", "bai-mau", "Bài mẫu"));
+  assert.ok(cb.includes("m:act:e:post:bai-mau"));
+  assert.ok(cb.includes("m:act:d:post:bai-mau"));
+  assert.equal(cb.includes("m:act:s:post:bai-mau"), false);
+});
+
+test("callback_data của builder mới ≤ 64 byte kể cả slug dài nhất", () => {
+  const slug = "quy-trinh-chuyen-nhuong-bds-tung-buoc";
+  const kbs = [
+    buildItemListMenu(cfg, "project", [{ slug, title: "X" }]),
+    buildItemMenu(cfg, "project", slug, "X"),
+  ];
+  for (const kb of kbs)
+    for (const b of kb.inline_keyboard.flat())
+      assert.ok(Buffer.byteLength(b.callback_data) <= 64, `dài quá: ${b.callback_data}`);
+});

@@ -3,6 +3,8 @@
 // Menu đặt theo VIỆC người dùng muốn làm, không theo cú pháp lệnh:
 //   tầng 1 = việc  →  tầng 2 = loại nội dung  →  wizard.
 
+import { actionCode } from "./wizard-helpers.mjs";
+
 const ASK_BTN  = { text: "💬 Hỏi trợ lý",     callback_data: "wz_ask" };
 const HELP_BTN = { text: "❓ Hướng dẫn nhanh", callback_data: "m:help" };
 const BACK_MENU = { text: "⬅️ Quay lại", callback_data: "m:menu" };
@@ -64,6 +66,29 @@ export function typeMenuPrompt(cfg, action) {
 
 function capitalize(s) {
   return (s || "").charAt(0).toUpperCase() + (s || "").slice(1);
+}
+
+// Danh sách 1 loại nội dung: nút thêm mới ở đầu, mỗi mục 1 nút, quay lại menu.
+export function buildItemListMenu(cfg, contentType, items) {
+  const ct = cfg.content_types[contentType];
+  const rows = [[{ text: `➕ Thêm ${ct.label} mới`, callback_data: `m:new:${contentType}` }]];
+  for (const it of items)
+    rows.push([{ text: (it.title || it.slug).slice(0, 60), callback_data: `m:item:${contentType}:${it.slug}` }]);
+  rows.push([{ text: "⬅️ Quay lại", callback_data: "m:menu" }]);
+  return { inline_keyboard: rows };
+}
+
+// Bảng thao tác cho 1 mục. Nút hiện tùy loại nội dung hỗ trợ (đọc config).
+export function buildItemMenu(cfg, contentType, slug, title) {
+  const ct = cfg.content_types[contentType];
+  const rows = [];
+  if ((ct.editable_fields || []).length)
+    rows.push([{ text: "✏️ Sửa thông tin", callback_data: `m:act:${actionCode("set_field")}:${contentType}:${slug}` }]);
+  if (ct.sections)
+    rows.push([{ text: "🙈 Ẩn / hiện phần", callback_data: `m:act:${actionCode("toggle_section")}:${contentType}:${slug}` }]);
+  rows.push([{ text: "🗑 Xoá", callback_data: `m:act:${actionCode("delete")}:${contentType}:${slug}` }]);
+  rows.push([{ text: "⬅️ Quay lại", callback_data: `m:list:${contentType}` }]);
+  return { inline_keyboard: rows };
 }
 
 export function welcomeText(cfg) {

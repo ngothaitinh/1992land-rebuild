@@ -73,10 +73,26 @@ export function buildItemMenu(cfg, contentType, slug, title) {
   if ((ct.editable_fields || []).length)
     rows.push([{ text: "✏️ Sửa thông tin", callback_data: `m:act:${actionCode("set_field")}:${contentType}:${slug}` }]);
   if (ct.sections)
+    rows.push([{ text: "🖼 Ảnh bìa & thư viện", callback_data: `emedia:${slug}` }]);
+  if (ct.sections)
     rows.push([{ text: "🙈 Ẩn / hiện phần", callback_data: `m:act:${actionCode("toggle_section")}:${contentType}:${slug}` }]);
   rows.push([{ text: "🗑 Xoá", callback_data: `m:act:${actionCode("delete")}:${contentType}:${slug}` }]);
   rows.push([{ text: "⬅️ Quay lại", callback_data: `m:list:${contentType}` }]);
   return { inline_keyboard: rows };
+}
+
+// Bảng ảnh của 1 dự án: đổi ảnh bìa, thêm ảnh vào thư viện.
+export function buildMediaMenu(cfg, slug) {
+  return {
+    inline_keyboard: [
+      [{ text: "🏞 Đổi ảnh bìa",        callback_data: `ehero:${slug}` }],
+      [{ text: "➕ Thêm ảnh thư viện",  callback_data: `egal:${slug}` }],
+      [
+        { text: "⬅️ Quay lại", callback_data: `m:item:project:${slug}` },
+        { text: "❌ Thoát",     callback_data: "wz_abort" },
+      ],
+    ],
+  };
 }
 
 export function welcomeText(cfg) {

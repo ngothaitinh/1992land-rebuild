@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  buildMainMenu, buildItemListMenu, buildItemMenu, mainMenuText, welcomeText, helpText,
+  buildMainMenu, buildItemListMenu, buildItemMenu, buildMediaMenu, mainMenuText, welcomeText, helpText,
 } from "../engine/menu.mjs";
 import { default as cfg } from "../adapters/1992land/config.mjs";
 
@@ -58,6 +58,31 @@ test("callback_data ≤ 64 byte với slug dài nhất", () => {
   ];
   for (const kb of kbs)
     for (const b of flat(kb))
+      assert.ok(Buffer.byteLength(b.callback_data) <= 64, `dài quá: ${b.callback_data}`);
+});
+
+test("buildItemMenu (dự án): có nút Ảnh bìa & thư viện", () => {
+  const cb = cbOf(buildItemMenu(cfg, "project", "maia-ho-tram", "Maia"));
+  assert.ok(cb.includes("emedia:maia-ho-tram"));
+});
+
+test("buildItemMenu (bài viết): KHÔNG có nút Ảnh bìa & thư viện", () => {
+  const cb = cbOf(buildItemMenu(cfg, "post", "bai-mau", "Bài"));
+  assert.equal(cb.some((c) => c.startsWith("emedia:")), false);
+});
+
+test("buildMediaMenu: đổi bìa + thêm gallery + quay lại", () => {
+  const cb = cbOf(buildMediaMenu(cfg, "maia-ho-tram"));
+  assert.ok(cb.includes("ehero:maia-ho-tram"));
+  assert.ok(cb.includes("egal:maia-ho-tram"));
+  assert.ok(cb.includes("m:item:project:maia-ho-tram"));
+});
+
+test("callback media ≤ 64 byte với slug dài nhất", () => {
+  const slug = "quy-trinh-chuyen-nhuong-bds-tung-buoc";
+  const kbs = [buildItemMenu(cfg, "project", slug, "X"), buildMediaMenu(cfg, slug)];
+  for (const kb of kbs)
+    for (const b of kb.inline_keyboard.flat())
       assert.ok(Buffer.byteLength(b.callback_data) <= 64, `dài quá: ${b.callback_data}`);
 });
 

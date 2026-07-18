@@ -16,6 +16,7 @@ import AmenitiesGallery from "@/components/AmenitiesGallery";
 import ContactModal from "@/components/ContactModal";
 import ProjectSidebarForm from "@/components/ProjectSidebarForm";
 import ZaloIcon from "@/components/ZaloIcon";
+import VideoEmbed from "@/components/VideoEmbed";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -305,6 +306,9 @@ export default async function ProjectDetailPage({ params }: Props) {
         {show("chinh-sach") && (
           <section className="pb-14">
             <SecHead id="chinh-sach" title="Chính sách bán hàng" />
+            {project.videos?.["chinh-sach"] && (
+              <VideoEmbed url={project.videos["chinh-sach"]} title={`Video chính sách ${project.title}`} />
+            )}
             <SectionIntro desc={project.descriptions?.["chinh-sach"]}>
               {project.payment_policy && (
                 <details className="group rounded-2xl border border-border-soft bg-white overflow-hidden mb-4" open>
@@ -382,6 +386,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   />
                 </div>
               )}
+              {project.videos?.["tong-quan"] && (
+                <VideoEmbed url={project.videos["tong-quan"]} title={`Video tổng quan ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["tong-quan"]}>
                 <div className="rounded-2xl border border-border-soft bg-white overflow-hidden">
                   <table className="w-full text-sm">
@@ -416,6 +423,9 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead id="gia-ban" title="Giá bán & giỏ hàng" />
+              {project.videos?.["gia-ban"] && (
+                <VideoEmbed url={project.videos["gia-ban"]} title={`Video giá bán ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["gia-ban"]}>
                 <div className="rounded-2xl border border-border-soft bg-white overflow-hidden mb-5">
                   <div className="grid grid-cols-4 gap-2 bg-navy-900 px-5 py-3 text-white/70 text-[10px] font-bold uppercase tracking-wider">
@@ -464,6 +474,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   />
                 </div>
               )}
+              {project.videos?.["vi-tri"] && (
+                <VideoEmbed url={project.videos["vi-tri"]} title={`Video vị trí ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["vi-tri"]}>
                 <div>
                   <div className="flex items-start gap-2 text-sm mb-4">
@@ -503,6 +516,9 @@ export default async function ProjectDetailPage({ params }: Props) {
                   <ProjectImageCarousel images={project.gallery.slice(0, 4)} title={project.title} />
                 </div>
               )}
+              {project.videos?.["diem-noi-bat"] && (
+                <VideoEmbed url={project.videos["diem-noi-bat"]} title={`Video điểm nổi bật ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["diem-noi-bat"]}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {project.highlights.map((h, i) => (
@@ -528,6 +544,9 @@ export default async function ProjectDetailPage({ params }: Props) {
               <SecHead id="tien-ich" title="Tiện ích dự án" />
               {project.amenities_images && project.amenities_images.length > 0 && (
                 <AmenitiesGallery images={project.amenities_images} title={`Tiện ích ${project.title}`} />
+              )}
+              {project.videos?.["tien-ich"] && (
+                <VideoEmbed url={project.videos["tien-ich"]} title={`Video tiện ích ${project.title}`} />
               )}
               <SectionIntro desc={project.descriptions?.["tien-ich"]}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -573,6 +592,9 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead id="mat-bang" title="Mặt bằng tổng thể" />
+              {project.videos?.["mat-bang"] && (
+                <VideoEmbed url={project.videos["mat-bang"]} title={`Video mặt bằng ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["mat-bang"]}>
                 <div>
                   <div className="rounded-2xl overflow-hidden border border-border-soft mb-4">
@@ -616,6 +638,9 @@ export default async function ProjectDetailPage({ params }: Props) {
             <Divider />
             <section className="py-14">
               <SecHead id="phap-ly" title="Tiến độ & Pháp lý" />
+              {project.videos?.["phap-ly"] && (
+                <VideoEmbed url={project.videos["phap-ly"]} title={`Video pháp lý ${project.title}`} />
+              )}
               <SectionIntro desc={project.descriptions?.["phap-ly"]}>
                 <div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">

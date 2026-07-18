@@ -50,6 +50,7 @@ export type Project = {
   scale?: string;
   hidden_sections?: string[];
   descriptions?: Record<string, string>;
+  videos?: Record<string, string>;
 };
 
 export type Testimonial = {

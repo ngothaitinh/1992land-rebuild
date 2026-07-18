@@ -150,6 +150,21 @@ collections:
         widget: list
         required: false
         field: { name: id, label: "Section ID", widget: string, hint: "chinh-sach / gia-ban / vi-tri / tien-ich / mat-bang / phap-ly / dang-ky" }
+      - name: videos
+        label: "Video YouTube từng mục"
+        widget: object
+        required: false
+        collapsed: true
+        hint: "Dán link YouTube cho từng mục. Để trống mục không có video."
+        fields:
+          - { name: tong-quan,    label: "Video — Tổng quan",    widget: string, required: false }
+          - { name: vi-tri,       label: "Video — Vị trí",       widget: string, required: false }
+          - { name: tien-ich,     label: "Video — Tiện ích",     widget: string, required: false }
+          - { name: mat-bang,     label: "Video — Mặt bằng",     widget: string, required: false }
+          - { name: gia-ban,      label: "Video — Giá bán",      widget: string, required: false }
+          - { name: phap-ly,      label: "Video — Pháp lý",      widget: string, required: false }
+          - { name: chinh-sach,   label: "Video — Chính sách",   widget: string, required: false }
+          - { name: diem-noi-bat, label: "Video — Điểm nổi bật", widget: string, required: false }
       - { name: lat, label: "Vĩ độ (lat)", widget: number, required: false }
       - { name: lng, label: "Kinh độ (lng)", widget: number, required: false }
       - { name: created_at, label: "Ngày tạo", widget: datetime, required: false }

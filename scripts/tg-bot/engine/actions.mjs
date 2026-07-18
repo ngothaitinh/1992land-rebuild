@@ -296,3 +296,68 @@ export async function execSetSectionImage(deps, chatId, slug, { sid, imageField,
   const key = recordUndo(chatId, `đổi ảnh mục`, [{ path: filePath, prevContent: content }]);
   return announce(deps, chatId, `🖼 Đã cập nhật ảnh mục <b>${sid}</b>`, key, commitSha);
 }
+
+// ─── Đổi ảnh bìa (hero_image) — ảnh mới, không ghi đè ─────────────────────────
+export async function execSetHero(deps, chatId, slug, { imageBase64, ts }) {
+  const { cfg, repo, pat, send } = deps;
+  const filePath = filePathOf(cfg, "project", slug);
+  const repoImg  = `public/images/projects/${slug}/hero-${ts}.jpg`;
+  const webImg   = `/images/projects/${slug}/hero-${ts}.jpg`;
+
+  let content;
+  try { ({ content } = await getFile(repo, cfg.deploy_branch, filePath, pat)); }
+  catch { return send(chatId, `❌ Không tìm thấy: <code>${slug}</code>`); }
+
+  const obj = JSON.parse(content);
+  obj.hero_image = webImg;
+  obj.updated_at = new Date().toISOString();
+
+  const files = [
+    { path: filePath, content: JSON.stringify(obj, null, 2) + "\n", binary: false },
+    { path: repoImg,  content: imageBase64, binary: true },
+  ];
+
+  let commitSha;
+  try {
+    ({ commitSha } = await putFiles(repo, cfg.deploy_branch, files,
+      `content: set hero on ${slug} via telegram`, pat));
+  } catch (e) { return send(chatId, `⚠️ Lỗi đăng ảnh: ${e.message}`); }
+
+  const key = recordUndo(chatId, `đổi ảnh bìa`, [{ path: filePath, prevContent: content }]);
+  return announce(deps, chatId, `🏞 Đã đổi ảnh bìa <b>${slug}</b>`, key, commitSha);
+}
+
+// ─── Thêm nhiều ảnh vào thư viện (gallery) — nối vào cuối, không ghi đè ────────
+export async function execAddGallery(deps, chatId, slug, images) {
+  const { cfg, repo, pat, send } = deps;
+  if (!images || !images.length) return send(chatId, "❌ Chưa có ảnh nào để thêm.");
+  const filePath = filePathOf(cfg, "project", slug);
+  const ts = Date.now().toString(36);
+
+  let content;
+  try { ({ content } = await getFile(repo, cfg.deploy_branch, filePath, pat)); }
+  catch { return send(chatId, `❌ Không tìm thấy: <code>${slug}</code>`); }
+
+  const obj = JSON.parse(content);
+  const cur = Array.isArray(obj.gallery) ? obj.gallery : [];
+  const webPaths = images.map((_, i) => `/images/projects/${slug}/gallery-${ts}-${i}.jpg`);
+  obj.gallery = [...cur, ...webPaths];
+  obj.updated_at = new Date().toISOString();
+
+  const files = [
+    { path: filePath, content: JSON.stringify(obj, null, 2) + "\n", binary: false },
+    ...images.map((img, i) => ({
+      path: `public/images/projects/${slug}/gallery-${ts}-${i}.jpg`,
+      content: img.base64, binary: true,
+    })),
+  ];
+
+  let commitSha;
+  try {
+    ({ commitSha } = await putFiles(repo, cfg.deploy_branch, files,
+      `content: add ${images.length} gallery image(s) on ${slug} via telegram`, pat));
+  } catch (e) { return send(chatId, `⚠️ Lỗi đăng ảnh: ${e.message}`); }
+
+  const key = recordUndo(chatId, `thêm ${images.length} ảnh thư viện`, [{ path: filePath, prevContent: content }]);
+  return announce(deps, chatId, `🖼 Đã thêm <b>${images.length}</b> ảnh vào thư viện <b>${slug}</b>`, key, commitSha);
+}

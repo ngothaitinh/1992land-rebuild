@@ -6,7 +6,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseCommand } from "./parse-command.mjs";
 import { isProcessed, markProcessed } from "./idempotency.mjs";
 import { setMode, getMode, getDraft, setWizard, getWizard, clearSession } from "./session.mjs";
-import { buildMainMenu, buildItemMenu, mainMenuText, welcomeText, helpText } from "./menu.mjs";
+import { buildMainMenu, buildItemMenu, buildMediaMenu, mainMenuText, welcomeText, helpText } from "./menu.mjs";
 import {
   fieldLabel, actionCode, codeAction, fieldAt, sectionAt,
   buildFieldKeyboard, buildSectionKeyboard,
@@ -20,6 +20,7 @@ import { composeAndPreview, freeChatAdvisor, downloadPhotoBase64 } from "./compo
 import {
   execSetField, execToggleSection, execDelete, execPublish, execUndo, readCurrentField,
   readDescription, execSetDescription, execSetVideo, execSetSectionImage,
+  execSetHero, execAddGallery,
 } from "./actions.mjs";
 import { youtubeId } from "../../../lib/youtube.mjs";
 
@@ -253,6 +254,36 @@ function handleModeInput(chatId, mode, msg, text) {
     });
   }
 
+  if (mode === "await_hero_image") {
+    const wz = getWizard(chatId);
+    if (!wz?.slug) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    if (!msg.photo) return send(chatId, "📷 Gửi 1 tấm ảnh (không phải chữ). Hoặc bấm /menu để thoát.");
+    return downloadPhotoBase64(deps, msg).then((img) => {
+      if (!img) return send(chatId, "❌ Không tải được ảnh. Thử lại.");
+      clearSession(chatId);
+      return execSetHero(deps, chatId, wz.slug, { imageBase64: img, ts: Date.now().toString(36) });
+    });
+  }
+
+  if (mode === "await_gallery_images") {
+    const wz = getWizard(chatId);
+    if (!wz?.slug) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    if (!msg.photo) return send(chatId, "📷 Gửi ảnh (không phải chữ), hoặc bấm ✅ Xong.");
+    return downloadPhotoBase64(deps, msg).then((img) => {
+      if (!img) return send(chatId, "❌ Không tải được 1 ảnh, bỏ qua tấm đó. Gửi tiếp hoặc bấm ✅ Xong.");
+      const cur = getWizard(chatId);
+      if (!cur?.slug || cur.action !== "add_gallery") return; // phiên đã đổi
+      const buf = [...(cur.buf || []), { base64: img }];
+      setWizard(chatId, { ...cur, buf });
+      return send(chatId, `📸 Đã nhận <b>${buf.length}</b> ảnh. Gửi tiếp hoặc bấm ✅ Xong.`, {
+        reply_markup: { inline_keyboard: [[
+          { text: "✅ Xong", callback_data: `galdone:${cur.slug}` },
+          { text: "❌ Thoát", callback_data: "wz_abort" },
+        ]] },
+      });
+    });
+  }
+
   return showMenu(chatId, "Chọn việc cần làm:");
 }
 
@@ -377,6 +408,49 @@ async function handleCallbackQuery(cq) {
         { text: "❌ Thoát",     callback_data: "wz_abort" },
       ]] } }
     );
+  }
+
+  // ── Bảng ảnh: đổi bìa / thêm thư viện ────────────────────────────────────────
+  if (data.startsWith("emedia:")) {
+    const slug  = data.slice("emedia:".length);
+    const title = localTitle(deps, "project", slug);
+    return es.send(chatId, `🖼 <b>${title}</b> — ảnh bìa & thư viện:`, {
+      reply_markup: buildMediaMenu(cfg, slug),
+    });
+  }
+
+  if (data.startsWith("ehero:")) {
+    const slug = data.slice("ehero:".length);
+    setWizard(chatId, { action: "set_hero", content_type: "project", slug });
+    setMode(chatId, "await_hero_image");
+    return es.send(chatId, "🏞 Gửi 1 ảnh bìa mới vào đây.", {
+      reply_markup: { inline_keyboard: [[
+        { text: "⬅️ Quay lại", callback_data: `emedia:${slug}` },
+        { text: "❌ Thoát",     callback_data: "wz_abort" },
+      ]] },
+    });
+  }
+
+  if (data.startsWith("egal:")) {
+    const slug = data.slice("egal:".length);
+    setWizard(chatId, { action: "add_gallery", content_type: "project", slug, buf: [] });
+    setMode(chatId, "await_gallery_images");
+    return es.send(chatId,
+      "➕ Gửi các ảnh muốn thêm vào thư viện (gửi lần lượt bao nhiêu tấm cũng được). Xong bấm <b>✅ Xong</b>.",
+      { reply_markup: { inline_keyboard: [[
+        { text: "✅ Xong", callback_data: `galdone:${slug}` },
+        { text: "❌ Thoát", callback_data: "wz_abort" },
+      ]] } }
+    );
+  }
+
+  if (data.startsWith("galdone:")) {
+    const slug = data.slice("galdone:".length);
+    const wz = getWizard(chatId);
+    const buf = wz?.buf || [];
+    clearSession(chatId);
+    if (!buf.length) return send(chatId, "❌ Chưa nhận ảnh nào. Bấm /menu để làm lại.");
+    return execAddGallery(deps, chatId, slug, buf);
   }
 
   // ── Thoát / hỏi trợ lý ───────────────────────────────────────────────────────

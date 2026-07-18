@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 
-import { buildMainMenu, buildItemListMenu, buildItemMenu } from "../engine/menu.mjs";
+import { buildMainMenu, buildItemListMenu, buildItemMenu, buildMediaMenu } from "../engine/menu.mjs";
 import {
   buildFieldKeyboard, buildSectionKeyboard, buildEditSectionMenu, buildSectionActionMenu,
 } from "../engine/wizard-helpers.mjs";
@@ -36,6 +36,7 @@ function allCallbacks() {
     buildEditSectionMenu(cfg, "project", "du-an-mau"),
     buildSectionActionMenu(cfg, "project", "du-an-mau", "tong-quan"),
     buildSectionActionMenu(cfg, "project", "du-an-mau", "gia-ban"),
+    buildMediaMenu(cfg, "du-an-mau"),
   ];
   const fromKb = kbs.flatMap((kb) => kb.inline_keyboard.flat()).map((b) => b.callback_data);
   // Nút dựng thẳng trong serve.mjs (giá trị mới, nháp, xác nhận, hoàn tác).
@@ -47,6 +48,7 @@ function allCallbacks() {
     "undo:u12ab",
     "esec:basic:du-an-mau", "edesc:tong-quan:du-an-mau",
     "eimg:tong-quan:du-an-mau", "evid:tong-quan:du-an-mau",
+    "emedia:du-an-mau", "ehero:du-an-mau", "egal:du-an-mau", "galdone:du-an-mau",
   ];
   return [...new Set([...fromKb, ...inline])];
 }

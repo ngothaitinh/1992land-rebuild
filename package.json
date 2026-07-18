@@ -15,8 +15,7 @@
     "setup": "node scripts/tg-register-commands.mjs",
     "preview": "node scripts/tg-preview.mjs",
     "decision": "node scripts/tg-poll-decision.mjs",
-    "notify": "node scripts/notify.mjs",
-    "deploy": "next build && wrangler pages deploy out --project-name=1992land"
+    "notify": "node scripts/notify.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

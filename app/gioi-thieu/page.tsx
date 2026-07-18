@@ -71,7 +71,7 @@ export default function GioiThieuPage() {
             </p>
             <p>
               Với phương châm{" "}
-              <em className="text-navy-500 not-italic font-semibold">"Giá Trị Kiến Tạo Lòng Tin"</em>,
+              <em className="text-navy-500 not-italic font-semibold">&ldquo;Giá Trị Kiến Tạo Lòng Tin&rdquo;</em>,
               chúng tôi cam kết minh bạch thông tin pháp lý, tư vấn trung thực và đặt lợi ích
               khách hàng lên hàng đầu trong mọi giao dịch.
             </p>

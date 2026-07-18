@@ -200,7 +200,7 @@ export default function Home() {
               </p>
               <p className="text-surface/70 leading-relaxed mb-10">
                 Anh Thọ tin rằng một giao dịch tốt không cần phải hối thúc. Khách hàng cần thời gian,
-                thông tin thật và người tư vấn dám nói thẳng — kể cả khi câu trả lời là "chưa phải lúc."
+                thông tin thật và người tư vấn dám nói thẳng — kể cả khi câu trả lời là &ldquo;chưa phải lúc.&rdquo;
               </p>
               <Link
                 href="/gioi-thieu"

@@ -33,35 +33,23 @@ function actionButton(cfg, action) {
 }
 
 export function buildMainMenu(cfg) {
-  const rows = [];
-
-  const addRow = typesFor(cfg, "add").map(({ key, ct }) => ({
-    text: ct.add_button || `${cfg.action_labels.add} ${ct.label}`,
-    callback_data: `m:add:${key}`,
+  const listRow = Object.entries(cfg.content_types).map(([key, ct]) => ({
+    text: `📂 ${capitalize(ct.label)}`,
+    callback_data: `m:list:${key}`,
   }));
-  if (addRow.length) rows.push(addRow);
-
-  const edit   = actionButton(cfg, "set_field");
-  const toggle = actionButton(cfg, "toggle_section");
-  if (edit || toggle) rows.push([edit, toggle].filter(Boolean));
-
-  const del = actionButton(cfg, "delete");
-  if (del) rows.push([del]);
-
-  rows.push([ASK_BTN, HELP_BTN]);
-  return { inline_keyboard: rows };
+  return {
+    inline_keyboard: [
+      listRow,
+      [
+        { text: "💬 Hỏi trợ lý",   callback_data: "wz_ask" },
+        { text: "❓ Hướng dẫn",     callback_data: "m:help" },
+      ],
+    ],
+  };
 }
 
-export function buildTypeMenu(cfg, action) {
-  const rows = typesFor(cfg, action).map(({ key, ct }) => [
-    { text: capitalize(ct.label), callback_data: `m:go:${action}:${key}` },
-  ]);
-  rows.push([BACK_MENU]);
-  return { inline_keyboard: rows };
-}
-
-export function typeMenuPrompt(cfg, action) {
-  return `${cfg.action_labels[action] || action} — chọn loại nội dung:`;
+export function mainMenuText(cfg) {
+  return `📋 <b>${cfg.bot_name}</b> — chọn Dự án hoặc Bài viết:`;
 }
 
 function capitalize(s) {
@@ -94,21 +82,22 @@ export function buildItemMenu(cfg, contentType, slug, title) {
 export function welcomeText(cfg) {
   return (
     `👋 Đây là <b>${cfg.bot_name}</b> — quản lý web <b>${cfg.site_name}</b> ngay trong Telegram.\n\n` +
-    `Bot làm được 4 việc: <b>thêm</b>, <b>sửa</b>, <b>ẩn/hiện phần</b>, <b>xoá</b>.\n` +
-    `Anh chỉ cần bấm nút, không phải gõ lệnh. Mỗi thay đổi lên web sau <b>~8 phút</b>.\n\n` +
-    `Chọn việc cần làm:`
+    `Chọn <b>📂 Dự án</b> hoặc <b>📂 Bài viết</b>, rồi bấm vào mục cần sửa. ` +
+    `Mỗi thay đổi lên web sau <b>~8 phút</b>.\n\n` +
+    `Anh chỉ cần bấm nút, không phải gõ lệnh. Chọn việc cần làm:`
   );
 }
 
 export function helpText(cfg) {
   return (
     `❓ <b>Hướng dẫn nhanh</b>\n\n` +
-    `<b>Thêm dự án / bài viết</b> — bấm nút, dán nội dung kèm 1 ảnh. Bot soạn bản nháp, anh xem rồi bấm ✅ Duyệt.\n\n` +
-    `<b>Sửa nội dung</b> — chọn mục trong danh sách → chọn thông tin cần đổi → gõ giá trị mới → xác nhận.\n\n` +
-    `<b>Ẩn / hiện phần</b> — chọn dự án, bấm vào phần muốn tắt. ✅ là đang hiện, 🙈 là đang ẩn.\n\n` +
-    `<b>Xoá</b> — chọn mục, bot hỏi lại trước khi xoá.\n\n` +
-    `Sau mỗi thay đổi có nút <b>↩️ Hoàn tác</b> (dùng được trong 30 phút).\n` +
-    `Gõ <code>/huy</code> bất cứ lúc nào để thoát giữa chừng.\n` +
-    `Ảnh, thư viện slide, lịch thanh toán… sửa ở trang <b>${cfg.site_name}/admin/</b>.`
+    `Bấm <b>📂 Dự án</b> hoặc <b>📂 Bài viết</b> → chọn 1 mục → hiện bảng thao tác:\n` +
+    `• <b>✏️ Sửa thông tin</b> — chọn thông tin cần đổi, gõ giá trị mới, xác nhận.\n` +
+    `• <b>🙈 Ẩn / hiện phần</b> — bấm phần muốn tắt (chỉ dự án). ✅ đang hiện · 🙈 đang ẩn.\n` +
+    `• <b>🗑 Xoá</b> — bot hỏi lại trước khi xoá.\n\n` +
+    `Thêm mới: bấm <b>➕ Thêm … mới</b> ở đầu danh sách, dán nội dung kèm 1 ảnh.\n\n` +
+    `Sau mỗi thay đổi có nút <b>↩️ Hoàn tác</b> (30 phút).\n` +
+    `Bấm <b>❌ Thoát</b> hoặc gõ <code>/huy</code> để dừng giữa chừng.\n` +
+    `Ảnh, thư viện slide, lịch thanh toán… sửa ở <b>${cfg.site_name}/admin/</b>.`
   );
 }

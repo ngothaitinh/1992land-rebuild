@@ -8,13 +8,8 @@ import path from "node:path";
 
 import { getFile } from "./github-commit.mjs";
 import { setMode, setWizard } from "./session.mjs";
-import { typesFor, buildTypeMenu, typeMenuPrompt } from "./menu.mjs";
-import {
-  filterItems, fieldLabel, actionCode,
-  buildListKeyboard, buildSectionKeyboard, WIZARD_PAGE_SIZE,
-} from "./wizard-helpers.mjs";
-
-const ACTION_VERB = { set_field: "sửa", toggle_section: "chỉnh phần hiển thị của", delete: "xoá" };
+import { buildItemListMenu } from "./menu.mjs";
+import { fieldLabel, buildSectionKeyboard } from "./wizard-helpers.mjs";
 
 // ─── Đọc danh sách nội dung từ repo local (không tốn lượt gọi GitHub API) ──────
 export function listContentItems(deps, contentType) {
@@ -42,6 +37,16 @@ export function localTitle(deps, contentType, slug) {
   return listContentItems(deps, contentType).find((it) => it.slug === slug)?.title || slug;
 }
 
+// Danh sách 1 loại nội dung (item-first): mọi mục, không phân trang.
+export function renderItemList(deps, chatId, contentType) {
+  const { cfg, send } = deps;
+  const label = cfg.content_types[contentType].label;
+  const items = listContentItems(deps, contentType);
+  return send(chatId, `📂 <b>${label[0].toUpperCase() + label.slice(1)}</b> — chọn mục, hoặc thêm mới:`, {
+    reply_markup: buildItemListMenu(cfg, contentType, items),
+  });
+}
+
 // ─── Cổng xác nhận: giữ payload trong bộ nhớ, callback chỉ mang khoá ngắn ──────
 // (nếu nhét slug + giá trị vào callback_data sẽ vượt giới hạn 64 byte của Telegram)
 const pendingEdits   = new Map();
@@ -56,41 +61,6 @@ function stash(map, payload) {
 
 export function takePendingEdit(key)   { const p = pendingEdits.get(key);   pendingEdits.delete(key);   return p; }
 export function takePendingDelete(key) { const p = pendingDeletes.get(key); pendingDeletes.delete(key); return p; }
-
-// ─── Bước 1: chọn mục ─────────────────────────────────────────────────────────
-function listPrompt(cfg, action, contentType, total, offset) {
-  const label = cfg.content_types[contentType].label;
-  const pages = Math.max(1, Math.ceil(total / WIZARD_PAGE_SIZE));
-  const page  = Math.floor(offset / WIZARD_PAGE_SIZE) + 1;
-  return `📋 Chọn ${label} cần ${ACTION_VERB[action] || action} (tổng ${total}) — trang ${page}/${pages}:`;
-}
-
-export function renderList(deps, chatId, action, contentType, offset = 0, filter = null) {
-  const { cfg, send } = deps;
-  const items = filterItems(listContentItems(deps, contentType), filter);
-  setWizard(chatId, { step: "list", action, content_type: contentType, offset, filter });
-  setMode(chatId, null);
-  if (!items.length) {
-    return send(chatId, `Không có mục nào khớp${filter ? ` "<b>${filter}</b>"` : ""}.`, {
-      reply_markup: { inline_keyboard: [[
-        { text: "🔍 Tìm lại",   callback_data: `wz_search:${actionCode(action)}:${contentType}` },
-        { text: "⬅️ Quay lại", callback_data: "m:menu" },
-      ]] },
-    });
-  }
-  return send(chatId, listPrompt(cfg, action, contentType, items.length, offset), {
-    reply_markup: buildListKeyboard(action, contentType, items, offset),
-  });
-}
-
-// Mở một thao tác: chỉ 1 loại nội dung hỗ trợ thì bỏ qua tầng chọn loại.
-export function openAction(deps, chatId, action) {
-  const { cfg, send } = deps;
-  const types = typesFor(cfg, action);
-  if (!types.length) return send(chatId, "❌ Thao tác này chưa được cấu hình.");
-  if (types.length === 1) return renderList(deps, chatId, action, types[0].key, 0, null);
-  return send(chatId, typeMenuPrompt(cfg, action), { reply_markup: buildTypeMenu(cfg, action) });
-}
 
 export function startAdd(deps, chatId, contentType) {
   const ct = deps.cfg.content_types[contentType];

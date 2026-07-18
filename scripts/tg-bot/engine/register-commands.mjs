@@ -18,7 +18,9 @@ const { default: cfg } = await import(pathToFileURL(adapterPath).href);
 
 const commands = [
   { command: "start", description: "Khởi động bot" },
-  ...cfg.slash_commands.map(({ command, description }) => ({ command, description })),
+  ...cfg.slash_commands
+    .filter((s) => !s.hidden)
+    .map(({ command, description }) => ({ command, description })),
 ];
 
 const body = JSON.stringify({ commands });

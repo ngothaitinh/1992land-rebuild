@@ -69,17 +69,10 @@ export default {
     },
   },
 
-  // Lệnh gạch chéo hiện trong menu ☰ của Telegram. `route` nói engine mở gì.
-  // Cả serve.mjs lẫn register-commands.mjs đọc chung danh sách này.
+  // Menu ☰ chỉ hiện /menu. /huy giữ để gõ tay (hidden — không đăng ký hiển thị).
   slash_commands: [
-    { command: "menu",     description: "Xem menu thao tác",       route: "menu" },
-    { command: "themduan", description: "Thêm dự án mới",          route: "add:project" },
-    { command: "thembai",  description: "Thêm bài viết mới",       route: "add:post" },
-    { command: "sua",      description: "Sửa nội dung",            route: "action:set_field" },
-    { command: "anhien",   description: "Ẩn / hiện phần dự án",    route: "action:toggle_section" },
-    { command: "xoa",      description: "Xoá nội dung",            route: "action:delete" },
-    { command: "huy",      description: "Thoát thao tác đang làm", route: "cancel" },
-    { command: "trogiup",  description: "Hướng dẫn nhanh",         route: "help" },
+    { command: "menu", description: "Mở menu thao tác",       route: "menu" },
+    { command: "huy",  description: "Thoát thao tác đang làm", route: "cancel", hidden: true },
   ],
 
   // Cú pháp gõ tay [..] — giữ cho người quen, không còn hiện trên menu.

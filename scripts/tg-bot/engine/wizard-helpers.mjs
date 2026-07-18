@@ -82,7 +82,7 @@ export function buildFieldKeyboard(cfg, content_type, slug) {
   const rows = (ct.editable_fields || []).map((f, i) => [
     { text: fieldLabel(cfg, f), callback_data: `wz_f:${content_type}:${slug}:${i}` },
   ]);
-  rows.push([backBtn(`wz_page:${actionCode("set_field")}:${content_type}:0`), EXIT_BTN]);
+  rows.push([backBtn(`m:item:${content_type}:${slug}`), EXIT_BTN]);
   return { inline_keyboard: rows };
 }
 
@@ -97,6 +97,6 @@ export function buildSectionKeyboard(cfg, content_type, slug, hidden = []) {
       callback_data: `wz_s:${content_type}:${slug}:${i}`,
     },
   ]);
-  rows.push([backBtn(`wz_page:${actionCode("toggle_section")}:${content_type}:0`), EXIT_BTN]);
+  rows.push([backBtn(`m:item:${content_type}:${slug}`), EXIT_BTN]);
   return { inline_keyboard: rows };
 }

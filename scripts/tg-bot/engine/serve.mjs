@@ -10,15 +10,18 @@ import { buildMainMenu, buildItemMenu, mainMenuText, welcomeText, helpText } fro
 import {
   fieldLabel, actionCode, codeAction, fieldAt, sectionAt,
   buildFieldKeyboard, buildSectionKeyboard,
+  buildEditSectionMenu, buildSectionActionMenu, editSectionCfg,
 } from "./wizard-helpers.mjs";
 import {
   listContentItems, localTitle, renderItemList, renderSections, startAdd,
-  confirmEdit, confirmDelete, takePendingEdit, takePendingDelete,
+  confirmEdit, confirmDesc, confirmDelete, takePendingEdit, takePendingDelete,
 } from "./wizard.mjs";
 import { composeAndPreview, freeChatAdvisor, downloadPhotoBase64 } from "./compose-flow.mjs";
 import {
   execSetField, execToggleSection, execDelete, execPublish, execUndo, readCurrentField,
+  readDescription, execSetDescription, execSetVideo, execSetSectionImage,
 } from "./actions.mjs";
+import { youtubeId } from "../../../lib/youtube.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT      = path.resolve(__dirname, "..", "..", "..");
@@ -214,6 +217,42 @@ function handleModeInput(chatId, mode, msg, text) {
     return freeChatAdvisor(deps, chatId, text, MAIN_KB);
   }
 
+  if (mode === "await_desc_value") {
+    const wz = getWizard(chatId);
+    if (!wz?.slug || !wz?.desc_key) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    setMode(chatId, null);
+    if (/^xo[aá]$/i.test(text.trim())) {
+      clearSession(chatId);
+      return execSetDescription(deps, chatId, wz.slug, { descKey: wz.desc_key, value: "", remove: true });
+    }
+    return confirmDesc(deps, chatId, wz, text);
+  }
+
+  if (mode === "await_video_url") {
+    const wz = getWizard(chatId);
+    if (!wz?.slug || !wz?.sid) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    const t = text.trim();
+    setMode(chatId, null);
+    if (/^xo[aá]$/i.test(t)) { clearSession(chatId); return execSetVideo(deps, chatId, wz.slug, { sid: wz.sid, url: null }); }
+    if (!youtubeId(t)) { setMode(chatId, "await_video_url"); return send(chatId, "❌ Link không phải YouTube hợp lệ. Dán lại link, hoặc bấm /menu để thoát."); }
+    clearSession(chatId);
+    return execSetVideo(deps, chatId, wz.slug, { sid: wz.sid, url: t });
+  }
+
+  if (mode === "await_section_image") {
+    const wz = getWizard(chatId);
+    if (!wz?.slug || !wz?.image_field) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
+    if (!msg.photo) return send(chatId, "📷 Gửi 1 tấm ảnh (không phải chữ). Hoặc bấm /menu để thoát.");
+    return downloadPhotoBase64(deps, msg).then((img) => {
+      if (!img) return send(chatId, "❌ Không tải được ảnh. Thử lại.");
+      clearSession(chatId);
+      const ts = Date.now().toString(36);
+      return execSetSectionImage(deps, chatId, wz.slug, {
+        sid: wz.sid, imageField: wz.image_field, imageList: wz.image_list, imageBase64: img, ts,
+      });
+    });
+  }
+
   return showMenu(chatId, "Chọn việc cần làm:");
 }
 
@@ -253,11 +292,91 @@ async function handleCallbackQuery(cq) {
     const title  = localTitle(deps, ct, slug);
     if (action === "toggle_section") return renderSections(es, chatId, ct, slug, title);
     if (action === "delete")         return confirmDelete(es, chatId, ct, slug, title);
-    // set_field → bảng chọn trường
+    // set_field: project → bảng chọn mục (khớp thanh menu trang); post → field keyboard.
+    if (ct === "project" && (cfg.content_types.project.edit_sections || []).length) {
+      return es.send(chatId, `✏️ Sửa <b>${title}</b> — chọn mục:`, {
+        reply_markup: buildEditSectionMenu(cfg, ct, slug),
+      });
+    }
     setWizard(chatId, { step: "field", action: "set_field", content_type: ct, slug, title });
     return es.send(chatId, `Sửa <b>${title}</b> — chọn thông tin cần đổi:`, {
       reply_markup: buildFieldKeyboard(cfg, ct, slug),
     });
+  }
+
+  // ── Chọn 1 mục để sửa ────────────────────────────────────────────────────────
+  if (data.startsWith("esec:")) {
+    const [, sid, ...rest] = data.split(":");
+    const slug  = rest.join(":");
+    const title = localTitle(deps, "project", slug);
+    if (sid === "basic") {
+      setWizard(chatId, { step: "field", action: "set_field", content_type: "project", slug, title });
+      return es.send(chatId, `Sửa <b>${title}</b> — chọn thông tin cần đổi:`, {
+        reply_markup: buildFieldKeyboard(cfg, "project", slug),
+      });
+    }
+    const sec = editSectionCfg(cfg, "project", sid);
+    if (!sec) return send(chatId, "❌ Mục không hợp lệ. Bấm /menu để làm lại.");
+    return es.send(chatId, `<b>${sec.label}</b> — chọn việc:`, {
+      reply_markup: buildSectionActionMenu(cfg, "project", slug, sid),
+    });
+  }
+
+  // ── Sửa đoạn giới thiệu 1 mục ────────────────────────────────────────────────
+  if (data.startsWith("edesc:")) {
+    const [, sid, ...rest] = data.split(":");
+    const slug = rest.join(":");
+    const sec  = editSectionCfg(cfg, "project", sid);
+    if (!sec?.desc_key) return send(chatId, "❌ Mục không hợp lệ. Bấm /menu.");
+    const title = localTitle(deps, "project", slug);
+    let current;
+    try { current = await readDescription(deps, "project", slug, sec.desc_key); }
+    catch { return send(chatId, `❌ Không đọc được <code>${slug}</code>. Bấm /menu.`); }
+    setWizard(chatId, { action: "set_desc", content_type: "project", slug, sid, desc_key: sec.desc_key, title, label: sec.label });
+    setMode(chatId, "await_desc_value");
+    return es.send(chatId,
+      `📝 Đoạn giới thiệu <b>${sec.label}</b>\nHiện tại: <code>${current || "(trống)"}</code>\n\n` +
+      `Gõ đoạn mới vào đây 👇 (gõ <code>xoá</code> để bỏ đoạn này)`,
+      { reply_markup: { inline_keyboard: [[
+        { text: "⬅️ Quay lại", callback_data: `esec:${sid}:${slug}` },
+        { text: "❌ Thoát",     callback_data: "wz_abort" },
+      ]] } }
+    );
+  }
+
+  // ── Đổi / thêm ảnh 1 mục ─────────────────────────────────────────────────────
+  if (data.startsWith("eimg:")) {
+    const [, sid, ...rest] = data.split(":");
+    const slug = rest.join(":");
+    const sec  = editSectionCfg(cfg, "project", sid);
+    if (!sec?.image_field) return send(chatId, "❌ Mục không hợp lệ. Bấm /menu.");
+    setWizard(chatId, { action: "set_image", content_type: "project", slug, sid, image_field: sec.image_field, image_list: !!sec.image_list, label: sec.label });
+    setMode(chatId, "await_section_image");
+    return es.send(chatId,
+      `🖼 Gửi 1 ảnh mới cho mục <b>${sec.label}</b> vào đây.\n` +
+      (sec.image_list ? "Ảnh sẽ được thêm vào bộ ảnh của mục." : "Ảnh mới sẽ thay ảnh minh hoạ của mục."),
+      { reply_markup: { inline_keyboard: [[
+        { text: "⬅️ Quay lại", callback_data: `esec:${sid}:${slug}` },
+        { text: "❌ Thoát",     callback_data: "wz_abort" },
+      ]] } }
+    );
+  }
+
+  // ── Dán link video 1 mục ─────────────────────────────────────────────────────
+  if (data.startsWith("evid:")) {
+    const [, sid, ...rest] = data.split(":");
+    const slug = rest.join(":");
+    const sec  = editSectionCfg(cfg, "project", sid);
+    if (!sec?.video) return send(chatId, "❌ Mục không hợp lệ. Bấm /menu.");
+    setWizard(chatId, { action: "set_video", content_type: "project", slug, sid, label: sec.label });
+    setMode(chatId, "await_video_url");
+    return es.send(chatId,
+      `🎬 Video <b>${sec.label}</b>\n\nDán link YouTube vào đây 👇 (gõ <code>xoá</code> để bỏ video)`,
+      { reply_markup: { inline_keyboard: [[
+        { text: "⬅️ Quay lại", callback_data: `esec:${sid}:${slug}` },
+        { text: "❌ Thoát",     callback_data: "wz_abort" },
+      ]] } }
+    );
   }
 
   // ── Thoát / hỏi trợ lý ───────────────────────────────────────────────────────
@@ -311,6 +430,8 @@ async function handleCallbackQuery(cq) {
     const p = takePendingEdit(data.slice("wz_confirm:".length));
     if (!p) return send(chatId, "⏱ Xác nhận đã hết hạn (5 phút). Bấm /menu để làm lại.");
     clearSession(chatId);
+    if (p.kind === "desc")
+      return execSetDescription(deps, chatId, p.slug, { descKey: p.desc_key, value: p.value, remove: false });
     return execSetField(deps, chatId, p.content_type, { slug: p.slug, field: p.field, value: p.value });
   }
 

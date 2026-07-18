@@ -103,6 +103,21 @@ export function confirmEdit(deps, chatId, wz, value) {
   );
 }
 
+// Cổng xác nhận sửa đoạn giới thiệu 1 mục. Đánh dấu kind:"desc" để serve gọi đúng exec.
+export function confirmDesc(deps, chatId, wz, value) {
+  const { send } = deps;
+  const key = stash(pendingEdits, { kind: "desc", content_type: wz.content_type, slug: wz.slug, desc_key: wz.desc_key, value, label: wz.label });
+  const preview = value.length > 180 ? value.slice(0, 180) + "…" : value;
+  return send(chatId,
+    `📝 Cập nhật đoạn giới thiệu <b>${wz.label || wz.desc_key}</b> của <b>${wz.title || wz.slug}</b>\n` +
+    `Thành:\n<code>${preview}</code>\n— đúng không?`,
+    { reply_markup: { inline_keyboard: [[
+      { text: "✅ Đồng ý", callback_data: `wz_confirm:${key}` },
+      { text: "❌ Huỷ",    callback_data: `wz_cancel:${key}` },
+    ]] } }
+  );
+}
+
 export function confirmDelete(deps, chatId, contentType, slug, title) {
   const { cfg, send } = deps;
   const key = stash(pendingDeletes, { content_type: contentType, slug, title });

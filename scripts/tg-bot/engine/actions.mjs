@@ -199,3 +199,100 @@ export async function execUndo(deps, chatId, key) {
 
   return announce(deps, chatId, `↩️ Đã hoàn tác: <b>${entry.label}</b>`, null, commitSha);
 }
+
+// ─── Đọc đoạn giới thiệu / video hiện tại của 1 mục (project JSON) ─────────────
+export async function readDescription(deps, contentType, slug, descKey) {
+  const { cfg, repo, pat } = deps;
+  const { content } = await getFile(repo, cfg.deploy_branch, filePathOf(cfg, contentType, slug), pat);
+  const obj = JSON.parse(content);
+  return (obj.descriptions && obj.descriptions[descKey]) || "";
+}
+
+export async function readVideo(deps, contentType, slug, sid) {
+  const { cfg, repo, pat } = deps;
+  const { content } = await getFile(repo, cfg.deploy_branch, filePathOf(cfg, contentType, slug), pat);
+  const obj = JSON.parse(content);
+  return (obj.videos && obj.videos[sid]) || "";
+}
+
+// ─── Sửa đoạn giới thiệu 1 mục (descriptions[descKey]) ─────────────────────────
+export async function execSetDescription(deps, chatId, slug, { descKey, value, remove }) {
+  const { cfg, repo, pat, send } = deps;
+  const filePath = filePathOf(cfg, "project", slug);
+  let sha, content;
+  try { ({ sha, content } = await getFile(repo, cfg.deploy_branch, filePath, pat)); }
+  catch { return send(chatId, `❌ Không tìm thấy: <code>${slug}</code>`); }
+
+  const obj = JSON.parse(content);
+  obj.descriptions = obj.descriptions || {};
+  if (remove) delete obj.descriptions[descKey];
+  else obj.descriptions[descKey] = value;
+  obj.updated_at = new Date().toISOString();
+
+  let commitSha;
+  try {
+    ({ commitSha } = await putFile(repo, cfg.deploy_branch, filePath, JSON.stringify(obj, null, 2) + "\n", sha,
+      `content: set description ${descKey} on ${slug} via telegram`, pat));
+  } catch (e) { return send(chatId, `⚠️ Lỗi GitHub API: ${e.message}`); }
+
+  const key = recordUndo(chatId, `sửa đoạn giới thiệu`, [{ path: filePath, prevContent: content }]);
+  return announce(deps, chatId,
+    remove ? `🗑 Đã bỏ đoạn giới thiệu mục <b>${descKey}</b>` : `📝 Đã cập nhật đoạn giới thiệu mục <b>${descKey}</b>`,
+    key, commitSha);
+}
+
+// ─── Đặt / bỏ link video 1 mục (videos[sid]) ──────────────────────────────────
+export async function execSetVideo(deps, chatId, slug, { sid, url }) {
+  const { cfg, repo, pat, send } = deps;
+  const filePath = filePathOf(cfg, "project", slug);
+  let sha, content;
+  try { ({ sha, content } = await getFile(repo, cfg.deploy_branch, filePath, pat)); }
+  catch { return send(chatId, `❌ Không tìm thấy: <code>${slug}</code>`); }
+
+  const obj = JSON.parse(content);
+  obj.videos = obj.videos || {};
+  if (url) obj.videos[sid] = url; else delete obj.videos[sid];
+  if (Object.keys(obj.videos).length === 0) delete obj.videos;
+  obj.updated_at = new Date().toISOString();
+
+  let commitSha;
+  try {
+    ({ commitSha } = await putFile(repo, cfg.deploy_branch, filePath, JSON.stringify(obj, null, 2) + "\n", sha,
+      `content: set video ${sid} on ${slug} via telegram`, pat));
+  } catch (e) { return send(chatId, `⚠️ Lỗi GitHub API: ${e.message}`); }
+
+  const key = recordUndo(chatId, `${url ? "đặt" : "bỏ"} video mục`, [{ path: filePath, prevContent: content }]);
+  return announce(deps, chatId,
+    url ? `🎬 Đã đặt video mục <b>${sid}</b>` : `🗑 Đã bỏ video mục <b>${sid}</b>`, key, commitSha);
+}
+
+// ─── Đổi / thêm ảnh 1 mục (ảnh mới, không ghi đè; image_list = nối vào cuối) ────
+export async function execSetSectionImage(deps, chatId, slug, { sid, imageField, imageList, imageBase64, ts }) {
+  const { cfg, repo, pat, send } = deps;
+  const filePath = filePathOf(cfg, "project", slug);
+  const repoImg  = `public/images/projects/${slug}/${sid}-${ts}.jpg`;
+  const webImg   = `/images/projects/${slug}/${sid}-${ts}.jpg`;
+
+  let content;
+  try { ({ content } = await getFile(repo, cfg.deploy_branch, filePath, pat)); }
+  catch { return send(chatId, `❌ Không tìm thấy: <code>${slug}</code>`); }
+
+  const obj = JSON.parse(content);
+  if (imageList) obj[imageField] = [...(Array.isArray(obj[imageField]) ? obj[imageField] : []), webImg];
+  else           obj[imageField] = webImg;
+  obj.updated_at = new Date().toISOString();
+
+  const files = [
+    { path: filePath, content: JSON.stringify(obj, null, 2) + "\n", binary: false },
+    { path: repoImg,  content: imageBase64, binary: true },
+  ];
+
+  let commitSha;
+  try {
+    ({ commitSha } = await putFiles(repo, cfg.deploy_branch, files,
+      `content: set image ${sid} on ${slug} via telegram`, pat));
+  } catch (e) { return send(chatId, `⚠️ Lỗi đăng ảnh: ${e.message}`); }
+
+  const key = recordUndo(chatId, `đổi ảnh mục`, [{ path: filePath, prevContent: content }]);
+  return announce(deps, chatId, `🖼 Đã cập nhật ảnh mục <b>${sid}</b>`, key, commitSha);
+}

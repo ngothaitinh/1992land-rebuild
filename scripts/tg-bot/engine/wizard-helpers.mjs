@@ -100,3 +100,27 @@ export function buildSectionKeyboard(cfg, content_type, slug, hidden = []) {
   rows.push([backBtn(`m:item:${content_type}:${slug}`), EXIT_BTN]);
   return { inline_keyboard: rows };
 }
+
+// Tra cấu hình 1 mục sửa (edit_sections) theo id.
+export function editSectionCfg(cfg, content_type, sid) {
+  return (cfg.content_types[content_type].edit_sections || []).find((s) => s.id === sid) || null;
+}
+
+// Bảng chọn mục để sửa — khớp thanh menu trang dự án. Mỗi mục 1 nút.
+export function buildEditSectionMenu(cfg, content_type, slug) {
+  const secs = cfg.content_types[content_type].edit_sections || [];
+  const rows = secs.map((s) => [{ text: s.label, callback_data: `esec:${s.id}:${slug}` }]);
+  rows.push([backBtn(`m:item:${content_type}:${slug}`), EXIT_BTN]);
+  return { inline_keyboard: rows };
+}
+
+// Bảng thao tác trong 1 mục: sửa chữ / đổi ảnh / dán video (tùy cấu hình mục).
+export function buildSectionActionMenu(cfg, content_type, slug, sid) {
+  const sec = editSectionCfg(cfg, content_type, sid);
+  const rows = [];
+  if (sec?.desc_key)    rows.push([{ text: "📝 Sửa đoạn giới thiệu", callback_data: `edesc:${sid}:${slug}` }]);
+  if (sec?.image_field) rows.push([{ text: "🖼 Đổi ảnh",             callback_data: `eimg:${sid}:${slug}` }]);
+  if (sec?.video)       rows.push([{ text: "🎬 Dán link video",      callback_data: `evid:${sid}:${slug}` }]);
+  rows.push([backBtn(`m:act:${actionCode("set_field")}:${content_type}:${slug}`), EXIT_BTN]);
+  return { inline_keyboard: rows };
+}

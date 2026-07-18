@@ -83,3 +83,50 @@ test("mọi slash command (kể cả ẩn) có route engine hiểu", () => {
     if (kind === "action") assert.ok(Object.keys(cfg.content_types).length > 0, `action:${arg}`);
   }
 });
+
+import {
+  buildEditSectionMenu, buildSectionActionMenu, editSectionCfg,
+} from "../engine/wizard-helpers.mjs";
+
+const cbList = (kb) => kb.inline_keyboard.flat().map((b) => b.callback_data);
+
+test("buildEditSectionMenu: 1 nút / mục edit_sections + quay lại item", () => {
+  const kb = buildEditSectionMenu(cfg, "project", "maia-ho-tram");
+  const cb = cbList(kb);
+  assert.ok(cb.includes("esec:basic:maia-ho-tram"));
+  assert.ok(cb.includes("esec:tong-quan:maia-ho-tram"));
+  assert.ok(cb.includes("esec:chinh-sach:maia-ho-tram"));
+  assert.ok(cb.includes("m:item:project:maia-ho-tram")); // quay lại
+});
+
+test("buildSectionActionMenu (tổng quan): đủ chữ / ảnh / video", () => {
+  const cb = cbList(buildSectionActionMenu(cfg, "project", "maia-ho-tram", "tong-quan"));
+  assert.ok(cb.includes("edesc:tong-quan:maia-ho-tram"));
+  assert.ok(cb.includes("eimg:tong-quan:maia-ho-tram"));
+  assert.ok(cb.includes("evid:tong-quan:maia-ho-tram"));
+  assert.ok(cb.includes("m:act:e:project:maia-ho-tram")); // quay lại bảng mục
+});
+
+test("buildSectionActionMenu (giá bán): có chữ + video, KHÔNG có ảnh", () => {
+  const cb = cbList(buildSectionActionMenu(cfg, "project", "x", "gia-ban"));
+  assert.ok(cb.includes("edesc:gia-ban:x"));
+  assert.ok(cb.includes("evid:gia-ban:x"));
+  assert.equal(cb.some((c) => c.startsWith("eimg:")), false);
+});
+
+test("editSectionCfg trả đúng mục / null", () => {
+  assert.equal(editSectionCfg(cfg, "project", "vi-tri").image_field, "location_image");
+  assert.equal(editSectionCfg(cfg, "project", "khong-co"), null);
+});
+
+test("callback mục ≤ 64 byte với slug dài nhất", () => {
+  const slug = "quy-trinh-chuyen-nhuong-bds-tung-buoc";
+  const kbs = [
+    buildEditSectionMenu(cfg, "project", slug),
+    buildSectionActionMenu(cfg, "project", slug, "chinh-sach"),
+    buildSectionActionMenu(cfg, "project", slug, "tien-ich"),
+  ];
+  for (const kb of kbs)
+    for (const b of kb.inline_keyboard.flat())
+      assert.ok(Buffer.byteLength(b.callback_data) <= 64, `dài quá: ${b.callback_data}`);
+});

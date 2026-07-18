@@ -58,6 +58,17 @@ export default {
         "chinh-sach":  "Chính sách",
         "dang-ky":     "Đăng ký",
       },
+      // Mục sửa nội dung — khớp thanh menu trang dự án (app/du-an/[slug]/page.tsx).
+      // basic = luồng field cũ. Các mục khác: desc_key (đoạn giới thiệu), image_field (ảnh), video.
+      edit_sections: [
+        { id: "basic",      label: "ℹ️ Thông tin cơ bản" },
+        { id: "tong-quan",  label: "📄 Tổng quan",  desc_key: "tong-quan",  image_field: "overview_image",   video: true },
+        { id: "vi-tri",     label: "📍 Vị trí",     desc_key: "vi-tri",     image_field: "location_image",   video: true },
+        { id: "tien-ich",   label: "🌳 Tiện ích",   desc_key: "tien-ich",   image_field: "amenities_images", image_list: true, video: true },
+        { id: "gia-ban",    label: "💰 Giá bán",    desc_key: "gia-ban",    video: true },
+        { id: "phap-ly",    label: "⚖️ Pháp lý",    desc_key: "phap-ly",    video: true },
+        { id: "chinh-sach", label: "📋 Chính sách", desc_key: "chinh-sach", video: true },
+      ],
     },
     post: {
       label:      "bài viết",

@@ -21,6 +21,7 @@ Người dùng chính (anh Thọ) thấy **quá nhiều bước/nút** và **men
 2. **Menu ☰ tối giản** — chỉ `/menu`.
 3. **Không cần nhớ lệnh gõ** — thoát giữa chừng bằng nút, không phải gõ `/huy`.
 4. **Bảng thao tác dựng theo config** — nút nào hiện tùy loại nội dung hỗ trợ (đọc `content_types`), không hard-code.
+5. **Menu biến hình tại chỗ** — điều hướng sửa cùng một tin nhắn, không đẻ menu mới; Quay lại là thu gọn, không kéo dài hội thoại.
 
 ---
 
@@ -76,6 +77,23 @@ Bấm 1 nút thao tác → vào **wizard hiện có** (giữ nguyên), nhưng đ
 
 ---
 
+## D. Điều hướng sửa tin nhắn tại chỗ (không sinh menu mới)
+
+**Vấn đề:** hiện bot gửi `sendMessage` mới cho mỗi lần bấm menu → hội thoại bị kéo dài thành một chồng menu cũ. (Chỉ mỗi toggle section đang sửa tại chỗ bằng `editMessageReplyMarkup`.)
+
+**Yêu cầu:** toàn bộ điều hướng menu diễn ra trong **cùng một tin nhắn**, nó **biến hình** qua các tầng thay vì đẻ tin mới:
+
+- Vào tầng sâu hơn (menu chính → danh sách → bảng 1 mục): dùng `editMessageText` sửa chính tin đang bấm (text + `inline_keyboard` mới), KHÔNG `sendMessage`.
+- Bấm **`[⬅️ Quay lại]`**: `editMessageText` quay tin đó về tầng trước — **thu gọn tại chỗ**, không để lại menu con phía dưới.
+- Bấm **`[❌ Thoát]`** từ wizard: `editMessageText` tin đó về menu chính.
+
+**Khi nào VẪN gửi tin mới (`sendMessage`):** chỉ khi là **nội dung**, không phải điều hướng —
+bản nháp AI, thông báo "✅ Đã đăng" kèm nút Hoàn tác, prompt yêu cầu người dùng dán/gõ (những tin này cần đứng riêng để không mất khi menu biến hình).
+
+**Xử lý lỗi edit:** `editMessageText` báo lỗi khi (a) nội dung y hệt tin cũ, hoặc (b) tin quá cũ (>48h). Bắt lỗi → fallback `sendMessage`. Không để cả thao tác chết vì một lần edit hỏng.
+
+---
+
 ## C. Giữ nguyên — ngoài phạm vi
 
 - Wizard sửa từng field (chọn field → gõ giá trị → xác nhận).
@@ -91,7 +109,7 @@ Bấm 1 nút thao tác → vào **wizard hiện có** (giữ nguyên), nhưng đ
 | File | Thay đổi |
 |------|----------|
 | `engine/menu.mjs` | Dựng lại 3 tầng menu: `buildMainMenu` (chỉ Dự án/Bài + Hỏi/Hướng dẫn), thêm `buildListMenu(cfg, type)` (danh sách item + nút Thêm mới), thêm `buildItemMenu(cfg, type, slug)` (bảng thao tác 1 mục). Cập nhật `welcomeText`/`helpText`. |
-| `engine/serve.mjs` | Định tuyến callback mới: `m:list:<type>`, `m:item:<type>:<slug>`, `m:act:<action>:<type>:<slug>`, `m:cancel`. Thêm `[❌ Thoát]` vào các prompt wizard. Truyền slug đã biết vào wizard để bỏ bước chọn mục. |
+| `engine/serve.mjs` | Định tuyến callback mới: `m:list:<type>`, `m:item:<type>:<slug>`, `m:act:<action>:<type>:<slug>`, `m:cancel`. Điều hướng menu dùng `editMessageText` (sửa tại chỗ) thay `sendMessage`; thêm helper `editMenu(cq, text, kb)` + fallback `sendMessage` khi edit lỗi. Thêm `[❌ Thoát]` vào các prompt wizard. Truyền slug đã biết vào wizard để bỏ bước chọn mục. |
 | `adapters/1992land/config.mjs` | `slash_commands` còn `/menu`. Nhãn nút nếu cần. |
 | `engine/register-commands.mjs` | Không đổi logic; chạy lại để cập nhật ☰. |
 | `scripts/tg-bot/tests/menu.test.mjs` | Cập nhật theo cấu trúc menu mới. |
@@ -108,5 +126,7 @@ Bấm 1 nút thao tác → vào **wizard hiện có** (giữ nguyên), nhưng đ
 3. Chọn 1 dự án → bảng có Sửa / Ẩn-hiện / Xoá / Quay lại. Chọn 1 bài → bảng KHÔNG có Ẩn-hiện.
 4. Từ bảng 1 mục, bấm Sửa → vào wizard sửa mà **không phải tìm lại mục** (slug đã biết).
 5. Mọi prompt wizard có nút `[❌ Thoát]`, bấm là về menu chính.
-6. Hoàn tác, Hỏi trợ lý, cú pháp gõ tay `[…]`, `/huy` gõ tay — vẫn chạy như cũ.
-7. Người ngoài whitelist chat_id — vẫn bị chặn (không đổi).
+6. Điều hướng menu (vào tầng, Quay lại, Thoát) **sửa tại chỗ cùng 1 tin nhắn** — không đẻ menu mới. Bấm Quay lại thu gọn tin về tầng trước.
+7. Nội dung (nháp AI, "✅ Đã đăng" + Hoàn tác, prompt dán/gõ) vẫn là tin riêng, không bị menu ghi đè.
+8. Hoàn tác, Hỏi trợ lý, cú pháp gõ tay `[…]`, `/huy` gõ tay — vẫn chạy như cũ.
+9. Người ngoài whitelist chat_id — vẫn bị chặn (không đổi).

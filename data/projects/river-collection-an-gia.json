@@ -19,7 +19,7 @@
   "type": "Căn hộ ven sông",
   "excerpt": "Căn hộ ven sông Đồng Nai do An Gia phát triển, mặt tiền QL1A — cách Thủ Đức 1km, kết nối Metro số 1 và Vành đai 3.",
   "gradient": "from-teal-900 to-cyan-800",
-  "hero_image": "/images/projects/river-collection-an-gia/hero.jpg",
+  "hero_image": "/images/projects/river-collection-an-gia/hero-mru10e3z.jpg",
   "gallery": [
     "/images/projects/river-collection-an-gia/hero.jpg",
     "/images/projects/river-collection-an-gia/gallery-1.jpg",
@@ -30,29 +30,92 @@
   "legal_status": "Chấp thuận chủ trương đầu tư; quy hoạch 1/500 đã duyệt; có quyết định giao đất và giấy chứng nhận quyền sử dụng đất.",
   "handover_date": "Dự kiến 2027 (khởi công 2025)",
   "payment_policy": [
-    { "installment": "Giữ chỗ", "percent": 0, "note": "30 – 50 triệu đồng" },
-    { "installment": "Đặt cọc — trong 15 ngày", "percent": 10 },
-    { "installment": "Các đợt theo tiến độ xây dựng", "percent": 5, "note": "Mỗi đợt ~5%, trải đều 13 giai đoạn" },
-    { "installment": "Tất toán khi nhận bàn giao", "percent": 0, "note": "Phần còn lại khi nhận nhà" }
+    {
+      "installment": "Giữ chỗ",
+      "percent": 0,
+      "note": "30 – 50 triệu đồng"
+    },
+    {
+      "installment": "Đặt cọc — trong 15 ngày",
+      "percent": 10
+    },
+    {
+      "installment": "Các đợt theo tiến độ xây dựng",
+      "percent": 5,
+      "note": "Mỗi đợt ~5%, trải đều 13 giai đoạn"
+    },
+    {
+      "installment": "Tất toán khi nhận bàn giao",
+      "percent": 0,
+      "note": "Phần còn lại khi nhận nhà"
+    }
   ],
   "product_types": [
-    { "name": "1 phòng ngủ", "area": "46 – 56 m²", "price_range": "1,8 – 2,1 tỷ" },
-    { "name": "2 phòng ngủ", "area": "64 – 66 m²", "price_range": "2,5 – 2,8 tỷ" },
-    { "name": "2 phòng ngủ+", "area": "75 – 78 m²", "price_range": "3,2 – 3,5 tỷ" },
-    { "name": "Shophouse", "area": "180 – 286 m²", "price_range": "Liên hệ" }
+    {
+      "name": "1 phòng ngủ",
+      "area": "46 – 56 m²",
+      "price_range": "1,8 – 2,1 tỷ"
+    },
+    {
+      "name": "2 phòng ngủ",
+      "area": "64 – 66 m²",
+      "price_range": "2,5 – 2,8 tỷ"
+    },
+    {
+      "name": "2 phòng ngủ+",
+      "area": "75 – 78 m²",
+      "price_range": "3,2 – 3,5 tỷ"
+    },
+    {
+      "name": "Shophouse",
+      "area": "180 – 286 m²",
+      "price_range": "Liên hệ"
+    }
   ],
   "nearby": [
-    { "name": "Tuyến Metro số 1 · ga Dĩ An", "distance": "5 – 10 phút", "category": "road" },
-    { "name": "Các trường đại học khu Thủ Đức", "distance": "Lân cận", "category": "school" },
-    { "name": "AEON Mall Biên Hòa · Lotte Mart", "distance": "Lân cận", "category": "mall" },
-    { "name": "Khu du lịch Suối Tiên", "distance": "Lân cận", "category": "other" },
-    { "name": "Sông Đồng Nai", "distance": "Tiếp giáp", "category": "road" }
+    {
+      "name": "Tuyến Metro số 1 · ga Dĩ An",
+      "distance": "5 – 10 phút",
+      "category": "road"
+    },
+    {
+      "name": "Các trường đại học khu Thủ Đức",
+      "distance": "Lân cận",
+      "category": "school"
+    },
+    {
+      "name": "AEON Mall Biên Hòa · Lotte Mart",
+      "distance": "Lân cận",
+      "category": "mall"
+    },
+    {
+      "name": "Khu du lịch Suối Tiên",
+      "distance": "Lân cận",
+      "category": "other"
+    },
+    {
+      "name": "Sông Đồng Nai",
+      "distance": "Tiếp giáp",
+      "category": "road"
+    }
   ],
   "highlights": [
-    { "title": "Chủ đầu tư An Gia Group", "desc": "Nhà phát triển căn hộ niêm yết, nhiều dự án bàn giao tại khu Đông." },
-    { "title": "Vị trí 'cận giang, cận lộ'", "desc": "Giáp sông Đồng Nai, mặt tiền QL1A, cách TP. Thủ Đức chỉ 1 km." },
-    { "title": "Kết nối Metro & Vành đai 3", "desc": "Gần ga Metro số 1 và tuyến Vành đai 3, di chuyển về trung tâm thuận tiện." },
-    { "title": "Hơn 200 tiện ích tích hợp", "desc": "Phong cách 'Live–Work–Play', sống nghỉ dưỡng ngay trong nội khu." }
+    {
+      "title": "Chủ đầu tư An Gia Group",
+      "desc": "Nhà phát triển căn hộ niêm yết, nhiều dự án bàn giao tại khu Đông."
+    },
+    {
+      "title": "Vị trí 'cận giang, cận lộ'",
+      "desc": "Giáp sông Đồng Nai, mặt tiền QL1A, cách TP. Thủ Đức chỉ 1 km."
+    },
+    {
+      "title": "Kết nối Metro & Vành đai 3",
+      "desc": "Gần ga Metro số 1 và tuyến Vành đai 3, di chuyển về trung tâm thuận tiện."
+    },
+    {
+      "title": "Hơn 200 tiện ích tích hợp",
+      "desc": "Phong cách 'Live–Work–Play', sống nghỉ dưỡng ngay trong nội khu."
+    }
   ],
   "amenities_internal": [
     "Hồ bơi Olympic & sky pool tầng cao",
@@ -64,15 +127,24 @@
     "An ninh 24/7 với hệ thống CCTV"
   ],
   "faq": [
-    { "q": "River Collection An Gia ở đâu?", "a": "Dự án tọa lạc tại 207A Quốc lộ 1A (mặt tiền DT16), phường Bình Thắng, TP. Dĩ An, Bình Dương — giáp sông Đồng Nai và chỉ cách TP. Thủ Đức khoảng 1 km." },
-    { "q": "River Collection giá bao nhiêu?", "a": "Căn 1PN từ 1,8–2,1 tỷ, 2PN từ 2,5–2,8 tỷ, 2PN+ từ 3,2–3,5 tỷ (khoảng 39 triệu/m²). Liên hệ để nhận bảng giá và giỏ hàng mới nhất." },
-    { "q": "Chính sách thanh toán River Collection thế nào?", "a": "Giữ chỗ 30–50 triệu, đặt cọc 10% trong 15 ngày, sau đó thanh toán ~5%/đợt theo tiến độ (13 giai đoạn), tất toán khi nhận bàn giao." }
+    {
+      "q": "River Collection An Gia ở đâu?",
+      "a": "Dự án tọa lạc tại 207A Quốc lộ 1A (mặt tiền DT16), phường Bình Thắng, TP. Dĩ An, Bình Dương — giáp sông Đồng Nai và chỉ cách TP. Thủ Đức khoảng 1 km."
+    },
+    {
+      "q": "River Collection giá bao nhiêu?",
+      "a": "Căn 1PN từ 1,8–2,1 tỷ, 2PN từ 2,5–2,8 tỷ, 2PN+ từ 3,2–3,5 tỷ (khoảng 39 triệu/m²). Liên hệ để nhận bảng giá và giỏ hàng mới nhất."
+    },
+    {
+      "q": "Chính sách thanh toán River Collection thế nào?",
+      "a": "Giữ chỗ 30–50 triệu, đặt cọc 10% trong 15 ngày, sau đó thanh toán ~5%/đợt theo tiến độ (13 giai đoạn), tất toán khi nhận bàn giao."
+    }
   ],
   "lat": 10.91,
-  "lng": 106.80,
+  "lng": 106.8,
   "address_full": "207A Quốc lộ 1A, P. Bình Thắng, TP. Dĩ An, Bình Dương",
   "created_at": "2026-05-01T00:00:00Z",
-  "updated_at": "2026-06-01T00:00:00Z",
+  "updated_at": "2026-07-21T02:20:16.904Z",
   "descriptions": {
     "tong-quan": "**River Collection An Gia** là dự án căn hộ ven sông do **An Gia Group** phát triển, tọa lạc mặt tiền **Quốc lộ 1A, TP. Dĩ An, Bình Dương** — giáp sông Đồng Nai và cách **TP. Thủ Đức chỉ 1 km**. Dự án trải rộng trên **3,1 ha** với khoảng **3.000 sản phẩm** gồm 2.905 căn hộ (1–2PN+) và 76 shophouse, mật độ xây dựng 36%. Bốn dòng sản phẩm có diện tích **46 đến 286 m²** phù hợp cả người mua ở thực lẫn nhà đầu tư. Tích hợp **hơn 200 tiện ích** theo mô hình Live–Work–Play — sống, làm việc và giải trí đầy đủ trong nội khu. Dự kiến **khởi công 2025, bàn giao 2027**.",
     "chinh-sach": "**River Collection An Gia** triển khai thanh toán chi tiết và linh hoạt: giữ chỗ **30–50 triệu đồng**, đặt cọc **10% trong 15 ngày** ký hợp đồng, sau đó thanh toán khoảng **5%/đợt theo 13 giai đoạn tiến độ** xây dựng — phần còn lại tất toán khi bàn giao. Phương thức này giúp phân bổ dòng tiền hợp lý, không áp lực tài chính trong giai đoạn thi công. Chủ đầu tư **An Gia Group** (niêm yết) cam kết minh bạch tiến độ và thanh toán đúng lộ trình. Liên hệ 1992 Land để được hỗ trợ vay ngân hàng với lãi suất tốt nhất.",

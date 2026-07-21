@@ -84,3 +84,20 @@ test("mọi slash command trong config đều được serve.mjs định tuyến
   for (const kind of routes)
     assert.ok(["menu", "help", "cancel", "add", "action"].includes(kind), `route lạ: ${kind}`);
 });
+
+test("handleCallbackQuery dedupe cq.id trước khi xử lý (Telegram có thể gửi trùng callback)", () => {
+  const fn = serveSrc.slice(
+    serveSrc.indexOf("async function handleCallbackQuery"),
+    serveSrc.indexOf("async function handleCallbackQuery") + 700
+  );
+  assert.match(fn, /isProcessed\(`cb:\$\{cq\.id\}`\)/);
+  assert.match(fn, /markProcessed\(`cb:\$\{cq\.id\}`\)/);
+  assert.ok(fn.indexOf("isProcessed") < fn.indexOf("answerCallbackQuery"), "phải dedupe trước khi answerCallbackQuery");
+});
+
+test("tin 'Đã nhận N ảnh' sửa tại chỗ (editMessageText) thay vì gửi tin mới mỗi ảnh", () => {
+  const start = serveSrc.indexOf('mode === "await_gallery_images"');
+  const block = serveSrc.slice(start, start + 1300);
+  assert.match(block, /editMessageText/, "phải dùng editMessageText để không spam tin mới mỗi lần nhận ảnh");
+  assert.match(block, /progress_msg_id/);
+});

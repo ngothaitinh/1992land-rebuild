@@ -269,18 +269,24 @@ function handleModeInput(chatId, mode, msg, text) {
     const wz = getWizard(chatId);
     if (!wz?.slug) { clearSession(chatId); return send(chatId, "⏱ Phiên đã hết hạn. Bấm /menu để làm lại."); }
     if (!msg.photo) return send(chatId, "📷 Gửi ảnh (không phải chữ), hoặc bấm ✅ Xong.");
-    return downloadPhotoBase64(deps, msg).then((img) => {
+    return downloadPhotoBase64(deps, msg).then(async (img) => {
       if (!img) return send(chatId, "❌ Không tải được 1 ảnh, bỏ qua tấm đó. Gửi tiếp hoặc bấm ✅ Xong.");
       const cur = getWizard(chatId);
       if (!cur?.slug || cur.action !== "add_gallery") return; // phiên đã đổi
       const buf = [...(cur.buf || []), { base64: img }];
-      setWizard(chatId, { ...cur, buf });
-      return send(chatId, `📸 Đã nhận <b>${buf.length}</b> ảnh. Gửi tiếp hoặc bấm ✅ Xong.`, {
-        reply_markup: { inline_keyboard: [[
-          { text: "✅ Xong", callback_data: `galdone:${cur.slug}` },
-          { text: "❌ Thoát", callback_data: "wz_abort" },
-        ]] },
-      });
+      const text = `📸 Đã nhận <b>${buf.length}</b> ảnh. Gửi tiếp hoặc bấm ✅ Xong.`;
+      const reply_markup = { inline_keyboard: [[
+        { text: "✅ Xong", callback_data: `galdone:${cur.slug}` },
+        { text: "❌ Thoát", callback_data: "wz_abort" },
+      ]] };
+      // Sửa tin "Đã nhận N ảnh" tại chỗ thay vì gửi tin mới mỗi lần, tránh spam chat.
+      const edited = cur.progress_msg_id && await tgApi("editMessageText", {
+        chat_id: chatId, message_id: cur.progress_msg_id, text,
+        parse_mode: "HTML", reply_markup,
+      }).catch(() => null);
+      if (edited) { setWizard(chatId, { ...cur, buf }); return; }
+      const sent = await send(chatId, text, { reply_markup });
+      setWizard(chatId, { ...cur, buf, progress_msg_id: sent?.message_id });
     });
   }
 
@@ -290,6 +296,11 @@ function handleModeInput(chatId, mode, msg, text) {
 // ─── Callback handler ─────────────────────────────────────────────────────────
 async function handleCallbackQuery(cq) {
   if (!allowedChat(cq.message?.chat?.id)) return;
+  // Telegram đôi lúc gửi lại cùng 1 callback_query (double-tap, mạng chập chờn) — không
+  // dedupe thì các thao tác một-lần (galdone, undo, publish…) chạy 2 lần trên session
+  // đã bị dọn ở lượt đầu, sinh ra thông báo lỗi giả (vd "Chưa nhận ảnh nào").
+  if (isProcessed(`cb:${cq.id}`)) return;
+  markProcessed(`cb:${cq.id}`);
 
   await tgApi("answerCallbackQuery", { callback_query_id: cq.id }).catch(() => {});
 

@@ -60,7 +60,7 @@ Mật khẩu đơn giản dùng chung cho anh Thọ + Jimmy (không OAuth). Sess
 Hiện `renderInline`/`DescBlock` trong `app/du-an/[slug]/page.tsx` chỉ hiểu `**đậm**` và **tự chia đoạn văn theo mỗi 2 câu** (bỏ qua dòng trống người viết gõ) — không đủ cho định dạng mới.
 
 - Viết hàm parse Markdown nhẹ dùng chung (vd `lib/markdown.tsx`), hỗ trợ: đậm/nghiêng, H2/H3, list/numbered-list, link, ảnh inline, đoạn văn theo dòng trống thật.
-- **Tương thích ngược:** 9 dự án hiện tại chưa có dòng trống trong field mô tả (viết liền 1 khối). Parser fallback: field không có dòng trống nào → giữ hành vi tự chia câu cũ (không vỡ layout bài đã đăng); field có dòng trống → parse đoạn theo đúng ý người viết. Không cần sửa tay 9 file JSON cũ.
+- **Tương thích ngược:** 12 dự án hiện tại chưa có dòng trống trong field mô tả (viết liền 1 khối). Parser fallback: field không có dòng trống nào → giữ hành vi tự chia câu cũ (không vỡ layout bài đã đăng); field có dòng trống → parse đoạn theo đúng ý người viết. Không cần sửa tay các file JSON cũ.
 - Dùng chung 1 hàm này ở cả `ProjectDetailView` (trang thật) và khung preview trong `/dashboard` — đảm bảo preview = y hệt trang thật.
 - Bài viết (`app/tin-tuc/[slug]/page.tsx` — `renderBody`) giữ nguyên cách render riêng hiện có, không đụng vào ở v1 (làm đợt sau cùng lúc mở rộng dashboard cho bài viết).
 

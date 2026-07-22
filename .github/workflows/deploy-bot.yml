@@ -23,7 +23,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           command_timeout: 15m
-          script: "cd /root/bot && bash scripts/tg-bot/deploy-vps.sh"
+          script: "cd /root/bot && bash scripts/tg-bot/deploy-vps.sh && (sudo systemctl reload caddy 2>/dev/null || true)"
 
       - name: Notify Telegram
         if: always()

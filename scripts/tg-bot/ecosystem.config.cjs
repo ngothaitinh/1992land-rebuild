@@ -19,16 +19,30 @@ try {
 }
 
 module.exports = {
-  apps: [{
-    name:            "tg-bot-1992land",
-    script:          "engine/serve.mjs",
-    cwd:             __dirname,
-    interpreter:     "node",
-    env,
-    watch:           false,
-    autorestart:     true,
-    max_restarts:    20,
-    restart_delay:   5000,
-    log_date_format: "YYYY-MM-DD HH:mm:ss",
-  }],
+  apps: [
+    {
+      name:            "tg-bot-1992land",
+      script:          "engine/serve.mjs",
+      cwd:             __dirname,
+      interpreter:     "node",
+      env,
+      watch:           false,
+      autorestart:     true,
+      max_restarts:    20,
+      restart_delay:   5000,
+      log_date_format: "YYYY-MM-DD HH:mm:ss",
+    },
+    {
+      name:            "dashboard-api",
+      script:          "api/server.mjs",
+      cwd:             __dirname,
+      interpreter:     "node",
+      env,
+      watch:           false,
+      autorestart:     true,
+      max_restarts:    20,
+      restart_delay:   5000,
+      log_date_format: "YYYY-MM-DD HH:mm:ss",
+    },
+  ],
 };

@@ -33,13 +33,9 @@ if [ -f "$REPO_ROOT/package.json" ]; then
     echo "   (npm install bỏ qua / không bắt buộc)"
 fi
 
-# --- [4] pm2: reload nếu đang chạy, ngược lại start ---
-echo "==> [4/5] pm2"
-if pm2 describe tg-bot-1992land >/dev/null 2>&1; then
-  pm2 reload "$BOT_DIR/ecosystem.config.cjs"
-else
-  pm2 start "$BOT_DIR/ecosystem.config.cjs"
-fi
+# --- [4] pm2: startOrReload quản lý cả 2 app (bot + dashboard-api) trong 1 lệnh ---
+echo "==> [4/5] pm2 startOrReload"
+pm2 startOrReload "$BOT_DIR/ecosystem.config.cjs"
 pm2 save >/dev/null 2>&1 || true
 
 # --- [5] Đăng ký slash commands (idempotent, chạy lại vô hại) ---

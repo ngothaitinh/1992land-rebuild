@@ -46,10 +46,17 @@ export function parseCookies(header) {
   return out;
 }
 
-// SameSite=None + Secure vì dashboard (1992land.com) gọi API cross-origin
-// (api.1992land.com) — cần cookie cross-site, nên bắt buộc HTTPS cả 2 phía.
+// SameSite=Lax + Secure: dashboard (1992land.com) gọi api.1992land.com là
+// cross-ORIGIN nhưng cùng SITE (cùng eTLD+1 1992land.com) — SameSite khoá theo
+// site, không theo origin, nên cookie Lax vẫn được đính kèm ở các fetch same-site
+// này. Dùng None sẽ đính kèm session cookie cho request từ BẤT KỲ site nào (kể cả
+// site lạ), mở đường CSRF mù (POST /projects/:slug/save, /undo bằng simple
+// request text/plain kèm credentials:'include', bỏ qua preflight CORS nhưng vẫn
+// gửi cookie của nạn nhân đã đăng nhập). Chỉ cần None nếu dashboard được host ở
+// một domain đăng ký khác thật sự (vd domain xem trước *.vercel.app) — hiện không
+// phải trường hợp này.
 export function sessionCookieHeader(token, { clear = false } = {}) {
-  const base = `${COOKIE_NAME}=${clear ? "" : token}; Path=/; HttpOnly; Secure; SameSite=None`;
+  const base = `${COOKIE_NAME}=${clear ? "" : token}; Path=/; HttpOnly; Secure; SameSite=Lax`;
   return clear ? `${base}; Max-Age=0` : `${base}; Max-Age=${Math.floor(TTL_MS / 1000)}`;
 }
 

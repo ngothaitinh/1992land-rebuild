@@ -73,7 +73,7 @@ const server = http.createServer(async (req, res) => {
         const result = await saveProject(deps, slug, patch);
         return json(res, 200, result);
       } catch (e) {
-        const status = /slug|id/i.test(e.message) ? 400 : 502;
+        const status = e.code === "VALIDATION" ? 400 : 502;
         return json(res, status, { error: e.message });
       }
     }
@@ -95,3 +95,10 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`dashboard-api nghe cổng ${PORT}`));
+
+if (!process.env.DASHBOARD_PASSWORD) {
+  console.warn("⚠️  Thiếu biến môi trường DASHBOARD_PASSWORD — /login sẽ luôn trả 401.");
+}
+if (!process.env.GITHUB_PAT) {
+  console.warn("⚠️  Thiếu biến môi trường GITHUB_PAT — mọi thao tác lưu/tải dự án sẽ lỗi 502.");
+}

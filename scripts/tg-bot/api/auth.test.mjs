@@ -42,7 +42,7 @@ test("sessionCookieHeader tạo Set-Cookie hợp lệ, clear=true xoá cookie", 
   const set = sessionCookieHeader("tok123", {});
   assert.match(set, /^dash_session=tok123/);
   assert.match(set, /HttpOnly/);
-  assert.match(set, /SameSite=None/);
+  assert.match(set, /SameSite=Lax/);
   assert.match(set, /Secure/);
   const cleared = sessionCookieHeader("", { clear: true });
   assert.match(cleared, /Max-Age=0/);

@@ -6,6 +6,7 @@ import { getFile, putFiles } from "../engine/github-commit.mjs";
 import { recordUndo, takeUndo, toCommitFiles } from "../engine/undo.mjs";
 
 const UNDO_CHAT_ID = "dashboard";
+const SLUG_RE = /^[a-z0-9-]+$/;
 
 function filePath(slug) {
   return `data/projects/${slug}.json`;
@@ -15,17 +16,30 @@ function imageDir(slug) {
   return `public/images/projects/${slug}`;
 }
 
+function assertValidSlug(slug) {
+  if (!SLUG_RE.test(slug)) {
+    const err = new Error("Slug không hợp lệ");
+    err.code = "VALIDATION";
+    throw err;
+  }
+}
+
 export async function loadProject(deps, slug) {
+  assertValidSlug(slug);
   const { content } = await (deps.getFile ?? getFile)(deps.repo, deps.branch, filePath(slug), deps.pat);
   return JSON.parse(content);
 }
 
 export async function saveProject(deps, slug, patch) {
+  assertValidSlug(slug);
   const { content } = await (deps.getFile ?? getFile)(deps.repo, deps.branch, filePath(slug), deps.pat);
   const obj = JSON.parse(content);
 
-  if (patch.fields && ("slug" in patch.fields || "id" in patch.fields))
-    throw new Error("Không được sửa slug/id");
+  if (patch.fields && ("slug" in patch.fields || "id" in patch.fields)) {
+    const err = new Error("Không được sửa slug/id");
+    err.code = "VALIDATION";
+    throw err;
+  }
 
   if (patch.fields) Object.assign(obj, patch.fields);
 
@@ -42,8 +56,11 @@ export async function saveProject(deps, slug, patch) {
   const imageFiles = [];
   for (const img of patch.images ?? []) {
     const { filename } = img;
-    if (filename.includes("/") || filename.includes("\\") || filename.includes(".."))
-      throw new Error(`Tên file ảnh không hợp lệ: ${filename}`);
+    if (filename.includes("/") || filename.includes("\\") || filename.includes("..")) {
+      const err = new Error(`Tên file ảnh không hợp lệ: ${filename}`);
+      err.code = "VALIDATION";
+      throw err;
+    }
 
     const repoPath = `${imageDir(slug)}/${filename}`;
     const webPath = `/images/projects/${slug}/${filename}`;

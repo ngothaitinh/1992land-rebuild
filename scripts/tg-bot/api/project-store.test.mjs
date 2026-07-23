@@ -101,5 +101,29 @@ test("undoLastSave với key sai/hết hạn → throw", async () => {
 test("saveProject không cho sửa field slug", async () => {
   const store = new Map([["data/projects/demo-project.json", JSON.stringify(makeProject())]]);
   const deps = fakeDeps(store);
-  await assert.rejects(() => saveProject(deps, "demo-project", { fields: { slug: "hack" } }));
+  await assert.rejects(
+    () => saveProject(deps, "demo-project", { fields: { slug: "hack" } }),
+    (err) => {
+      assert.equal(err.code, "VALIDATION");
+      return true;
+    }
+  );
+});
+
+test("loadProject/saveProject từ chối slug không hợp lệ (path traversal)", async () => {
+  const deps = fakeDeps(new Map());
+  await assert.rejects(
+    () => loadProject(deps, "../etc"),
+    (err) => {
+      assert.equal(err.code, "VALIDATION");
+      return true;
+    }
+  );
+  await assert.rejects(
+    () => saveProject(deps, "foo/bar", {}),
+    (err) => {
+      assert.equal(err.code, "VALIDATION");
+      return true;
+    }
+  );
 });

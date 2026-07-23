@@ -21,7 +21,7 @@ function ToolbarButton({ onClick, active, label, children }: { onClick: () => vo
       onClick={onClick}
       aria-label={label}
       className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-        active ? "bg-navy-900 text-white" : "bg-white text-navy-700 hover:bg-navy-50"
+        active ? "bg-navy-900 text-white" : "bg-surface text-navy-700 hover:bg-navy-50"
       } border border-border-soft`}
     >
       {children}
@@ -82,7 +82,7 @@ export default function RichTextEditor({ value, onChange, onImageInsert }: Props
   }
 
   return (
-    <div className="rounded-xl border border-border-soft bg-white">
+    <div className="rounded-xl border border-border-soft bg-surface">
       <div className="flex flex-wrap gap-1.5 border-b border-border-soft p-2">
         <ToolbarButton label="Đậm" active={editor.isActive("bold")} onClick={() => editor.chain().focus().toggleBold().run()}>B</ToolbarButton>
         <ToolbarButton label="Nghiêng" active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()}>I</ToolbarButton>

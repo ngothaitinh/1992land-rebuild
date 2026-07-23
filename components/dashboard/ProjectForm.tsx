@@ -31,7 +31,7 @@ const SECTIONS = [
 
 function FieldGroup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="space-y-4 rounded-2xl border border-border-soft bg-white p-6">
+    <section className="space-y-4 rounded-2xl border border-border-soft bg-surface p-6">
       <h2 className="text-base font-bold text-navy-900">{title}</h2>
       {children}
     </section>

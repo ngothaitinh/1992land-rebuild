@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/data";
 import { getDashboardProject, saveDashboardProject, undoDashboardSave } from "@/lib/dashboard-api.mjs";
-import { buildPatch } from "@/lib/dashboard-patch.mjs";
+import { buildPatch, extractInlineImages } from "@/lib/dashboard-patch.mjs";
 import ProjectForm, { type PendingImage } from "@/components/dashboard/ProjectForm";
 import ProjectDetailView from "@/components/ProjectDetailView";
 import { Button } from "@/components/ui/button";
@@ -50,10 +50,15 @@ export default function DashboardProjectEditor({ slug }: { slug: string }) {
   const { original, draft } = state;
 
   async function onSave() {
-    const patch = buildPatch(original, draft, pendingImages);
+    const { descriptions: rewrittenDescriptions, images: inlineImages } = extractInlineImages(draft.descriptions, slug);
+    const draftForPatch = { ...draft, descriptions: rewrittenDescriptions };
+    const patch = buildPatch(original, draftForPatch, pendingImages);
     if (!patch) {
       setBanner("Không có thay đổi để lưu.");
       return;
+    }
+    if (inlineImages.length) {
+      patch.images = [...(patch.images ?? []), ...inlineImages.map((img) => ({ kind: "inline", ...img }))];
     }
     setSaving(true);
     setBanner(null);
@@ -87,7 +92,7 @@ export default function DashboardProjectEditor({ slug }: { slug: string }) {
 
   return (
     <div className="min-h-screen bg-bg">
-      <header className="sticky top-0 z-20 flex items-center justify-between border-b border-border-soft bg-white px-6 py-3">
+      <header className="sticky top-0 z-20 flex items-center justify-between border-b border-border-soft bg-surface px-6 py-3">
         <div>
           <h1 className="text-lg font-bold text-navy-900">{draft.title}</h1>
           {banner && <p className="text-sm text-navy-600">{banner}</p>}
@@ -110,7 +115,7 @@ export default function DashboardProjectEditor({ slug }: { slug: string }) {
             onPendingImage={(img) => setPendingImages((prev) => [...prev, img])}
           />
         </div>
-        <div className="max-h-[calc(100vh-80px)] overflow-y-auto rounded-2xl border border-border-soft bg-white">
+        <div className="max-h-[calc(100vh-80px)] overflow-y-auto rounded-2xl border border-border-soft bg-surface">
           <ProjectDetailView project={draft} relatedProjects={[]} relatedPosts={[]} />
         </div>
       </div>

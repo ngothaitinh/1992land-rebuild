@@ -35,6 +35,25 @@
   --font-numeric: var(--font-inter), "Inter", sans-serif;
 }
 
+/* shadcn/ui primitives (button/input/checkbox/label) used by /dashboard reference
+   these tokens but this file never defined them — map them onto the existing
+   navy/gold palette above instead of introducing a new color family. */
+@theme {
+  --color-primary: var(--color-navy-900);
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: var(--color-gold-100);
+  --color-secondary-foreground: var(--color-navy-900);
+  --color-background: var(--color-bg);
+  --color-foreground: var(--color-ink);
+  --color-border: var(--color-border-soft);
+  --color-input: var(--color-border-soft);
+  --color-ring: var(--color-navy-400);
+  --color-destructive: #DC2626;
+  --color-muted-foreground: var(--color-muted);
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+}
+
 *,
 *::before,
 *::after {

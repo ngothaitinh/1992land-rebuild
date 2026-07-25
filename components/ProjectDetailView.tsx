@@ -37,7 +37,7 @@ function Divider() {
 function SecHead({ id, title }: { id?: string; title: string }) {
   return (
     <div id={id} className="scroll-mt-20 mb-8">
-      <h2 className="text-2xl lg:text-[1.75rem] font-bold text-navy-900 tracking-tight leading-tight">{title}</h2>
+      <h2 className="font-display text-2xl lg:text-[1.75rem] font-semibold text-navy-900 tracking-tight leading-tight">{title}</h2>
       <div className="mt-3 w-12 h-[3px] bg-gold-500 rounded-full" />
     </div>
   );
@@ -136,7 +136,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                 </span>
                 <span className="text-xs text-muted">{project.type}</span>
               </div>
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900 leading-tight mb-1">
+              <h1 className="font-display text-xl sm:text-2xl lg:text-3xl font-semibold text-navy-900 leading-tight mb-1">
                 {project.title}
               </h1>
               <div className="flex items-center gap-1.5 text-muted text-sm">
@@ -239,7 +239,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
               <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
               Đang mở bán — Tư vấn miễn phí
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white leading-snug mb-3">
+            <h2 className="font-display text-2xl md:text-3xl font-semibold text-white leading-snug mb-3">
               Nhận báo giá &amp; chính sách<br className="hidden md:block" /> mới nhất ngay hôm nay
             </h2>
             <p className="text-navy-300 text-sm leading-relaxed mb-5">
@@ -697,7 +697,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
             {/* Left: text + contacts */}
             <div className="text-surface">
               <p className="text-gold-400 text-xs tracking-[0.4em] uppercase mb-4">Tư vấn miễn phí</p>
-              <h2 className="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+              <h2 className="font-display text-3xl lg:text-4xl font-semibold mb-4 leading-tight">
                 Nhận thông tin <br className="hidden lg:block" />
                 <span className="text-gold-400">{project.title}</span>
               </h2>

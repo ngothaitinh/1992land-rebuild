@@ -33,6 +33,7 @@
 @theme inline {
   --font-sans: var(--font-be-vietnam), "Be Vietnam Pro", sans-serif;
   --font-numeric: var(--font-inter), "Inter", sans-serif;
+  --font-display: var(--font-fraunces), "Fraunces", serif;
 }
 
 /* shadcn/ui primitives (button/input/checkbox/label) used by /dashboard reference

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Be_Vietnam_Pro, Inter } from "next/font/google";
+import { Be_Vietnam_Pro, Inter, Fraunces } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,6 +16,14 @@ const beVietnam = Be_Vietnam_Pro({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin", "vietnamese"],
+  weight: ["500", "600"],
+  style: ["normal"],
   display: "swap",
 });
 
@@ -76,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="vi"
-      className={`${beVietnam.variable} ${inter.variable}`}
+      className={`${beVietnam.variable} ${inter.variable} ${fraunces.variable}`}
     >
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />

@@ -6,6 +6,7 @@ import {
   TreePine, Car, GraduationCap, HeartPulse, ShoppingBag, Phone, ArrowRight, Clock,
 } from "lucide-react";
 import type { Project, Post } from "@/lib/data";
+import { testimonials } from "@/lib/data";
 import { parseMarkdownBlocks } from "@/lib/markdown";
 import MarkdownBlocks from "@/components/MarkdownBlocks";
 import ContactForm from "@/components/ContactForm";
@@ -71,6 +72,16 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
     show("dang-ky") ? "dang-ky" : null,
   ].filter(Boolean) as string[];
 
+  const scarcestProduct = (project.product_types ?? []).reduce<{ name: string; available: number; ratio: number } | null>((best, p) => {
+    if (p.available == null || !p.total) return best;
+    const ratio = p.available / p.total;
+    if (ratio >= 0.2) return best;
+    if (!best || ratio < best.ratio) return { name: p.name, available: p.available, ratio };
+    return best;
+  }, null);
+
+  const matchedTestimonial = testimonials.find((t) => t.project === project.title) ?? testimonials[0];
+
   const productSchema = {
     "@context": "https://schema.org", "@type": "Product",
     name: project.title, description: project.excerpt,
@@ -132,10 +143,31 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                 <MapPin size={13} className="shrink-0 text-gold-500" />
                 <span className="line-clamp-1">{project.address_full ?? project.location}</span>
               </div>
+              {/* Mobile: 1 dòng gọn — giá + 2 nút, không làm info bar cao thêm */}
+              <div className="flex sm:hidden items-center gap-2 mt-2.5 overflow-x-auto scrollbar-none">
+                <span className="shrink-0 px-2.5 py-1 rounded-lg bg-gold-50 border border-gold-200 text-gold-600 font-bold text-sm font-numeric">
+                  {project.priceRange}
+                </span>
+                <a
+                  href="https://zalo.me/0909474123"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 flex items-center gap-1 px-3 py-1.5 bg-white border border-[#0068FF] text-[#0068FF] text-xs font-bold rounded-lg active:scale-95 transition-all"
+                >
+                  <ZaloIcon size={13} /> Zalo
+                </a>
+                <ContactModal
+                  label="Nhận bảng giá"
+                  subject={`[Bảng giá] ${project.title}`}
+                  projectSlug={project.slug}
+                  icon="price"
+                  variant="gold"
+                />
+              </div>
             </div>
 
-            {/* Right: price + buttons — hidden */}
-            <div className="hidden items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
+            {/* Right: price + buttons — desktop */}
+            <div className="hidden sm:flex items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
               <div className="px-4 py-2 rounded-xl bg-gold-50 border border-gold-200">
                 <div className="text-[10px] text-gold-700 uppercase tracking-wider font-medium leading-none mb-1">Giá từ</div>
                 <div className="text-gold-600 font-bold text-lg sm:text-xl font-numeric leading-none">{project.priceRange}</div>
@@ -189,6 +221,13 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
               <span>{project.ownership}</span>
             </div>
           )}
+          {scarcestProduct && (
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="px-2.5 py-0.5 bg-red-50 text-red-600 border border-red-200 text-[11px] font-bold rounded-full">
+                ⚡ Chỉ còn {scarcestProduct.available} căn {scarcestProduct.name}
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -217,6 +256,19 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                 </span>
               ))}
             </div>
+            {matchedTestimonial && (
+              <div className="mt-4 flex items-start gap-2.5 max-w-md mx-auto md:mx-0">
+                <span className="shrink-0 w-7 h-7 rounded-full bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-bold flex items-center justify-center">
+                  {matchedTestimonial.initial}
+                </span>
+                <p className="text-navy-300 text-xs leading-relaxed text-left">
+                  <span className="italic">&ldquo;{matchedTestimonial.quote}&rdquo;</span>
+                  <span className="block mt-1 text-navy-400 not-italic">
+                    — {matchedTestimonial.name} · {matchedTestimonial.role} · {matchedTestimonial.project}
+                  </span>
+                </p>
+              </div>
+            )}
           </div>
           <div className="w-full md:w-auto md:min-w-[380px] bg-white rounded-3xl p-6 shadow-2xl">
             <h3 className="font-bold text-navy-900 text-sm mb-0.5">Để lại thông tin tư vấn</h3>

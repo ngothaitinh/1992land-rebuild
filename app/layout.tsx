@@ -79,6 +79,7 @@ export default function RootLayout({
       className={`${beVietnam.variable} ${inter.variable}`}
     >
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}

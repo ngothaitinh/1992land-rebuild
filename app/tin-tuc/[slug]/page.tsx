@@ -41,7 +41,7 @@ function renderBody(body: string) {
     if (!t) return null;
     if (t.startsWith("## "))
       return (
-        <h2 key={i} className="text-2xl font-bold text-navy-900 mt-10 mb-4 tracking-tight">
+        <h2 key={i} className="font-display text-2xl font-bold text-navy-900 mt-10 mb-4 tracking-tight">
           {t.slice(3)}
         </h2>
       );
@@ -97,7 +97,7 @@ export default async function PostDetailPage({ params }: Props) {
             {post.category}
           </span>
 
-          <h1 className="text-3xl lg:text-4xl font-bold text-surface leading-tight mb-6 tracking-tight">
+          <h1 className="font-display text-3xl lg:text-4xl font-bold text-surface leading-tight mb-6 tracking-tight">
             {post.title}
           </h1>
 
@@ -199,7 +199,7 @@ export default async function PostDetailPage({ params }: Props) {
 
               {/* Contact CTA */}
               <div className="rounded-2xl bg-navy-900 p-6 text-surface">
-                <h3 className="font-bold text-lg mb-2">Cần tư vấn thêm?</h3>
+                <h3 className="font-display font-bold text-lg mb-2">Cần tư vấn thêm?</h3>
                 <p className="text-surface/60 text-sm mb-5 leading-relaxed">
                   Đội ngũ 1992 Land sẵn sàng giải đáp mọi thắc mắc về BĐS miễn phí.
                 </p>

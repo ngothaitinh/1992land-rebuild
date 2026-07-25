@@ -65,7 +65,7 @@ export default function ContactModal({ label, subject, projectSlug, icon, varian
               {/* Header */}
               <div className="mb-6">
                 <p className="text-gold-500 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
-                <h3 className="text-xl font-bold text-navy-900">{label}</h3>
+                <h3 className="font-display text-xl font-bold text-navy-900">{label}</h3>
                 <p className="text-muted text-sm mt-1">Điền thông tin để nhận tài liệu qua Zalo/SMS trong vài phút</p>
               </div>
 

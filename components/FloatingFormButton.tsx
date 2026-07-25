@@ -54,7 +54,7 @@ export default function FloatingFormButton() {
               </button>
               <div className="mb-5">
                 <p className="text-gold-500 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
-                <h3 className="text-lg font-bold text-navy-900">Nhận tư vấn miễn phí</h3>
+                <h3 className="font-display text-lg font-bold text-navy-900">Nhận tư vấn miễn phí</h3>
                 <p className="text-muted text-sm mt-1">Điền thông tin, anh Thọ liên hệ trong 30 phút</p>
               </div>
               <ContactForm compact showProject />

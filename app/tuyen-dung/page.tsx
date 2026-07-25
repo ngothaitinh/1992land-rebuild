@@ -11,7 +11,7 @@ export default function TuyenDungPage() {
   return (
     <div className="pt-24 pb-20">
       <div className="bg-navy-900 py-20 px-6 text-center">
-        <h1 className="text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+        <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
           Tuyển dụng
         </h1>
         <p className="text-surface/60 text-lg max-w-xl mx-auto">
@@ -29,7 +29,7 @@ export default function TuyenDungPage() {
               <span className="inline-block px-3 py-1 bg-gold-100 text-gold-700 text-xs font-semibold rounded-full mb-3">
                 Đang tuyển
               </span>
-              <h2 className="text-2xl font-bold text-navy-900">
+              <h2 className="font-display text-2xl font-bold text-navy-900">
                 Nhân viên Kinh doanh Bất động sản
               </h2>
               <p className="text-muted mt-1">

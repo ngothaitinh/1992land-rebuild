@@ -22,7 +22,7 @@ export default function ProjectSidebarForm({ project }: { project: Project }) {
       {/* Header */}
       <div className="bg-navy-950 px-5 py-4">
         <p className="text-gold-400 text-[10px] font-semibold tracking-[0.35em] uppercase mb-0.5">1992 Land</p>
-        <h3 className="text-white font-bold text-base leading-snug">Nhận tư vấn & báo giá</h3>
+        <h3 className="font-display text-white font-bold text-base leading-snug">Nhận tư vấn & báo giá</h3>
         <p className="text-navy-300 text-xs mt-0.5">Phản hồi trong 30 phút · Không spam</p>
       </div>
 

@@ -59,14 +59,14 @@ export default function MarkdownBlocks({ blocks }: { blocks: MdBlock[] }) {
         }
         if (block.type === "h2") {
           return (
-            <h3 key={i} className="text-lg font-bold text-navy-900 pt-2">
+            <h3 key={i} className="font-display text-lg font-bold text-navy-900 pt-2">
               <InlineNodes inline={block.inline} />
             </h3>
           );
         }
         if (block.type === "h3") {
           return (
-            <h4 key={i} className="text-base font-bold text-navy-900 pt-2">
+            <h4 key={i} className="font-display text-base font-bold text-navy-900 pt-2">
               <InlineNodes inline={block.inline} />
             </h4>
           );

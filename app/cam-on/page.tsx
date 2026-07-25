@@ -16,7 +16,7 @@ export default function CamOnPage() {
           <CheckCircle size={40} className="text-emerald-500" />
         </div>
         <div className="w-12 h-0.5 bg-gold-500 rounded-full mx-auto mb-6" />
-        <h1 className="text-3xl font-bold text-navy-900 mb-4">
+        <h1 className="font-display text-3xl font-bold text-navy-900 mb-4">
           Cảm ơn bạn!
         </h1>
         <p className="text-muted text-lg leading-relaxed mb-3">

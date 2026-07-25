@@ -18,7 +18,7 @@ export default function TinTucPage() {
           <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-4">
             Kiến thức BĐS
           </p>
-          <h1 className="text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+          <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
             Tin tức & Phân tích
           </h1>
           <p className="text-surface/60 text-lg max-w-2xl mx-auto leading-relaxed">

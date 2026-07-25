@@ -20,7 +20,7 @@ export default function DuAnPage() {
           <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-4">
             Danh mục dự án
           </p>
-          <h1 className="text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+          <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
             Dự án 1992 Land
           </h1>
           <p className="text-surface/60 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -36,7 +36,7 @@ export default function DuAnPage() {
 
       {/* CTA */}
       <div className="bg-navy-50 py-16 px-6 text-center">
-        <h2 className="text-2xl font-bold text-navy-900 mb-3">
+        <h2 className="font-display text-2xl font-bold text-navy-900 mb-3">
           Không tìm thấy dự án phù hợp?
         </h2>
         <p className="text-muted mb-8 max-w-md mx-auto">

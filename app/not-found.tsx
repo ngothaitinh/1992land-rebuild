@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="text-center max-w-lg">
         <div className="text-8xl font-bold text-navy-800 font-numeric mb-4">404</div>
         <div className="w-12 h-0.5 bg-gold-500 rounded-full mx-auto mb-6" />
-        <h1 className="text-2xl font-bold text-surface mb-3">Trang không tồn tại</h1>
+        <h1 className="font-display text-2xl font-bold text-surface mb-3">Trang không tồn tại</h1>
         <p className="text-surface/50 mb-10 leading-relaxed">
           Trang bạn đang tìm kiếm đã bị xóa hoặc chưa được tạo. Hãy quay lại trang chủ hoặc khám phá các dự án của chúng tôi.
         </p>

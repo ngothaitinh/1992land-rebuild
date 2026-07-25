@@ -13,7 +13,7 @@ export default function LienHePage() {
   return (
     <div className="pt-24 pb-20">
       <div className="bg-navy-900 py-20 px-6 text-center">
-        <h1 className="text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+        <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
           Liên hệ
         </h1>
         <p className="text-surface/60 text-lg max-w-xl mx-auto">
@@ -28,7 +28,7 @@ export default function LienHePage() {
 
           {/* Info column */}
           <div>
-            <h2 className="text-2xl font-bold text-navy-900 mb-8">
+            <h2 className="font-display text-2xl font-bold text-navy-900 mb-8">
               Thông tin liên hệ
             </h2>
 
@@ -120,7 +120,7 @@ export default function LienHePage() {
 
           {/* Form column */}
           <div>
-            <h2 className="text-2xl font-bold text-navy-900 mb-8">
+            <h2 className="font-display text-2xl font-bold text-navy-900 mb-8">
               Gửi yêu cầu tư vấn
             </h2>
 

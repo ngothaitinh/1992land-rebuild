@@ -22,7 +22,7 @@ export default function ChinhSachBaoMatPage() {
             <ShieldCheck size={14} />
             Cam kết bảo mật
           </div>
-          <h1 className="text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-3">
+          <h1 className="font-display text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-3">
             Chính sách bảo mật thông tin
           </h1>
           <p className="text-surface/60 text-base leading-relaxed max-w-2xl">
@@ -56,7 +56,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 1 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">01</span>
               Thông tin chúng tôi thu thập
             </h2>
@@ -91,7 +91,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 2 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">02</span>
               Mục đích sử dụng thông tin
             </h2>
@@ -115,7 +115,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 3 — cam kết */}
           <section className="bg-navy-50 border border-navy-100 rounded-2xl p-6">
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">03</span>
               Cam kết của chúng tôi
             </h2>
@@ -136,7 +136,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 4 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">04</span>
               Lưu trữ & bảo mật dữ liệu
             </h2>
@@ -152,7 +152,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 5 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">05</span>
               Quyền của anh/chị
             </h2>
@@ -181,7 +181,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 6 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">06</span>
               Cookie & công cụ đo lường
             </h2>
@@ -196,7 +196,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 7 */}
           <section>
-            <h2 className="text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">07</span>
               Thay đổi chính sách
             </h2>
@@ -209,7 +209,7 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 8 — liên hệ */}
           <section className="border-t border-border-soft pt-10">
-            <h2 className="text-xl font-bold text-navy-900 mb-5 flex items-baseline gap-3">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-5 flex items-baseline gap-3">
               <span className="text-gold-500 font-semibold">08</span>
               Đơn vị chịu trách nhiệm
             </h2>

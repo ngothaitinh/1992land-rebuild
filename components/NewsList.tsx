@@ -46,7 +46,7 @@ function PostCard({ post, priority = false }: { post: Post; priority?: boolean }
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
-        <h3 className="font-bold text-navy-900 text-base leading-snug mb-2 group-hover:text-gold-600 transition-colors line-clamp-2">
+        <h3 className="font-display font-bold text-navy-900 text-base leading-snug mb-2 group-hover:text-gold-600 transition-colors line-clamp-2">
           {post.title}
         </h3>
         <p className="text-muted text-sm leading-relaxed line-clamp-2 mb-4 flex-1">

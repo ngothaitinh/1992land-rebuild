@@ -15,7 +15,7 @@ export default function GioiThieuPage() {
       {/* Hero */}
       <div className="bg-navy-900 py-20 px-6 text-center">
         <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-4">Về chúng tôi</p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+        <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
           Giới thiệu 1992 Land
         </h1>
         <p className="text-surface/60 text-lg max-w-xl mx-auto">
@@ -54,7 +54,7 @@ export default function GioiThieuPage() {
           <div className="order-1 lg:order-2 space-y-6 text-ink leading-relaxed text-lg">
             <div>
               <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-3">Câu chuyện của chúng tôi</p>
-              <h2 className="text-3xl font-bold text-navy-900 mb-6">
+              <h2 className="font-display text-3xl font-bold text-navy-900 mb-6">
                 Hơn 5 năm đồng hành cùng hàng trăm gia đình
               </h2>
             </div>
@@ -120,7 +120,7 @@ export default function GioiThieuPage() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
           <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-3">Đội ngũ</p>
-          <h2 className="text-3xl font-bold text-navy-900">Đội ngũ 1992 Land</h2>
+          <h2 className="font-display text-3xl font-bold text-navy-900">Đội ngũ 1992 Land</h2>
           <div className="mt-3 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />
         </div>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden shadow-xl">
@@ -141,7 +141,7 @@ export default function GioiThieuPage() {
 
       {/* CTA */}
       <div className="bg-navy-50 py-16 px-6 text-center">
-        <h2 className="text-2xl font-bold text-navy-900 mb-3">Sẵn sàng tư vấn miễn phí</h2>
+        <h2 className="font-display text-2xl font-bold text-navy-900 mb-3">Sẵn sàng tư vấn miễn phí</h2>
         <p className="text-muted mb-8 max-w-md mx-auto">
           Liên hệ anh Thọ để được tư vấn dự án phù hợp — miễn phí, không ràng buộc.
         </p>

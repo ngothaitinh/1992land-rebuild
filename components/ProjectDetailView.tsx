@@ -745,7 +745,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
             <div className="flex items-end justify-between mb-8">
               <div>
                 <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-2">Khám phá thêm</p>
-                <h2 className="text-xl font-bold text-navy-900">Dự án cùng phân khúc</h2>
+                <h2 className="font-display text-xl font-bold text-navy-900">Dự án cùng phân khúc</h2>
               </div>
               <Link href="/du-an" className="text-sm text-navy-500 hover:text-navy-900 transition-colors flex items-center gap-1 group">
                 Tất cả dự án <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -765,7 +765,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                     </span>
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-navy-900 text-sm leading-snug mb-1.5 group-hover:text-gold-500 transition-colors line-clamp-2">{rp.title}</h3>
+                    <h3 className="font-display font-bold text-navy-900 text-sm leading-snug mb-1.5 group-hover:text-gold-500 transition-colors line-clamp-2">{rp.title}</h3>
                     <div className="flex items-center justify-between text-xs text-muted">
                       <span className="flex items-center gap-1"><MapPin size={11} />{rp.location}</span>
                       <span className="text-gold-600 font-bold">{rp.priceRange}</span>
@@ -785,7 +785,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
             <div className="flex items-end justify-between mb-8">
               <div>
                 <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-2">Kiến thức</p>
-                <h2 className="text-xl font-bold text-navy-900">Tin tức liên quan</h2>
+                <h2 className="font-display text-xl font-bold text-navy-900">Tin tức liên quan</h2>
               </div>
               <Link href="/tin-tuc" className="text-sm text-navy-500 hover:text-navy-900 transition-colors flex items-center gap-1 group">
                 Tất cả tin tức <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -810,7 +810,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                     )}
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-navy-900 text-sm leading-snug line-clamp-2 group-hover:text-gold-500 transition-colors mb-2">{rp.title}</h3>
+                    <h3 className="font-display font-bold text-navy-900 text-sm leading-snug line-clamp-2 group-hover:text-gold-500 transition-colors mb-2">{rp.title}</h3>
                     <div className="flex items-center gap-1 text-muted text-xs">
                       <Clock size={10} />
                       <span>{rp.readTime}</span>

@@ -89,7 +89,7 @@ export default function PostsGrid({ posts }: { posts: Post[] }) {
                 </div>
 
                 <div className="p-6">
-                  <h2 className="font-bold text-navy-900 text-base leading-snug mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
+                  <h2 className="font-display font-bold text-navy-900 text-base leading-snug mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
                     {post.title}
                   </h2>
                   <p className="text-muted text-sm leading-relaxed mb-4 line-clamp-3">

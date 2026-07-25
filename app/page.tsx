@@ -39,7 +39,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12">
               <div>
                 <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-3">Dự án</p>
-                <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">Mới nhất & Đang mở bán</h2>
+                <h2 className="font-display text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">Mới nhất & Đang mở bán</h2>
                 <div className="mt-3 w-14 h-0.5 bg-gold-500 rounded-full" />
               </div>
               <Link href="/du-an" className="flex items-center gap-2 text-navy-500 hover:text-navy-900 text-sm font-medium transition-colors group shrink-0">
@@ -92,7 +92,7 @@ export default function Home() {
                   <span className="inline-block px-3 py-1 bg-navy-50 text-navy-600 text-xs font-medium rounded-full mb-5">
                     {heroProject.type}
                   </span>
-                  <h3 className="text-2xl lg:text-3xl font-bold text-navy-900 leading-tight mb-3 group-hover:text-gold-600 transition-colors">
+                  <h3 className="font-display text-2xl lg:text-3xl font-bold text-navy-900 leading-tight mb-3 group-hover:text-gold-600 transition-colors">
                     {heroProject.title}
                   </h3>
                   <div className="flex items-center gap-1.5 text-muted text-sm mb-4">
@@ -153,7 +153,7 @@ export default function Home() {
                   </div>
 
                   <div className="p-5">
-                    <h3 className="font-bold text-navy-900 text-sm leading-snug mb-2 group-hover:text-gold-600 transition-colors line-clamp-2">
+                    <h3 className="font-display font-bold text-navy-900 text-sm leading-snug mb-2 group-hover:text-gold-600 transition-colors line-clamp-2">
                       {project.title}
                     </h3>
                     <div className="flex items-center gap-1 text-muted text-xs mb-3">
@@ -189,7 +189,7 @@ export default function Home() {
           <FadeIn direction="left">
             <div>
               <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-4">Về chúng tôi</p>
-              <h2 className="text-3xl lg:text-4xl font-bold leading-tight mb-6">
+              <h2 className="font-display text-3xl lg:text-4xl font-bold leading-tight mb-6">
                 Đến với 1992 Land —<br />
                 <span className="text-gold-400">Giá trị thật</span>, lòng tin bền
               </h2>
@@ -256,7 +256,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-14">
               <div>
                 <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-3">Tin tức</p>
-                <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">Cập nhật thị trường</h2>
+                <h2 className="font-display text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">Cập nhật thị trường</h2>
                 <div className="mt-3 w-14 h-0.5 bg-gold-500 rounded-full" />
               </div>
               <Link
@@ -321,7 +321,7 @@ export default function Home() {
           <FadeIn>
             <div className="text-center mb-12">
               <p className="text-gold-500 text-xs font-semibold tracking-[0.4em] uppercase mb-3">Liên hệ ngay</p>
-              <h2 className="text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-4">
+              <h2 className="font-display text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-4">
                 Sẵn sàng tìm ngôi nhà của bạn?
               </h2>
               <p className="text-surface/60 text-lg max-w-xl mx-auto">

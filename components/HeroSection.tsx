@@ -70,7 +70,7 @@ export default function HeroSection({ projectCount = 12 }: { projectCount?: numb
 
           <motion.h1
             variants={item}
-            className="text-5xl sm:text-6xl xl:text-[72px] font-bold text-surface leading-[1.08] tracking-tight mb-8"
+            className="font-display text-5xl sm:text-6xl xl:text-[72px] font-bold text-surface leading-[1.08] tracking-tight mb-8"
           >
             Giá Trị
             <br />

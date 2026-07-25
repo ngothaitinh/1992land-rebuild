@@ -33,7 +33,7 @@ export default function Testimonials() {
           <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-3">
             Khách hàng nói gì
           </p>
-          <h2 className="text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">
             Niềm tin từ khách hàng
           </h2>
           <div className="mt-4 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />

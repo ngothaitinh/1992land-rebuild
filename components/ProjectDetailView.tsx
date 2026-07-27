@@ -143,50 +143,6 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                 <MapPin size={13} className="shrink-0 text-gold-500" />
                 <span className="line-clamp-1">{project.address_full ?? project.location}</span>
               </div>
-              {/* Mobile: 1 dòng gọn — giá + 2 nút, không làm info bar cao thêm */}
-              <div className="flex sm:hidden items-center gap-2 mt-2.5 overflow-x-auto scrollbar-none">
-                <span className="shrink-0 px-2.5 py-1 rounded-lg bg-gold-50 border border-gold-200 text-gold-600 font-bold text-sm font-numeric">
-                  {project.priceRange}
-                </span>
-                <a
-                  href="https://zalo.me/0909474123"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 flex items-center gap-1 px-3 py-1.5 bg-white border border-[#0068FF] text-[#0068FF] text-xs font-bold rounded-lg active:scale-95 transition-all"
-                >
-                  <ZaloIcon size={13} /> Zalo
-                </a>
-                <ContactModal
-                  label="Nhận bảng giá"
-                  subject={`[Bảng giá] ${project.title}`}
-                  projectSlug={project.slug}
-                  icon="price"
-                  variant="gold"
-                />
-              </div>
-            </div>
-
-            {/* Right: price + buttons — desktop */}
-            <div className="hidden sm:flex items-center flex-wrap gap-2.5 sm:gap-3 shrink-0">
-              <div className="px-4 py-2 rounded-xl bg-gold-50 border border-gold-200">
-                <div className="text-[10px] text-gold-700 uppercase tracking-wider font-medium leading-none mb-1">Giá từ</div>
-                <div className="text-gold-600 font-bold text-lg sm:text-xl font-numeric leading-none">{project.priceRange}</div>
-              </div>
-              <a
-                href="https://zalo.me/0909474123"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3.5 py-2.5 bg-white border-2 border-[#0068FF] text-[#0068FF] text-sm font-bold rounded-xl hover:bg-blue-50 active:scale-95 transition-all cursor-pointer min-h-[44px]"
-              >
-                <ZaloIcon size={17} /> Zalo
-              </a>
-              <ContactModal
-                label="Nhận bảng giá"
-                subject={`[Bảng giá] ${project.title}`}
-                projectSlug={project.slug}
-                icon="price"
-                variant="gold"
-              />
             </div>
           </div>
         </div>

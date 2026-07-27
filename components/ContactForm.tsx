@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-const WEBHOOK_URL = process.env.NEXT_PUBLIC_FORM_WEBHOOK_URL ?? "";
+const WEBHOOK_URL = process.env.NEXT_PUBLIC_FORM_WEBHOOK_URL || "https://api.1992land.com/contact-lead";
 
 export default function ContactForm({
   subject = "Liên hệ tư vấn BĐS từ 1992land.com",

@@ -84,6 +84,19 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
 
   const matchedTestimonial = testimonials.find((t) => t.project === project.title) ?? testimonials[0];
 
+  const legalConfirmed = !!project.legal_status && !/liên hệ|đang hoàn thiện|đang cập nhật/i.test(project.legal_status);
+  const ownershipShort = project.ownership && project.ownership !== "Liên hệ"
+    ? project.ownership.split(/[·(]/)[0].trim()
+    : null;
+  const developerShort = project.developer && !/đang cập nhật|liên hệ/i.test(project.developer)
+    ? project.developer.split(/[—–-]/)[0].trim()
+    : null;
+  const trustBadges = [
+    legalConfirmed ? { label: "Pháp lý đầy đủ", icon: ShieldCheck } : null,
+    ownershipShort ? { label: ownershipShort, icon: CheckCircle } : null,
+    developerShort ? { label: developerShort, icon: Building2 } : null,
+  ].filter(Boolean) as { label: string; icon: React.ElementType }[];
+
   const productSchema = {
     "@context": "https://schema.org", "@type": "Product",
     name: project.title, description: project.excerpt,
@@ -203,17 +216,15 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
             <p className="text-navy-300 text-sm leading-relaxed mb-5">
               {[project.discount, project.bank_support].filter(Boolean).join(" · ") || "Liên hệ để nhận thông tin chi tiết"}
             </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-2">
-              {[
-                { label: "Pháp lý đầy đủ", icon: ShieldCheck },
-                { label: "Sổ đỏ lâu dài", icon: CheckCircle },
-                { label: "BIM Land", icon: Building2 },
-              ].map(({ label, icon: Icon }) => (
-                <span key={label} className="flex items-center gap-1.5 bg-white/10 text-white/80 text-[11px] font-medium px-3 py-1.5 rounded-full border border-white/15">
-                  <Icon size={11} className="text-gold-400" />{label}
-                </span>
-              ))}
-            </div>
+            {trustBadges.length > 0 && (
+              <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                {trustBadges.map(({ label, icon: Icon }) => (
+                  <span key={label} className="flex items-center gap-1.5 bg-white/10 text-white/80 text-[11px] font-medium px-3 py-1.5 rounded-full border border-white/15">
+                    <Icon size={11} className="text-gold-400" />{label}
+                  </span>
+                ))}
+              </div>
+            )}
             {matchedTestimonial && (
               <div className="mt-4 flex items-start gap-2.5 max-w-md mx-auto md:mx-0">
                 <span className="shrink-0 w-7 h-7 rounded-full bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-bold flex items-center justify-center">

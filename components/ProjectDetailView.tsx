@@ -581,6 +581,9 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
             <Divider />
             <section className="py-14">
               <SecHead id="phap-ly" title="Tiến độ & Pháp lý" />
+              {project.construction_images && project.construction_images.length > 0 && (
+                <AmenitiesGallery images={project.construction_images} title={`Tiến độ thi công ${project.title}`} />
+              )}
               {project.videos?.["phap-ly"] && (
                 <VideoEmbed url={project.videos["phap-ly"]} title={`Video pháp lý ${project.title}`} />
               )}

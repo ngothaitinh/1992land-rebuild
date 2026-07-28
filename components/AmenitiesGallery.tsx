@@ -53,7 +53,7 @@ export default function AmenitiesGallery({ images, title }: Props) {
           >
             <Image
               src={src}
-              alt={`${title} — tiện ích ${i + 1}`}
+              alt={`${title} ${i + 1}`}
               fill
               className="object-cover group-hover:scale-[1.05] transition-transform duration-500 ease-out"
               sizes="(max-width: 640px) 50vw, 33vw"
@@ -99,7 +99,7 @@ export default function AmenitiesGallery({ images, title }: Props) {
               <div className="relative w-full h-full max-w-5xl">
                 <Image
                   src={images[lightboxIndex]}
-                  alt={`${title} — tiện ích ${lightboxIndex + 1}`}
+                  alt={`${title} ${lightboxIndex + 1}`}
                   fill
                   className="object-contain"
                   sizes="(max-width: 1280px) 100vw, 1024px"

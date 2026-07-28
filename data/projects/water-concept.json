@@ -51,7 +51,7 @@
   "lat": 10.906,
   "lng": 106.752,
   "address_full": "Trục Quốc lộ 13, TP. Dĩ An, Bình Dương (đối diện AEON Mall Bình Dương)",
-  "hidden_sections": ["gia-ban", "mat-bang"],
+  "hidden_sections": ["gia-ban", "mat-bang", "thu-vien-anh"],
   "created_at": "2026-05-01T00:00:00Z",
   "updated_at": "2026-06-01T00:00:00Z",
   "descriptions": {

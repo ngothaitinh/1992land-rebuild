@@ -42,6 +42,7 @@ export type Project = {
   overview_image?: string;
   location_image?: string;
   masterplan_image?: string;
+  construction_images?: string[];
   floor_plans?: { name: string; area: string; layout: string; image?: string }[];
   legal_status?: string;
   handover_date?: string;

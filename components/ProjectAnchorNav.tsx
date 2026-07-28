@@ -7,6 +7,7 @@ import { ChevronDown, Phone, ArrowLeft } from "lucide-react";
 const ALL_SECTIONS = [
   { id: "tong-quan", label: "Tổng quan" },
   { id: "vi-tri", label: "Vị trí" },
+  { id: "thu-vien-anh", label: "Thư viện ảnh" },
   { id: "tien-ich", label: "Tiện ích" },
   { id: "mat-bang", label: "Mặt bằng" },
   { id: "thiet-ke", label: "Thiết kế" },

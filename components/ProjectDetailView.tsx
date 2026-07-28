@@ -13,6 +13,7 @@ import ContactForm from "@/components/ContactForm";
 import ProjectAnchorNav from "@/components/ProjectAnchorNav";
 import ProjectHeroSlider from "@/components/ProjectHeroSlider";
 import ProjectImageCarousel from "@/components/ProjectImageCarousel";
+import ProjectGalleryGrid from "@/components/ProjectGalleryGrid";
 import AmenitiesGallery from "@/components/AmenitiesGallery";
 import ContactModal from "@/components/ContactModal";
 import ProjectSidebarForm from "@/components/ProjectSidebarForm";
@@ -64,6 +65,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
   const anchorSections = [
     show("tong-quan") ? "tong-quan" : null,
     show("vi-tri") ? "vi-tri" : null,
+    show("thu-vien-anh") && project.gallery?.length ? "thu-vien-anh" : null,
     show("tien-ich") && (project.amenities_internal || project.amenities_external) ? "tien-ich" : null,
     show("mat-bang") && project.masterplan_image ? "mat-bang" : null,
     show("gia-ban") && project.product_types ? "gia-ban" : null,
@@ -475,6 +477,17 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                   ))}
                 </div>
               </SectionIntro>
+            </section>
+          </>
+        )}
+
+        {/* ── THƯ VIỆN ẢNH ── */}
+        {show("thu-vien-anh") && project.gallery && project.gallery.length > 0 && (
+          <>
+            <Divider />
+            <section className="py-14">
+              <SecHead id="thu-vien-anh" title="Thư viện ảnh dự án" />
+              <ProjectGalleryGrid images={project.gallery} title={project.title} />
             </section>
           </>
         )}

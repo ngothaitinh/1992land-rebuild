@@ -43,10 +43,10 @@ function json(res, status, body, extraHeaders = {}) {
 }
 
 async function readJsonBody(req) {
-  let raw = "";
-  for await (const chunk of req) raw += chunk;
-  if (!raw) return {};
-  return JSON.parse(raw);
+  const chunks = [];
+  for await (const chunk of req) chunks.push(chunk);
+  if (!chunks.length) return {};
+  return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
 function requireSession(req) {

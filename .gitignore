@@ -67,3 +67,6 @@ scripts/tg-bot/.tg-processed.json
 
 # Brainstorm visual companion (local only)
 .superpowers/brainstorm/
+
+# Regression baseline directory
+.regression-baseline/

@@ -8,6 +8,7 @@ export type MdBlock =
   | { type: "p"; inline: MdInline[]; lead: boolean }
   | { type: "h2"; inline: MdInline[] }
   | { type: "h3"; inline: MdInline[] }
+  | { type: "quote"; inline: MdInline[] }
   | { type: "ul"; items: MdInline[][] }
   | { type: "ol"; items: MdInline[][] }
   | { type: "img"; src: string; alt: string };

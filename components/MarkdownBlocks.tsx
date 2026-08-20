@@ -37,13 +37,32 @@ function InlineNodes({ inline }: { inline: MdInline[] }) {
   );
 }
 
-// Headings here render as h3/h4 (not h2) — SecHead in ProjectDetailView already
-// owns the section's h2, so content headings sit one level below it.
-export default function MarkdownBlocks({ blocks }: { blocks: MdBlock[] }) {
+type Variant = "section" | "article";
+
+// Hai bối cảnh typography khác nhau dùng chung một bộ render:
+// - "section": nằm trong ProjectDetailView, nơi SecHead đã chiếm <h2> của mục,
+//   nên heading nội dung tụt một cấp thành h3/h4.
+// - "article": thân bài viết, "## " phải ra <h2> thật để đúng cấu trúc tài liệu.
+export default function MarkdownBlocks({
+  blocks,
+  variant = "section",
+}: {
+  blocks: MdBlock[];
+  variant?: Variant;
+}) {
+  const article = variant === "article";
+
   return (
-    <div className="space-y-4 max-w-[72ch]">
+    <div className={article ? "space-y-5 text-[15px]" : "space-y-4 max-w-[72ch]"}>
       {blocks.map((block, i) => {
         if (block.type === "p") {
+          if (article) {
+            return (
+              <p key={i} className="leading-[1.85] text-ink">
+                <InlineNodes inline={block.inline} />
+              </p>
+            );
+          }
           return (
             <p
               key={i}
@@ -57,21 +76,62 @@ export default function MarkdownBlocks({ blocks }: { blocks: MdBlock[] }) {
             </p>
           );
         }
+
         if (block.type === "h2") {
+          if (article) {
+            return (
+              <h2 key={i} className="font-display text-2xl font-bold text-navy-900 mt-10 mb-4 tracking-tight">
+                <InlineNodes inline={block.inline} />
+              </h2>
+            );
+          }
           return (
             <h3 key={i} className="font-display text-lg font-bold text-navy-900 pt-2">
               <InlineNodes inline={block.inline} />
             </h3>
           );
         }
+
         if (block.type === "h3") {
+          if (article) {
+            return (
+              <h3 key={i} className="font-display text-xl font-bold text-navy-900 mt-8 mb-3 tracking-tight">
+                <InlineNodes inline={block.inline} />
+              </h3>
+            );
+          }
           return (
             <h4 key={i} className="font-display text-base font-bold text-navy-900 pt-2">
               <InlineNodes inline={block.inline} />
             </h4>
           );
         }
+
+        if (block.type === "quote") {
+          return (
+            <blockquote key={i} className="border-l-4 border-gold-500 pl-6 py-2 my-6 bg-gold-50 rounded-r-xl">
+              <p className="text-navy-800 font-medium italic leading-relaxed">
+                <InlineNodes inline={block.inline} />
+              </p>
+            </blockquote>
+          );
+        }
+
         if (block.type === "ul") {
+          if (article) {
+            return (
+              <ul key={i} className="space-y-3 my-4">
+                {block.items.map((item, j) => (
+                  <li key={j} className="flex gap-3 items-start">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full bg-gold-500 shrink-0" />
+                    <span className="leading-relaxed">
+                      <InlineNodes inline={item} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            );
+          }
           return (
             <ul key={i} className="list-disc pl-5 space-y-1 text-[14.5px] text-navy-600 leading-[1.7]">
               {block.items.map((item, j) => (
@@ -82,9 +142,17 @@ export default function MarkdownBlocks({ blocks }: { blocks: MdBlock[] }) {
             </ul>
           );
         }
+
         if (block.type === "ol") {
           return (
-            <ol key={i} className="list-decimal pl-5 space-y-1 text-[14.5px] text-navy-600 leading-[1.7]">
+            <ol
+              key={i}
+              className={
+                article
+                  ? "list-decimal pl-5 space-y-3 my-4 leading-relaxed marker:text-gold-500 marker:font-semibold"
+                  : "list-decimal pl-5 space-y-1 text-[14.5px] text-navy-600 leading-[1.7]"
+              }
+            >
               {block.items.map((item, j) => (
                 <li key={j}>
                   <InlineNodes inline={item} />
@@ -93,6 +161,7 @@ export default function MarkdownBlocks({ blocks }: { blocks: MdBlock[] }) {
             </ol>
           );
         }
+
         // block.type === "img" — user-uploaded, arbitrary aspect ratio, no
         // known intrinsic size at build time, so a plain <img> instead of
         // next/image (which requires width/height or a sized parent).

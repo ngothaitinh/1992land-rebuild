@@ -27,11 +27,21 @@ function FieldGroup({ id, title, children }: { id: string; title: string; childr
   );
 }
 
-function TextField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+function TextField({
+  label,
+  value,
+  onChange,
+  disabled,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  disabled?: boolean;
+}) {
   return (
     <div className="space-y-1.5">
       <Label>{label}</Label>
-      <Input value={value ?? ""} onChange={(e) => onChange(e.target.value)} />
+      <Input value={value ?? ""} onChange={(e) => onChange(e.target.value)} disabled={disabled} />
     </div>
   );
 }
@@ -47,7 +57,7 @@ export default function PostForm({ draft, onChange }: Props) {
 
       <FieldGroup id="thong-tin-chung" title="Thông tin chung">
         <TextField label="Tiêu đề" value={draft.meta.title} onChange={(v) => setMeta("title", v)} />
-        <TextField label="Slug URL" value={draft.meta.slug} onChange={(v) => setMeta("slug", v)} />
+        <TextField label="Slug URL" value={draft.meta.slug} onChange={(v) => setMeta("slug", v)} disabled />
         <TextField label="Ngày đăng (YYYY-MM-DD)" value={draft.meta.date} onChange={(v) => setMeta("date", v)} />
         <TextField label="Chuyên mục" value={draft.meta.category} onChange={(v) => setMeta("category", v)} />
         <TextField label="Thời gian đọc" value={draft.meta.readTime} onChange={(v) => setMeta("readTime", v)} />

@@ -63,7 +63,8 @@ export default function DashboardPostEditor({ slug }: { slug: string }) {
     setSaving(true);
     setBanner(null);
     try {
-      const { undoKey } = await saveDashboardPost(API_BASE, slug, { fields: draft.meta, body: draft.body });
+      const { slug: _slug, ...editableFields } = draft.meta;
+      const { undoKey } = await saveDashboardPost(API_BASE, slug, { fields: editableFields, body: draft.body });
       setLastUndoKey(undoKey);
       setBanner("Đã lưu. Web cập nhật sau khoảng 8 phút.");
       await load();

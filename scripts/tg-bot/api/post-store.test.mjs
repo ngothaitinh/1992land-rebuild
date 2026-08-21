@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { loadPost, savePost, undoLastPostSave } from "./post-store.mjs";
+import { parseFrontmatter } from "./frontmatter.mjs";
 
 const SAMPLE_RAW = [
   "---",
@@ -66,6 +67,27 @@ test("savePost — không gửi field/body nào thì giữ nguyên nội dung c�
   const result = await savePost(fakeDeps({ putFilesCalls: calls }), "bai-mau", {});
   assert.ok(calls[0].files[0].content.includes("Tiêu đề gốc"));
   assert.ok(calls[0].files[0].content.includes("Nội dung gốc."));
+});
+
+test("savePost — patch xây dựng đúng như UI thật (draft.meta từ parseFrontmatter, đã tự strip slug) phải thành công, không 400", async () => {
+  // Tái tạo chính xác luồng thật: GET /posts/:slug -> parseFrontmatter() trả về
+  // meta có sẵn key "slug" (mọi file bài viết thật đều có) -> DashboardPostEditor.tsx
+  // strip "slug" trước khi gửi patch.fields. Test này xác nhận patch được xây
+  // dựng đúng cách đó sẽ được savePost() chấp nhận, không ném lỗi VALIDATION 400.
+  const { meta } = parseFrontmatter(SAMPLE_RAW);
+  assert.ok("slug" in meta, "frontmatter mẫu phải có key slug — đúng thực tế mọi bài viết thật");
+
+  const { slug: _slug, ...editableFields } = meta; // đúng cách DashboardPostEditor.tsx làm
+  editableFields.title = "Tiêu đề sửa qua UI";
+
+  const calls = [];
+  const deps = fakeDeps({ putFilesCalls: calls });
+  const result = await savePost(deps, "bai-mau", { fields: editableFields, body: "Nội dung sửa qua UI." });
+
+  assert.equal(calls.length, 1);
+  assert.ok(calls[0].files[0].content.includes('title: "Tiêu đề sửa qua UI"'));
+  assert.equal(typeof result.commitSha, "string");
+  assert.equal(typeof result.undoKey, "string");
 });
 
 test("undoLastPostSave — khôi phục đúng nội dung trước khi lưu", async () => {

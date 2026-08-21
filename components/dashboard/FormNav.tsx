@@ -26,7 +26,7 @@ export default function FormNav({ sections }: { sections: Section[] }) {
   function go(id: string) {
     const el = document.getElementById(id);
     if (!el) return;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 16, behavior: "smooth" });
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   return (

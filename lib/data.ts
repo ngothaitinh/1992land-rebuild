@@ -63,12 +63,6 @@ export type Testimonial = {
   initial: string;
 };
 
-export type PostBlock =
-  | { type: "p"; text: string }
-  | { type: "h2"; text: string }
-  | { type: "quote"; text: string }
-  | { type: "list"; items: string[] };
-
 export type Post = {
   slug: string;
   title: string;
@@ -79,7 +73,6 @@ export type Post = {
   hero_image?: string;
   related_projects?: string[];
   body?: string;
-  content?: PostBlock[];
 };
 
 export const testimonials: Testimonial[] = [

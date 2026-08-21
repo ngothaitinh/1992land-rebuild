@@ -188,6 +188,13 @@ mới để mất nội dung (§4).
 - **Thay `renderBody()` bằng `parseMarkdownBlocks()` + `<MarkdownBlocks>`** — đúng pipeline
   `ProjectDetailView.tsx:53` đang dùng. Vừa sửa lỗi (a), vừa xoá code trùng, vừa cho trang
   bài viết dùng chung bộ render với khung preview.
+- Swap trực tiếp không đủ: `MarkdownBlocks` vốn phục vụ `ProjectDetailView`, nơi section bao
+  quanh đã tự chiếm `<h2>`, nên `## ` trong nội dung render xuống `<h3>` để không đụng cấp.
+  Trang bài viết đứng độc lập, không có section cha nào chiếm `<h2>` — swap thẳng sẽ hạ cấp
+  tiêu đề `## ` xuống `<h3>` sai ngữ nghĩa. Giải pháp: thêm prop `variant` cho
+  `MarkdownBlocks` (`components/MarkdownBlocks.tsx`) — `"section"` (mặc định) giữ hành vi cũ
+  cho `ProjectDetailView`, `"article"` cho phép `## ` render đúng thành `<h2>` thật. Trang
+  bài viết (`components/PostDetailView.tsx`) gọi `<MarkdownBlocks ... variant="article" />`.
 
 **Thứ tự bắt buộc: 7.1 trước 7.2.** Làm ngược lại thì trích dẫn của cả 9 bài hỏng ngay tại
 bước 7.2, vì `MarkdownBlocks` chưa biết `quote`.

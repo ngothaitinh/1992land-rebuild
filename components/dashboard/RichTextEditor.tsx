@@ -106,7 +106,7 @@ export default function RichTextEditor({ value, onChange, onImageInsert }: Props
       </div>
       <EditorContent
         editor={editor}
-        className="max-w-none p-4 text-[15px] leading-[1.85] text-ink [&_.ProseMirror]:min-h-[120px] [&_.ProseMirror]:outline-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-navy-900 [&_h2]:mt-6 [&_h2]:mb-3 [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-navy-900 [&_h3]:mt-5 [&_h3]:mb-2 [&_blockquote]:border-l-4 [&_blockquote]:border-gold-500 [&_blockquote]:pl-6 [&_blockquote]:py-2 [&_blockquote]:my-4 [&_blockquote]:bg-gold-50 [&_blockquote]:rounded-r-xl [&_blockquote]:italic [&_blockquote]:font-medium [&_blockquote]:text-navy-800"
+        className="max-w-none p-4 text-[15px] leading-[1.85] text-ink [&_.ProseMirror]:min-h-[120px] [&_.ProseMirror]:outline-none [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-navy-900 [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:tracking-tight [&_h3]:font-display [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-navy-900 [&_h3]:mt-8 [&_h3]:mb-3 [&_h3]:tracking-tight [&_blockquote]:border-l-4 [&_blockquote]:border-gold-500 [&_blockquote]:pl-6 [&_blockquote]:py-2 [&_blockquote]:my-6 [&_blockquote]:bg-gold-50 [&_blockquote]:rounded-r-xl [&_blockquote]:italic [&_blockquote]:font-medium [&_blockquote]:text-navy-800 [&_blockquote]:leading-relaxed"
       />
     </div>
   );

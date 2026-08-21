@@ -1,7 +1,7 @@
 // app/dashboard/layout.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { checkDashboardSession, dashboardLogout } from "@/lib/dashboard-api.mjs";
@@ -16,21 +16,42 @@ const NAV = [
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [checked, setChecked] = useState(false);
+  const [status, setStatus] = useState<"checking" | "checked" | "error">("checking");
 
-  useEffect(() => {
-    if (pathname === "/dashboard/login/") {
-      setChecked(true);
-      return;
-    }
-    checkDashboardSession(API_BASE).then((ok) => {
-      if (!ok) router.push(`/dashboard/login/?next=${encodeURIComponent(pathname)}`);
-      else setChecked(true);
+  const runCheck = useCallback(() => {
+    setStatus("checking");
+    checkDashboardSession(API_BASE).then((result) => {
+      if (result === "unauthorized") {
+        router.push(`/dashboard/login/?next=${encodeURIComponent(pathname)}`);
+      } else if (result === "error") {
+        setStatus("error");
+      } else {
+        setStatus("checked");
+      }
     });
   }, [pathname, router]);
 
+  useEffect(() => {
+    if (pathname === "/dashboard/login/") return;
+    runCheck();
+  }, [pathname, runCheck]);
+
   if (pathname === "/dashboard/login/") return <>{children}</>;
-  if (!checked) return <div className="p-8 text-navy-600">Đang kiểm tra đăng nhập...</div>;
+  if (status === "error") {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-8 text-center">
+        <p className="text-red-600">Không kết nối được máy chủ, vui lòng thử lại sau.</p>
+        <button
+          type="button"
+          onClick={runCheck}
+          className="rounded-lg border border-border-soft px-4 py-2 text-sm font-medium text-navy-700 hover:bg-navy-50"
+        >
+          Thử lại
+        </button>
+      </div>
+    );
+  }
+  if (status !== "checked") return <div className="p-8 text-navy-600">Đang kiểm tra đăng nhập...</div>;
 
   return (
     <div className="min-h-screen bg-bg">

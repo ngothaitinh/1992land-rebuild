@@ -11,17 +11,19 @@ function parseLine(line) {
   return [key, val];
 }
 
+// Thay cho NEEDS_QUOTE_RE đơn giản trong plan gốc — regex đó không đủ để giữ đúng quoting
+// của các chuỗi tiếng Việt có dấu (vd tiêu đề), gây lệch round-trip khi parse/serialize.
 function needsQuote(v) {
-  // Quote if has colon, quote, or punctuation
+  // Bọc dấu ngoặc kép nếu có dấu hai chấm, dấu ngoặc kép, hoặc dấu câu
   if (/:|"|[.,:;!?]/.test(v)) return true;
 
-  // Quote if starts with digit AND has non-ASCII characters
+  // Bọc dấu ngoặc kép nếu bắt đầu bằng chữ số VÀ có ký tự ngoài ASCII
   if (/^\d/.test(v) && /[^\x00-\x7F]/.test(v)) return true;
 
-  // Quote if starts with ASCII letter AND has non-ASCII characters
+  // Bọc dấu ngoặc kép nếu bắt đầu bằng chữ cái ASCII VÀ có ký tự ngoài ASCII
   if (/^[a-zA-Z]/.test(v) && /[^\x00-\x7F]/.test(v)) return true;
 
-  // Quote if has uppercase ASCII letter AND has non-ASCII characters
+  // Bọc dấu ngoặc kép nếu có chữ cái viết hoa ASCII VÀ có ký tự ngoài ASCII
   if (/[A-Z]/.test(v) && /[^\x00-\x7F]/.test(v)) return true;
 
   return false;

@@ -100,9 +100,9 @@ export default function RichTextEditor({ value, onChange, onImageInsert }: Props
         <ToolbarButton label="Danh sách đánh số" active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()}>1. List</ToolbarButton>
         <ToolbarButton label="Trích dẫn" active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()}>&ldquo;&rdquo;</ToolbarButton>
         <ToolbarButton label="Chèn liên kết" onClick={setLink}>Link</ToolbarButton>
-        <ToolbarButton label="Chèn ảnh" onClick={insertImage}>Ảnh</ToolbarButton>
+        {onImageInsert && <ToolbarButton label="Chèn ảnh" onClick={insertImage}>Ảnh</ToolbarButton>}
         <ToolbarButton label="Xoá định dạng" onClick={() => editor.chain().focus().clearNodes().unsetAllMarks().run()}>Xoá định dạng</ToolbarButton>
-        <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={onFileChosen} />
+        {onImageInsert && <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={onFileChosen} />}
       </div>
       <EditorContent
         editor={editor}

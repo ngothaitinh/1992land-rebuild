@@ -88,7 +88,7 @@ export default function ProjectForm({ draft, onChange, pendingImages, onPendingI
       </FieldGroup>
 
       <FieldGroup id="tong-quan" title="Tổng quan">
-        <RichTextEditor value={draft.descriptions?.["tong-quan"] ?? ""} onChange={(md) => setDescription("tong-quan", md)} />
+        <RichTextEditor value={draft.descriptions?.["tong-quan"] ?? ""} onChange={(md) => setDescription("tong-quan", md)} onImageInsert={() => {}} />
         <ImageField
           label="Ảnh tổng quan"
           currentSrc={draft.overview_image}
@@ -97,7 +97,7 @@ export default function ProjectForm({ draft, onChange, pendingImages, onPendingI
       </FieldGroup>
 
       <FieldGroup id="vi-tri" title="Vị trí">
-        <RichTextEditor value={draft.descriptions?.["vi-tri"] ?? ""} onChange={(md) => setDescription("vi-tri", md)} />
+        <RichTextEditor value={draft.descriptions?.["vi-tri"] ?? ""} onChange={(md) => setDescription("vi-tri", md)} onImageInsert={() => {}} />
         <ImageField
           label="Ảnh vị trí"
           currentSrc={draft.location_image}
@@ -106,7 +106,7 @@ export default function ProjectForm({ draft, onChange, pendingImages, onPendingI
       </FieldGroup>
 
       <FieldGroup id="tien-ich" title="Tiện ích">
-        <RichTextEditor value={draft.descriptions?.["tien-ich"] ?? ""} onChange={(md) => setDescription("tien-ich", md)} />
+        <RichTextEditor value={draft.descriptions?.["tien-ich"] ?? ""} onChange={(md) => setDescription("tien-ich", md)} onImageInsert={() => {}} />
         <ImageListField
           label="Ảnh tiện ích"
           currentSrcs={draft.amenities_images ?? []}
@@ -123,28 +123,19 @@ export default function ProjectForm({ draft, onChange, pendingImages, onPendingI
       </FieldGroup>
 
       <FieldGroup id="gia-ban" title="Giá bán">
-        <RichTextEditor value={draft.descriptions?.["gia-ban"] ?? ""} onChange={(md) => setDescription("gia-ban", md)} />
-        <div className="space-y-1.5">
-          <Label>Chiết khấu</Label>
-          <RichTextEditor value={draft.discount ?? ""} onChange={(v) => setField("discount", v)} />
-        </div>
-        <div className="space-y-1.5">
-          <Label>Hỗ trợ ngân hàng</Label>
-          <RichTextEditor value={draft.bank_support ?? ""} onChange={(v) => setField("bank_support", v)} />
-        </div>
+        <RichTextEditor value={draft.descriptions?.["gia-ban"] ?? ""} onChange={(md) => setDescription("gia-ban", md)} onImageInsert={() => {}} />
+        <TextField label="Chiết khấu" value={draft.discount ?? ""} onChange={(v) => setField("discount", v)} />
+        <TextField label="Hỗ trợ ngân hàng" value={draft.bank_support ?? ""} onChange={(v) => setField("bank_support", v)} />
       </FieldGroup>
 
       <FieldGroup id="phap-ly" title="Pháp lý">
-        <RichTextEditor value={draft.descriptions?.["phap-ly"] ?? ""} onChange={(md) => setDescription("phap-ly", md)} />
-        <div className="space-y-1.5">
-          <Label>Trạng thái pháp lý</Label>
-          <RichTextEditor value={draft.legal_status ?? ""} onChange={(v) => setField("legal_status", v)} />
-        </div>
+        <RichTextEditor value={draft.descriptions?.["phap-ly"] ?? ""} onChange={(md) => setDescription("phap-ly", md)} onImageInsert={() => {}} />
+        <TextField label="Trạng thái pháp lý" value={draft.legal_status ?? ""} onChange={(v) => setField("legal_status", v)} />
         <TextField label="Ngày bàn giao" value={draft.handover_date ?? ""} onChange={(v) => setField("handover_date", v)} />
       </FieldGroup>
 
       <FieldGroup id="chinh-sach" title="Chính sách">
-        <RichTextEditor value={draft.descriptions?.["chinh-sach"] ?? ""} onChange={(md) => setDescription("chinh-sach", md)} />
+        <RichTextEditor value={draft.descriptions?.["chinh-sach"] ?? ""} onChange={(md) => setDescription("chinh-sach", md)} onImageInsert={() => {}} />
       </FieldGroup>
 
       <FieldGroup id="an-hien" title="Ẩn/hiện mục trên trang">

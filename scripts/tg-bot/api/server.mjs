@@ -8,6 +8,7 @@ import {
   parseCookies, sessionCookieHeader, SESSION_COOKIE_NAME,
 } from "./auth.mjs";
 import { loadProject, saveProject, undoLastSave } from "./project-store.mjs";
+import { loadPost, savePost, undoLastPostSave } from "./post-store.mjs";
 
 const PORT = Number(process.env.DASHBOARD_API_PORT || 4001);
 const ALLOWED_ORIGIN = process.env.DASHBOARD_ALLOWED_ORIGIN || "https://1992land.com";
@@ -99,6 +100,10 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    if (req.method === "GET" && parts[0] === "me") {
+      return requireSession(req) ? json(res, 200, { ok: true }) : json(res, 401, { error: "Chưa đăng nhập" });
+    }
+
     if (!requireSession(req)) return json(res, 401, { error: "Chưa đăng nhập" });
 
     if (req.method === "GET" && parts[0] === "projects" && parts.length === 2) {
@@ -123,13 +128,40 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    if (req.method === "GET" && parts[0] === "posts" && parts.length === 2) {
+      const slug = parts[1];
+      try {
+        const post = await loadPost(deps, slug);
+        return json(res, 200, { post });
+      } catch {
+        return json(res, 404, { error: `Không tìm thấy: ${slug}` });
+      }
+    }
+
+    if (req.method === "POST" && parts[0] === "posts" && parts.length === 3 && parts[2] === "save") {
+      const slug = parts[1];
+      const patch = await readJsonBody(req);
+      try {
+        const result = await savePost(deps, slug, patch);
+        return json(res, 200, result);
+      } catch (e) {
+        const status = e.code === "VALIDATION" ? 400 : 502;
+        return json(res, status, { error: e.message });
+      }
+    }
+
     if (req.method === "POST" && parts[0] === "undo") {
       const { undoKey } = await readJsonBody(req);
       try {
         const result = await undoLastSave(deps, undoKey);
         return json(res, 200, result);
-      } catch (e) {
-        return json(res, 410, { error: "Hết hạn hoặc đã hoàn tác" });
+      } catch {
+        try {
+          const result = await undoLastPostSave(deps, undoKey);
+          return json(res, 200, result);
+        } catch {
+          return json(res, 410, { error: "Hết hạn hoặc đã hoàn tác" });
+        }
       }
     }
 

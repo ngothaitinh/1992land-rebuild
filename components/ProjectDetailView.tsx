@@ -206,7 +206,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
       {/* ── QUICK LEAD — CTA Google Ads ── */}
       <section className="bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 py-10">
         <div className="max-w-6xl mx-auto px-4 lg:px-8 flex flex-col md:flex-row items-center gap-8">
-          <div className="flex-1 text-center md:text-left">
+          <div className="flex-1 min-w-0 text-center md:text-left">
             <div className="inline-flex items-center gap-2 bg-gold-500/15 border border-gold-500/30 text-gold-400 text-[10px] font-bold tracking-[0.35em] uppercase px-3 py-1.5 rounded-full mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
               Đang mở bán — Tư vấn miễn phí
@@ -240,7 +240,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
               </div>
             )}
           </div>
-          <div className="w-full md:w-auto md:min-w-[380px] bg-white rounded-3xl p-6 shadow-2xl">
+          <div className="w-full md:w-[380px] md:shrink-0 bg-white rounded-3xl p-6 shadow-2xl">
             <h3 className="font-bold text-navy-900 text-sm mb-0.5">Để lại thông tin tư vấn</h3>
             <p className="text-muted text-xs mb-4">Phản hồi trong 30 phút · Không spam</p>
             <ContactForm

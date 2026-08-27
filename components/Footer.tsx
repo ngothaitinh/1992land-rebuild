@@ -108,9 +108,6 @@ export default function Footer() {
               >
                 {contact.phoneDisplay}
               </a>
-              <p className="text-xs text-surface/50 mt-1">
-                Văn phòng giao dịch: {brand.officeAddress}
-              </p>
             </div>
           </div>
 

@@ -12,14 +12,15 @@
     "phone": "0932.6666.51",
     "phoneIntl": "+84932666651",
     "email": "admin@tpiland.com",
-    "url": "https://tpiland.com"
+    "url": "https://tpiland.com",
+    "geo": { "lat": 10.7796195, "lng": 106.748983 },
+    "mapUrl": "https://maps.app.goo.gl/f9xm97wY71Z3x1om8"
   },
   "brand": {
     "name": "1992 Land",
     "tagline": "Giá Trị Kiến Tạo Lòng Tin",
     "url": "https://1992land.com",
-    "role": "Đơn vị tư vấn & phân phối dự án",
-    "officeAddress": "17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP. HCM"
+    "role": "Đơn vị tư vấn & phân phối dự án"
   },
   "contact": {
     "name": "Nguyễn Hữu Thọ",

@@ -79,6 +79,12 @@ const schemaGraph = {
         addressRegion: legal.addressRegion,
         addressCountry: "VN",
       },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: legal.geo.lat,
+        longitude: legal.geo.lng,
+      },
+      hasMap: legal.mapUrl,
       sameAs: [legal.url],
     },
     {
@@ -94,11 +100,17 @@ const schemaGraph = {
       areaServed: ["TP HCM", "Vũng Tàu", "Bình Dương", "Long An", "Đồng Nai"],
       address: {
         "@type": "PostalAddress",
-        streetAddress: "17 Trần Quý Kiên",
-        addressLocality: "Bình Trưng Tây, TP. Thủ Đức",
-        addressRegion: "Hồ Chí Minh",
+        streetAddress: legal.addressStreet,
+        addressLocality: legal.addressLocality,
+        addressRegion: legal.addressRegion,
         addressCountry: "VN",
       },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: legal.geo.lat,
+        longitude: legal.geo.lng,
+      },
+      hasMap: legal.mapUrl,
       sameAs: [legal.url, contact.zalo],
     },
     {

@@ -64,11 +64,6 @@ export default function LienHePage() {
                   href: `tel:${contact.phoneIntl}`,
                 },
                 {
-                  icon: MapPin,
-                  label: "Văn phòng giao dịch",
-                  value: brand.officeAddress,
-                },
-                {
                   icon: Clock,
                   label: "Giờ làm việc",
                   value: "Thứ 2 — Chủ nhật: 8:00 — 20:00",
@@ -123,14 +118,14 @@ export default function LienHePage() {
             {/* Map embed */}
             <div className="mt-8 rounded-2xl overflow-hidden border border-border-soft h-56">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.7851048614043!2d106.7702!3d10.8199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDQ5JzExLjYiTiAxMDbCsDQ2JzEyLjciRQ!5e0!3m2!1svi!2svn!4v1717000000000!5m2!1svi!2svn"
+                src={`https://www.google.com/maps?q=${legal.geo.lat},${legal.geo.lng}&z=17&hl=vi&output=embed`}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Bản đồ 1992 Land"
+                title={`Bản đồ ${legal.name}`}
               />
             </div>
           </div>

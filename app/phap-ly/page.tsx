@@ -12,7 +12,13 @@ export const metadata: Metadata = {
 const rows = [
   { icon: Building2, label: "Tên doanh nghiệp", value: legal.name },
   { icon: Building2, label: "Mã số thuế / Mã số doanh nghiệp", value: legal.taxId },
-  { icon: MapPin, label: "Địa chỉ trụ sở chính", value: legal.address },
+  {
+    icon: MapPin,
+    label: "Địa chỉ trụ sở chính",
+    value: legal.address,
+    href: legal.mapUrl,
+    external: true,
+  },
   { icon: Phone, label: "Điện thoại", value: legal.phone, href: `tel:${legal.phoneIntl}` },
   { icon: Mail, label: "Email", value: legal.email, href: `mailto:${legal.email}` },
   { icon: Globe, label: "Website doanh nghiệp", value: legal.url, href: legal.url, external: true },

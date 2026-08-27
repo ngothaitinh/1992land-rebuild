@@ -8,6 +8,7 @@ import ContactForm from "@/components/ContactForm";
 import Signature from "@/components/Signature";
 import HeroSection from "@/components/HeroSection";
 import NewsList from "@/components/NewsList";
+import { legal, contact } from "@/lib/site-config";
 
 const allProjects = loadProjects();
 // Sort by newest first for homepage (created_at desc, fallback to order)
@@ -195,8 +196,9 @@ export default function Home() {
               </h2>
               <Signature light className="max-w-[120px] mb-8" />
               <p className="text-surface/70 leading-relaxed mb-6">
-                Được sáng lập tại TP. Thủ Đức năm 2020, 1992 Land đã đồng hành cùng hơn 500 gia đình
-                — từ căn hộ đầu tiên đến danh mục đầu tư thứ ba.
+                1992 Land là chuyên trang dự án của {legal.name}, do {contact.name} —{" "}
+                {contact.jobTitle.toLowerCase()} — phụ trách. Từ năm 2020 đến nay đã đồng hành
+                cùng hơn 500 gia đình, từ căn hộ đầu tiên đến danh mục đầu tư thứ ba.
               </p>
               <p className="text-surface/70 leading-relaxed mb-10">
                 Anh Thọ tin rằng một giao dịch tốt không cần phải hối thúc. Khách hàng cần thời gian,

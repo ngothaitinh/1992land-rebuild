@@ -269,7 +269,7 @@ export default function ChinhSachBaoMatPage() {
               >
                 {contact.phoneDisplay}
               </a>
-              . Văn phòng giao dịch: {brand.officeAddress}.
+              .
             </p>
           </section>
 

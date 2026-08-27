@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Briefcase, TrendingUp, Users, DollarSign } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { legal } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Tuyển dụng",
@@ -33,7 +34,7 @@ export default function TuyenDungPage() {
                 Nhân viên Kinh doanh Bất động sản
               </h2>
               <p className="text-muted mt-1">
-                TP. Thủ Đức, TP.HCM — Toàn thời gian
+                {legal.addressLocality}, {legal.addressRegion} — Toàn thời gian
               </p>
             </div>
           </div>

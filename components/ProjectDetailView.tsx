@@ -19,7 +19,7 @@ import ContactModal from "@/components/ContactModal";
 import ProjectSidebarForm from "@/components/ProjectSidebarForm";
 import ZaloIcon from "@/components/ZaloIcon";
 import VideoEmbed from "@/components/VideoEmbed";
-import { contact } from "@/lib/site-config";
+import { contact, positioningLine } from "@/lib/site-config";
 
 type ProjectDetailViewProps = {
   project: Project;
@@ -127,6 +127,9 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
           <span>/</span>
           <span className="text-navy-700 truncate">{project.title}</span>
         </nav>
+        {/* Đặt ngay dưới breadcrumb — vị trí đầu trang, đọc được không cần cuộn.
+            Trước đây dòng này chỉ có trong footer (~87% chiều dài trang). */}
+        <p className="text-[11px] text-muted/90 mt-1.5">{positioningLine}</p>
       </div>
 
       {/* ── HERO SLIDER — full width, edge-to-edge ── */}

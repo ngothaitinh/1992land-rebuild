@@ -65,7 +65,7 @@ export default function HeroSection({ projectCount = 12 }: { projectCount?: numb
           </motion.div>
 
           <motion.p variants={item} className="text-gold-400 text-xs tracking-[0.5em] uppercase mb-5 font-medium">
-            Môi giới bất động sản · TP.HCM
+            Tư vấn & phân phối dự án · TPI Land
           </motion.p>
 
           <motion.h1
@@ -137,7 +137,7 @@ export default function HeroSection({ projectCount = 12 }: { projectCount?: numb
           <div className="relative w-[390px] h-[520px] rounded-3xl overflow-hidden shadow-[0_40px_80px_-12px_rgba(7,17,33,0.8)] border border-white/10">
             <Image
               src="/images/team/nguyen-huu-tho-portrait.png"
-              alt="Nguyễn Hữu Thọ — Nhà sáng lập 1992 Land"
+              alt="Nguyễn Hữu Thọ — Giám đốc dự án tại Công ty Cổ phần TPI Land"
               fill
               className="object-cover object-top"
               priority
@@ -149,7 +149,7 @@ export default function HeroSection({ projectCount = 12 }: { projectCount?: numb
             {/* Name overlay */}
             <div className="absolute bottom-0 left-0 right-0 px-6 py-5">
               <div className="text-white font-bold text-xl mb-0.5">Nguyễn Hữu Thọ</div>
-              <div className="text-gold-400 text-sm">Nhà sáng lập · 1992 Land</div>
+              <div className="text-gold-400 text-sm">Giám đốc dự án · TPI Land</div>
             </div>
           </div>
 

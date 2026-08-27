@@ -18,7 +18,7 @@ export default function OGImage() {
           <div style={{ width: 2, height: 64, background: "#C49730", display: "flex" }} />
         </div>
         <div style={{ fontSize: 44, fontWeight: 700, color: "#FFF", marginBottom: 16, display: "flex" }}>Giá Trị Kiến Tạo Lòng Tin</div>
-        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 40, display: "flex" }}>Môi giới BĐS chuyên nghiệp · TP.HCM</div>
+        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 40, display: "flex" }}>Tư vấn & phân phối dự án · TPI Land</div>
         <div style={{ width: 80, height: 3, background: "#C49730", borderRadius: 2, display: "flex" }} />
         <div style={{ position: "absolute", bottom: 40, fontSize: 16, color: "#C49730", display: "flex" }}>0909 474 123 · 1992land.com</div>
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, transparent, #C49730, transparent)", display: "flex" }} />

@@ -30,12 +30,19 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | 1992 Land — BĐS Thủ Đức",
-    default: "1992 Land — Giá Trị Kiến Tạo Lòng Tin",
+    template: `%s | ${brand.name} — ${brand.tagline}`,
+    default: `${brand.name} — ${brand.tagline}`,
   },
   description:
     "1992 Land — Đơn vị tư vấn & phân phối dự án thuộc Công ty Cổ phần TPI Land. Tư vấn bất động sản tại HCMC, Vũng Tàu, Bình Dương, Long An, Đồng Nai.",
-  keywords: ["bất động sản", "tư vấn BĐS", "Thủ Đức", "HCMC", "1992 Land", "TPI Land"],
+  keywords: [
+    "bất động sản",
+    "tư vấn bất động sản",
+    "phân phối dự án",
+    "TP. Hồ Chí Minh",
+    "1992 Land",
+    "TPI Land",
+  ],
   authors: [{ name: legal.name, url: legal.url }],
   publisher: legal.name,
   icons: {

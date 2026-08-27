@@ -77,7 +77,7 @@ export default function GioiThieuPage() {
               với hơn 5 năm kinh nghiệm tư vấn bất động sản tại thị trường miền Nam.
             </p>
             <p>
-              Hoạt động tại TP. Thủ Đức và mở rộng ra Bà Rịa — Vũng Tàu, Bình Dương, Long An,
+              Hoạt động tại TP. Hồ Chí Minh và mở rộng ra Bà Rịa — Vũng Tàu, Bình Dương, Long An,
               Đồng Nai, {brand.name} hướng đến mục tiêu mang lại{" "}
               <strong className="text-navy-900">giá trị thực sự</strong> cho khách hàng —
               không chỉ tư vấn một giao dịch, mà đồng hành lâu dài trong hành trình sở hữu

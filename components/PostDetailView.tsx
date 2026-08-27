@@ -112,7 +112,7 @@ export default function PostDetailView({ post, relatedPosts }: PostDetailViewPro
               </div>
               <div>
                 <div className="font-bold text-navy-900 text-base">Nguyễn Hữu Thọ</div>
-                <div className="text-muted text-sm mb-4">Chuyên gia BĐS · Nhà sáng lập 1992 Land</div>
+                <div className="text-muted text-sm mb-4">Giám đốc dự án · TPI Land</div>
                 <div className="flex gap-2 flex-wrap">
                   <a
                     href={`tel:${contact.phoneIntl}`}

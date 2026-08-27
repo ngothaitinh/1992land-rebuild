@@ -226,7 +226,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950/75 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
                   <div className="font-bold text-lg">Nguyễn Hữu Thọ</div>
-                  <div className="text-gold-400 text-sm">Nhà sáng lập · 1992 Land</div>
+                  <div className="text-gold-400 text-sm">Giám đốc dự án · TPI Land</div>
                 </div>
               </div>
               {/* Floating stats */}
@@ -307,7 +307,7 @@ export default function Home() {
               </div>
               <div>
                 <div className="text-surface font-semibold text-sm">Nguyễn Hữu Thọ</div>
-                <div className="text-surface/50 text-xs">Nhà sáng lập · 1992 Land</div>
+                <div className="text-surface/50 text-xs">Giám đốc dự án · TPI Land</div>
               </div>
             </div>
           </FadeIn>

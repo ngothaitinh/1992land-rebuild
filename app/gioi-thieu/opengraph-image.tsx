@@ -12,8 +12,8 @@ export default function OGImage() {
         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 4, background: "linear-gradient(90deg, transparent, #C49730, transparent)", display: "flex" }} />
         <div style={{ fontSize: 14, color: "#C49730", letterSpacing: "0.4em", marginBottom: 24, display: "flex" }}>· 1992 ·  Về chúng tôi</div>
         <div style={{ fontSize: 52, fontWeight: 700, color: "#FFFFFF", lineHeight: 1.15, marginBottom: 8, display: "flex" }}>Nguyễn Hữu Thọ</div>
-        <div style={{ fontSize: 52, fontWeight: 700, color: "#C49730", lineHeight: 1.15, marginBottom: 24, display: "flex" }}>Nhà sáng lập · 1992 Land</div>
-        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 48, display: "flex" }}>5+ năm kinh nghiệm · 500+ khách hàng tin tưởng · Thủ Đức, TP.HCM</div>
+        <div style={{ fontSize: 52, fontWeight: 700, color: "#C49730", lineHeight: 1.15, marginBottom: 24, display: "flex" }}>Giám đốc dự án · TPI Land</div>
+        <div style={{ fontSize: 20, color: "rgba(255,255,255,0.5)", marginBottom: 48, display: "flex" }}>5+ năm kinh nghiệm · 500+ khách hàng tin tưởng · TP. Hồ Chí Minh</div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>

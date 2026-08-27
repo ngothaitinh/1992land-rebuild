@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Building2, User } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import ZaloIcon from "@/components/ZaloIcon";
 import MessengerIcon from "@/components/MessengerIcon";
+import { legal, brand, contact } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Liên hệ",
-  description: "Liên hệ với 1992 Land để nhận tư vấn bất động sản miễn phí — hotline, Zalo, Messenger.",
+  description: `Liên hệ ${brand.name} — chuyên trang dự án thuộc ${legal.name} (MST ${legal.taxId}). Hotline, Zalo, Messenger và form tư vấn miễn phí.`,
 };
 
 export default function LienHePage() {
@@ -35,21 +36,37 @@ export default function LienHePage() {
             <ul className="space-y-5 mb-10">
               {[
                 {
+                  icon: Building2,
+                  label: "Đơn vị chủ quản",
+                  value: `${legal.name} — MST ${legal.taxId}`,
+                },
+                {
                   icon: MapPin,
-                  label: "Địa chỉ",
-                  value: "17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức",
+                  label: "Trụ sở chính",
+                  value: legal.address,
                 },
                 {
                   icon: Phone,
-                  label: "Hotline",
-                  value: "0909 474 123",
-                  href: "tel:+84909474123",
+                  label: "Hotline công ty",
+                  value: legal.phone,
+                  href: `tel:${legal.phoneIntl}`,
                 },
                 {
                   icon: Mail,
                   label: "Email",
-                  value: "nguyenhuutho911@gmail.com",
-                  href: "mailto:nguyenhuutho911@gmail.com",
+                  value: legal.email,
+                  href: `mailto:${legal.email}`,
+                },
+                {
+                  icon: User,
+                  label: `Tư vấn trực tiếp — ${contact.jobTitle}`,
+                  value: `${contact.name} · ${contact.phoneDisplay}`,
+                  href: `tel:${contact.phoneIntl}`,
+                },
+                {
+                  icon: MapPin,
+                  label: "Văn phòng giao dịch",
+                  value: brand.officeAddress,
                 },
                 {
                   icon: Clock,
@@ -84,7 +101,7 @@ export default function LienHePage() {
             <h3 className="text-navy-900 font-semibold mb-4">Nhắn tin nhanh</h3>
             <div className="flex gap-3">
               <a
-                href="https://zalo.me/0909474123"
+                href={contact.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-[#0068FF] text-[#0068FF] text-sm font-semibold rounded-full hover:bg-blue-50 transition-colors"
@@ -93,7 +110,7 @@ export default function LienHePage() {
                 Zalo
               </a>
               <a
-                href="https://m.me/nguyenhuutho911"
+                href={contact.messenger}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2.5 bg-[#0084FF] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"

@@ -3,6 +3,7 @@
 import { Phone, ShieldCheck, Banknote, Tag, MapPin } from "lucide-react";
 import ZaloIcon from "@/components/ZaloIcon";
 import ContactForm from "@/components/ContactForm";
+import { contact } from "@/lib/site-config";
 
 type Project = {
   title: string;
@@ -71,7 +72,7 @@ export default function ProjectSidebarForm({ project }: { project: Project }) {
       <div className="px-5 py-4 flex flex-col gap-2">
         <p className="text-[10px] text-muted uppercase tracking-wider font-medium mb-0.5">Hoặc liên hệ trực tiếp</p>
         <a
-          href="https://zalo.me/0909474123"
+          href={contact.zalo}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 py-2.5 border-2 border-[#0068FF] text-[#0068FF] text-sm font-semibold rounded-xl hover:bg-blue-50 transition-colors"
@@ -79,10 +80,10 @@ export default function ProjectSidebarForm({ project }: { project: Project }) {
           <ZaloIcon size={16} /> Chat Zalo ngay
         </a>
         <a
-          href="tel:+84909474123"
+          href={`tel:${contact.phoneIntl}`}
           className="flex items-center justify-center gap-2 py-2.5 border border-border-soft text-navy-700 text-sm font-medium rounded-xl hover:bg-navy-50 transition-colors"
         >
-          <Phone size={13} /> 0909 474 123
+          <Phone size={13} /> {contact.phoneDisplay}
         </a>
       </div>
 

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { gtagEvent, fireConversion } from "@/components/Analytics";
+import { legal, contact } from "@/lib/site-config";
 
 type Props = {
   subject?: string;
@@ -67,7 +69,7 @@ export default function ContactForm({
       <div className={`text-center py-10 ${className}`}>
         <div className="text-4xl mb-3">✅</div>
         <p className="font-semibold text-navy-900 mb-1">Đã gửi thành công!</p>
-        <p className="text-muted text-sm">Anh Thọ sẽ liên hệ trong vòng 30 phút.</p>
+        <p className="text-muted text-sm">{contact.name} sẽ liên hệ trong vòng 30 phút.</p>
       </div>
     );
   }
@@ -158,7 +160,7 @@ export default function ContactForm({
       )}
 
       {status === "err" && (
-        <p className="text-red-500 text-sm">Gửi thất bại. Vui lòng thử lại hoặc gọi trực tiếp 0909 474 123.</p>
+        <p className="text-red-500 text-sm">Gửi thất bại. Vui lòng thử lại hoặc gọi trực tiếp {contact.phoneDisplay}.</p>
       )}
 
       <button
@@ -168,6 +170,18 @@ export default function ContactForm({
       >
         {status === "loading" ? "Đang gửi..." : "Gửi yêu cầu tư vấn"}
       </button>
+
+      {/* Bắt buộc theo chính sách dữ liệu của Google Ads — hiện dưới mọi form thu thập lead */}
+      <p className="text-[11px] text-muted leading-relaxed text-center">
+        Bằng việc gửi thông tin, bạn đồng ý để {legal.name} liên hệ tư vấn và đồng ý với{" "}
+        <Link
+          href="/chinh-sach-bao-mat"
+          className="text-navy-700 underline underline-offset-2 hover:text-gold-600 transition-colors"
+        >
+          Chính sách bảo mật
+        </Link>
+        . Chúng tôi không chia sẻ dữ liệu của bạn cho bên thứ ba vì mục đích thương mại.
+      </p>
     </form>
   );
 }

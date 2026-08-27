@@ -4,6 +4,7 @@ import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import Signature from "@/components/Signature";
 import ZaloIcon from "@/components/ZaloIcon";
 import MessengerIcon from "@/components/MessengerIcon";
+import { legal, brand, contact, licenseLine } from "@/lib/site-config";
 
 const projects = [
   { href: "/du-an/salacia-villas-phu-my", label: "Salacia Villas Phú Mỹ" },
@@ -42,29 +43,49 @@ export default function Footer() {
               />
             </div>
 
-            <p className="text-sm text-surface/60 mb-6 leading-relaxed">
-              Giá Trị Kiến Tạo Lòng Tin — Chuyên môi giới bất động sản tại TP.HCM
-              và các tỉnh lân cận.
+            <p className="text-sm text-surface/60 mb-2 leading-relaxed">
+              {brand.tagline} — {brand.role} thuộc{" "}
+              <a
+                href={legal.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-surface/80 hover:text-gold-300 transition-colors"
+              >
+                {legal.name}
+              </a>
+              .
+            </p>
+
+            <p className="text-xs text-surface/50 mb-6 leading-relaxed">
+              {licenseLine}
             </p>
 
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-gold-500 mt-0.5 shrink-0" />
-                <span>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức</span>
+                <span>
+                  <span className="block text-surface/50 text-xs uppercase tracking-wider mb-0.5">
+                    Trụ sở chính
+                  </span>
+                  {legal.address}
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-gold-500 shrink-0" />
-                <a href="tel:+84909474123" className="hover:text-gold-300 transition-colors">
-                  0909 474 123
+                <a
+                  href={`tel:${legal.phoneIntl}`}
+                  className="hover:text-gold-300 transition-colors"
+                >
+                  {legal.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-gold-500 shrink-0" />
                 <a
-                  href="mailto:nguyenhuutho911@gmail.com"
+                  href={`mailto:${legal.email}`}
                   className="hover:text-gold-300 transition-colors"
                 >
-                  nguyenhuutho911@gmail.com
+                  {legal.email}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -72,6 +93,25 @@ export default function Footer() {
                 <span>Thứ 2 — Chủ nhật: 8:00 — 20:00</span>
               </li>
             </ul>
+
+            {/* Tầng tư vấn — người phụ trách, tách khỏi khối pháp nhân bên trên */}
+            <div className="mt-6 pt-5 border-t border-white/10">
+              <p className="text-surface/50 text-xs uppercase tracking-widest mb-2">
+                Phụ trách nội dung & tư vấn
+              </p>
+              <p className="text-sm text-surface/80">
+                {contact.name} — {contact.jobTitle}
+              </p>
+              <a
+                href={`tel:${contact.phoneIntl}`}
+                className="text-sm text-gold-300 hover:text-gold-200 transition-colors"
+              >
+                {contact.phoneDisplay}
+              </a>
+              <p className="text-xs text-surface/50 mt-1">
+                Văn phòng giao dịch: {brand.officeAddress}
+              </p>
+            </div>
           </div>
 
           {/* Cột 2: Dự án */}
@@ -102,7 +142,7 @@ export default function Footer() {
 
             <div className="space-y-3 mb-8">
               <a
-                href="https://zalo.me/0909474123"
+                href={contact.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
@@ -111,7 +151,7 @@ export default function Footer() {
                 Chat Zalo
               </a>
               <a
-                href="https://m.me/nguyenhuutho911"
+                href={contact.messenger}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#0084FF]/15 hover:bg-[#0084FF]/25 transition-colors text-sm font-medium text-[#0084FF]"
@@ -120,7 +160,7 @@ export default function Footer() {
                 Messenger
               </a>
               <a
-                href="tel:+84909474123"
+                href={`tel:${contact.phoneIntl}`}
                 className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium"
               >
                 <span className="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center text-white shrink-0">
@@ -140,6 +180,7 @@ export default function Footer() {
                   { href: "/tin-tuc", label: "Tin tức" },
                   { href: "/tuyen-dung", label: "Tuyển dụng" },
                   { href: "/lien-he", label: "Liên hệ" },
+                  { href: "/phap-ly", label: "Pháp lý" },
                 ].map((l) => (
                   <Link
                     key={l.href}
@@ -159,22 +200,29 @@ export default function Footer() {
 
         {/* Disclaimer */}
         <div className="mt-10 mb-4 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-xs text-surface/50 leading-relaxed text-center">
-          1992land.com là website của môi giới độc lập,{" "}
+          1992land.com là chuyên trang dự án của {legal.name}, hoạt động với vai trò{" "}
+          <span className="text-surface/70">{brand.role.toLowerCase()}</span> —{" "}
           <span className="text-surface/70">không phải website chính thức của chủ đầu tư</span>.
-          Thông tin mang tính tham khảo.{" "}
+          Thông tin mang tính tham khảo, giá và chính sách theo công bố từng thời điểm của chủ đầu tư.{" "}
           <Link
-            href="/chinh-sach-bao-mat"
+            href="/phap-ly"
             className="text-gold-300 hover:text-gold-200 underline underline-offset-2 whitespace-nowrap"
           >
-            Xem thêm
+            Thông tin pháp lý
           </Link>
         </div>
 
         {/* Bottom bar */}
         <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-surface/40">
-          <p>© 2026 1992 Land — Bản quyền thuộc về Nguyễn Hữu Thọ</p>
+          <p>© 2026 {legal.name}. Bản quyền đã được bảo hộ.</p>
           <div className="flex items-center gap-4">
-            <p>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</p>
+            <p>MST: {legal.taxId}</p>
+            <Link
+              href="/phap-ly"
+              className="hover:text-gold-300 transition-colors whitespace-nowrap"
+            >
+              Thông tin pháp lý
+            </Link>
             <Link
               href="/chinh-sach-bao-mat"
               className="hover:text-gold-300 transition-colors whitespace-nowrap"

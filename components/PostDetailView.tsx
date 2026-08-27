@@ -6,6 +6,7 @@ import { parseMarkdownBlocks } from "@/lib/markdown";
 import MarkdownBlocks from "@/components/MarkdownBlocks";
 import ZaloIcon from "@/components/ZaloIcon";
 import MessengerIcon from "@/components/MessengerIcon";
+import { contact } from "@/lib/site-config";
 
 type PostDetailViewProps = {
   post: Post;
@@ -114,14 +115,14 @@ export default function PostDetailView({ post, relatedPosts }: PostDetailViewPro
                 <div className="text-muted text-sm mb-4">Chuyên gia BĐS · Nhà sáng lập 1992 Land</div>
                 <div className="flex gap-2 flex-wrap">
                   <a
-                    href="tel:+84909474123"
+                    href={`tel:${contact.phoneIntl}`}
                     className="inline-flex items-center gap-2 px-4 min-h-[44px] bg-navy-900 text-surface text-xs font-semibold rounded-full hover:bg-navy-700 transition-colors cursor-pointer"
                   >
                     <Phone size={13} />
-                    0909 474 123
+                    {contact.phoneDisplay}
                   </a>
                   <a
-                    href="https://zalo.me/0909474123"
+                    href={contact.zalo}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 min-h-[44px] bg-white border-2 border-[#0068FF] text-[#0068FF] text-xs font-semibold rounded-full hover:bg-blue-50 transition-colors cursor-pointer"
@@ -146,7 +147,7 @@ export default function PostDetailView({ post, relatedPosts }: PostDetailViewPro
                 </p>
                 <div className="space-y-2.5">
                   <a
-                    href="https://zalo.me/0909474123"
+                    href={contact.zalo}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2.5 w-full min-h-[44px] bg-white border-2 border-[#0068FF] text-[#0068FF] font-semibold rounded-full hover:bg-blue-50 transition-colors text-sm cursor-pointer"
@@ -155,7 +156,7 @@ export default function PostDetailView({ post, relatedPosts }: PostDetailViewPro
                     Chat Zalo
                   </a>
                   <a
-                    href="https://m.me/nguyenhuutho911"
+                    href={contact.messenger}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2.5 w-full min-h-[44px] bg-[#0084FF] text-white font-semibold rounded-full hover:opacity-90 transition-opacity text-sm cursor-pointer"
@@ -164,11 +165,11 @@ export default function PostDetailView({ post, relatedPosts }: PostDetailViewPro
                     Messenger
                   </a>
                   <a
-                    href="tel:+84909474123"
+                    href={`tel:${contact.phoneIntl}`}
                     className="flex items-center justify-center gap-2 w-full min-h-[44px] border border-white/25 text-surface font-medium rounded-full hover:border-white/50 transition-colors text-sm cursor-pointer"
                   >
                     <Phone size={14} />
-                    0909 474 123
+                    {contact.phoneDisplay}
                   </a>
                 </div>
               </div>

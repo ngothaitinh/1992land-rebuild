@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Phone, Mail, MapPin } from "lucide-react";
+import { legal, brand, contact } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Chính sách bảo mật — 1992 Land",
-  description:
-    "Chính sách bảo mật thông tin khách hàng của 1992 Land (Nguyễn Hữu Thọ) — minh bạch cách thu thập, sử dụng và bảo vệ dữ liệu cá nhân khi anh/chị để lại thông tin tư vấn.",
+  description: `Chính sách bảo mật thông tin khách hàng của ${legal.name} — minh bạch cách thu thập, sử dụng và bảo vệ dữ liệu cá nhân khi anh/chị để lại thông tin tư vấn trên 1992land.com.`,
   alternates: { canonical: "/chinh-sach-bao-mat" },
   robots: { index: true, follow: true },
 };
@@ -26,9 +26,9 @@ export default function ChinhSachBaoMatPage() {
             Chính sách bảo mật thông tin
           </h1>
           <p className="text-surface/60 text-base leading-relaxed max-w-2xl">
-            1992 Land tôn trọng và bảo vệ thông tin cá nhân của mỗi khách hàng. Trang này
-            giải thích rõ chúng tôi thu thập gì, dùng để làm gì và cam kết của chúng tôi
-            đối với dữ liệu của anh/chị.
+            {legal.name} — đơn vị chủ quản của chuyên trang {brand.name} — tôn trọng và bảo
+            vệ thông tin cá nhân của mỗi khách hàng. Trang này giải thích rõ chúng tôi thu
+            thập gì, dùng để làm gì và cam kết của chúng tôi đối với dữ liệu của anh/chị.
           </p>
           <p className="text-surface/40 text-sm mt-4">Cập nhật lần cuối: {updated}</p>
         </div>
@@ -44,12 +44,20 @@ export default function ChinhSachBaoMatPage() {
 
         {/* Disclaimer box */}
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-12 text-sm text-amber-900 leading-relaxed">
-          <strong>Lưu ý về tính chất website:</strong> 1992land.com là trang của ông
-          Nguyễn Hữu Thọ — chuyên viên môi giới / đại lý phân phối độc lập,{" "}
+          <strong>Lưu ý về tính chất website:</strong> 1992land.com là chuyên trang dự án
+          của {legal.name} (MST {legal.taxId}), hoạt động với vai trò{" "}
+          {brand.role.toLowerCase()},{" "}
           <strong>không phải website chính thức của bất kỳ chủ đầu tư nào</strong>. Tên dự
           án, logo và thương hiệu được nhắc đến thuộc quyền sở hữu của các chủ đầu tư
           tương ứng. Thông tin dự án mang tính tham khảo; anh/chị vui lòng liên hệ trực
-          tiếp để được tư vấn chính xác và cập nhật nhất.
+          tiếp để được tư vấn chính xác và cập nhật nhất.{" "}
+          <Link
+            href="/phap-ly"
+            className="underline underline-offset-2 font-medium hover:text-amber-700"
+          >
+            Xem thông tin pháp lý đầy đủ
+          </Link>
+          .
         </div>
 
         <div className="space-y-12 text-navy-800 leading-relaxed">
@@ -171,9 +179,19 @@ export default function ChinhSachBaoMatPage() {
               ))}
             </ul>
             <p className="mt-4 text-navy-600">
-              Để thực hiện các quyền trên, anh/chị chỉ cần gọi hoặc nhắn Zalo{" "}
-              <a href="tel:+84909474123" className="text-gold-600 font-medium hover:underline">
-                0909 474 123
+              Để thực hiện các quyền trên, anh/chị gọi hoặc nhắn Zalo{" "}
+              <a
+                href={`tel:${contact.phoneIntl}`}
+                className="text-gold-600 font-medium hover:underline"
+              >
+                {contact.phoneDisplay}
+              </a>
+              , hoặc gửi email tới{" "}
+              <a
+                href={`mailto:${legal.email}`}
+                className="text-gold-600 font-medium hover:underline"
+              >
+                {legal.email}
               </a>{" "}
               — chúng tôi xử lý trong vòng 48 giờ làm việc.
             </p>
@@ -213,33 +231,46 @@ export default function ChinhSachBaoMatPage() {
               <span className="text-gold-500 font-semibold">08</span>
               Đơn vị chịu trách nhiệm
             </h2>
-            <p className="font-semibold text-navy-900 text-lg mb-1">
-              Nguyễn Hữu Thọ — 1992 Land
-            </p>
+            <p className="font-semibold text-navy-900 text-lg mb-1">{legal.name}</p>
             <p className="text-navy-600 text-sm mb-5">
-              Chuyên viên môi giới bất động sản · 1992land.com
+              Mã số thuế: {legal.taxId} · Đơn vị chủ quản chuyên trang {brand.name}
             </p>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-gold-500 mt-0.5 shrink-0" />
-                <span>17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP.HCM</span>
+                <span>{legal.address}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-gold-500 shrink-0" />
-                <a href="tel:+84909474123" className="text-navy-900 font-medium hover:text-gold-600 transition-colors">
-                  0909 474 123
+                <a
+                  href={`tel:${legal.phoneIntl}`}
+                  className="text-navy-900 font-medium hover:text-gold-600 transition-colors"
+                >
+                  {legal.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-gold-500 shrink-0" />
                 <a
-                  href="mailto:nguyenhuutho911@gmail.com"
+                  href={`mailto:${legal.email}`}
                   className="text-navy-900 font-medium hover:text-gold-600 transition-colors"
                 >
-                  nguyenhuutho911@gmail.com
+                  {legal.email}
                 </a>
               </li>
             </ul>
+
+            <p className="text-navy-600 text-sm mt-5 pt-5 border-t border-border-soft">
+              Người phụ trách nội dung &amp; tư vấn: <strong className="text-navy-900">{contact.name}</strong>{" "}
+              — {contact.jobTitle},{" "}
+              <a
+                href={`tel:${contact.phoneIntl}`}
+                className="text-navy-700 hover:text-gold-600 transition-colors"
+              >
+                {contact.phoneDisplay}
+              </a>
+              . Văn phòng giao dịch: {brand.officeAddress}.
+            </p>
           </section>
 
         </div>

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import Analytics from "@/components/Analytics";
+import { legal, brand, contact } from "@/lib/site-config";
 
 const beVietnam = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
@@ -33,8 +34,10 @@ export const metadata: Metadata = {
     default: "1992 Land — Giá Trị Kiến Tạo Lòng Tin",
   },
   description:
-    "1992 Land — Chuyên môi giới bất động sản tại HCMC, Vũng Tàu, Bình Dương, Long An, Đồng Nai. Uy tín — Chuyên nghiệp — Tận tâm.",
-  keywords: ["bất động sản", "môi giới BĐS", "Thủ Đức", "HCMC", "1992 Land"],
+    "1992 Land — Đơn vị tư vấn & phân phối dự án thuộc Công ty Cổ phần TPI Land. Tư vấn bất động sản tại HCMC, Vũng Tàu, Bình Dương, Long An, Đồng Nai.",
+  keywords: ["bất động sản", "tư vấn BĐS", "Thủ Đức", "HCMC", "1992 Land", "TPI Land"],
+  authors: [{ name: legal.name, url: legal.url }],
+  publisher: legal.name,
   icons: {
     icon: [{ url: "/images/logo.png", sizes: "512x512", type: "image/png" }],
     apple: [{ url: "/images/logo.png", sizes: "512x512" }],
@@ -54,25 +57,59 @@ export const metadata: Metadata = {
   },
 };
 
-const orgSchema = {
+// Ba nút liên kết với nhau: pháp nhân TPI Land ← chuyên trang 1992 Land ← người phụ trách.
+// `sameAs` trỏ về tpiland.com là mắt xích để Google nối domain này với pháp nhân đã có hồ sơ.
+const schemaGraph = {
   "@context": "https://schema.org",
-  "@type": "RealEstateAgent",
-  name: "1992 Land",
-  url: "https://1992land.com",
-  founder: "Nguyễn Hữu Thọ",
-  telephone: "+84909474123",
-  email: "nguyenhuutho911@gmail.com",
-  areaServed: ["TP HCM", "Vũng Tàu", "Bình Dương", "Long An", "Đồng Nai"],
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "17 Trần Quý Kiên",
-    addressLocality: "Bình Trưng Tây, TP. Thủ Đức",
-    addressRegion: "Hồ Chí Minh",
-    addressCountry: "VN",
-  },
-  sameAs: [
-    "https://zalo.me/0909474123",
-    "https://www.facebook.com/nguyenhuutho911",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${brand.url}/#organization`,
+      name: legal.name,
+      legalName: legal.name,
+      taxID: legal.taxId,
+      vatID: legal.taxId,
+      url: legal.url,
+      telephone: legal.phoneIntl,
+      email: legal.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: legal.addressStreet,
+        addressLocality: legal.addressLocality,
+        addressRegion: legal.addressRegion,
+        addressCountry: "VN",
+      },
+      sameAs: [legal.url],
+    },
+    {
+      "@type": "RealEstateAgent",
+      "@id": `${brand.url}/#brand`,
+      name: brand.name,
+      alternateName: `${brand.name} — ${legal.shortName}`,
+      description: `${brand.role} thuộc ${legal.name}.`,
+      url: brand.url,
+      telephone: contact.phoneIntl,
+      email: legal.email,
+      parentOrganization: { "@id": `${brand.url}/#organization` },
+      areaServed: ["TP HCM", "Vũng Tàu", "Bình Dương", "Long An", "Đồng Nai"],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "17 Trần Quý Kiên",
+        addressLocality: "Bình Trưng Tây, TP. Thủ Đức",
+        addressRegion: "Hồ Chí Minh",
+        addressCountry: "VN",
+      },
+      sameAs: [legal.url, contact.zalo],
+    },
+    {
+      "@type": "Person",
+      "@id": `${brand.url}/#nguoi-phu-trach`,
+      name: contact.name,
+      jobTitle: contact.jobTitle,
+      telephone: contact.phoneIntl,
+      worksFor: { "@id": `${brand.url}/#organization` },
+      sameAs: [contact.zalo],
+    },
   ],
 };
 
@@ -90,7 +127,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
         />
       </head>
       <body className="min-h-screen flex flex-col bg-bg text-ink antialiased">

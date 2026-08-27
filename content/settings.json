@@ -1,24 +1,37 @@
 {
-  "site_name": "1992 Land",
-  "tagline": "Giá Trị Kiến Tạo Lòng Tin",
+  "legal": {
+    "name": "Công ty Cổ phần TPI Land",
+    "shortName": "TPI Land",
+    "taxId": "0313899226",
+    "licenseIssuer": "Sở Kế hoạch & Đầu tư Thành phố Hồ Chí Minh",
+    "licenseDate": "06/07/2016",
+    "address": "LK2-3 Đường N1-1, Saigon Mystery Villas, Phường Bình Trưng, Thành phố Hồ Chí Minh",
+    "addressStreet": "LK2-3 Đường N1-1, Saigon Mystery Villas",
+    "addressLocality": "Phường Bình Trưng",
+    "addressRegion": "Thành phố Hồ Chí Minh",
+    "phone": "0932.6666.51",
+    "phoneIntl": "+84932666651",
+    "email": "admin@tpiland.com",
+    "url": "https://tpiland.com"
+  },
+  "brand": {
+    "name": "1992 Land",
+    "tagline": "Giá Trị Kiến Tạo Lòng Tin",
+    "url": "https://1992land.com",
+    "role": "Đơn vị tư vấn & phân phối dự án",
+    "officeAddress": "17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP. HCM"
+  },
   "contact": {
     "name": "Nguyễn Hữu Thọ",
+    "jobTitle": "Giám đốc dự án",
     "phone": "0909474123",
-    "phone_intl": "+84909474123",
-    "email": "nguyenhuutho911@gmail.com",
+    "phoneDisplay": "0909 474 123",
+    "phoneIntl": "+84909474123",
     "zalo": "https://zalo.me/0909474123",
-    "messenger": "https://m.me/165126330021000",
-    "address": "17 Trần Quý Kiên, Bình Trưng Tây, TP. Thủ Đức, TP. HCM",
-    "working_hours": "8:00 – 20:00, Thứ 2 – Chủ nhật"
+    "messenger": "https://m.me/nguyenhuutho911",
+    "workingHours": "8:00 – 20:00, Thứ 2 – Chủ nhật"
   },
-  "web3forms_access_key": "REPLACE_WITH_KEY",
   "analytics": {
-    "ga4_measurement_id": "REPLACE_WITH_G-XXXXXXX",
-    "google_ads_id": "REPLACE_WITH_AW-XXXXXXXXX",
-    "meta_pixel_id": "REPLACE_WITH_PIXEL_ID"
-  },
-  "social": {
-    "facebook": "https://m.me/165126330021000",
-    "zalo": "https://zalo.me/0909474123"
+    "gtm_id": "GTM-PSC9KR55"
   }
 }

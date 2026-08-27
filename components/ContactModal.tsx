@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X, FileText, ArrowRight } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { contact } from "@/lib/site-config";
 
 type Props = {
   label: string;
@@ -73,7 +74,7 @@ export default function ContactModal({ label, subject, projectSlug, icon, varian
 
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi ngay{" "}
-                <a href="tel:+84909474123" className="text-gold-500 font-medium">0909 474 123</a>
+                <a href={`tel:${contact.phoneIntl}`} className="text-gold-500 font-medium">{contact.phoneDisplay}</a>
               </p>
             </div>
           </div>

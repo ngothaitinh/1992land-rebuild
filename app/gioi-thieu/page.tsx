@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import ZaloIcon from "@/components/ZaloIcon";
+import { legal, brand, contact } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Giới thiệu",
-  description: "Tìm hiểu về 1992 Land — đội ngũ môi giới BĐS chuyên nghiệp tại Thủ Đức, TP.HCM. Sáng lập bởi Nguyễn Hữu Thọ với hơn 5 năm kinh nghiệm.",
+  description: `Tìm hiểu về ${brand.name} — chuyên trang dự án thuộc ${legal.name}, do ${contact.name} (${contact.jobTitle}) phụ trách tư vấn tại TP.HCM và các tỉnh phía Nam.`,
 };
 
 export default function GioiThieuPage() {
@@ -33,7 +34,7 @@ export default function GioiThieuPage() {
               <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/team/nguyen-huu-tho.jpg"
-                  alt="Nguyễn Hữu Thọ — Nhà sáng lập 1992 Land"
+                  alt={`${contact.name} — ${contact.jobTitle} tại ${legal.name}`}
                   fill
                   className="object-cover object-[54%_50%] scale-[1.5] origin-center"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -41,9 +42,11 @@ export default function GioiThieuPage() {
               </div>
               {/* Name card overlay */}
               <div className="absolute -bottom-6 -right-4 bg-white rounded-2xl shadow-xl p-5 border border-border-soft">
-                <div className="text-navy-900 font-bold">Nguyễn Hữu Thọ</div>
-                <div className="text-gold-500 text-sm font-medium">Nhà sáng lập · 1992 Land</div>
-                <div className="text-muted text-xs mt-1">0909 474 123</div>
+                <div className="text-navy-900 font-bold">{contact.name}</div>
+                <div className="text-gold-500 text-sm font-medium">
+                  {contact.jobTitle} · {legal.shortName}
+                </div>
+                <div className="text-muted text-xs mt-1">{contact.phoneDisplay}</div>
               </div>
               {/* Gold accent */}
               <div className="absolute -top-4 -left-4 w-24 h-24 rounded-2xl bg-gold-500/10 border border-gold-500/20" />
@@ -59,15 +62,26 @@ export default function GioiThieuPage() {
               </h2>
             </div>
             <p>
-              <strong className="text-navy-900">1992 Land</strong> được sáng lập bởi anh{" "}
-              <strong className="text-navy-900">Nguyễn Hữu Thọ</strong> — người có hơn 5 năm
-              kinh nghiệm trong lĩnh vực môi giới bất động sản tại thị trường miền Nam.
+              <strong className="text-navy-900">{brand.name}</strong> là chuyên trang dự án
+              thuộc{" "}
+              <a
+                href={legal.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-navy-900 font-semibold underline underline-offset-2 hover:text-gold-600 transition-colors"
+              >
+                {legal.name}
+              </a>
+              , do anh <strong className="text-navy-900">{contact.name}</strong> —{" "}
+              {contact.jobTitle.toLowerCase()} tại {legal.shortName} — trực tiếp phụ trách,
+              với hơn 5 năm kinh nghiệm tư vấn bất động sản tại thị trường miền Nam.
             </p>
             <p>
               Hoạt động tại TP. Thủ Đức và mở rộng ra Bà Rịa — Vũng Tàu, Bình Dương, Long An,
-              Đồng Nai, 1992 Land hướng đến mục tiêu mang lại <strong className="text-navy-900">giá trị thực sự</strong>{" "}
-              cho khách hàng — không chỉ tư vấn một giao dịch, mà đồng hành lâu dài trong
-              hành trình sở hữu bất động sản.
+              Đồng Nai, {brand.name} hướng đến mục tiêu mang lại{" "}
+              <strong className="text-navy-900">giá trị thực sự</strong> cho khách hàng —
+              không chỉ tư vấn một giao dịch, mà đồng hành lâu dài trong hành trình sở hữu
+              bất động sản.
             </p>
             <p>
               Với phương châm{" "}
@@ -78,14 +92,14 @@ export default function GioiThieuPage() {
 
             <div className="flex flex-wrap gap-3 pt-2">
               <a
-                href="tel:+84909474123"
+                href={`tel:${contact.phoneIntl}`}
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-navy-900 text-white font-semibold rounded-full hover:bg-navy-700 transition-colors text-sm"
               >
                 <Phone size={15} />
-                0909 474 123
+                {contact.phoneDisplay}
               </a>
               <a
-                href="https://zalo.me/0909474123"
+                href={contact.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border-soft text-navy-700 font-medium rounded-full hover:border-navy-300 transition-colors text-sm"
@@ -105,7 +119,7 @@ export default function GioiThieuPage() {
             { num: "9+", label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
             { num: "500+", label: "Khách hàng tin tưởng", sub: "Từ năm 2020 đến nay" },
             { num: "5+", label: "Năm kinh nghiệm", sub: "Thị trường BĐS miền Nam" },
-            { num: "100%", label: "Minh bạch pháp lý", sub: "Kiểm tra kỹ trước khi tư vấn" },
+            { num: "2016", label: "Pháp nhân TPI Land", sub: `Thành lập ${legal.licenseDate}` },
           ].map((stat) => (
             <div key={stat.label} className="text-center p-5 rounded-2xl border border-white/10 bg-white/5">
               <div className="text-4xl font-bold text-gold-500 font-numeric mb-1">{stat.num}</div>
@@ -139,11 +153,61 @@ export default function GioiThieuPage() {
         </div>
       </div>
 
+      {/* Đơn vị chủ quản */}
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 pb-20">
+        <div className="rounded-3xl border border-border-soft bg-surface p-8 lg:p-10">
+          <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-3">
+            Đơn vị chủ quản
+          </p>
+          <h2 className="font-display text-2xl font-bold text-navy-900 mb-5">
+            {legal.name}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3 text-sm text-ink">
+            <p>
+              <span className="text-muted">Mã số thuế:</span>{" "}
+              <strong className="text-navy-900">{legal.taxId}</strong>
+            </p>
+            <p>
+              <span className="text-muted">Trụ sở chính:</span> {legal.address}
+            </p>
+            <p>
+              <span className="text-muted">Điện thoại:</span>{" "}
+              <a
+                href={`tel:${legal.phoneIntl}`}
+                className="text-navy-700 hover:text-gold-600 transition-colors"
+              >
+                {legal.phone}
+              </a>
+            </p>
+            <p>
+              <span className="text-muted">Email:</span>{" "}
+              <a
+                href={`mailto:${legal.email}`}
+                className="text-navy-700 hover:text-gold-600 transition-colors"
+              >
+                {legal.email}
+              </a>
+            </p>
+          </div>
+          <p className="text-muted text-sm mt-6 leading-relaxed">
+            {brand.name} hoạt động với vai trò {brand.role.toLowerCase()}, không phải chủ đầu
+            tư dự án.{" "}
+            <Link
+              href="/phap-ly"
+              className="text-navy-700 underline underline-offset-2 hover:text-gold-600 transition-colors"
+            >
+              Xem thông tin pháp lý đầy đủ
+            </Link>
+            .
+          </p>
+        </div>
+      </div>
+
       {/* CTA */}
       <div className="bg-navy-50 py-16 px-6 text-center">
         <h2 className="font-display text-2xl font-bold text-navy-900 mb-3">Sẵn sàng tư vấn miễn phí</h2>
         <p className="text-muted mb-8 max-w-md mx-auto">
-          Liên hệ anh Thọ để được tư vấn dự án phù hợp — miễn phí, không ràng buộc.
+          Liên hệ {contact.name} để được tư vấn dự án phù hợp — miễn phí, không ràng buộc.
         </p>
         <Link
           href="/lien-he"

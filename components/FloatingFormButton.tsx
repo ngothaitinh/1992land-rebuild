@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MessageCircle, X } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import { contact } from "@/lib/site-config";
 
 export default function FloatingFormButton() {
   const [open, setOpen] = useState(false);
@@ -60,7 +61,7 @@ export default function FloatingFormButton() {
               <ContactForm compact showProject />
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi ngay{" "}
-                <a href="tel:+84909474123" className="text-gold-500 font-medium">0909 474 123</a>
+                <a href={`tel:${contact.phoneIntl}`} className="text-gold-500 font-medium">{contact.phoneDisplay}</a>
               </p>
             </div>
           </div>

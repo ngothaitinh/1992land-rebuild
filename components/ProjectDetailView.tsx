@@ -19,6 +19,7 @@ import ContactModal from "@/components/ContactModal";
 import ProjectSidebarForm from "@/components/ProjectSidebarForm";
 import ZaloIcon from "@/components/ZaloIcon";
 import VideoEmbed from "@/components/VideoEmbed";
+import { contact } from "@/lib/site-config";
 
 type ProjectDetailViewProps = {
   project: Project;
@@ -690,13 +691,13 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
               </p>
               <div className="flex flex-wrap gap-3">
                 <a
-                  href="tel:+84909474123"
+                  href={`tel:${contact.phoneIntl}`}
                   className="flex items-center gap-2 px-5 py-2.5 border border-white/20 text-surface font-medium rounded-full hover:border-white/40 hover:bg-white/5 transition-all text-sm"
                 >
-                  <Phone size={14} /> 0909 474 123
+                  <Phone size={14} /> {contact.phoneDisplay}
                 </a>
                 <a
-                  href="https://zalo.me/0909474123"
+                  href={contact.zalo}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-5 py-2.5 bg-white border-2 border-[#0068FF] text-[#0068FF] font-semibold rounded-full hover:bg-blue-50 transition-colors text-sm"

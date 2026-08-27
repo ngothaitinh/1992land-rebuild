@@ -1,6 +1,7 @@
 import { Phone } from "lucide-react";
 import ZaloIcon from "@/components/ZaloIcon";
 import FloatingFormButton from "@/components/FloatingFormButton";
+import { contact } from "@/lib/site-config";
 
 export default function FloatingCTA() {
   return (
@@ -14,7 +15,7 @@ export default function FloatingCTA() {
             Chat Zalo
           </span>
           <a
-            href="https://zalo.me/0909474123"
+            href={contact.zalo}
             target="_blank"
             rel="noopener noreferrer"
             className="block hover:scale-110 transition-all duration-200 shadow-lg rounded-xl overflow-hidden"
@@ -30,10 +31,10 @@ export default function FloatingCTA() {
         {/* Phone */}
         <div className="group flex items-center gap-3">
           <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 bg-navy-900 text-surface text-xs font-medium px-3 py-1.5 rounded-full whitespace-nowrap shadow-lg">
-            0909 474 123
+            {contact.phoneDisplay}
           </span>
           <a
-            href="tel:+84909474123"
+            href={`tel:${contact.phoneIntl}`}
             className="w-12 h-12 rounded-full bg-gold-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
             aria-label="Gọi điện"
           >
@@ -50,7 +51,7 @@ export default function FloatingCTA() {
           <div className="grid grid-cols-3">
             {/* Zalo */}
             <a
-              href="https://zalo.me/0909474123"
+              href={contact.zalo}
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col items-center justify-center py-3.5 gap-1.5 border-r border-gray-100 hover:bg-blue-50 active:bg-blue-100 transition-colors"
@@ -65,9 +66,9 @@ export default function FloatingCTA() {
 
             {/* Phone — gold CTA */}
             <a
-              href="tel:+84909474123"
+              href={`tel:${contact.phoneIntl}`}
               className="flex flex-col items-center justify-center py-3.5 gap-1.5 bg-gold-500 hover:bg-gold-400 active:bg-gold-600 transition-colors relative overflow-hidden"
-              aria-label="Gọi điện 0909 474 123"
+              aria-label={`Gọi điện ${contact.phoneDisplay}`}
             >
               {/* Subtle shimmer */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />

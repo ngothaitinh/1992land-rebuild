@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/gioi-thieu`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/lien-he`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${base}/tuyen-dung`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/phap-ly`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+    { url: `${base}/chinh-sach-bao-mat`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
 
   const projectRoutes: MetadataRoute.Sitemap = projects.map((p) => ({

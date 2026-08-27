@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown, Phone, ArrowLeft } from "lucide-react";
+import { contact } from "@/lib/site-config";
 
 const ALL_SECTIONS = [
   { id: "tong-quan", label: "Tổng quan" },
@@ -129,11 +130,11 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
 
           {/* Phone CTA */}
           <a
-            href="tel:+84909474123"
+            href={`tel:${contact.phoneIntl}`}
             className="shrink-0 ml-auto flex items-center gap-2 px-5 py-2 bg-navy-900 text-white text-sm font-semibold rounded-full hover:bg-navy-700 transition-colors"
           >
             <Phone size={13} />
-            <span className="hidden sm:inline">0909 474 123</span>
+            <span className="hidden sm:inline">{contact.phoneDisplay}</span>
             <span className="sm:hidden">Gọi</span>
           </a>
         </div>

@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { loadProjects } from "@/lib/loadData";
 
-const projects = loadProjects();
 import ProjectsGrid from "@/components/ProjectsGrid";
+
+const projects = loadProjects();
 
 export const metadata: Metadata = {
   title: "Dự án",
-  description: "9 dự án bất động sản chọn lọc của 1992 Land — căn hộ, biệt thự, nghỉ dưỡng tại TP.HCM, Vũng Tàu, Bình Dương, Long An, Đồng Nai.",
+  description: `${projects.length} dự án bất động sản chọn lọc của 1992 Land — căn hộ, biệt thự, nghỉ dưỡng tại TP.HCM, Vũng Tàu, Bình Dương, Long An, Đồng Nai.`,
 };
 
 export default function DuAnPage() {

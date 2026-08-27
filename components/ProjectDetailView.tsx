@@ -788,7 +788,7 @@ export default function ProjectDetailView({ project, relatedProjects, relatedPos
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-950/40 to-transparent" />
                     {rp.category && (
-                      <span className="absolute top-3 left-3 px-2 py-0.5 bg-white/15 backdrop-blur-sm text-white text-[10px] font-medium rounded-full border border-white/20">
+                      <span className="absolute top-3 left-3 px-2 py-0.5 bg-navy-950/85 backdrop-blur-sm text-white text-[10px] font-medium rounded-full border border-white/20">
                         {rp.category}
                       </span>
                     )}

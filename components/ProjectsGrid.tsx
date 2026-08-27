@@ -21,13 +21,13 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
   return (
     <>
       {/* Area filter */}
-      <div className="bg-bg border-b border-border-soft px-6 py-4 sticky top-16 lg:top-[72px] z-30">
-        <div className="max-w-7xl mx-auto flex gap-2 flex-wrap">
+      <div className="bg-bg border-b border-border-soft py-3 sm:py-4 sticky top-16 lg:top-[72px] z-30">
+        <div className="max-w-7xl mx-auto flex gap-2 overflow-x-auto sm:overflow-visible sm:flex-wrap snap-x snap-mandatory px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {AREAS.map((area) => (
             <button
               key={area}
               onClick={() => setSelected(area)}
-              className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+              className={`shrink-0 snap-start min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                 selected === area
                   ? "bg-navy-900 text-white"
                   : "bg-surface border border-border-soft text-navy-500 hover:border-navy-300 hover:text-navy-900"
@@ -71,16 +71,16 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
                   )}
                   <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-navy-950/10 transition-colors" />
                   <div className="absolute bottom-4 left-4">
-                    <span className="inline-block px-2.5 py-1 bg-white/15 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                    <span className="inline-block px-2.5 py-1 bg-navy-950/85 backdrop-blur-sm text-white text-xs font-medium rounded-full">
                       {project.type}
                     </span>
                   </div>
                   <div className="absolute top-4 right-4">
                     <span
-                      className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full ${
+                      className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-navy-950/85 backdrop-blur-sm ${
                         project.status === "Đang mở bán"
-                          ? "bg-emerald-500/20 text-emerald-300"
-                          : "bg-gold-500/20 text-gold-300"
+                          ? "text-emerald-300"
+                          : "text-gold-300"
                       }`}
                     >
                       {project.status}

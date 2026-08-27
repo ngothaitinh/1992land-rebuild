@@ -149,7 +149,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-bg text-ink antialiased">
+      {/* pb-20 on mobile: chừa chỗ cho thanh CTA cố định (Zalo/Tư vấn/Gọi ngay, cao 75px).
+          Đặt ở body chứ không phải main — Footer nằm ngoài main nên trước đây dòng cuối
+          footer (MST, link Chính sách bảo mật) bị thanh CTA che mất, không bấm được. */}
+      <body className="min-h-screen flex flex-col bg-bg text-ink antialiased pb-20 md:pb-0">
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-PSC9KR55"
@@ -160,8 +163,7 @@ export default function RootLayout({
         </noscript>
         <Analytics />
         <Header />
-        {/* pb-16 on mobile for FloatingCTA bottom bar */}
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <FloatingCTA />
       </body>

@@ -7,10 +7,12 @@ import { gtagEvent, fireConversion } from "@/components/Analytics";
 import { contact, legal } from "@/lib/site-config";
 
 const WEBHOOK_URL = process.env.NEXT_PUBLIC_FORM_WEBHOOK_URL || "https://api.1992land.com/contact-lead";
-const PRODUCTS = ["Studio", "1 phòng ngủ", "2 phòng ngủ", "Penthouse", "Villa 2 phòng ngủ", "Villa 3 phòng ngủ", "Chưa xác định"];
+const MAIA_PRODUCTS = ["Studio", "1 phòng ngủ", "2 phòng ngủ", "Penthouse", "Villa 2 phòng ngủ", "Villa 3 phòng ngủ", "Chưa xác định"];
+
+type Props = { id?: string; project?: string; place?: string; products?: string[]; formType?: string };
 
 /** Dải đăng ký ngang nền vàng đồng — form 1 hàng trên desktop, xếp dọc trên mobile. */
-export default function MaiaLeadBand({ id }: { id?: string }) {
+export default function MaiaLeadBand({ id, project = "Maia Resort Hồ Tràm", place = "Hồ Tràm", products = MAIA_PRODUCTS, formType = "maia_landing" }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -26,16 +28,16 @@ export default function MaiaLeadBand({ id }: { id?: string }) {
           ho_ten: fd.get("ho_ten"),
           so_dien_thoai: fd.get("so_dien_thoai"),
           email: "",
-          du_an_quan_tam: "Maia Resort Hồ Tràm",
+          du_an_quan_tam: project,
           loi_nhan: fd.get("san_pham") ? `Quan tâm: ${fd.get("san_pham")}` : "",
-          subject: "Đăng ký tham quan Maia Resort Hồ Tràm",
+          subject: `Đăng ký tham quan ${project}`,
           source_url: window.location.href,
         }),
       });
       if (!res.ok) throw new Error();
       setStatus("ok");
       form.reset();
-      gtagEvent("form_submit", { form_type: "maia_landing" });
+      gtagEvent("form_submit", { form_type: formType });
       gtagEvent("generate_lead");
       fireConversion();
     } catch {
@@ -50,7 +52,7 @@ export default function MaiaLeadBand({ id }: { id?: string }) {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-2xl lg:text-3xl font-bold leading-snug">Đăng ký tham quan dự án & nhận bảng giá</h2>
         <p className="mt-3 text-base lg:text-lg text-white max-w-3xl mx-auto leading-relaxed">
-          Chỉ cần họ tên và số điện thoại. {contact.name} sẽ gửi bảng giá, mặt bằng và chính sách mới nhất qua Zalo, đồng thời sắp xếp lịch tham quan thực tế tại Hồ Tràm.
+          Chỉ cần họ tên và số điện thoại. {contact.name} sẽ gửi bảng giá, mặt bằng và chính sách mới nhất qua Zalo, đồng thời sắp xếp lịch tham quan thực tế tại {place}.
         </p>
 
         <div aria-live="polite">
@@ -70,7 +72,7 @@ export default function MaiaLeadBand({ id }: { id?: string }) {
                 <span className="sr-only">Sản phẩm quan tâm</span>
                 <select name="san_pham" defaultValue="" className={inputCls}>
                   <option value="">Sản phẩm quan tâm</option>
-                  {PRODUCTS.map((x) => <option key={x}>{x}</option>)}
+                  {products.map((x) => <option key={x}>{x}</option>)}
                 </select>
               </label>
               <button

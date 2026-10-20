@@ -9,18 +9,18 @@
   "city": "long-an",
   "district": "Huyện Bến Lức",
   "developer": "BIM Land (BIM Group)",
-  "priceRange": "Từ 70 triệu/m²",
+  "priceRange": "Từ 5,79 tỷ/căn",
   "price_from": 70,
   "price_to": 80,
   "area_from": 82.5,
   "area_to": 162,
-  "discount": "Chiết khấu đến 17% — áp dụng cho khách đặt sớm",
+  "discount": "Chiết khấu 10–17% tùy tiến độ thanh toán",
   "bank_support": "Hỗ trợ lãi suất 24 tháng, miễn phí quản lý 2 năm",
   "grace_period": "Ân hạn lãi suất 24 tháng",
   "unit_count": 1251,
   "status": "Đang mở bán",
   "type": "Khu đô thị phức hợp",
-  "excerpt": "Đại đô thị 200 ha của BIM Land tại Bến Lức, Long An — hồ nổi 3.300 m², cầu Rồng 50 m, megamall 9,5 ha.",
+  "excerpt": "Đại đô thị 200 ha của BIM Land tại Bến Lức, Long An — hồ nổi 3.300 m², Cầu Rồng, megamall 9,5 ha.",
   "gradient": "from-amber-900 to-orange-800",
   "hero_image": "/images/projects/thanh-phu-centre-point/hero.jpg",
   "gallery": [
@@ -30,32 +30,89 @@
     "/images/projects/thanh-phu-centre-point/gallery-3.jpg",
     "/images/projects/thanh-phu-centre-point/gallery-4.jpg"
   ],
-  "scale": "200 ha (GĐ1: 85,2 ha) · 1.251 sản phẩm · mật độ XD 16% · giai đoạn 2024–2029",
+  "scale": "200 ha (GĐ1: 85,2 ha) · 1.251 sản phẩm · mật độ XD 14,41% · giai đoạn 2024–2029",
   "legal_status": "Chấp thuận đầu tư QĐ 8909/QĐ-UBND (28/9/2023); quy hoạch 1/500 QĐ 7500/QĐ-UBND (27/6/2025); sổ đỏ lâu dài cho khách hàng Việt.",
   "handover_date": "Giai đoạn 2024–2029",
   "ownership": "Sổ đỏ lâu dài",
   "product_types": [
-    { "name": "Shophouse", "area": "5,5 × 15 m", "price_range": "Từ 70 triệu/m²", "total": 607 },
-    { "name": "Biệt thự song lập", "area": "8×18 m – 9×18 m", "price_range": "Từ 80 triệu/m²", "total": 313 },
-    { "name": "Stripmall / Nhà phố thương mại", "area": "Liên hệ", "price_range": "Liên hệ", "total": 331 }
+    {
+      "name": "Nhà phố liền kề Hội Phú",
+      "area": "82,5 m² (5,5 × 15 m)",
+      "price_range": "5,79–6,74 tỷ/căn",
+      "total": 78
+    },
+    {
+      "name": "Nhà phố thương mại Hội Phú",
+      "area": "74,25–88 m²",
+      "price_range": "6,06–8,91 tỷ/căn",
+      "total": 529
+    },
+    {
+      "name": "Shophouse Strip Mall Thương Phú",
+      "area": "Liên hệ",
+      "price_range": "Liên hệ",
+      "total": 331
+    },
+    {
+      "name": "Biệt thự An Phú",
+      "area": "150–300 m²",
+      "price_range": "Liên hệ",
+      "total": 313
+    }
   ],
   "nearby": [
-    { "name": "Cao tốc TP.HCM — Trung Lương", "distance": "Lân cận", "category": "road" },
-    { "name": "TP.HCM (Quận 1)", "distance": "~40 km", "category": "road" },
-    { "name": "Bến xe Miền Tây", "distance": "~35 km", "category": "road" },
-    { "name": "KCN Bến Lức", "distance": "Lân cận", "category": "work" },
-    { "name": "UBND huyện Bến Lức", "distance": "~3 km", "category": "gov" },
-    { "name": "830C Đường Nguyễn Hữu Trí, xã Thanh Phú", "distance": "Vị trí dự án", "category": "road" }
+    {
+      "name": "Cao tốc TP.HCM — Trung Lương",
+      "distance": "Lân cận",
+      "category": "road"
+    },
+    {
+      "name": "TP.HCM (Quận 1)",
+      "distance": "~40 km",
+      "category": "road"
+    },
+    {
+      "name": "Bến xe Miền Tây",
+      "distance": "~35 km",
+      "category": "road"
+    },
+    {
+      "name": "KCN Bến Lức",
+      "distance": "Lân cận",
+      "category": "work"
+    },
+    {
+      "name": "UBND huyện Bến Lức",
+      "distance": "~3 km",
+      "category": "gov"
+    },
+    {
+      "name": "830C Đường Nguyễn Hữu Trí, xã Thanh Phú",
+      "distance": "Vị trí dự án",
+      "category": "road"
+    }
   ],
   "highlights": [
-    { "title": "Chủ đầu tư BIM Land", "desc": "Thành viên BIM Group — tập đoàn đa ngành uy tín với nhiều đại đô thị và khu nghỉ dưỡng trên cả nước." },
-    { "title": "Hồ nổi 3.300 m² & Cầu Rồng 50 m", "desc": "Điểm nhấn tiện ích hiếm có — hồ nổi lớn kết hợp nhạc nước và cầu Rồng biểu tượng của khu đô thị." },
-    { "title": "Megamall 9,5 ha & Sân Pickleball quốc tế", "desc": "Trung tâm thương mại quy mô lớn và các tiện ích thể thao chuẩn quốc tế phục vụ cư dân." },
-    { "title": "Pháp lý đầy đủ — Ưu đãi hấp dẫn", "desc": "Chấp thuận đầu tư + quy hoạch 1/500 + sổ đỏ lâu dài. Chiết khấu đến 17%, hỗ trợ lãi suất 24 tháng." }
+    {
+      "title": "Chủ đầu tư BIM Land",
+      "desc": "Thành viên BIM Group — tập đoàn đa ngành uy tín với nhiều đại đô thị và khu nghỉ dưỡng trên cả nước."
+    },
+    {
+      "title": "Hồ nổi 3.300 m² & Cầu Rồng",
+      "desc": "Điểm nhấn tiện ích hiếm có — hồ nổi lớn kết hợp nhạc nước và cầu Rồng biểu tượng của khu đô thị."
+    },
+    {
+      "title": "Megamall 9,5 ha & Sân Pickleball quốc tế",
+      "desc": "Trung tâm thương mại quy mô lớn và các tiện ích thể thao chuẩn quốc tế phục vụ cư dân."
+    },
+    {
+      "title": "Pháp lý đầy đủ — Ưu đãi hấp dẫn",
+      "desc": "Chấp thuận đầu tư + quy hoạch 1/500 + sổ đỏ lâu dài. Chiết khấu đến 17%, hỗ trợ lãi suất 24 tháng."
+    }
   ],
   "amenities_internal": [
     "Hồ nổi 3.300 m²",
-    "Cầu Rồng biểu tượng dài 50 m",
+    "Cầu Rồng biểu tượng",
     "Công viên nhạc nước ngoài trời",
     "Megamall trung tâm thương mại 9,5 ha",
     "Stripmall thương mại nội khu",
@@ -70,10 +127,22 @@
     "Chợ Bến Lức, siêu thị khu vực"
   ],
   "faq": [
-    { "q": "Thanh Phú Centre Point ở đâu?", "a": "Dự án tọa lạc tại 830C Đường Nguyễn Hữu Trí, xã Thanh Phú, huyện Bến Lức, tỉnh Long An — khu Tây Sài Gòn, kết nối thuận tiện về trung tâm TP.HCM qua cao tốc TP.HCM — Trung Lương." },
-    { "q": "Thanh Phú Centre Point có bao nhiêu sản phẩm?", "a": "Giai đoạn 1 (85,2 ha) gồm 1.251 sản phẩm: 607 shophouse (5,5×15 m), 313 biệt thự song lập (8×18 m – 9×18 m), và 331 stripmall/nhà phố thương mại." },
-    { "q": "Pháp lý Thanh Phú Centre Point thế nào?", "a": "Dự án đã có chấp thuận đầu tư (QĐ 8909/QĐ-UBND ngày 28/9/2023) và quy hoạch 1/500 (QĐ 7500/QĐ-UBND ngày 27/6/2025). Khách hàng được cấp sổ đỏ lâu dài." },
-    { "q": "Giá bán Thanh Phú Centre Point?", "a": "Shophouse từ ~70 triệu/m², biệt thự song lập từ ~80 triệu/m². Hiện có ưu đãi chiết khấu đến 17%, hỗ trợ lãi suất 24 tháng và miễn phí quản lý 2 năm." }
+    {
+      "q": "Thanh Phú Centre Point ở đâu?",
+      "a": "Dự án tọa lạc tại 830C Đường Nguyễn Hữu Trí, xã Thanh Phú, huyện Bến Lức, tỉnh Long An — khu Tây Sài Gòn, kết nối thuận tiện về trung tâm TP.HCM qua cao tốc TP.HCM — Trung Lương."
+    },
+    {
+      "q": "Thanh Phú Centre Point có bao nhiêu sản phẩm?",
+      "a": "Giai đoạn 1 (85,2 ha) gồm 1.251 sản phẩm chia ba phân khu: Hội Phú 607 căn (78 nhà phố liền kề và 529 nhà phố thương mại), Thương Phú 331 căn shophouse Strip Mall và An Phú 313 căn biệt thự."
+    },
+    {
+      "q": "Pháp lý Thanh Phú Centre Point thế nào?",
+      "a": "Dự án đã có chấp thuận đầu tư (QĐ 8909/QĐ-UBND ngày 28/9/2023) và quy hoạch 1/500 (QĐ 7500/QĐ-UBND ngày 27/6/2025). Khách hàng được cấp sổ đỏ lâu dài."
+    },
+    {
+      "q": "Giá bán Thanh Phú Centre Point?",
+      "a": "Nhà phố liền kề Hội Phú (82,5 m²) khoảng 5,79–6,74 tỷ đồng/căn, nhà phố thương mại khoảng 6,06–8,91 tỷ đồng/căn. Shophouse Strip Mall và biệt thự chưa công bố giá. Chiết khấu 10–17% tùy tiến độ thanh toán; giá có thể thay đổi theo từng đợt, liên hệ để nhận bảng giá mới nhất."
+    }
   ],
   "lat": 10.64,
   "lng": 106.49,
@@ -82,11 +151,11 @@
   "updated_at": "2026-06-02T00:00:00Z",
   "descriptions": {
     "chinh-sach": "**Thanh Phú Centre Point** áp dụng chính sách bán hàng linh hoạt và ưu đãi hấp dẫn cho khách đặt sớm. **Chiết khấu đến 17%** trên giá bán — mức chiết khấu cao trong phân khúc nhà phố – shophouse khu Tây Sài Gòn hiện nay. Khách hàng được **hỗ trợ lãi suất 24 tháng** (ân hạn nợ gốc trong thời gian hỗ trợ) và **miễn phí quản lý 2 năm** đầu sau bàn giao. Thanh toán theo tiến độ dự án, phù hợp cả khách mua để ở và nhà đầu tư tối ưu dòng tiền. Liên hệ 1992 Land để nhận bảng giá chi tiết và tư vấn phương thức thanh toán phù hợp nhất.",
-    "tong-quan": "**Thanh Phú Centre Point** là khu đô thị phức hợp quy mô **200 ha** (giai đoạn 1: 85,2 ha) do **BIM Land (BIM Group)** phát triển tại xã Thanh Phú, huyện Bến Lức, Long An. Dự án có **1.251 sản phẩm** giai đoạn 1 gồm shophouse, biệt thự song lập và stripmall/nhà phố thương mại — mật độ xây dựng chỉ **16%**, tối đa không gian xanh. Điểm nhấn thiết kế là **hồ nổi 3.300 m²**, **cầu Rồng biểu tượng 50 m** và **megamall trung tâm thương mại 9,5 ha** — quy mô và đẳng cấp hiếm thấy tại Long An. Triển khai theo **giai đoạn 2024–2029**.",
-    "gia-ban": "**Thanh Phú Centre Point** cung cấp 3 dòng sản phẩm phù hợp nhiều mục tiêu. **607 shophouse** (5,5×15 m) giá **từ 70 triệu/m²** — kết hợp kinh doanh và sinh sống, lý tưởng cho nhà kinh doanh và nhà đầu tư tối ưu dòng tiền. **313 biệt thự song lập** (8×18 m – 9×18 m) giá **từ 80 triệu/m²** — không gian rộng rãi với sân vườn riêng. **331 stripmall** liên hệ để biết báo giá. Hiện có **chiết khấu đến 17%**, hỗ trợ **lãi suất 24 tháng** và **miễn phí quản lý 2 năm** cho khách đặt sớm.",
+    "tong-quan": "**Thanh Phú Centre Point** là khu đô thị phức hợp quy mô **200 ha** (giai đoạn 1: 85,2 ha) do **BIM Land (BIM Group)** phát triển tại xã Thanh Phú, huyện Bến Lức, Long An. Dự án có **1.251 sản phẩm** giai đoạn 1 gồm shophouse, biệt thự song lập và stripmall/nhà phố thương mại — mật độ xây dựng chỉ **14,41%**, tối đa không gian xanh. Điểm nhấn thiết kế là **hồ nổi 3.300 m²**, **Cầu Rồng biểu tượng** và **megamall trung tâm thương mại 9,5 ha** — quy mô và đẳng cấp hiếm thấy tại Long An. Triển khai theo **giai đoạn 2024–2029**.",
+    "gia-ban": "**Thanh Phú Centre Point** giai đoạn 1 có 1.251 sản phẩm chia ba phân khu. **Hội Phú** gồm 78 nhà phố liền kề (82,5 m², khoảng **5,79–6,74 tỷ đồng**) và 529 nhà phố thương mại (**6,06–8,91 tỷ đồng**). **Thương Phú** có 331 shophouse Strip Mall và **An Phú** có 313 biệt thự, hiện chưa công bố giá. Chính sách có chiết khấu **10–17%** theo tiến độ thanh toán, hỗ trợ lãi suất 0% trong 24 tháng và miễn phí quản lý 2 năm. Giá tham khảo, có thể thay đổi theo từng đợt mở bán.",
     "vi-tri": "**Thanh Phú Centre Point** tọa lạc tại xã Thanh Phú, huyện Bến Lức, Long An — khu vực **Tây Sài Gòn**, kết nối trực tiếp với **cao tốc TP.HCM — Trung Lương** giúp di chuyển về trung tâm TP.HCM nhanh chóng. Bến Lức đang được quy hoạch thành đô thị vệ tinh phía Tây TP.HCM, với nhiều dự án hạ tầng và khu công nghiệp mới đang triển khai mạnh mẽ — tạo nhu cầu nhà ở và thương mại tăng trưởng bền vững. Vị trí thuận lợi cho kinh doanh và kết nối đồng bằng sông Cửu Long.",
-    "diem-noi-bat": "**Thanh Phú Centre Point** nổi bật với uy tín chủ đầu tư **BIM Land — thành viên BIM Group**, tập đoàn đa ngành với nhiều đại đô thị và khu nghỉ dưỡng nổi tiếng trên cả nước. Điểm nhấn thiết kế độc đáo là **hồ nổi 3.300 m²** kết hợp nhạc nước và **cầu Rồng biểu tượng dài 50 m** — linh hồn của khu đô thị. **Megamall 9,5 ha** và **sân Pickleball tiêu chuẩn quốc tế** nâng tầm tiện ích lên đẳng cấp mới. Pháp lý **đầy đủ và rõ ràng** với chiết khấu **đến 17%** và hỗ trợ lãi suất 24 tháng — chính sách hấp dẫn trong phân khúc nhà phố – shophouse khu Tây.",
-    "tien-ich": "**Thanh Phú Centre Point** thiết kế tiện ích lấy nước làm trung tâm. **Hồ nổi 3.300 m²** và **công viên nhạc nước ngoài trời** tạo không gian sinh hoạt cộng đồng độc đáo, kết nối bởi **cầu Rồng biểu tượng dài 50 m**. **Megamall trung tâm thương mại 9,5 ha** và stripmall nội khu đáp ứng mọi nhu cầu mua sắm và giải trí tại chỗ. **Sân Pickleball tiêu chuẩn quốc tế** và sân thể thao đa năng phục vụ nhu cầu vận động. **Công viên trung tâm và không gian xanh** rộng mở với mật độ xây dựng chỉ **16%** — hiếm thấy trong đô thị vệ tinh cùng phân khúc.",
+    "diem-noi-bat": "**Thanh Phú Centre Point** nổi bật với uy tín chủ đầu tư **BIM Land — thành viên BIM Group**, tập đoàn đa ngành với nhiều đại đô thị và khu nghỉ dưỡng nổi tiếng trên cả nước. Điểm nhấn thiết kế độc đáo là **hồ nổi 3.300 m²** kết hợp nhạc nước và **Cầu Rồng biểu tượng** — linh hồn của khu đô thị. **Megamall 9,5 ha** và **sân Pickleball tiêu chuẩn quốc tế** nâng tầm tiện ích lên đẳng cấp mới. Pháp lý **đầy đủ và rõ ràng** với chiết khấu **đến 17%** và hỗ trợ lãi suất 24 tháng — chính sách hấp dẫn trong phân khúc nhà phố – shophouse khu Tây.",
+    "tien-ich": "**Thanh Phú Centre Point** thiết kế tiện ích lấy nước làm trung tâm. **Hồ nổi 3.300 m²** và **công viên nhạc nước ngoài trời** tạo không gian sinh hoạt cộng đồng độc đáo, kết nối bởi **Cầu Rồng biểu tượng**. **Megamall trung tâm thương mại 9,5 ha** và stripmall nội khu đáp ứng mọi nhu cầu mua sắm và giải trí tại chỗ. **Sân Pickleball tiêu chuẩn quốc tế** và sân thể thao đa năng phục vụ nhu cầu vận động. **Công viên trung tâm và không gian xanh** rộng mở với mật độ xây dựng chỉ **14,41%** — hiếm thấy trong đô thị vệ tinh cùng phân khúc.",
     "phap-ly": "**Thanh Phú Centre Point** có pháp lý đầy đủ và minh bạch: **chấp thuận đầu tư** theo QĐ 8909/QĐ-UBND (28/9/2023) và **quy hoạch 1/500** theo QĐ 7500/QĐ-UBND (27/6/2025). Người Việt được cấp **sổ đỏ lâu dài** — quyền sở hữu đầy đủ và vĩnh viễn. Chủ đầu tư **BIM Land (BIM Group)** triển khai theo **giai đoạn 2024–2029** với lộ trình rõ ràng. Hiện áp dụng ưu đãi: chiết khấu **đến 17%**, hỗ trợ **lãi suất 24 tháng** và **miễn phí quản lý 2 năm**. 1992 Land hỗ trợ tra cứu pháp lý, phân tích tiềm năng và đồng hành ký kết."
   }
 }

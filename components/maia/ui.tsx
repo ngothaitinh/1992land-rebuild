@@ -1,28 +1,25 @@
-import { Archivo, Cormorant } from "next/font/google";
-import { CalendarCheck } from "lucide-react";
+import { Cormorant } from "next/font/google";
+import { CalendarCheck, Sparkle } from "lucide-react";
 
-/** Giữ cho landing Thanh Phú (components/thanhphu/ui.tsx) đang dùng chung; Maia không còn dùng. */
+/** Serif cho tiêu đề landing Maia — Cormorant có subset tiếng Việt (Cinzel thì không). */
 export const maiaSerif = Cormorant({ subsets: ["vietnamese", "latin"], weight: ["500", "600", "700"], display: "swap" });
 
-/** Chữ tiêu đề dạng lịch con nước: Archivo hẹp, in hoa. Có subset tiếng Việt. */
-export const maiaHead = Archivo({ subsets: ["vietnamese", "latin"], weight: "variable", axes: ["wdth"], display: "swap" });
-export const NARROW = { fontVariationSettings: '"wdth" 75' } as const;
-
-/** Tiêu đề section: một dòng, tự đứng được, không nhãn phụ. */
-export function H2({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+/** Tiêu đề section 2 dòng: dòng trên in hoa, dòng dưới serif thường. */
+export function SectionTitle({ top, bottom, className = "", light = false }: { top: string; bottom?: string; className?: string; light?: boolean }) {
   return (
-    <h2 style={NARROW} className={`${maiaHead.className} text-balance text-[2.25rem] sm:text-5xl lg:text-6xl font-extrabold uppercase leading-[1.02] tracking-tight text-gold-300 ${className}`}>
-      {children}
+    <h2 className={`${maiaSerif.className} font-semibold leading-[1.1] ${light ? "text-teal-900" : "text-gold-300"} ${className}`}>
+      <span className="block text-[2rem] sm:text-5xl lg:text-[3.5rem] uppercase tracking-wide">{top}</span>
+      {bottom && <span className="block text-2xl sm:text-4xl lg:text-[2.75rem] mt-1 font-medium">{bottom}</span>}
     </h2>
   );
 }
 
-/** Nút vàng dẫn xuống form đăng ký. Cao tối thiểu 48px cho thao tác chạm. */
-export function CtaLink({ children, href = "#dang-ky", className = "" }: { children: React.ReactNode; href?: string; className?: string }) {
+/** Nút viền vàng dẫn xuống form đăng ký. Cao tối thiểu 48px cho thao tác chạm. */
+export function CtaLink({ children, href = "#dang-ky" }: { children: React.ReactNode; href?: string }) {
   return (
     <a
       href={href}
-      className={`inline-flex min-h-12 items-center justify-center gap-2 bg-gold-300 px-6 py-3 text-[15px] font-semibold text-navy-950 transition-colors duration-200 hover:bg-gold-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-100 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950 text-center ${className}`}
+      className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-gold-300 bg-teal-900 px-6 py-3 text-[15px] font-semibold text-white shadow-lg shadow-black/25 transition-colors duration-200 hover:bg-gold-500 hover:text-teal-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-950 text-center"
     >
       <CalendarCheck size={18} className="shrink-0" aria-hidden />
       {children}
@@ -30,22 +27,15 @@ export function CtaLink({ children, href = "#dang-ky", className = "" }: { child
   );
 }
 
-/** Dòng bảng: nhãn bên trái, nội dung bên phải, kẻ vàng mảnh. */
-export function Row({ k, children }: { k: string; children: React.ReactNode }) {
+/** Danh sách gạch đầu dòng ngôi sao vàng. */
+export function StarList({ items, className = "" }: { items: React.ReactNode[]; className?: string }) {
   return (
-    <div className="grid gap-1 border-t border-gold-300/30 py-4 sm:grid-cols-[11rem_1fr] sm:gap-6">
-      <dt style={NARROW} className={`${maiaHead.className} text-lg font-bold uppercase tracking-wide text-gold-300`}>{k}</dt>
-      <dd className="text-base leading-relaxed text-white">{children}</dd>
-    </div>
-  );
-}
-
-/** Danh sách kẻ dòng thay cho gạch đầu dòng. */
-export function Ruled({ items, className = "" }: { items: React.ReactNode[]; className?: string }) {
-  return (
-    <ul className={`text-base leading-relaxed ${className}`}>
+    <ul className={`space-y-4 text-base leading-relaxed ${className}`}>
       {items.map((item, i) => (
-        <li key={i} className="max-w-[65ch] border-t border-gold-300/30 py-4">{item}</li>
+        <li key={i} className="flex gap-3">
+          <Sparkle size={16} className="text-gold-300 fill-gold-300 mt-1 shrink-0" aria-hidden />
+          <span>{item}</span>
+        </li>
       ))}
     </ul>
   );

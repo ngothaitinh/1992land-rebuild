@@ -15,8 +15,7 @@
     "setup": "node scripts/tg-register-commands.mjs",
     "preview": "node scripts/tg-preview.mjs",
     "decision": "node scripts/tg-poll-decision.mjs",
-    "notify": "node scripts/notify.mjs",
-    "images:optimize": "node scripts/optimize-images.mjs"
+    "notify": "node scripts/notify.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",

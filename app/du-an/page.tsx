@@ -4,8 +4,6 @@ import { ArrowRight } from "lucide-react";
 import { loadProjects } from "@/lib/loadData";
 
 import ProjectsGrid from "@/components/ProjectsGrid";
-import PageHero from "@/components/PageHero";
-import { H2 } from "@/components/maia/ui";
 
 const projects = loadProjects();
 
@@ -16,33 +14,43 @@ export const metadata: Metadata = {
 
 export default function DuAnPage() {
   return (
-    <div>
-      <PageHero title="Dự án 1992 Land">
-        <p>
-          Các dự án bất động sản được chọn lọc kỹ — pháp lý minh bạch, tiềm
-          năng tăng giá cao, phù hợp nhu cầu ở thực và đầu tư.
-        </p>
-      </PageHero>
+    <div className="pt-20">
+      {/* Hero */}
+      <div className="bg-navy-900 py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-4">
+            Danh mục dự án
+          </p>
+          <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+            Dự án 1992 Land
+          </h1>
+          <p className="text-surface/60 text-lg max-w-2xl mx-auto leading-relaxed">
+            Các dự án bất động sản được chọn lọc kỹ — pháp lý minh bạch, tiềm
+            năng tăng giá cao, phù hợp nhu cầu ở thực và đầu tư.
+          </p>
+          <div className="mt-4 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />
+        </div>
+      </div>
 
       {/* Interactive filter + grid */}
       <ProjectsGrid projects={projects} />
 
       {/* CTA */}
-      <section className="bg-navy-950 px-4 py-16 text-white sm:px-6 lg:px-8 lg:py-20">
-        <div className="mx-auto max-w-7xl">
-          <H2>Không tìm thấy dự án phù hợp?</H2>
-          <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-navy-50">
-            Mô tả nhu cầu của bạn — chúng tôi sẽ tư vấn dự án phù hợp nhất.
-          </p>
-          <Link
-            href="/lien-he"
-            className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 bg-gold-300 px-7 py-3 text-base font-semibold text-navy-950 transition-colors hover:bg-gold-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-100 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
-          >
-            Nhận tư vấn cá nhân
-            <ArrowRight size={16} aria-hidden />
-          </Link>
-        </div>
-      </section>
+      <div className="bg-navy-50 py-16 px-6 text-center">
+        <h2 className="font-display text-2xl font-bold text-navy-900 mb-3">
+          Không tìm thấy dự án phù hợp?
+        </h2>
+        <p className="text-muted mb-8 max-w-md mx-auto">
+          Mô tả nhu cầu của bạn — chúng tôi sẽ tư vấn dự án phù hợp nhất.
+        </p>
+        <Link
+          href="/lien-he"
+          className="inline-flex items-center gap-2 px-8 py-3.5 bg-navy-900 text-surface font-semibold rounded-full hover:bg-navy-700 transition-colors"
+        >
+          Nhận tư vấn cá nhân
+          <ArrowRight size={16} />
+        </Link>
+      </div>
     </div>
   );
 }

@@ -65,32 +65,6 @@ html {
   scroll-behavior: smooth;
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-ring);
-  outline-offset: 2px;
-}
-
-/* Nền navy: vòng focus màu vàng để đủ tương phản */
-.bg-navy-900 :focus-visible,
-.bg-navy-950 :focus-visible,
-.bg-navy-800 :focus-visible,
-.bg-black :focus-visible {
-  outline-color: var(--color-gold-300);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.2s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.15s !important;
-  }
-}
-
 body {
   background-color: #F8F5F0;
   color: #1A1A1A;
@@ -110,10 +84,3 @@ body {
   background: #6D7E9A;
   border-radius: 3px;
 }
-
-/* Thanh mực nước trang Maia: dâng lên theo tiến độ cuộn, chỉ hiện khi trình duyệt hỗ trợ scroll timeline */
-@keyframes maia-tide { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-.maia-gauge { position: fixed; top: 0; right: 0; bottom: 0; width: 3px; z-index: 30; pointer-events: none; background: rgb(232 201 120 / 0.18); display: none; }
-.maia-gauge::after { content: ""; position: absolute; inset: 0; background: var(--color-gold-300); transform-origin: bottom; transform: scaleY(0); animation: maia-tide linear both; animation-timeline: scroll(root); }
-@supports (animation-timeline: scroll()) { .maia-gauge { display: block; } }
-@media (prefers-reduced-motion: reduce) { .maia-gauge::after { animation: none; transform: scaleY(1); } }

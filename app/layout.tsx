@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import Analytics from "@/components/Analytics";
-import MotionProvider from "@/components/MotionProvider";
 import { legal, brand, contact } from "@/lib/site-config";
 
 const beVietnam = Be_Vietnam_Pro({
@@ -163,12 +162,10 @@ export default function RootLayout({
           />
         </noscript>
         <Analytics />
-        <MotionProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <FloatingCTA />
-        </MotionProvider>
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <FloatingCTA />
       </body>
     </html>
   );

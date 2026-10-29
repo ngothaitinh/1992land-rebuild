@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ShieldCheck, Phone, Mail, MapPin } from "lucide-react";
-import PageHero from "@/components/PageHero";
-import { maiaHead, NARROW } from "@/components/maia/ui";
 import { legal, brand, contact } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -16,27 +14,36 @@ const updated = "21/06/2026";
 
 export default function ChinhSachBaoMatPage() {
   return (
-    <main>
-      <PageHero title="Chính sách bảo mật thông tin">
-        <p>
-          {legal.name} — đơn vị chủ quản của chuyên trang {brand.name} — tôn trọng và bảo
-          vệ thông tin cá nhân của mỗi khách hàng. Trang này giải thích rõ chúng tôi thu
-          thập gì, dùng để làm gì và cam kết của chúng tôi đối với dữ liệu của anh/chị.
-        </p>
-        <p className="mt-4 text-base">Cập nhật lần cuối: {updated}</p>
-      </PageHero>
+    <main className="min-h-screen bg-surface">
+      {/* Hero */}
+      <div className="bg-navy-900 pt-32 pb-16 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-gold-300 text-xs font-medium tracking-wide mb-5">
+            <ShieldCheck size={14} />
+            Cam kết bảo mật
+          </div>
+          <h1 className="font-display text-3xl lg:text-4xl font-bold text-surface tracking-tight mb-3">
+            Chính sách bảo mật thông tin
+          </h1>
+          <p className="text-surface/60 text-base leading-relaxed max-w-2xl">
+            {legal.name} — đơn vị chủ quản của chuyên trang {brand.name} — tôn trọng và bảo
+            vệ thông tin cá nhân của mỗi khách hàng. Trang này giải thích rõ chúng tôi thu
+            thập gì, dùng để làm gì và cam kết của chúng tôi đối với dữ liệu của anh/chị.
+          </p>
+          <p className="text-surface/40 text-sm mt-4">Cập nhật lần cuối: {updated}</p>
+        </div>
+      </div>
 
-      <div className="bg-bg px-4 py-16 text-navy-900 sm:px-6 lg:px-8 lg:py-24">
-      <div className="mx-auto max-w-3xl">
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
         <Link
           href="/"
-          className="mb-10 inline-flex min-h-12 items-center gap-1 text-base font-medium text-navy-800 hover:text-gold-900"
+          className="text-sm text-navy-500 hover:text-gold-600 transition-colors mb-10 inline-flex items-center gap-1"
         >
           ← Về trang chủ
         </Link>
 
         {/* Disclaimer box */}
-        <div className="mb-12 border-y border-gold-700 py-5 text-base leading-relaxed text-navy-900">
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-12 text-sm text-amber-900 leading-relaxed">
           <strong>Lưu ý về tính chất website:</strong> 1992land.com là chuyên trang dự án
           của {legal.name} (MST {legal.taxId}), hoạt động với vai trò{" "}
           {brand.role.toLowerCase()},{" "}
@@ -46,19 +53,19 @@ export default function ChinhSachBaoMatPage() {
           tiếp để được tư vấn chính xác và cập nhật nhất.{" "}
           <Link
             href="/phap-ly"
-            className="font-semibold underline underline-offset-2 hover:text-gold-900"
+            className="underline underline-offset-2 font-medium hover:text-amber-700"
           >
             Xem thông tin pháp lý đầy đủ
           </Link>
           .
         </div>
 
-        <div className="space-y-14 text-lg leading-relaxed text-navy-900">
+        <div className="space-y-12 text-navy-800 leading-relaxed">
 
           {/* 1 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">01</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">01</span>
               Thông tin chúng tôi thu thập
             </h2>
             <p className="mb-3">
@@ -74,15 +81,15 @@ export default function ChinhSachBaoMatPage() {
                 ["Lời nhắn / nhu cầu", "thông tin anh/chị tự nguyện chia sẻ — tùy chọn"],
               ].map(([k, v]) => (
                 <li key={k} className="flex gap-3">
-                  <span className="mt-3 size-1.5 shrink-0 bg-gold-700" aria-hidden />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-2.5 shrink-0" />
                   <span>
-                    <strong>{k}</strong>{" "}
-                    <span className="text-navy-700">— {v}</span>
+                    <strong className="text-navy-900">{k}</strong>{" "}
+                    <span className="text-navy-600">— {v}</span>
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-base text-navy-700">
+            <p className="mt-4 text-sm text-navy-600">
               Hệ thống cũng tự động ghi nhận đường dẫn trang anh/chị gửi yêu cầu (source URL)
               để chúng tôi biết anh/chị quan tâm nội dung nào. Chúng tôi{" "}
               <strong>không</strong> yêu cầu và <strong>không</strong> thu thập số CMND/CCCD,
@@ -92,8 +99,8 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 2 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">02</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">02</span>
               Mục đích sử dụng thông tin
             </h2>
             <p className="mb-3">
@@ -107,7 +114,7 @@ export default function ChinhSachBaoMatPage() {
                 "Hỗ trợ, giải đáp thắc mắc trong và sau quá trình giao dịch.",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
-                  <span className="mt-3 size-1.5 shrink-0 bg-gold-700" aria-hidden />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-2.5 shrink-0" />
                   <span>{t}</span>
                 </li>
               ))}
@@ -115,9 +122,9 @@ export default function ChinhSachBaoMatPage() {
           </section>
 
           {/* 3 — cam kết */}
-          <section className="border-y border-navy-900/20 py-8">
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">03</span>
+          <section className="bg-navy-50 border border-navy-100 rounded-2xl p-6">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">03</span>
               Cam kết của chúng tôi
             </h2>
             <ul className="space-y-3">
@@ -128,8 +135,8 @@ export default function ChinhSachBaoMatPage() {
                 "CHỈ chuyên viên phụ trách mới được tiếp cận thông tin để phục vụ việc tư vấn.",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
-                  <ShieldCheck size={20} className="mt-1 shrink-0 text-gold-900" aria-hidden />
-                  <span>{t}</span>
+                  <ShieldCheck size={18} className="text-gold-500 mt-0.5 shrink-0" />
+                  <span className="text-navy-800">{t}</span>
                 </li>
               ))}
             </ul>
@@ -137,8 +144,8 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 4 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">04</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">04</span>
               Lưu trữ & bảo mật dữ liệu
             </h2>
             <p>
@@ -153,8 +160,8 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 5 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">05</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">05</span>
               Quyền của anh/chị
             </h2>
             <p className="mb-3">Đối với thông tin cá nhân của mình, anh/chị có quyền:</p>
@@ -166,23 +173,23 @@ export default function ChinhSachBaoMatPage() {
                 "Rút lại sự đồng ý và từ chối nhận liên hệ tư vấn bất cứ lúc nào.",
               ].map((t) => (
                 <li key={t} className="flex gap-3">
-                  <span className="mt-3 size-1.5 shrink-0 bg-gold-700" aria-hidden />
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold-500 mt-2.5 shrink-0" />
                   <span>{t}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-navy-700">
+            <p className="mt-4 text-navy-600">
               Để thực hiện các quyền trên, anh/chị gọi hoặc nhắn Zalo{" "}
               <a
                 href={`tel:${contact.phoneIntl}`}
-                className="font-semibold text-gold-900 underline underline-offset-2 hover:text-navy-900"
+                className="text-gold-600 font-medium hover:underline"
               >
                 {contact.phoneDisplay}
               </a>
               , hoặc gửi email tới{" "}
               <a
                 href={`mailto:${legal.email}`}
-                className="font-semibold text-gold-900 underline underline-offset-2 hover:text-navy-900"
+                className="text-gold-600 font-medium hover:underline"
               >
                 {legal.email}
               </a>{" "}
@@ -192,8 +199,8 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 6 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">06</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">06</span>
               Cookie & công cụ đo lường
             </h2>
             <p>
@@ -207,8 +214,8 @@ export default function ChinhSachBaoMatPage() {
 
           {/* 7 */}
           <section>
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">07</span>
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-4 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">07</span>
               Thay đổi chính sách
             </h2>
             <p>
@@ -219,46 +226,46 @@ export default function ChinhSachBaoMatPage() {
           </section>
 
           {/* 8 — liên hệ */}
-          <section className="border-t border-navy-900/20 pt-10">
-            <h2 style={NARROW} className={`${maiaHead.className} mb-5 flex items-baseline gap-3 text-balance text-3xl font-extrabold uppercase leading-[1.05] tracking-tight text-navy-900`}>
-              <span className="font-numeric text-xl font-semibold tabular-nums text-gold-700">08</span>
+          <section className="border-t border-border-soft pt-10">
+            <h2 className="font-display text-xl font-bold text-navy-900 mb-5 flex items-baseline gap-3">
+              <span className="text-gold-500 font-semibold">08</span>
               Đơn vị chịu trách nhiệm
             </h2>
-            <p className="mb-1 text-xl font-bold">{legal.name}</p>
-            <p className="mb-5 text-base text-navy-700">
+            <p className="font-semibold text-navy-900 text-lg mb-1">{legal.name}</p>
+            <p className="text-navy-600 text-sm mb-5">
               Mã số thuế: {legal.taxId} · Đơn vị chủ quản chuyên trang {brand.name}
             </p>
-            <ul className="space-y-3 text-base">
+            <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 shrink-0 text-gold-900" aria-hidden />
+                <MapPin size={18} className="text-gold-500 mt-0.5 shrink-0" />
                 <span>{legal.address}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone size={18} className="shrink-0 text-gold-900" aria-hidden />
+                <Phone size={18} className="text-gold-500 shrink-0" />
                 <a
                   href={`tel:${legal.phoneIntl}`}
-                  className="font-medium text-navy-900 underline-offset-2 hover:text-gold-900 hover:underline"
+                  className="text-navy-900 font-medium hover:text-gold-600 transition-colors"
                 >
                   {legal.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={18} className="shrink-0 text-gold-900" aria-hidden />
+                <Mail size={18} className="text-gold-500 shrink-0" />
                 <a
                   href={`mailto:${legal.email}`}
-                  className="font-medium text-navy-900 underline-offset-2 hover:text-gold-900 hover:underline"
+                  className="text-navy-900 font-medium hover:text-gold-600 transition-colors"
                 >
                   {legal.email}
                 </a>
               </li>
             </ul>
 
-            <p className="mt-5 border-t border-navy-900/20 pt-5 text-base text-navy-700">
+            <p className="text-navy-600 text-sm mt-5 pt-5 border-t border-border-soft">
               Người phụ trách nội dung &amp; tư vấn: <strong className="text-navy-900">{contact.name}</strong>{" "}
               — {contact.jobTitle},{" "}
               <a
                 href={`tel:${contact.phoneIntl}`}
-                className="font-medium text-navy-900 underline underline-offset-2 hover:text-gold-900"
+                className="text-navy-700 hover:text-gold-600 transition-colors"
               >
                 {contact.phoneDisplay}
               </a>
@@ -267,7 +274,6 @@ export default function ChinhSachBaoMatPage() {
           </section>
 
         </div>
-      </div>
       </div>
     </main>
   );

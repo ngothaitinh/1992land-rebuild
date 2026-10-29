@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useId } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { gtagEvent, fireConversion } from "@/components/Analytics";
 import { legal, contact } from "@/lib/site-config";
@@ -24,7 +24,6 @@ export default function ContactForm({
 }: Props) {
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "err">("idle");
   const formRef = useRef<HTMLFormElement>(null);
-  const uid = useId();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -85,18 +84,18 @@ export default function ContactForm({
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label htmlFor={`${uid}-ho_ten`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
-              <input type="text" id={`${uid}-ho_ten`} name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
+              <input type="text" name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
             </div>
             <div>
-              <label htmlFor={`${uid}-so_dien_thoai`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
-              <input type="tel" id={`${uid}-so_dien_thoai`} name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
+              <input type="tel" name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
             </div>
           </div>
           {showProject && !duAnQuanTam && (
             <div>
-              <label htmlFor={`${uid}-du_an_quan_tam`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
-              <select id={`${uid}-du_an_quan_tam`} name="du_an_quan_tam" className={inputCls}>
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
+              <select name="du_an_quan_tam" className={inputCls}>
                 <option value="">-- Chọn dự án --</option>
                 <option>Thanh Phú Centre Point</option>
                 <option>Maia Resort Hồ Tràm</option>
@@ -119,22 +118,22 @@ export default function ContactForm({
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor={`${uid}-ho_ten`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
-              <input type="text" id={`${uid}-ho_ten`} name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Họ và tên *</label>
+              <input type="text" name="ho_ten" required placeholder="Nguyễn Văn A" className={inputCls} />
             </div>
             <div>
-              <label htmlFor={`${uid}-so_dien_thoai`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
-              <input type="tel" id={`${uid}-so_dien_thoai`} name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Số điện thoại *</label>
+              <input type="tel" name="so_dien_thoai" required placeholder="0909 xxx xxx" className={inputCls} />
             </div>
           </div>
           <div>
-            <label htmlFor={`${uid}-email`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Email</label>
-            <input type="email" id={`${uid}-email`} name="email" placeholder="email@example.com" className={inputCls} />
+            <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Email</label>
+            <input type="email" name="email" placeholder="email@example.com" className={inputCls} />
           </div>
           {!duAnQuanTam && (
             <div>
-              <label htmlFor={`${uid}-du_an_quan_tam`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
-              <select id={`${uid}-du_an_quan_tam`} name="du_an_quan_tam" className={inputCls}>
+              <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Dự án quan tâm</label>
+              <select name="du_an_quan_tam" className={inputCls}>
                 <option value="">-- Chọn dự án (tùy chọn) --</option>
                 <option>Maia Resort Hồ Tràm</option>
                 <option>Blanca City Vũng Tàu</option>
@@ -153,8 +152,8 @@ export default function ContactForm({
             </div>
           )}
           <div>
-            <label htmlFor={`${uid}-loi_nhan`} className="block text-xs text-muted uppercase tracking-wider mb-1.5">Lời nhắn</label>
-            <textarea id={`${uid}-loi_nhan`} name="loi_nhan" rows={4} placeholder="Mô tả nhu cầu của bạn..."
+            <label className="block text-xs text-muted uppercase tracking-wider mb-1.5">Lời nhắn</label>
+            <textarea name="loi_nhan" rows={4} placeholder="Mô tả nhu cầu của bạn..."
               className={`${inputCls} resize-none`} />
           </div>
         </>

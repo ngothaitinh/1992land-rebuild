@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Building2, Phone, Mail, Globe, MapPin, User } from "lucide-react";
-import PageHero from "@/components/PageHero";
-import { maiaHead, NARROW } from "@/components/maia/ui";
 import { legal, brand, contact, licenseLine } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -29,39 +27,47 @@ const rows = [
 
 export default function PhapLyPage() {
   return (
-    <div>
-      <PageHero title="Thông tin pháp lý">
-        <p>Thông tin doanh nghiệp vận hành website 1992land.com.</p>
-      </PageHero>
+    <div className="pt-24 pb-20">
+      <div className="bg-navy-900 py-20 px-6 text-center">
+        <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-4">
+          Minh bạch
+        </p>
+        <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+          Thông tin pháp lý
+        </h1>
+        <p className="text-surface/60 text-lg max-w-2xl mx-auto">
+          Thông tin doanh nghiệp vận hành website 1992land.com.
+        </p>
+        <div className="mt-4 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />
+      </div>
 
-      <div className="bg-bg px-4 py-16 text-navy-900 sm:px-6 lg:px-8 lg:py-24">
-      <div className="mx-auto max-w-3xl space-y-16">
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16 space-y-14">
 
         {/* Pháp nhân */}
         <section>
-          <h2 style={NARROW} className={`${maiaHead.className} text-balance text-3xl font-extrabold uppercase leading-[1.02] tracking-tight text-navy-900 sm:text-4xl mb-3`}>
+          <h2 className="font-display text-2xl font-bold text-navy-900 mb-2">
             Đơn vị chủ quản
           </h2>
-          <p className="mb-8 text-base text-navy-700">{licenseLine}.</p>
+          <p className="text-muted text-sm mb-8">{licenseLine}.</p>
 
-          <dl className="divide-y divide-navy-900/20 border-y border-navy-900/20">
+          <dl className="divide-y divide-border-soft border-y border-border-soft">
             {rows.map((row) => (
               <div
                 key={row.label}
                 className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-6 py-4"
               >
-                <dt className="flex items-center gap-2 text-base text-navy-700">
-                  <row.icon size={16} className="shrink-0 text-gold-900" aria-hidden />
+                <dt className="flex items-center gap-2 text-sm text-muted">
+                  <row.icon size={15} className="text-gold-500 shrink-0" />
                   {row.label}
                 </dt>
-                <dd className="break-words font-medium text-navy-900 sm:col-span-2">
+                <dd className="sm:col-span-2 text-ink font-medium">
                   {row.href ? (
                     <a
                       href={row.href}
                       {...(row.external
                         ? { target: "_blank", rel: "noopener noreferrer" }
                         : {})}
-                      className="underline underline-offset-2 hover:text-gold-900"
+                      className="text-navy-700 hover:text-gold-600 transition-colors"
                     >
                       {row.value}
                     </a>
@@ -76,10 +82,10 @@ export default function PhapLyPage() {
 
         {/* Định vị */}
         <section>
-          <h2 style={NARROW} className={`${maiaHead.className} text-balance text-3xl font-extrabold uppercase leading-[1.02] tracking-tight text-navy-900 sm:text-4xl mb-5`}>
+          <h2 className="font-display text-2xl font-bold text-navy-900 mb-4">
             Vai trò của {brand.name}
           </h2>
-          <div className="max-w-[65ch] space-y-4 text-lg leading-relaxed">
+          <div className="space-y-4 text-ink leading-relaxed">
             <p>
               <strong className="text-navy-900">{brand.name}</strong> là chuyên trang dự án
               của {legal.name}, do{" "}
@@ -109,16 +115,16 @@ export default function PhapLyPage() {
 
         {/* Dữ liệu khách hàng */}
         <section>
-          <h2 style={NARROW} className={`${maiaHead.className} text-balance text-3xl font-extrabold uppercase leading-[1.02] tracking-tight text-navy-900 sm:text-4xl mb-5`}>
+          <h2 className="font-display text-2xl font-bold text-navy-900 mb-4">
             Xử lý dữ liệu khách hàng
           </h2>
-          <p className="max-w-[65ch] text-lg leading-relaxed">
+          <p className="text-ink leading-relaxed">
             Đơn vị thu thập và chịu trách nhiệm với dữ liệu cá nhân khách hàng để lại trên
             website là {legal.name}. Chi tiết về phạm vi thu thập, mục đích sử dụng và quyền
             của khách hàng được nêu tại{" "}
             <Link
               href="/chinh-sach-bao-mat"
-              className="font-semibold underline underline-offset-2 hover:text-gold-900"
+              className="text-navy-700 underline underline-offset-2 hover:text-gold-600 transition-colors"
             >
               Chính sách bảo mật
             </Link>
@@ -127,32 +133,31 @@ export default function PhapLyPage() {
         </section>
 
         {/* Liên hệ khiếu nại */}
-        <section className="border-t border-navy-900/20 pt-8">
-          <h2 style={NARROW} className={`${maiaHead.className} text-balance text-3xl font-extrabold uppercase leading-[1.02] tracking-tight text-navy-900 sm:text-4xl mb-4`}>
+        <section className="rounded-2xl border border-border-soft bg-navy-50/60 p-7">
+          <h2 className="font-display text-xl font-bold text-navy-900 mb-3">
             Phản ánh & khiếu nại
           </h2>
-          <p className="mb-4 max-w-[65ch] text-lg leading-relaxed">
+          <p className="text-ink leading-relaxed mb-4">
             Nếu anh/chị phát hiện thông tin chưa chính xác trên website hoặc cần phản ánh về
             hoạt động tư vấn, vui lòng liên hệ trực tiếp đơn vị chủ quản:
           </p>
-          <div className="flex flex-wrap gap-x-8 gap-y-1 text-base">
+          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
             <a
               href={`tel:${legal.phoneIntl}`}
-              className="inline-flex min-h-12 items-center gap-2 font-medium text-navy-900 hover:text-gold-900"
+              className="flex items-center gap-2 text-navy-700 hover:text-gold-600 transition-colors font-medium"
             >
-              <Phone size={16} className="text-gold-900" aria-hidden />
+              <Phone size={15} className="text-gold-500" />
               {legal.phone}
             </a>
             <a
               href={`mailto:${legal.email}`}
-              className="inline-flex min-h-12 items-center gap-2 font-medium text-navy-900 hover:text-gold-900"
+              className="flex items-center gap-2 text-navy-700 hover:text-gold-600 transition-colors font-medium"
             >
-              <Mail size={16} className="text-gold-900" aria-hidden />
+              <Mail size={15} className="text-gold-500" />
               {legal.email}
             </a>
           </div>
         </section>
-      </div>
       </div>
     </div>
   );

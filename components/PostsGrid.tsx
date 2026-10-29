@@ -26,17 +26,16 @@ export default function PostsGrid({ posts }: { posts: Post[] }) {
   return (
     <>
       {/* Category filter */}
-      <div className="sticky top-16 z-30 border-b border-navy-900/20 bg-bg px-4 py-3 sm:px-6 lg:top-[72px]">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-2">
+      <div className="bg-bg border-b border-border-soft px-6 py-3 sticky top-16 lg:top-[72px] z-30">
+        <div className="max-w-7xl mx-auto flex gap-2 flex-wrap">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              aria-pressed={active === cat}
-              className={`min-h-11 cursor-pointer px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-900 ${
+              className={`min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                 active === cat
                   ? "bg-navy-900 text-white"
-                  : "border border-navy-900/30 text-navy-800 hover:border-navy-900 hover:text-navy-950"
+                  : "bg-surface border border-border-soft text-navy-500 hover:border-navy-300 hover:text-navy-900"
               }`}
             >
               {cat}
@@ -46,63 +45,69 @@ export default function PostsGrid({ posts }: { posts: Post[] }) {
       </div>
 
       {/* Post grid */}
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
         {filtered.length === 0 ? (
-          <div className="py-20 text-center text-navy-700">
-            <p className="mb-2 text-base font-medium">Chưa có bài viết trong mục này</p>
+          <div className="text-center py-20 text-muted">
+            <p className="text-base font-medium mb-2">Chưa có bài viết trong mục này</p>
             <button
               onClick={() => setActive("Tất cả")}
-              className="min-h-11 text-sm font-semibold text-gold-900 underline underline-offset-4 hover:text-navy-950"
+              className="text-gold-500 underline underline-offset-4 text-sm hover:text-gold-600 transition-colors"
             >
               Xem tất cả bài viết
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((post, i) => (
               <Link
                 key={post.slug}
                 href={`/tin-tuc/${post.slug}`}
-                className="group flex flex-col border-t border-navy-900/20 pt-4"
+                className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300 cursor-pointer"
               >
-                <div className="relative aspect-[16/9] overflow-hidden bg-navy-100">
+                {/* Thumbnail — 16:9 chuẩn */}
+                <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-navy-500 to-navy-800">
                   {post.hero_image ? (
                     <Image
                       src={post.hero_image}
                       alt={post.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       priority={i < 3}
                     />
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Tag size={32} className="text-navy-300" aria-hidden />
+                      <Tag size={32} className="text-white/20" />
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-navy-950/10 transition-colors" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="inline-block px-2.5 py-1 bg-gold-500/90 text-navy-950 text-xs font-semibold rounded-full">
+                      {post.category}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex flex-1 flex-col pt-4">
-                  <p className="mb-2 text-sm font-semibold text-gold-900">{post.category}</p>
-                  <h2 className="mb-3 line-clamp-2 text-lg font-bold leading-snug text-navy-900 group-hover:text-gold-900">
+                <div className="p-6">
+                  <h2 className="font-display font-bold text-navy-900 text-base leading-snug mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
                     {post.title}
                   </h2>
-                  <p className="mb-4 line-clamp-3 flex-1 text-base leading-relaxed text-navy-700">
+                  <p className="text-muted text-sm leading-relaxed mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between border-t border-navy-900/20 pt-3 text-sm text-navy-700">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-center justify-between pt-4 border-t border-border-soft">
+                    <div className="flex items-center gap-3 text-xs text-muted">
                       <span className="flex items-center gap-1">
-                        <Calendar size={12} aria-hidden />
+                        <Calendar size={11} />
                         {formatDate(post.date)}
                       </span>
                       <span className="flex items-center gap-1">
-                        <Clock size={12} aria-hidden />
+                        <Clock size={11} />
                         {post.readTime}
                       </span>
                     </div>
-                    <span className="flex items-center gap-1 font-semibold text-gold-900">
-                      Đọc <ArrowRight size={14} aria-hidden />
+                    <span className="text-gold-500 text-xs flex items-center gap-1 group-hover:gap-2 transition-all font-medium">
+                      Đọc <ArrowRight size={12} />
                     </span>
                   </div>
                 </div>

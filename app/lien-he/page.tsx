@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { MapPin, Phone, Mail, Clock, Building2, User } from "lucide-react";
-import PageHero from "@/components/PageHero";
-import { H2, maiaHead, NARROW } from "@/components/maia/ui";
 import ContactForm from "@/components/ContactForm";
 import ZaloIcon from "@/components/ZaloIcon";
 import MessengerIcon from "@/components/MessengerIcon";
@@ -14,22 +12,28 @@ export const metadata: Metadata = {
 
 export default function LienHePage() {
   return (
-    <div>
-      <PageHero title="Liên hệ">
-        <p>
+    <div className="pt-24 pb-20">
+      <div className="bg-navy-900 py-20 px-6 text-center">
+        <h1 className="font-display text-4xl lg:text-5xl font-bold text-surface tracking-tight mb-4">
+          Liên hệ
+        </h1>
+        <p className="text-surface/60 text-lg max-w-xl mx-auto">
           Để lại thông tin, chuyên gia 1992 Land sẽ liên hệ tư vấn miễn phí
           trong vòng 30 phút.
         </p>
-      </PageHero>
+        <div className="mt-3 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />
+      </div>
 
-      <div className="bg-bg px-4 py-16 text-navy-900 sm:px-6 lg:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
           {/* Info column */}
           <div>
-            <H2 className="!text-navy-900 mb-8 !text-4xl sm:!text-4xl lg:!text-5xl">Thông tin liên hệ</H2>
+            <h2 className="font-display text-2xl font-bold text-navy-900 mb-8">
+              Thông tin liên hệ
+            </h2>
 
-            <ul className="mb-10">
+            <ul className="space-y-5 mb-10">
               {[
                 {
                   icon: Building2,
@@ -65,21 +69,23 @@ export default function LienHePage() {
                   value: "Thứ 2 — Chủ nhật: 8:00 — 20:00",
                 },
               ].map((item) => (
-                <li key={item.label} className="flex items-start gap-4 border-t border-navy-900/20 py-4 last:border-b">
-                  <item.icon size={20} className="mt-1 shrink-0 text-gold-900" aria-hidden />
-                  <div className="min-w-0">
-                    <div className="mb-0.5 text-sm text-navy-700">
+                <li key={item.label} className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-navy-50 flex items-center justify-center shrink-0 mt-0.5">
+                    <item.icon size={18} className="text-gold-500" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-muted uppercase tracking-wider mb-0.5">
                       {item.label}
                     </div>
                     {item.href ? (
                       <a
                         href={item.href}
-                        className="break-words font-medium text-navy-900 underline-offset-2 hover:text-gold-900 hover:underline"
+                        className="text-navy-900 font-medium hover:text-gold-500 transition-colors"
                       >
                         {item.value}
                       </a>
                     ) : (
-                      <p className="font-medium text-navy-900">{item.value}</p>
+                      <p className="text-navy-900 font-medium">{item.value}</p>
                     )}
                   </div>
                 </li>
@@ -87,13 +93,13 @@ export default function LienHePage() {
             </ul>
 
             {/* Social channels */}
-            <h3 style={NARROW} className={`${maiaHead.className} mb-4 text-xl font-bold uppercase tracking-wide text-navy-900`}>Nhắn tin nhanh</h3>
-            <div className="flex flex-wrap gap-3">
+            <h3 className="text-navy-900 font-semibold mb-4">Nhắn tin nhanh</h3>
+            <div className="flex gap-3">
               <a
                 href={contact.zalo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center gap-2 border-2 border-[#0068FF] px-5 text-base font-semibold text-[#0050C8] transition-colors hover:bg-[#0068FF] hover:text-white"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-[#0068FF] text-[#0068FF] text-sm font-semibold rounded-full hover:bg-blue-50 transition-colors"
               >
                 <ZaloIcon size={20} />
                 Zalo
@@ -102,7 +108,7 @@ export default function LienHePage() {
                 href={contact.messenger}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center gap-2 border-2 border-[#0084FF] bg-[#0084FF] px-5 text-base font-semibold text-white transition-colors hover:bg-[#006FD6]"
+                className="flex items-center gap-2 px-4 py-2.5 bg-[#0084FF] text-white text-sm font-medium rounded-full hover:opacity-90 transition-opacity"
               >
                 <MessengerIcon size={16} />
                 Messenger
@@ -110,7 +116,7 @@ export default function LienHePage() {
             </div>
 
             {/* Map embed */}
-            <div className="mt-8 h-56 overflow-hidden border border-navy-900/20">
+            <div className="mt-8 rounded-2xl overflow-hidden border border-border-soft h-56">
               <iframe
                 src={`https://www.google.com/maps?q=${legal.geo.lat},${legal.geo.lng}&z=17&hl=vi&output=embed`}
                 width="100%"
@@ -126,7 +132,9 @@ export default function LienHePage() {
 
           {/* Form column */}
           <div>
-            <H2 className="!text-navy-900 mb-8 !text-4xl sm:!text-4xl lg:!text-5xl">Gửi yêu cầu tư vấn</H2>
+            <h2 className="font-display text-2xl font-bold text-navy-900 mb-8">
+              Gửi yêu cầu tư vấn
+            </h2>
 
             <ContactForm subject="[Lead] Liên hệ từ trang /lien-he — 1992land.com" />
           </div>

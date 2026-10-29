@@ -21,17 +21,16 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
   return (
     <>
       {/* Area filter */}
-      <div className="sticky top-16 z-30 border-b border-navy-900/20 bg-bg py-3 sm:py-4 lg:top-[72px]">
-        <div className="mx-auto flex max-w-7xl snap-x snap-mandatory gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:flex-wrap sm:overflow-visible sm:px-6 [&::-webkit-scrollbar]:hidden">
+      <div className="bg-bg border-b border-border-soft py-3 sm:py-4 sticky top-16 lg:top-[72px] z-30">
+        <div className="max-w-7xl mx-auto flex gap-2 overflow-x-auto sm:overflow-visible sm:flex-wrap snap-x snap-mandatory px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {AREAS.map((area) => (
             <button
               key={area}
               onClick={() => setSelected(area)}
-              aria-pressed={selected === area}
-              className={`min-h-11 shrink-0 cursor-pointer snap-start px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy-900 ${
+              className={`shrink-0 snap-start min-h-[44px] px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                 selected === area
                   ? "bg-navy-900 text-white"
-                  : "border border-navy-900/30 text-navy-800 hover:border-navy-900 hover:text-navy-950"
+                  : "bg-surface border border-border-soft text-navy-500 hover:border-navy-300 hover:text-navy-900"
               }`}
             >
               {area}
@@ -41,60 +40,74 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
       </div>
 
       {/* Grid */}
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         {filtered.length === 0 ? (
-          <div className="py-20 text-center text-navy-700">
-            <p className="mb-2 text-lg font-medium">Không có dự án tại khu vực này</p>
+          <div className="text-center py-20 text-muted">
+            <p className="text-lg font-medium mb-2">Không có dự án tại khu vực này</p>
             <button
               onClick={() => setSelected("Tất cả")}
-              className="min-h-11 text-sm font-semibold text-gold-900 underline underline-offset-4 hover:text-navy-950"
+              className="text-gold-500 underline underline-offset-4 text-sm"
             >
               Xem tất cả dự án
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project) => (
               <Link
                 key={project.slug}
                 href={`/du-an/${project.slug}`}
-                className="group flex flex-col border-t border-navy-900/20 pt-4"
+                className="group block rounded-2xl overflow-hidden border border-border-soft bg-surface hover:border-navy-200 hover:shadow-xl transition-all duration-300"
               >
-                <div className="relative h-52 overflow-hidden bg-navy-100">
+                <div className={`h-52 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
                   {project.hero_image && (
                     <Image
                       src={project.hero_image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   )}
+                  <div className="absolute inset-0 bg-navy-950/20 group-hover:bg-navy-950/10 transition-colors" />
+                  <div className="absolute bottom-4 left-4">
+                    <span className="inline-block px-2.5 py-1 bg-navy-950/85 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                      {project.type}
+                    </span>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <span
+                      className={`inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-navy-950/85 backdrop-blur-sm ${
+                        project.status === "Đang mở bán"
+                          ? "text-emerald-300"
+                          : "text-gold-300"
+                      }`}
+                    >
+                      {project.status}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="flex flex-1 flex-col pt-4">
-                  <p className="mb-2 text-sm font-semibold text-gold-900">
-                    {project.status} · {project.type}
-                  </p>
-                  <h2 className="mb-2 text-lg font-bold leading-snug text-navy-900 group-hover:text-gold-900">
+                <div className="p-6">
+                  <h2 className="font-display text-base font-bold text-navy-900 mb-2 group-hover:text-gold-500 transition-colors">
                     {project.title}
                   </h2>
-                  <div className="mb-3 flex items-center gap-1.5 text-sm text-navy-700">
-                    <MapPin size={14} aria-hidden />
+                  <div className="flex items-center gap-1.5 text-muted text-xs mb-3">
+                    <MapPin size={12} />
                     {project.location}
                   </div>
-                  <p className="mb-4 line-clamp-2 flex-1 text-base leading-relaxed text-navy-700">
+                  <p className="text-muted text-sm leading-relaxed mb-4 line-clamp-2">
                     {project.excerpt}
                   </p>
-                  <div className="flex items-center justify-between border-t border-navy-900/20 pt-3">
+                  <div className="flex items-center justify-between pt-4 border-t border-border-soft">
                     <div>
-                      <div className="text-sm text-navy-700">Giá từ</div>
-                      <div className="font-numeric font-bold tabular-nums text-gold-900">
+                      <div className="text-xs text-muted">Giá từ</div>
+                      <div className="text-navy-900 font-semibold font-numeric text-sm">
                         {project.priceRange}
                       </div>
                     </div>
-                    <span className="flex items-center gap-1 text-sm font-semibold text-navy-900">
-                      Chi tiết <ArrowRight size={14} aria-hidden />
+                    <span className="text-gold-500 text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                      Chi tiết <ArrowRight size={14} />
                     </span>
                   </div>
                 </div>

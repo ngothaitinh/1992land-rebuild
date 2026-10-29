@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { type ReactNode } from "react";
 
 type Props = {
@@ -16,10 +16,7 @@ export default function FadeIn({
   delay = 0,
   direction = "up",
 }: Props) {
-  const reduce = useReducedMotion();
-  const initial = reduce
-    ? { opacity: 0 }
-    :
+  const initial =
     direction === "up"
       ? { opacity: 0, y: 24 }
       : direction === "left"

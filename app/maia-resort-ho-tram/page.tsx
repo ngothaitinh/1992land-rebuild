@@ -29,14 +29,14 @@ export default function MaiaResortLanding() {
   if (!p) notFound();
 
   return (
-    <div className="pt-16 lg:pt-[72px] bg-teal-950">
+    <div className="pt-16 lg:pt-[72px] bg-navy-950">
+      <div className="maia-gauge" aria-hidden />
       <ProjectAnchorNav sections={SECTIONS} title={p.title} />
       <MaiaHero p={p} />
-      <MaiaOverview p={p} />
+      <MaiaOverview />
       <MaiaLeadBand />
       <MaiaLocation p={p} />
       <MaiaResort />
-      <MaiaLeadBand />
       <MaiaDesign />
       <MaiaPricing p={p} />
       <MaiaLeadBand id="dang-ky" />

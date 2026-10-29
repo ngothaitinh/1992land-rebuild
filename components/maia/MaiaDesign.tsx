@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CtaLink, SectionTitle } from "./ui";
+import { CtaLink, H2 } from "./ui";
 
 const KIT = "/images/projects/maia-ho-tram/kit";
 const APTS = [
@@ -15,33 +15,31 @@ const VILLAS = [
 
 function Plan({ f, alt, sizes }: { f: string; alt: string; sizes: string }) {
   return (
-    <figure className="rounded-2xl bg-gradient-to-br from-gold-300 via-gold-500 to-lime-900 p-1.5 shadow-xl">
-      <div className="relative aspect-square rounded-xl overflow-hidden bg-white">
-        <Image src={`${KIT}/${f}.webp`} alt={alt} fill sizes={sizes} className="object-contain" />
-      </div>
+    <figure className="relative aspect-square bg-white">
+      <Image src={`${KIT}/${f}.webp`} alt={alt} fill sizes={sizes} className="object-contain" />
     </figure>
   );
 }
 
 export default function MaiaDesign() {
   return (
-    <section id="mat-bang" className="scroll-mt-32 bg-gradient-to-b from-teal-900 to-teal-950 text-white py-16 lg:py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle top="Layout thiết kế" bottom="Mỗi nhu cầu, một lựa chọn vừa vặn" className="text-center" />
-        <p className="mt-6 text-center text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
+    <section id="mat-bang" className="scroll-mt-32 bg-navy-950 py-16 text-white lg:py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <H2>Mỗi nhu cầu, một layout vừa vặn</H2>
+        <p className="mt-6 max-w-[65ch] text-lg leading-relaxed">
           Từ Studio 35 m² cho cặp đôi đến căn 2 phòng ngủ 80 m² cho gia đình, mọi layout đều được tối ưu để đón ánh sáng và gió biển, vừa thoải mái khi ở vừa dễ khai thác cho thuê.
         </p>
-        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
           {APTS.map((a) => <Plan key={a.f} {...a} sizes="(min-width:1024px) 270px, 50vw" />)}
         </div>
-        <p className="mt-16 text-center text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
+        <p className="mt-16 max-w-[65ch] text-lg leading-relaxed">
           Chỉ 36 villa 2–3 phòng ngủ, diện tích 256–380 m², thiết kế mở với hồ bơi và sân vườn riêng, dành cho những kỳ nghỉ trọn vẹn của cả gia đình.
         </p>
-        <div className="mt-10 grid md:grid-cols-2 gap-5 lg:gap-6">
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:gap-6">
           {VILLAS.map((v) => <Plan key={v.f} {...v} sizes="(min-width:768px) 50vw, 100vw" />)}
         </div>
-        <p className="mt-6 text-center text-sm text-white/75">Penthouse 200 m²: liên hệ để nhận mặt bằng chi tiết.</p>
-        <div className="flex justify-center mt-10"><CtaLink>Nhận file layout chi tiết</CtaLink></div>
+        <p className="mt-6 text-sm text-navy-100">Penthouse 200 m²: liên hệ để nhận mặt bằng chi tiết.</p>
+        <div className="mt-10"><CtaLink>Nhận file layout chi tiết</CtaLink></div>
       </div>
     </section>
   );

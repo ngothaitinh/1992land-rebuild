@@ -6,6 +6,7 @@ import ZaloIcon from "@/components/ZaloIcon";
 import PageHero from "@/components/PageHero";
 import { H2, maiaHead, NARROW } from "@/components/maia/ui";
 import { legal, brand, contact } from "@/lib/site-config";
+import { loadProjects } from "@/lib/loadData";
 
 export const metadata: Metadata = {
   title: "Giới thiệu",
@@ -100,7 +101,7 @@ export default function GioiThieuPage() {
       <section className="bg-navy-950 px-4 py-16 text-white sm:px-6 lg:px-8 lg:py-20">
         <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           {[
-            { num: "9+", label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
+            { num: String(loadProjects().length), label: "Dự án đang phân phối", sub: "Trải dài 5 tỉnh thành" },
             { num: "500+", label: "Khách hàng tin tưởng", sub: "Từ năm 2020 đến nay" },
             { num: "5+", label: "Năm kinh nghiệm", sub: "Thị trường BĐS miền Nam" },
             { num: "2016", label: "Pháp nhân TPI Land", sub: `Thành lập ${legal.licenseDate}` },

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown, Phone, ArrowLeft } from "lucide-react";
 import { contact } from "@/lib/site-config";
+import { maiaHead, NARROW } from "@/components/maia/ui";
 
 const ALL_SECTIONS = [
   { id: "tong-quan", label: "Tổng quan" },
@@ -62,14 +63,14 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
   const activeLabel = visible.find((s) => s.id === active)?.label ?? "Điều hướng";
 
   return (
-    <div className="sticky top-0 z-[60] bg-white border-b border-border-soft shadow-md">
+    <div className="sticky top-0 z-[60] border-b border-gold-300/30 bg-navy-950 text-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <div className="flex items-center gap-2 h-14">
 
           {/* Back link */}
           <Link
             href="/du-an"
-            className="flex items-center gap-1.5 text-muted hover:text-navy-900 transition-colors shrink-0 pr-4 border-r border-border-soft mr-1"
+            className="flex items-center gap-1.5 mr-1 shrink-0 border-r border-gold-300/30 pr-4 text-navy-50 transition-colors hover:text-gold-300"
           >
             <ArrowLeft size={15} />
             <span className="hidden sm:inline text-sm font-medium">Dự án</span>
@@ -81,30 +82,30 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
               onClick={() => setMobileOpen((v) => !v)}
               className="flex items-center gap-2 w-full text-left min-h-[44px]"
             >
-              <span className="text-navy-900 font-semibold text-base truncate flex-1">{activeLabel}</span>
-              <ChevronDown size={16} className={`text-muted transition-transform shrink-0 ${mobileOpen ? "rotate-180" : ""}`} />
+              <span className="flex-1 truncate text-base font-semibold text-white">{activeLabel}</span>
+              <ChevronDown size={16} className={`text-navy-50 transition-transform shrink-0 ${mobileOpen ? "rotate-180" : ""}`} />
             </button>
 
             {mobileOpen && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-border-soft rounded-2xl shadow-2xl overflow-hidden z-50">
-                <div className="px-4 py-3 border-b border-border-soft">
-                  <span className="text-[11px] font-semibold text-muted uppercase tracking-wider">Điều hướng</span>
+              <div className="absolute top-full left-0 right-0 mt-2 bg-navy-950 border border-gold-300/40 overflow-hidden z-50">
+                <div className="px-4 py-3 border-b border-gold-300/30">
+                  <span style={NARROW} className={`${maiaHead.className} text-base font-bold uppercase tracking-wide text-gold-300`}>Điều hướng</span>
                 </div>
                 {visible.map(({ id, label }, i) => (
                   <button
                     key={id}
                     onClick={() => go(id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3.5 text-base transition-colors text-left ${i > 0 ? "border-t border-border-soft" : ""} ${
+                    className={`w-full flex items-center gap-3 px-4 py-3.5 text-base transition-colors text-left ${i > 0 ? "border-t border-gold-300/30" : ""} ${
                       active === id
-                        ? "bg-gold-50 text-gold-600 font-semibold"
-                        : "text-navy-700 hover:bg-navy-50"
+                        ? "bg-navy-900 text-gold-300 font-semibold"
+                        : "text-white hover:bg-navy-900"
                     }`}
                   >
-                    <span className="text-[11px] text-muted/50 w-5 font-numeric shrink-0">
+                    <span className="w-5 shrink-0 font-numeric text-sm tabular-nums text-navy-100">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {label}
-                    {active === id && <span className="ml-auto w-2 h-2 rounded-full bg-gold-500" />}
+                    {active === id && <span className="ml-auto size-2 bg-gold-300" />}
                   </button>
                 ))}
               </div>
@@ -117,10 +118,10 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
               <button
                 key={id}
                 onClick={() => go(id)}
-                className={`shrink-0 px-5 h-14 text-[15px] font-medium transition-all border-b-2 whitespace-nowrap ${
+                className={`shrink-0 px-5 h-14 text-[15px] font-medium transition-colors border-b-2 whitespace-nowrap ${
                   active === id
-                    ? "text-gold-500 border-gold-500"
-                    : "text-muted border-transparent hover:text-navy-900"
+                    ? "text-gold-300 border-gold-300"
+                    : "text-navy-50 border-transparent hover:text-gold-300"
                 }`}
               >
                 {label}
@@ -131,7 +132,7 @@ export default function ProjectAnchorNav({ sections, title }: Props) {
           {/* Phone CTA */}
           <a
             href={`tel:${contact.phoneIntl}`}
-            className="shrink-0 ml-auto flex items-center gap-2 px-5 py-2 bg-navy-900 text-white text-sm font-semibold rounded-full hover:bg-navy-700 transition-colors"
+            className="ml-auto flex min-h-12 shrink-0 items-center gap-2 bg-gold-300 px-5 text-sm font-semibold text-navy-950 transition-colors hover:bg-gold-100"
           >
             <Phone size={13} />
             <span className="hidden sm:inline">{contact.phoneDisplay}</span>

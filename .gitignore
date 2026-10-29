@@ -70,3 +70,4 @@ scripts/tg-bot/.tg-processed.json
 
 # Regression baseline directory
 .regression-baseline/
+.gstack/

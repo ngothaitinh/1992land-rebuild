@@ -1,9 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { testimonials } from "@/lib/data";
+import { H2 } from "@/components/maia/ui";
+
+const arrowCls =
+  "flex h-12 w-12 items-center justify-center border border-gold-300/50 text-gold-300 transition-colors hover:bg-gold-300 hover:text-navy-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300";
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
@@ -27,44 +31,34 @@ export default function Testimonials() {
   const t = testimonials[active];
 
   return (
-    <section className="bg-navy-50 py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-gold-500 text-sm font-semibold tracking-widest uppercase mb-3">
-            Khách hàng nói gì
-          </p>
-          <h2 className="font-display text-3xl lg:text-4xl font-bold text-navy-900 tracking-tight">
-            Niềm tin từ khách hàng
-          </h2>
-          <div className="mt-4 mx-auto w-12 h-0.5 bg-gold-500 rounded-full" />
-        </div>
+    <section className="bg-navy-900 px-4 py-20 text-white sm:px-6 lg:px-8 lg:py-28">
+      <div className="mx-auto max-w-4xl">
+        <H2 className="mb-12 lg:mb-16">Niềm tin từ khách hàng</H2>
 
-        <div className="relative">
+        <div>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={active}
               custom={direction}
-              initial={{ opacity: 0, x: direction * 40 }}
+              initial={{ opacity: 0, x: direction * 24 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: direction * -40 }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className="bg-surface rounded-3xl p-8 lg:p-12 shadow-sm border border-border-soft"
+              exit={{ opacity: 0, x: direction * -24 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="border-t border-gold-300/30 pt-8 lg:pt-10"
             >
-              <Quote
-                size={40}
-                className="text-gold-300 mb-6"
-                strokeWidth={1.5}
-              />
-              <blockquote className="text-lg lg:text-xl text-ink leading-relaxed mb-8 font-medium">
+              <blockquote className="mb-8 max-w-[60ch] text-xl font-medium leading-relaxed text-white lg:text-2xl">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-navy-900 flex items-center justify-center text-surface font-bold text-lg shrink-0">
+                <div
+                  aria-hidden
+                  className="flex h-12 w-12 shrink-0 items-center justify-center bg-gold-300 text-lg font-bold text-navy-950"
+                >
                   {t.initial}
                 </div>
                 <div>
-                  <div className="font-semibold text-navy-900">{t.name}</div>
-                  <div className="text-sm text-muted">
+                  <div className="font-semibold text-white">{t.name}</div>
+                  <div className="text-sm text-navy-100">
                     {t.role} · {t.project}
                   </div>
                 </div>
@@ -73,8 +67,8 @@ export default function Testimonials() {
           </AnimatePresence>
 
           {/* Controls */}
-          <div className="flex items-center justify-between mt-8">
-            <div className="flex gap-2">
+          <div className="mt-8 flex items-center justify-between border-t border-gold-300/30 pt-6">
+            <div className="flex">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
@@ -82,27 +76,24 @@ export default function Testimonials() {
                     setDirection(i > active ? 1 : -1);
                     setActive(i);
                   }}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    i === active ? "w-8 bg-gold-500" : "w-2 bg-navy-200 hover:bg-navy-300"
-                  }`}
+                  className="group flex h-12 w-8 items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300"
                   aria-label={`Testimonial ${i + 1}`}
-                />
+                  aria-current={i === active ? "true" : undefined}
+                >
+                  <span
+                    className={`block h-0.5 transition-all duration-300 ${
+                      i === active ? "w-6 bg-gold-300" : "w-3 bg-navy-300 group-hover:bg-navy-100"
+                    }`}
+                  />
+                </button>
               ))}
             </div>
             <div className="flex gap-2">
-              <button
-                onClick={prev}
-                className="w-10 h-10 rounded-full border border-border-soft flex items-center justify-center text-navy-500 hover:border-navy-300 hover:text-navy-900 transition-colors"
-                aria-label="Trước"
-              >
-                <ChevronLeft size={18} />
+              <button onClick={prev} className={arrowCls} aria-label="Trước">
+                <ChevronLeft size={18} aria-hidden />
               </button>
-              <button
-                onClick={next}
-                className="w-10 h-10 rounded-full border border-border-soft flex items-center justify-center text-navy-500 hover:border-navy-300 hover:text-navy-900 transition-colors"
-                aria-label="Tiếp"
-              >
-                <ChevronRight size={18} />
+              <button onClick={next} className={arrowCls} aria-label="Tiếp">
+                <ChevronRight size={18} aria-hidden />
               </button>
             </div>
           </div>

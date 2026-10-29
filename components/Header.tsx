@@ -15,17 +15,13 @@ const navLinks = [
   { href: "/lien-he", label: "Liên hệ" },
 ];
 
+const ctaClass =
+  "inline-flex min-h-12 items-center justify-center bg-gold-300 px-6 text-[15px] font-semibold text-navy-950 transition-colors duration-200 hover:bg-gold-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-100 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950";
+
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
   const [prevPathname, setPrevPathname] = useState(pathname);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
@@ -37,77 +33,39 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const isHome = pathname === "/";
-  // transparent only on homepage before scroll
-  const isTransparent = isHome && !scrolled && !mobileOpen;
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isTransparent
-            ? "bg-transparent"
-            : "bg-white/98 backdrop-blur-md shadow-[0_1px_0_0_#E4DDD3]"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-18">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="flex items-center group"
-              aria-label="1992 Land — Trang chủ"
-            >
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-gold-300/30 bg-navy-950">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between lg:h-18">
+            <Link href="/" className="group flex min-h-11 items-center" aria-label="1992 Land — Trang chủ">
               <Image
                 src="/images/logo.png"
                 alt="1992 Land"
                 width={120}
                 height={48}
-                className={`h-10 w-auto object-contain transition-opacity ${
-                  isTransparent ? "brightness-0 invert opacity-90" : "opacity-100"
-                } group-hover:opacity-80`}
+                className="h-10 w-auto object-contain brightness-0 invert transition-opacity group-hover:opacity-80"
                 priority
               />
             </Link>
 
             {/* Desktop nav */}
-            <nav className="hidden lg:flex items-center gap-0.5">
-              {navLinks.map((link) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.href);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-md group ${
-                      isTransparent
-                        ? isActive
-                          ? "text-white"
-                          : "text-white/75 hover:text-white"
-                        : isActive
-                        ? "text-navy-900"
-                        : "text-navy-400 hover:text-navy-900"
-                    }`}
-                  >
-                    {link.label}
-                    <span
-                      className={`absolute bottom-0.5 left-4 right-4 h-0.5 bg-gold-500 rounded-full transition-transform origin-left ${
-                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
-                  </Link>
-                );
-              })}
-              <Link
-                href="/lien-he"
-                className={`ml-4 px-5 py-2.5 text-sm font-semibold rounded-full transition-colors ${
-                  isTransparent
-                    ? "bg-gold-500 text-navy-950 hover:bg-gold-400"
-                    : "bg-navy-900 text-white hover:bg-navy-700"
-                }`}
-              >
+            <nav className="hidden items-center gap-1 lg:flex" aria-label="Điều hướng chính">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center px-3 text-sm font-medium transition-colors hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300 ${
+                    isActive(link.href) ? "font-semibold text-gold-300" : "text-white"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Link href="/lien-he" className={`ml-4 ${ctaClass}`}>
                 Nhận tư vấn
               </Link>
             </nav>
@@ -115,11 +73,7 @@ export default function Header() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className={`lg:hidden p-2 rounded-md transition-colors ${
-                isTransparent
-                  ? "text-white hover:bg-white/10"
-                  : "text-navy-900 hover:bg-navy-50"
-              }`}
+              className="-mr-2 inline-flex h-12 w-12 items-center justify-center text-white transition-colors hover:text-gold-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-300 lg:hidden"
               aria-label={mobileOpen ? "Đóng menu" : "Mở menu"}
               aria-expanded={mobileOpen}
             >
@@ -131,50 +85,28 @@ export default function Header() {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
-          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-40 transition-opacity duration-300 lg:hidden ${
+          mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        <div
-          className="absolute inset-0 bg-navy-950/50 backdrop-blur-sm"
-          onClick={() => setMobileOpen(false)}
-        />
-        <div
-          className={`absolute top-16 left-0 right-0 bg-surface border-b border-border-soft shadow-xl transition-transform duration-300 ${
-            mobileOpen ? "translate-y-0" : "-translate-y-4"
-          }`}
-        >
-          <nav className="flex flex-col px-6 py-6 gap-1">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                    isActive
-                      ? "bg-navy-50 text-navy-900"
-                      : "text-navy-700 hover:bg-navy-50 hover:text-navy-900"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-gold-500" />
-                  )}
-                </Link>
-              );
-            })}
-            <div className="mt-4 pt-4 border-t border-border-soft">
+        <div className="absolute inset-0 bg-navy-950/70" onClick={() => setMobileOpen(false)} />
+        <div className="absolute left-0 right-0 top-16 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b border-gold-300/30 bg-navy-950">
+          <nav className="flex flex-col px-4 pb-6 pt-2 sm:px-6" aria-label="Điều hướng di động">
+            {navLinks.map((link) => (
               <Link
-                href="/lien-he"
-                className="flex items-center justify-center w-full py-3 px-6 bg-navy-900 text-surface text-base font-semibold rounded-full hover:bg-navy-700 transition-colors"
+                key={link.href}
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`flex min-h-12 items-center border-t border-gold-300/30 text-base transition-colors first:border-t-0 hover:text-gold-300 ${
+                  isActive(link.href) ? "font-semibold text-gold-300" : "font-medium text-white"
+                }`}
               >
-                Nhận tư vấn miễn phí
+                {link.label}
               </Link>
-            </div>
+            ))}
+            <Link href="/lien-he" className={`mt-4 w-full ${ctaClass}`}>
+              Nhận tư vấn miễn phí
+            </Link>
           </nav>
         </div>
       </div>

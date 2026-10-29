@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T00:00:00Z",
+  "title": "Design System: 1992 Land",
+  "extensions": {
+    "colorMeta": {
+      "navy-950": { "role": "secondary", "displayName": "Deepest Harbor Navy", "canonical": "#071121", "tonalRamp": ["#071121", "#0D1E38", "#0F2040", "#132848", "#192F52", "#1E3A60", "#3A5A88", "#617EA8"] },
+      "navy-900": { "role": "secondary", "displayName": "Harbor Navy", "canonical": "#0D1E38", "tonalRamp": ["#071121", "#0D1E38", "#0F2040", "#132848", "#192F52", "#1E3A60", "#3A5A88", "#9AAEC9"] },
+      "navy-800": { "role": "secondary", "displayName": "Lifted Navy", "canonical": "#0F2040", "tonalRamp": ["#071121", "#0D1E38", "#0F2040", "#132848", "#192F52", "#1E3A60", "#3A5A88", "#D0D9EA"] },
+      "gold-300": { "role": "primary", "displayName": "Tide Gold", "canonical": "#E8C978", "tonalRamp": ["#63491A", "#9B7424", "#C49730", "#D9AF48", "#E8C978", "#F8EDD2"] },
+      "gold-100": { "role": "primary", "displayName": "Pale Foam Gold", "canonical": "#F8EDD2", "tonalRamp": ["#63491A", "#9B7424", "#C49730", "#D9AF48", "#E8C978", "#F8EDD2"] },
+      "sand": { "role": "neutral", "displayName": "Sand Paper", "canonical": "#F8F5F0", "tonalRamp": ["#6B6558", "#E4DDD3", "#F8F5F0", "#FFFFFF"] },
+      "gold-900": { "role": "neutral", "displayName": "Burnt Gold", "canonical": "#63491A", "tonalRamp": ["#63491A", "#9B7424", "#C49730", "#D9AF48", "#E8C978", "#F8EDD2"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "H1 on home and landing pages; Archivo narrow caps." },
+      "headline": { "displayName": "Section Headline", "purpose": "One-line section H2 in gold-300." },
+      "label": { "displayName": "Row Key", "purpose": "Left-column keys and year labels in ruled rows." },
+      "body": { "displayName": "Body", "purpose": "Be Vietnam Pro prose, max 65ch." },
+      "numeric": { "displayName": "Numeric", "purpose": "Prices and percentages, Inter tabular." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "color-fast", "value": "200ms colors", "purpose": "Button hover fill change." },
+      { "name": "maia-tide", "value": "scaleY 0 to 1, linear, animation-timeline: scroll(root)", "purpose": "Right-edge gauge fills with page scroll; static full under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one conversion action: gold fill, navy text, square.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Đăng ký tham quan</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 24px; background: #E8C978; color: #071121; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 0; transition: background-color 0.2s; } .ds-btn-primary:hover { background: #F8EDD2; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #071121, 0 0 0 4px #F8EDD2; }"
+    },
+    {
+      "name": "Ruled Row",
+      "kind": "custom",
+      "refersTo": "ruled-row",
+      "description": "Key/value fact row with hairline gold rule and narrow caps key.",
+      "html": "<dl style=\"background:#071121;padding:16px\"><div class=\"ds-row\"><dt>Vị trí</dt><dd>Phước Thuận, Xuyên Mộc</dd></div><div class=\"ds-row\"><dt>Quy mô</dt><dd>7 ha</dd></div></dl>",
+      "css": ".ds-row { display: grid; grid-template-columns: 11rem 1fr; gap: 24px; padding: 16px 0; border-top: 1px solid rgb(232 201 120 / 0.3); } .ds-row dt { font-family: Archivo, sans-serif; font-stretch: 75%; font-variation-settings: 'wdth' 75; font-size: 18px; font-weight: 700; letter-spacing: 0.025em; text-transform: uppercase; color: #E8C978; } .ds-row dd { margin: 0; font-size: 16px; line-height: 1.625; color: #fff; }"
+    },
+    {
+      "name": "Tide Payment Panel",
+      "kind": "card",
+      "refersTo": "data-panel",
+      "description": "Sand data panel with proportional bars and tabular percentages.",
+      "html": "<ol class=\"ds-tide\"><li><span class=\"ds-y\">2026</span><span class=\"ds-track\"><span style=\"width:60%\"></span></span><span class=\"ds-pct\">20%</span></li><li><span class=\"ds-y\">2027</span><span class=\"ds-track\"><span style=\"width:90%\"></span></span><span class=\"ds-pct\">30%</span></li></ol>",
+      "css": ".ds-tide { margin: 0; padding: 20px 32px; list-style: none; background: #F8F5F0; color: #0D1E38; } .ds-tide li { display: grid; grid-template-columns: 9rem 1fr 4rem; align-items: center; gap: 20px; padding: 12px 0; border-top: 1px solid rgb(13 30 56 / 0.15); } .ds-tide li:first-child { border-top: 0; } .ds-y { font-family: Archivo, sans-serif; font-variation-settings: 'wdth' 75; font-size: 18px; font-weight: 700; text-transform: uppercase; } .ds-track { display: block; height: 16px; background: rgb(13 30 56 / 0.1); } .ds-track span { display: block; height: 100%; background: #0F2040; } .ds-pct { text-align: right; font-family: Inter, sans-serif; font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 700; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "White square field used in the navy lead band.",
+      "html": "<input class=\"ds-input\" placeholder=\"Số điện thoại *\" />",
+      "css": ".ds-input { width: 100%; height: 48px; padding: 0 16px; background: #fff; color: #18181B; font-size: 16px; border: 0; border-radius: 0; } .ds-input::placeholder { color: #737373; } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 2px #E8C978; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "Fixed navy-950 bar with gold hairline, gold active link, gold CTA.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-active\" href=\"#\">Trang chủ</a><a href=\"#\">Dự án</a><a href=\"#\">Liên hệ</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 4px; align-items: center; padding: 0 16px; height: 64px; background: #071121; border-bottom: 1px solid rgb(232 201 120 / 0.3); } .ds-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font-size: 14px; font-weight: 500; color: #fff; text-decoration: none; } .ds-nav a:hover { color: #E8C978; } .ds-nav a.ds-active { color: #E8C978; font-weight: 600; } .ds-nav a:focus-visible { outline: 2px solid #E8C978; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Lịch con nước",
+    "overview": "The site reads like a tide calendar pinned to a navy wall. Every page sits on a drenched navy ground that deepens section by section, and every fact is a ruled row with a hairline gold rule. Gold is the sun on that water: headings, numerals, rules and the single action color. Sand paper appears only where data must be read as data.",
+    "keyCharacteristics": [
+      "Navy-drenched pages stepping darker or lighter per section.",
+      "Facts in hairline-ruled rows, not icon-card grids.",
+      "One action color (gold-300) with navy-950 text.",
+      "Square corners, no shadows, no nested cards.",
+      "Sand panels only for tabular or numeric data."
+    ],
+    "rules": [
+      { "name": "The Gold-Is-The-Sun Rule", "body": "Gold carries headings, numbers, rules and the one action. Never use it as a large fill other than the button.", "section": "colors" },
+      { "name": "The Sand-For-Data Rule", "body": "Sand surfaces hold only ruled data (schedules, prices). Prose and imagery stay on navy.", "section": "colors" },
+      { "name": "The Narrow Caps Rule", "body": "Archivo narrow uppercase is for headings and row keys only; running text never uses it.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "Any figure that sits in a column or row uses Inter with tabular-nums.", "section": "typography" },
+      { "name": "The Flat-Tide Rule", "body": "Separate with a hairline or a tonal step, never a shadow or a card within a card.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do present facts as hairline-ruled key/value rows with Archivo narrow caps keys.",
+      "Do put the dark ground under every section and step navy-950, 900, 800 for rhythm.",
+      "Do use gold-300 for headings, numerals, and the one action; navy-950 text on gold.",
+      "Do use Inter tabular-nums for every price, percentage and year figure.",
+      "Do keep corners square and depth tonal.",
+      "Do keep disclaimers (reference price, non-guaranteed revenue) in 14px navy-100 beneath the data they qualify."
+    ],
+    "donts": [
+      "Don't put icon-card grids or oversized stat strips where a ruled row would do.",
+      "Don't use sand surfaces for prose or imagery.",
+      "Don't add shadows, rounded cards, nested cards, or decorative gradients.",
+      "Don't put gold body text on sand; use burnt gold (gold-900) there.",
+      "Don't set Archivo narrow caps on running text."
+    ]
+  }
+}

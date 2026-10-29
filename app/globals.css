@@ -65,6 +65,32 @@ html {
   scroll-behavior: smooth;
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Nền navy: vòng focus màu vàng để đủ tương phản */
+.bg-navy-900 :focus-visible,
+.bg-navy-950 :focus-visible,
+.bg-navy-800 :focus-visible,
+.bg-black :focus-visible {
+  outline-color: var(--color-gold-300);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.2s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+  }
+}
+
 body {
   background-color: #F8F5F0;
   color: #1A1A1A;

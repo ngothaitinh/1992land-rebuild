@@ -54,14 +54,14 @@ export default function FloatingFormButton() {
                 <X size={15} />
               </button>
               <div className="mb-5">
-                <p className="text-gold-500 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
+                <p className="text-gold-700 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
                 <h3 className="font-display text-lg font-bold text-navy-900">Nhận tư vấn miễn phí</h3>
                 <p className="text-muted text-sm mt-1">Điền thông tin, anh Thọ liên hệ trong 30 phút</p>
               </div>
               <ContactForm compact showProject />
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi ngay{" "}
-                <a href={`tel:${contact.phoneIntl}`} className="text-gold-500 font-medium">{contact.phoneDisplay}</a>
+                <a href={`tel:${contact.phoneIntl}`} className="text-gold-700 font-medium">{contact.phoneDisplay}</a>
               </p>
             </div>
           </div>

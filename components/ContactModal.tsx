@@ -57,7 +57,7 @@ export default function ContactModal({ label, subject, projectSlug, icon, varian
               {/* Close */}
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-navy-100 hover:bg-navy-200 transition-colors"
+                className="absolute top-2 right-2 w-11 h-11 flex items-center justify-center rounded-full text-navy-900 hover:bg-navy-100 transition-colors"
                 aria-label="Đóng"
               >
                 <X size={15} />
@@ -65,7 +65,7 @@ export default function ContactModal({ label, subject, projectSlug, icon, varian
 
               {/* Header */}
               <div className="mb-6">
-                <p className="text-gold-500 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
+                <p className="text-gold-700 text-[10px] font-semibold tracking-[0.4em] uppercase mb-1">1992 Land</p>
                 <h3 className="font-display text-xl font-bold text-navy-900">{label}</h3>
                 <p className="text-muted text-sm mt-1">Điền thông tin để nhận tài liệu qua Zalo/SMS trong vài phút</p>
               </div>
@@ -74,7 +74,7 @@ export default function ContactModal({ label, subject, projectSlug, icon, varian
 
               <p className="text-xs text-muted text-center mt-4">
                 Hoặc gọi ngay{" "}
-                <a href={`tel:${contact.phoneIntl}`} className="text-gold-500 font-medium">{contact.phoneDisplay}</a>
+                <a href={`tel:${contact.phoneIntl}`} className="text-gold-700 font-medium">{contact.phoneDisplay}</a>
               </p>
             </div>
           </div>

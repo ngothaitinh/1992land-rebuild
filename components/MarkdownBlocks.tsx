@@ -25,7 +25,7 @@ function InlineNodes({ inline }: { inline: MdInline[] }) {
               href={node.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gold-600 underline underline-offset-2 hover:text-gold-500"
+              className="text-gold-700 underline underline-offset-2 hover:text-gold-900"
             >
               {node.text}
             </a>
@@ -109,8 +109,8 @@ export default function MarkdownBlocks({
 
         if (block.type === "quote") {
           return (
-            <blockquote key={i} className="border-l-4 border-gold-500 pl-6 py-2 my-6 bg-gold-50 rounded-r-xl">
-              <p className="text-navy-800 font-medium italic leading-relaxed">
+            <blockquote key={i} className="pl-6 my-8 before:block before:w-10 before:h-0.5 before:bg-gold-500 before:mb-4">
+              <p className="text-navy-800 text-xl font-display italic leading-relaxed">
                 <InlineNodes inline={block.inline} />
               </p>
             </blockquote>
@@ -172,6 +172,7 @@ export default function MarkdownBlocks({
             src={block.src}
             alt={block.alt}
             loading="lazy"
+            decoding="async"
             className="w-full rounded-2xl border border-border-soft object-cover"
           />
         );

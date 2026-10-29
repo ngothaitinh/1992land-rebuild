@@ -91,7 +91,7 @@ export default function ProjectImageCarousel({ images, title }: Props) {
         <div className="fixed inset-0 z-[500] bg-black/96 flex flex-col" onClick={() => setExpanded(false)}>
           {/* Top bar */}
           <div className="flex items-center justify-between px-5 py-4 shrink-0 z-10">
-            <span className="text-white/50 text-sm tabular-nums">{current + 1} / {images.length}</span>
+            <span className="text-white/70 text-sm tabular-nums">{current + 1} / {images.length}</span>
             <button
               onClick={() => setExpanded(false)}
               className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center text-white"
@@ -135,9 +135,11 @@ export default function ProjectImageCarousel({ images, title }: Props) {
             <div className="shrink-0 pb-5 pt-3 px-4 z-10" onClick={(e) => e.stopPropagation()}>
               <div className="flex gap-1.5 justify-center overflow-x-auto" style={{ scrollbarWidth: "none" }}>
                 {images.map((src, i) => (
-                  <button key={i} onClick={() => setCurrent(i)}
-                    className={`relative w-[52px] h-[36px] rounded-md overflow-hidden shrink-0 transition-all ${i === current ? "ring-2 ring-gold-500 opacity-100" : "opacity-40 hover:opacity-70"}`}>
-                    <Image src={src} alt="" fill className="object-cover" sizes="52px" />
+                  <button key={i} onClick={() => setCurrent(i)} aria-label={`Ảnh ${i + 1}`}
+                    className="relative w-[52px] h-11 shrink-0 flex items-center">
+                    <span className={`relative block w-full h-[36px] rounded-md overflow-hidden transition-all ${i === current ? "ring-2 ring-gold-500 opacity-100" : "opacity-40 hover:opacity-70"}`}>
+                      <Image src={src} alt="" fill className="object-cover" sizes="52px" />
+                    </span>
                   </button>
                 ))}
               </div>

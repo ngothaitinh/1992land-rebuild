@@ -163,9 +163,9 @@ export default function ProjectGalleryGrid({ images, title }: Props) {
               <div className="flex items-center gap-2">
                 <span className="text-white/60 text-sm font-medium tabular-nums">{active + 1}</span>
                 <span className="text-white/25 text-sm">/</span>
-                <span className="text-white/30 text-sm tabular-nums">{total}</span>
+                <span className="text-white/60 text-sm tabular-nums">{total}</span>
               </div>
-              <p className="text-white/40 text-xs tracking-widest uppercase hidden sm:block">{title}</p>
+              <p className="text-white/60 text-xs tracking-widest uppercase hidden sm:block">{title}</p>
               <button
                 onClick={close}
                 className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 transition-colors flex items-center justify-center text-white"
@@ -252,13 +252,16 @@ export default function ProjectGalleryGrid({ images, title }: Props) {
                       onClick={() => { setDir(i > active ? 1 : -1); setActive(i); }}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className={`relative w-[52px] h-[36px] rounded-md overflow-hidden shrink-0 transition-opacity duration-200 ${
+                      aria-label={`Ảnh ${i + 1}`}
+                      className="relative w-[52px] h-11 shrink-0 flex items-center"
+                    >
+                      <span className={`relative block w-full h-[36px] rounded-md overflow-hidden transition-opacity duration-200 ${
                         i === active
                           ? "ring-2 ring-gold-500 opacity-100"
                           : "opacity-35 hover:opacity-65"
-                      }`}
-                    >
-                      <Image src={src} alt="" fill className="object-cover" sizes="52px" />
+                      }`}>
+                        <Image src={src} alt="" fill className="object-cover" sizes="52px" />
+                      </span>
                     </motion.button>
                   ))}
                 </div>
